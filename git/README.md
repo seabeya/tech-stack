@@ -26,6 +26,7 @@
 3. [Branches](#-branches)
    - [Core branching commands](#-core-branching-commands)
    - [Merging branches](#-merging-branches)
+4. [Comparing changes](#-comparing-changes)
 
 <br>
 
@@ -211,6 +212,31 @@ There are two primary types of merges in Git:
   <p align="center">
     <img src="./three-way.png" height="auto" width="550">
   </p>
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Comparing changes
+
+- `git diff`: Show the differences between different versions of files in a Git repository.
+
+  > It displays the changes made to the files, line by line, and provides a clear view of what has been added, modified, or deleted.
+
+  - ` ` - List the changes made between the unstaged area (1️⃣) and the staged area (2️⃣).
+  - `HEAD` - List all changes in the working tree since the last commit (3️⃣), including both staged (2️⃣) and unstaged (1️⃣) changes.
+  - `--staged` - List the changes between the staged area (2️⃣) and the last commit (3️⃣).
+
+    > In other words, it shows what will be included in your commit if you run 'git commit' right now.
+
+    > `--cached` does the same thing.
+
+  - `[Branch1]..[Branch2]` - List the changes between two branches.
+  - `[Commit_Hash1]..[Commit_Hash2]` - List the changes between two commits.
+    > We can view the changes within a specific file by providing a file name after any of these options. `git diff HEAD [File]...`.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
