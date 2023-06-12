@@ -21,6 +21,9 @@
 1. [Basic commands](#-basic-commands)
 2. [Process / Monitor commands](#-process--monitor-commands)
 3. [Using multiple commands together](#-using-multiple-commands-together)
+4. [Permissions](#-permissions)
+   - [Overview](#-overview)
+   - [Commands](#-commands)
 
 <br>
 
@@ -171,6 +174,109 @@
 - `cmd1 || cmd2 || cmd3`: Executes the commands until one of them runs successfully. If a command runs successfully, the execution is stopped.
 - `cmd1 | cmd2`: Matches the output of the previous command to the input of the next command.
   - > `find . *.* | less` - Display the output from `find . *.*` in the `less` editor.
+
+<p align="right">
+    <a href="#linux-debian-based">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Permissions
+
+### 🔷 Overview
+
+When a file or directory is created, it is assigned an owner and a group. Additionally, there are a total of 4 blocks that determine both the type of entity and the permission level assigned to the file or directory. We can list the permissions by using the `ls -l` command.
+
+<p align="center">
+   <strong>[<ins>identifier</ins>] [<ins>owner</ins>] [<ins>group</ins>] [<ins>others</ins>]</strong>
+</p>
+<p align="center">
+     - rwx rwx rwx
+</p>
+
+- **Identifier:** The type of entity to which the permissions apply.
+
+  - `-`: File.
+  - `d`: Directory.
+  - `l`: Symbolic link (files that act as references to other files or directories).
+
+- **Owner:** The permissions granted to the owner of the file or directory.
+
+  > The owner is the user who created the file or directory, or the user who has been explicitly granted ownership.
+
+- **Group:** The permissions granted to the group that the file or directory belongs to.
+
+  > A "group" refers to a collection of user accounts that are associated together for the purpose of permissions and resource sharing.
+  > Users can be members of one or more groups.
+  > Groups have unique group names and group IDs (GIDs) that are used to identify and manage them in the system.
+  > To become a member of a group, you need to be added to the group by a user with administrative privileges.
+  > When you create a file or folder in Linux, the default group ownership is typically set to the primary group of the user who creates it. This primary group is specified in the user's account settings and is typically the same as the username.
+
+- **Others:** The permissions granted to all users who are not the owner or members of the group associated with the file or directory.
+
+The users listed above (owner, group, all-others) have access permissions represented by three characters (bits): `r`,`w`,`x`.
+
+> If a dash `-` appears instead of a letter, it means that the permission is turned off for that bit.
+
+- `r` Read.
+  - File - View the contents of the file. `cat`, `less`, open with file editor.
+  - Directory - List the contents of the directory. `ls`
+- `w` Write.
+  - File - Modify the file contents, delete, rename, or move the file itself.
+  - Directory - Create, modify, move, or delete files or subdirectories within the directory.
+    > Having the "w" permission on a directory does not allow you to delete the directory itself. To delete a directory, you need to have "w" and "x" permissions on the parent directory that contains the directory you want to delete.
+- `x` Execute.
+  - File - Run the file as a command or program.
+  - Directory - Enter, access, and traverse within the directory.
+
+Permissions can be represented by numbers.
+
+`r: 4`, `w: 2`, `x: 1`
+
+By adding up the value of each user classification, you can find the file permissions.
+
+| Octal | Binary | File Mode |
+| ----- | ------ | --------- |
+| 0     | 000    | - - -     |
+| 1     | 001    | - - x     |
+| 2     | 010    | - w -     |
+| 3     | 011    | - w x     |
+| 4     | 100    | r - -     |
+| 5     | 101    | r - x     |
+| 6     | 110    | r w -     |
+| 7     | 111    | r w x     |
+
+Example: `-rwxr-x--x` translates to `751`. 7 for owner, 5 for group and 1 for the others.
+
+<br>
+
+### 🔷 Commands
+
+> `$USER` - The current system user/group (yourself).
+
+- `sudo [Command]...`: Execute a command as the superuser.
+  > **Note**: You may need to use `sudo` keyword before using the commands listed in this documentation.
+- `chown [-Options]... [NewOwner] [Directory/File]...`: Change owner, change the user and/or group ownership of each given directory/file to a new Owner.
+  - > `-R` - Recursively change ownership of directories and their contents.
+  - > `$USER ./file.txt` - Change the owner of the "./file.txt" file to the current user (yourself). If you also want to change the group of the file, you can use `$USER:$USER`.
+  - > `-R shaan:staff /srv/www/my-website` - Change the owner to "shaan" and the group to "staff" of the "/srv/www/my-website" directory and its contents.
+- `chgrp [-Options]... [Group] [Directory/File]...`: Change group ownership.
+  - > `-R` - Recursively change group ownership of directories and their contents.
+  - > `team /srv/www/my-website` - Change the group to 'team' of the '/srv/www/my-website' directory.
+- `chmod [Users]... [+/-/=] [Permission]... [Target]`: Change permissions.
+  > Users: `u: owner`, `g: group`, `o: others`, `a: everyone`.
+  - > `-R` - Recursively change permission of directories and their contents.
+  - > `+w ./file.txt` - Add 'write' permission for the owner. When we don't specify a user, it means the 'owner'.
+  - > `g+w ./file.txt` - Add 'write' permission for the group.
+  - > `o-r ./file.txt` - Remove 'read' permission for others.
+  - > `ug+rwx ./file.txt` - Add 'read', 'write', and 'execute' permissions for the owner and group.
+  - > `u=x ./file.txt` - Set 'execute' permission for the owner. If it had 'rwx' before this command, it will become '--x'.
+  - > `a-rw ./file.txt` - Remove 'read' and 'write' permissions for everyone.
+    > We can also use numeric format `chmod [owner group others] [Target]`.
+  - > `777 ./file.txt` - Give `rwx` to everyone.
+  - > `700 ./file.txt` - Give `rwx` to the owner and remove all permissions from the group and others.
+  - > `324 file.txt` - Give `wx` to the owner, `w` to the group, and `r` to others.
 
 <p align="right">
     <a href="#linux-debian-based">back to top ⬆</a>
