@@ -24,6 +24,7 @@
 4. [Permissions](#-permissions)
    - [Overview](#-overview)
    - [Commands](#-commands)
+5. [User & Group commands](#-user--group-commands)
 
 <br>
 
@@ -284,3 +285,35 @@ Example: `-rwxr-x--x` translates to `751`. 7 for owner, 5 for group and 1 for th
 
 <br>
 <br>
+
+## 🔶 User & Group commands
+
+- `getent group` : Print all the groups on the System.
+- `groups [Username]...`: Print all the groups you are a member of.
+- `useradd [-Options]... [USER_NAME]`: Create a new user.
+  - > `-d /home/testFolder` - Specify the home directory for the new user as '/home/testFolder'. The default directory is '/home/USER_NAME'.
+  - > `-m` - Set up a corresponding home directory for the new user.
+    > In general, using the '-m' option with the 'useradd' command is necessary if you want to create a home directory for the newly created user. If this option is not used, the home directory will not be created.
+  - > `-c "your comment"` - Add comment/description for the new user.
+  - > `-e 2023-06-01` - Set a date (YYYY-MM-DD) on which the user account will be disabled.
+  - > `-g staff` - Specify the primary group as 'staff' for the new user.
+  - > `-m -d /home/web -c "web server" -g operator www` - Create a new user account called 'www' with a home directory at '/home/web'. The user will have the primary group set as 'operator' and a comment of 'web server'.
+- `userdel [-Options]... [USER_NAME]`: Delete a user account.
+  - > `www` - Delete a user with the given username 'www'.
+  - > `-r` - Delete user's home directory with its contents.
+- `groupadd [-Options]... [GROUP_NAME]`: Create a new group.
+- `groupdel [GROUP_NAME]`: Delete a group.
+- `usermod -a -G [GROUP_NAME]... [USER_NAME]`: Add a user to a group.
+  - > `-aG staff shaan` - Add the user 'shaan' to the group 'staff'.
+- `gpasswd -d [USER_NAME] [GROUP_NAME]...`: Remove a user from a group.
+  - > `-d staff shaan` - Remove the user 'shaan' from the group 'staff'.
+- `newgrp [GROUP_NAME]`: Start a new shell with a different primary group.
+  - > `operator` - Start a new shell session with the 'operator' group as the primary group. Any actions or commands you perform within that shell session will be done with the permissions and access rights of that group.
+- `passwd [-Options...] [USER_NAME]`: Modify a user password.
+  > When you press Enter, it will prompt for the old password and new password.
+  - > `-d` - Delete a user's password and make it passwordless.
+  - > `-e` - Immediately expire an account's password. Force a user to change their password at their next login.
+
+<p align="right">
+    <a href="#linux-debian-based">back to top ⬆</a>
+</p>
