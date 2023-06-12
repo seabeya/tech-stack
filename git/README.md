@@ -23,6 +23,9 @@
 2. [Basics](#-basics)
    - [Git Areas](#-git-areas)
    - [Core commands](#-core-commands)
+3. [Branches](#-branches)
+   - [Core branching commands](#-core-branching-commands)
+   - [Merging branches](#-merging-branches)
 
 <br>
 
@@ -112,6 +115,102 @@ Ignoring files `.gitignore`:
   - > `--oneline` - Show commit logs in a minimized format.
   - > `-[Number]` - Limit the number of commits to output.
   - > `--merge` - Show only the merge commits in the commit history, excluding regular non-merge commits.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Branches
+
+In Git, a branch is a lightweight movable pointer to a commit. Branches allow you to isolate changes, work on them independently, and merge them back into the main branch when they are ready. This way, you can develop new features or fix bugs without affecting the stability of the main codebase.
+
+When we initialize a repository in Git, there is always a default branch created.
+
+> Historically, Git commonly used the branch name "master" as the default branch. However, in recent years, there has been a shift towards using "main" as the default branch name to promote more inclusive terminology.
+
+<p align="center">
+  <img src="./git-flow.png" height="auto" width="650">
+</p>
+
+What is `HEAD`?
+
+> HEAD is a pointer that refers to the current "location" in your repository, acting like a bookmark. It represents the latest commit in the current branch or a specific commit when in a detached HEAD state.
+
+> It allows you to easily identify the commit that is currently active and serves as the starting point for new commits.
+
+<br>
+
+### 🔷 Core branching commands
+
+- `git branch`: List, create, rename, or delete branches.
+
+  - ` ` - List the existing branches in your repository. (\*) indicates the branch you are currently on.
+  - `[Name]` - Create a new branch with the given name, based upon the current HEAD.
+    > This just creates the branch. It does not switch you to that branch.
+  - `-d [Name]` - Delete the branch with the given name. It will delete the branch only if it has been merged. Otherwise, it will not delete it.
+
+    > You can use `-D` to forcefully delete the branch, even if it has not been merged.
+
+    > You can't delete the branch you're currently on, you need to switch to a different branch first.
+
+  - `-M [New_Name]` - Rename the branch that you are currently on.
+    > You can use `-m [Name] [New_Name]` to rename any branch.
+
+- `git switch`: Switch branches.
+  - `[Name]` - Switch to the specified branch.
+  - `-c [Name]` - Create a new branch and switch to it.
+    > You can use `-C` if the branch already exists, but we want to reset it.
+- `git checkout`: Switch branches or restore working tree files.
+  - `[Name]` - Switch to the specified branch.
+  - `-b [Name]` - Create a new branch and switch to it. > You can use `-B` if the branch already exists, but we want to reset it.
+    > When you move between branches, your codebase will be updated accordingly to match that branch you are on.
+
+When you switch branches in Git while having uncommitted changes, the behavior depends on the nature of the changes you have made:
+
+- Changes with no conflicts:
+  > Git will try to carry them over to the new branch (the changes come with you). Git will preserve your modifications in your working directory as you switch branches, allowing you to continue working on them.
+- Changes with conflicts:
+  > Git will prevent the branch switch to avoid data loss and inform you about the conflicts. In this case, you need to decide whether to commit, stash, or discard your changes before switching branches.
+
+<br>
+
+### 🔷 Merging branches
+
+In Git, merging refers to the process of combining two or more branches together. When you merge branches in Git, the changes made in the source branch are applied to the target branch.
+
+- `git merge [Name]`: Combine changes from the given named branch into the current branch.
+  > If you encounter conflicts or issues while performing a Git merge, you can use `git merge --abort` to cancel the merge and revert your branch to its previous state.
+
+There are two primary types of merges in Git:
+
+- Fast-forward merge:
+
+  > This type of merge occurs when there have been no new commits on the target branch since the source commit was created. In such cases, Git simply moves the pointer of the target branch to the latest commit of the source branch without creating a new merge commit. This process results in a linear commit history.
+
+  <p align="center">
+    <img src="./fast-forward.png" height="auto" width="550">
+  </p>
+
+- Three-way merge:
+
+  > This type of merge occurs when there are new commits on both branches. Git performs a three-way merge by finding the common ancestor commit and applying the changes introduced in both branches since that point.
+
+  - If there are no conflicts, Git automatically applies the combined changes to the current branch and creates a new merge commit (you are still asked to enter a commit message).
+
+  - If conflicting changes occur, where the same lines of code have been modified differently on both branches, Git stops the merge and asks for manual conflict resolution. In such cases, you need to edit the conflicting files and choose which changes to keep.
+    > Step by step scenario:
+    - > Conflicts occur (It shows you which files have merge conflicts. The files with merge conflicts are in a special form; they have markers that show the differences between two branches).
+    - > Open up the files with merge conflicts.
+    - > Edit the files to remove the conflicts and choose which changes to keep. It is up to you how you keep and edit the file.
+    - > Remove the conflict 'markers' and save the files.
+    - > Stage your changes and then make a commit (that will be your merge commit).
+
+  <p align="center">
+    <img src="./three-way.png" height="auto" width="550">
+  </p>
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
