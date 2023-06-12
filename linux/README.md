@@ -18,7 +18,8 @@
 
 ### Contents
 
-- [🔶 Basic commands](#-basic-commands)
+1. [Basic commands](#-basic-commands)
+2. [Process / Monitor commands](#-process--monitor-commands)
 
 <br>
 
@@ -114,6 +115,46 @@
   - > `-cf ./test.tar ./test.txt` - Compress the './test.txt' file as a tar archive.
   - > `-xf ./test.tar` - Extract the contents of the archive file in the current directory.
   - > `-C /srv/www -xzf ./test.tar.gz` - Extract the contents of the gzip compressed archive to the '/srv/www' directory.
+
+<p align="right">
+    <a href="#linux-debian-based">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Process / Monitor commands
+
+- `shutdown [-Options] [When]`: Shutdown or restart the OS.
+  - > `-h now` - Turn off now.
+  - > `-r +30` - Reboot after 30 minutes.
+  - > `-c` - Cancel a shutdown that is in progress.
+  - > `-r 19:30` Reboot the system when it's 19:30.
+- `df [-Options]...`: Displays free disk space.
+  - > `-h` - Display in a human readable format.
+- `du [-Options]... [Directory/File]...`: Displays the amount of disk space used by the specified files and for each directory.
+  - > `-a` - Display counts for all files, not just directories.
+  - > `-h` - Display in a human readable format.
+  - > `-s` - Display only a total for each argument.
+- `free [-Options]...`: Display memory usage.
+  - > `-h` - Display in a human readable format.
+- `watch [-Options] [Command & -Options]`: Execute a command periodically, show output full screen.
+  - > `-n 2 ls -a` - Run `ls -a` every 2 seconds.
+- `top [Control]`: Lists processes running on the system (task manager).
+  - > `q` - Exit.
+  - > `space` - Update display immediately.
+  - > `s` - Select the refresh rate.
+  - > `k PID` - Terminate the process with the specified process ID.
+- `lsof [-Options] PATTERN`: Provides a list of open processes.
+  - > `-i` - Print processes about network connections.
+  - > `-i tcp` - List open network connections associated with TCP
+  - > `-i tcp:3000` - List open network connections associated with TCP protocol and port.
+- `kill [-Sigspec] PID`: Kill a process using PID.
+  > `-3`: quit, `-6`: cancel, `-9`: kill, `-15`: orderly shutdown, `-17`, `-19`, `-23`: stop.
+  - > `-9 423` - Kill the process with a PID of 423.
+- `ps [-Options]...`: Displays process status.
+  - > `-x` - Display information about all running processes.
+  - > `-u USER` - Display information about processes of a specific user.
 
 <p align="right">
     <a href="#linux-debian-based">back to top ⬆</a>
