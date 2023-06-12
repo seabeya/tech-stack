@@ -20,6 +20,7 @@
 
 1. [Basic commands](#-basic-commands)
 2. [Process / Monitor commands](#-process--monitor-commands)
+3. [Using multiple commands together](#-using-multiple-commands-together)
 
 <br>
 
@@ -155,6 +156,21 @@
 - `ps [-Options]...`: Displays process status.
   - > `-x` - Display information about all running processes.
   - > `-u USER` - Display information about processes of a specific user.
+
+<p align="right">
+    <a href="#linux-debian-based">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Using multiple commands together
+
+- `cmd1 ; cmd2 ; cmd3`: If a command produces an error, it displays the error message and continues to execute.
+- `cmd1 && cmd2 && cmd3`: If a command produces an error, the execution stops after the error.
+- `cmd1 || cmd2 || cmd3`: Executes the commands until one of them runs successfully. If a command runs successfully, the execution is stopped.
+- `cmd1 | cmd2`: Matches the output of the previous command to the input of the next command.
+  - > `find . *.* | less` - Display the output from `find . *.*` in the `less` editor.
 
 <p align="right">
     <a href="#linux-debian-based">back to top ⬆</a>
