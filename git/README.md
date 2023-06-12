@@ -27,6 +27,7 @@
    - [Core branching commands](#-core-branching-commands)
    - [Merging branches](#-merging-branches)
 4. [Comparing changes](#-comparing-changes)
+5. [Stashing](#-stashing)
 
 <br>
 
@@ -237,6 +238,43 @@ There are two primary types of merges in Git:
   - `[Branch1]..[Branch2]` - List the changes between two branches.
   - `[Commit_Hash1]..[Commit_Hash2]` - List the changes between two commits.
     > We can view the changes within a specific file by providing a file name after any of these options. `git diff HEAD [File]...`.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Stashing
+
+Stashing is a feature that allows you to temporarily save changes in your working directory that are not ready to be committed yet.
+
+> Stashing is useful in situations where you need to switch to a different branch to work on something else, but you don't want to commit your current changes or lose them. It allows you to save your changes, switch branches, and then later come back to your original branch and apply the saved changes.
+
+- `git stash`: Save changes that have not yet been committed (unstaged & staged).
+
+  - ` ` - Save changes to the stash.
+
+    > Running this command will revert the changes you have made since the last commit. This means that the changes will not be carried over when you switch branches (the changes will not come with you).
+
+    > You can add muptiple stashes onto the stash list.
+
+    > When you stash, it assigns an index, branch, and message information to that stash. The most recent stash added always has index 0, the second has index 1, and so on.
+
+  - `push -m '[Message]'` - Save changes to the stash with a specific message.
+  - `list` - Show the stash list.
+  - `pop` - Apply the most recently stashed changes to your working copy <ins>and remove</ins> them from the stash list.
+    - > `[Index_No]` - Apply a specific stash.
+  - `apply` - Apply the most recenly stashed changes to your working <ins>without removing</ins> it from the stash list.
+
+    - > `[Index_No]` - Apply a specific stash.
+      > This can be useful if you want to apply stashed changes to multiple branches.
+
+    > If a conflict occurs, you can resolve it using the same method as we do in merging.
+
+  - `clear` - Clear the entire stash list.
+  - `drop [Index_No]` - Remove a specific stash from the list.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
