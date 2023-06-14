@@ -28,6 +28,7 @@
    - [Merging branches](#-merging-branches)
 4. [Comparing changes](#-comparing-changes)
 5. [Stashing](#-stashing)
+6. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
 
 <br>
 
@@ -275,6 +276,84 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   - `clear` - Clear the entire stash list.
   - `drop [Index_No]` - Remove a specific stash from the list.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Time Traveling (undoing changes)
+
+- `git checkout [Commit_Hash]`: Travel to a specific commit.
+
+  - > `HEAD~[Number]` - A different syntax to do the same thing.
+    > `~1` refers to the commit before HEAD. `~2` refers to 2 commits before HEAD and so on. _Ex: `git checkout HEAD~3` means three commits before the current HEAD._
+
+  > You will travel to the state of the given commit, and everything will be as it was at that moment (the given commit included).
+
+  > This puts your repository in a detached HEAD state.
+
+  > The files in your working directory are replaced with the contents of the commit you checked out.
+
+  What you can do here?
+
+  - > Look around, view files, and when you're done, simply switch back to the branch you were on before to go back to where you were. _Ex: `git switch main`_. Alternatively, you can use a special syntax to switch directly to the exact branch where you were previously with `git  switch -`.
+  - > Create a new branch from the detached HEAD and switch to it. Now the changes will be saved since the HEAD is no longer detached, and you can build upon this state. This new branch will represent a distinct version that is based on a specific commit, disregarding any subsequent commits that came after it.
+
+  What is `detached HEAD` state?
+
+  > In Git, the "detached HEAD" state occurs when the HEAD pointer is directly pointing to a specific commit rather than a branch reference (latest commit of current branch). This can happen when you check out a specific commit, a tag, or a branch that is not up to date. While in a detached HEAD state, you can still look around, make changes and create commits, but these commits won't belong to any branch and can be easily lost.
+
+- `git restore --source [Commit_Hash] [File]...`: Restore the contents of the given files to their state from the given commit (including).
+
+  > It simply adds the "Commit_Hash" state of the given files as unstaged changes; there will not be any time travel.
+
+  <br>
+
+**Moving between areas:**
+
+- `git restore [File]...`: Discard unstaged changes. 1️⃣ --> 0️⃣
+
+  > The old command to do the same thing: `git checkout [File]...`.
+
+- `git clean [-Options]...`: Clean up untracked files and folder in a Git repository.
+
+  - `-d` - Remove untracked files and folders.
+  - `-f` - To perform the clean operation forcefully.
+  - `-n` - Preview what would be removed if the command were executed.
+
+- `git checkout HEAD [File]...`: Discard uncommitted changes. 1️⃣, 2️⃣ --> 0️⃣
+
+  > Any changes made to those files since the last commit will be discarded, and the files will be reverted to their previous state (staged area will be cleared).
+
+- `git restore --stage [File]...`: Unstage files. 2️⃣ --> 1️⃣
+
+  > When you accidentally add a file to the staging area using "git add [File]...", you can use this command to undo it.
+
+  > `git reset [File]...` does the same thing as well.
+
+- `git reset [--Options] [Commit_Hash]`: Rewind the repository to the specified commit (including).
+
+  - ` ` - Jump to a specific commit and discard all the commits that come after it. 3️⃣ --> 1️⃣
+
+    > All the changes that were made before using this command will be kept in the working directory as unstaged changes.
+
+  - `--hard` - Does the same thing with ` `, but this time the changes will also be discarded. 3️⃣ --> 0️⃣
+
+  - `--soft` - Does the same thing with ` `, but this time the changes will move to the staged area, not the unstaged area. 3️⃣ --> 2️⃣
+
+- `git revert [Commit_Hash]`: Create a new commit that undoes the changes made in the specified commit.
+
+  > The new commit will have the changes made before the specified commit.
+
+  > You may be asked to resolve conflicts.
+
+  > It is useful when working with a team as it enables collaboration by allowing everyone to easily see and understand the changes that have been undone. It maintains a clear record of the project's history and helps avoid conflicts when multiple people are making changes simultaneously.
+
+> **Note**:
+> Instead of using `[File]...` in the mentioned locations within this section, you can use `.` to cover everything. Additionally, instead of using `[Commit_Hash]`, you can also use the `HEAD~[Number]` syntax.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
