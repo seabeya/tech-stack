@@ -185,6 +185,11 @@ When you switch branches in Git while having uncommitted changes, the behavior d
 In Git, merging refers to the process of combining two or more branches together. When you merge branches in Git, the changes made in the source branch are applied to the target branch.
 
 - `git merge [Name]`: Combine changes from the given named branch into the current branch.
+
+  - `--squash` - Combine all the commits from the merged branch and add them to the staged area of the current branch.
+
+    > This allows you to commit everything at once with a single commit, thereby avoiding cluttering your branch history with numerous small, individual commits from the merged branch.
+
   > If you encounter conflicts or issues while performing a Git merge, you can use `git merge --abort` to cancel the merge and revert your branch to its previous state.
 
 There are two primary types of merges in Git:
