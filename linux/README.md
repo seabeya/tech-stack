@@ -34,6 +34,8 @@
 
 > `.`, `./` or ` ` is shorthand for the current directory.
 
+> Some of these commands can take you into an editor or a special window. You can use `q` to quit.
+
 - `which [Command]`: Prints the location path for a program file.
   - > `vim` > /usr/bin/vim
 - `whatis [Command]`: Provides a brief description about a command.
@@ -160,6 +162,7 @@
 - `ps [-Options]...`: Displays process status.
   - > `-x` - Display information about all running processes.
   - > `-u USER` - Display information about processes of a specific user.
+- `last`: Display the last users who have logged onto the system.
 
 <p align="right">
     <a href="#linux-debian-based">back to top ⬆</a>
@@ -288,7 +291,8 @@ Example: `-rwxr-x--x` translates to `751`. 7 for owner, 5 for group and 1 for th
 
 ## 🔶 User & Group commands
 
-- `getent group` : Print all the groups on the System.
+- `whoami`: Print the current user.
+- `getent group`: Print all the groups on the System.
 - `groups [Username]...`: Print all the groups you are a member of.
 - `useradd [-Options]... [USER_NAME]`: Create a new user.
   - > `-d /home/testFolder` - Specify the home directory for the new user as '/home/testFolder'. The default directory is '/home/USER_NAME'.
@@ -313,6 +317,7 @@ Example: `-rwxr-x--x` translates to `751`. 7 for owner, 5 for group and 1 for th
   > When you press Enter, it will prompt for the old password and new password.
   - > `-d` - Delete a user's password and make it passwordless.
   - > `-e` - Immediately expire an account's password. Force a user to change their password at their next login.
+- `id`: Print user and group id's.
 
 <p align="right">
     <a href="#linux-debian-based">back to top ⬆</a>
