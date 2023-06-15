@@ -325,7 +325,11 @@ Example: `-rwxr-x--x` translates to `751`. 7 for owner, 5 for group and 1 for th
 > `$USER` - The current system user/group (yourself).
 
 - `sudo [Command]...`: Execute a command as the superuser.
+
   > **Note**: You may need to use `sudo` keyword before using the commands listed in this documentation.
+
+  > To start a shell session as the root user (useful when you need to execute multiple commands that require elevated privileges), use `sudo -i`.
+
 - `chown [-Options]... [NewOwner] [Directory/File]...`: Change owner, change the user and/or group ownership of each given directory/file to a new Owner.
   - > `-R` - Recursively change ownership of directories and their contents.
   - > `$USER ./file.txt` - Change the owner of the "./file.txt" file to the current user (yourself). If you also want to change the group of the file, you can use `$USER:$USER`.
