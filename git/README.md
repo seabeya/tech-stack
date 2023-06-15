@@ -29,6 +29,9 @@
 4. [Comparing changes](#-comparing-changes)
 5. [Stashing](#-stashing)
 6. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
+7. [GitHub](#-github)
+   - [Getting Started](#-getting-started)
+   - [Setting Up a Remote](#-setting-up-a-remote)
 
 <br>
 
@@ -160,7 +163,12 @@ What is `HEAD`?
     > You can't delete the branch you're currently on, you need to switch to a different branch first.
 
   - `-M [New_Name]` - Rename the branch that you are currently on.
+
     > You can use `-m [Name] [New_Name]` to rename any branch.
+
+  - `-vv` - Display a list of local branches along with additional information about their tracking branches.
+  - `-a` - List all branches in your Git repository, both local and remote.
+  - `-r` - List the remote branches in your Git repository.
 
 - `git switch`: Switch branches.
   - `[Name]` - Switch to the specified branch.
@@ -366,3 +374,68 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
 <br>
 <br>
+
+## 🔶 GitHub
+
+GitHub is a web-based platform that provides a centralized location for hosting and collaborating on software development projects using the Git version control system.
+
+<br>
+
+### 🔷 Getting Started
+
+**To get a GitHub repository to your local machine.**
+
+- `git clone [Remote_URL]`: Create a local copy of a repository hosted on GitHub.
+
+  > When you run this command, Git will create a folder, download all the files and version history of the specified repository, and set up a local copy on your machine.
+
+  > It is not necessary to own the repository you want to clone.
+
+  > If you want to clone the repository into the current directory, you can append `.` to that command.
+
+<br>
+
+**To get a local repository on GitHub.**
+
+- Starting from Scratch:
+
+  > If you haven't begun work on your local repo.
+
+  - Create a new repository on GitHub.
+  - Create a local copy of it by cloning.
+  - Do your work locally.
+  - Push your changes up to GitHub.
+
+- Existing Repository:
+
+  > If you already have an existing repository locally that you want to get on GitHub.
+
+  - Create a new repository on GitHub.
+  - Connect your local repository with the remote GitHub repository.
+  - Push your changes up to GitHub.
+
+<br>
+
+### 🔷 Setting Up a Remote
+
+Prior to uploading any content to GitHub, it is necessary for us to inform Git about the existence of our remote repository on GitHub.
+
+> If you clone a GitHub repository, you don't need to manually set up the remote repository in Git. The cloning process automatically establishes the remote repository as the default origin.
+
+- `git remote`: Manage the remote repositories.
+
+  - `-v` - Display the remote repositories associated with your local Git repository.
+  - `add [Label] [Remote_URL]` - Add a new remote repository to your local Git repository.
+    > We are simply instructing Git to remember the Remote Repository URL using the label/name we have provided, and it's a convention to use "origin" as the default label/name. However, you can choose any name that makes sense to you.
+  - `rename [Label] [New_Name]` - Rename remote.
+  - `remove [Label]` - Remove remote.
+
+- `git push [Label] [Branch_Name]`: Push the changes from the specified branch in your local Git repository to a remote repository labeled with the previously defined label.
+
+  > If there is no branch with the given name on GitHub, the branch will be created there.
+
+  - `-u` - Establish a tracking relationship between your local branch and the remote branch.
+
+    > Setting upstream branch is useful because once you've set it up, you can simply use `git pull` and `git push` without specifying the remote and branch names in the future. Git will automatically know which remote and branch to use based on the established tracking relationship.
+
+  > We can also push a local branch to a differently named remote branch by using the `git push [Label] [Local_Branch]:[Remote_Branch]` syntax.
