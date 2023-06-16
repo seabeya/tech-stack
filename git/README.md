@@ -393,6 +393,14 @@ GitHub is a web-based platform that provides a centralized location for hosting 
 
   > If you want to clone the repository into the current directory, you can append `.` to that command.
 
+  Which branches do you get when you `git clone`?
+
+  > By default, Git only creates a local tracking branch for the default ('main') branch.
+
+  > To see all the remote branches available in the repository, you can use the command `git branch -r`.
+
+  > If you want to work on any of these remote branches, you need to create a local branch that tracks the corresponding remote branch. You can do this by using the `git switch [Branch_Name]` command, which will create a new local branch based on the remote branch.
+
 <br>
 
 **To get a local repository on GitHub.**
@@ -439,3 +447,29 @@ Prior to uploading any content to GitHub, it is necessary for us to inform Git a
     > Setting upstream branch is useful because once you've set it up, you can simply use `git pull` and `git push` without specifying the remote and branch names in the future. Git will automatically know which remote and branch to use based on the established tracking relationship.
 
   > We can also push a local branch to a differently named remote branch by using the `git push [Label] [Local_Branch]:[Remote_Branch]` syntax.
+
+<br>
+
+**Remote tracking branch.**
+
+When you clone a repository or establish an upstream connection in Git, it creates copies of the remote branches as remote tracking branches in your local repository.
+
+Remote tracking branches serve two main purposes:
+
+- Tracking the state of a branch on the remote repository:
+  > Remote tracking branches allow you to see the state of branches on the remote repository without directly interacting with the remote repository. They provide information about the last known state of the remote branch, such as the commit history and the latest commit. This is useful for syncing your local repository with the remote repository and staying up to date with changes made by others.
+- Facilitating collaboration and synchronization:
+
+  > Remote tracking branches enable you to collaborate with others by fetching and pushing changes to and from the remote repository. <ins>**When you fetch changes from the remote repository, Git updates the remote tracking branches to reflect the latest state of the remote branches.**</ins> You can then compare the changes in the remote tracking branches with your local branches to merge or rebase your work.
+
+> You can also checkout to a remote tracking branch, which will put you in a 'detached HEAD' state. In this state, you can perform the same actions we discussed earlier regarding the 'detached HEAD' state.
+
+What happens to the remote tracking branch if you do some work (add commits) on the local branch?
+
+> When you perform work and make commits on a local branch that is tracking a remote branch, the remote tracking branch does not change/update itself automatically. They can diverge, and that is totally fine. That is the point of this tracking reference, so that you know how far ahead you are.
+
+- > To update the remote tracking branch and reflect your local changes on the remote repository, you need to push your local branch to the remote repository. This operation sends your new commits to the remote repository and updates the remote branch accordingly.
+
+  - > If the remote branch has not been modified by someone else since you last fetched or pulled, your push operation will be successful, and the remote tracking branch will be updated to match the new state of the remote branch.
+
+  - > If the remote branch has been modified by someone else in the meantime, Git will reject your push, indicating that the remote branch has diverged from your local branch. In this case, you will need to pull the latest changes from the remote repository, merge them with your local changes, and then push again to update the remote tracking branch. Or you can forcefully push by adding the `-f` option (not recommended).
