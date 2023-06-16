@@ -28,7 +28,7 @@
 ## Contents
 
 - **Math** `planned ⚫`
-- [**Linux** (Debian based)](./linux/README.md) `done 🟢`
+- [**Linux** (Debian based)](./linux/README.md) `🟢`
 - [**Git**](./git/README.md) `in-progress 🟡`
 - **JavaScript** `planned ⚫`
 - **React / Next.js** `planned ⚫`
