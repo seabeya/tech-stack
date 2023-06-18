@@ -387,19 +387,15 @@ GitHub is a web-based platform that provides a centralized location for hosting 
 
 - `git clone [Remote_URL]`: Create a local copy of a repository hosted on GitHub.
 
-  > When you run this command, Git will create a folder, download all the files and version history of the specified repository, and set up a local copy on your machine.
-
   > It is not necessary to own the repository you want to clone.
 
+  > When you run git clone, Git creates a local copy of a repository by downloading all files, version history, branches, and tags. The branches, except the default one, are stored as remote tracking branches.
+
+  > To see all the available remote branches in the repository, you can use the command `git branch -r`.
+
+  > If you want to work on any of these remote branches, you need to create a local branch that tracks the corresponding remote tracking branch. You can do this by using the `git switch [Branch_Name]` command, which creates a new local branch based on the remote branch.
+
   > If you want to clone the repository into the current directory, you can append `.` to that command.
-
-  Which branches do you get when you `git clone`?
-
-  > By default, Git only creates a local tracking branch for the default ('main') branch.
-
-  > To see all the remote branches available in the repository, you can use the command `git branch -r`.
-
-  > If you want to work on any of these remote branches, you need to create a local branch that tracks the corresponding remote branch. You can do this by using the `git switch [Branch_Name]` command, which will create a new local branch based on the remote branch.
 
 <br>
 
