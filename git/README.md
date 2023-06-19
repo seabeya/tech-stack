@@ -32,6 +32,7 @@
 7. [GitHub](#-github)
    - [Getting Started](#-getting-started)
    - [Setting Up a Remote](#-setting-up-a-remote)
+   - [Applying changes](#-applying-changes)
 
 <br>
 
@@ -166,9 +167,9 @@ What is `HEAD`?
 
     > You can use `-m [Name] [New_Name]` to rename any branch.
 
-  - `-vv` - Display a list of local branches along with additional information about their tracking branches.
-  - `-a` - List all branches in your Git repository, both local and remote.
-  - `-r` - List the remote branches in your Git repository.
+  - `-vv` - Display a list of local branches along with additional information about their upstream branches.
+  - `-a` - List both remote-tracking branches and local branches.
+  - `-r` - List the remote-tracking branches.
 
 - `git switch`: Switch branches.
   - `[Name]` - Switch to the specified branch.
@@ -379,6 +380,9 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
 GitHub is a web-based platform that provides a centralized location for hosting and collaborating on software development projects using the Git version control system.
 
+> **Note**:
+> You can apply what is shown here to other remote repository hosting platforms as well; in general, they operate under the same logic.
+
 <br>
 
 ### 🔷 Getting Started
@@ -389,13 +393,15 @@ GitHub is a web-based platform that provides a centralized location for hosting 
 
   > It is not necessary to own the repository you want to clone.
 
-  > When you run git clone, Git creates a local copy of a repository by downloading all files, version history, branches, and tags. The branches, except the default one, are stored as remote tracking branches.
+  > When you run git clone, Git downloads all files, version history, branches, and tags, creating a complete local copy of the repository.
 
-  > To see all the available remote branches in the repository, you can use the command `git branch -r`.
+  > By default, only the default branch will be available in the local branch form. Other branches will be accessible only as remote tracking branches.
 
-  > If you want to work on any of these remote branches, you need to create a local branch that tracks the corresponding remote tracking branch. You can do this by using the `git switch [Branch_Name]` command, which creates a new local branch based on the remote branch.
+  > You can use the command `git branch -r` to see all the available remote tracking branches in the repository.
 
-  > If you want to clone the repository into the current directory, you can append `.` to that command.
+  > To work on one of these branches, you need to create a local branch based on the corresponding remote tracking branch using the `git switch [Branch_Name]` command.
+
+  > If you want to clone the repository into the current directory, without creating a new subdirectory for it, you can append `.` to the git clone command.
 
 <br>
 
@@ -429,31 +435,37 @@ Prior to uploading any content to GitHub, it is necessary for us to inform Git a
 - `git remote`: Manage the remote repositories.
 
   - `-v` - Display the remote repositories associated with your local Git repository.
-  - `add [Label] [Remote_URL]` - Add a new remote repository to your local Git repository.
-    > We are simply instructing Git to remember the Remote Repository URL using the label/name we have provided, and it's a convention to use "origin" as the default label/name. However, you can choose any name that makes sense to you.
-  - `rename [Label] [New_Name]` - Rename remote.
-  - `remove [Label]` - Remove remote.
+  - `add [Remote_Name] [Remote_URL]` - Add a new remote repository to your local Git repository.
+    > We are simply instructing Git to remember the Remote Repository URL using the name we have provided, and it's a convention to use "origin" as the default name. However, you can choose any name that makes sense to you.
+  - `rename [Remote_Name] [New_Remote_Name]` - Rename remote.
+  - `remove [Remote_Name]` - Remove remote.
 
-- `git push [Label] [Branch_Name]`: Push the changes from the specified branch in your local Git repository to a remote repository labeled with the previously defined label.
+- `git push [Remote_Name] [Branch_Name]`: Upload your local changes to a remote repository.
 
-  > If there is no branch with the given name on GitHub, the branch will be created there.
+  > If there is no branch with the given name on the remote repository, Git will create a new branch with that name on the remote repository.
 
-  - `-u` - Establish a tracking relationship between your local branch and the remote branch.
+  > Git also sets up a relationship between your local branch and the remote branch. This relationship is called a remote tracking branch. The remote tracking branch keeps track of the state of the corresponding branch on the remote repository.
 
-    > Setting upstream branch is useful because once you've set it up, you can simply use `git pull` and `git push` without specifying the remote and branch names in the future. Git will automatically know which remote and branch to use based on the established tracking relationship.
+  - `-u` - Set an upstream (tracking) reference for a branch.
 
-  > We can also push a local branch to a differently named remote branch by using the `git push [Label] [Local_Branch]:[Remote_Branch]` syntax.
+    > Once you have set up the upstream reference, you can use `git pull` and `git push` without explicitly specifying the remote and branch names. Git will automatically know which remote repository and branch to use based on the established tracking relationship.
+
+  > We can also push a local branch to a differently named remote branch by using the `git push [Remote_Name] [Local_Branch]:[Remote_Branch]` syntax.
+
+<p align="center">
+    <img src="./localToRemote.png" height="auto" width="550">
+</p>
 
 <br>
 
 **Remote tracking branch.**
 
-When you clone a repository or establish an upstream connection in Git, it creates copies of the remote branches as remote tracking branches in your local repository.
-
-Remote tracking branches serve two main purposes:
+Remote tracking branches serve as a connection between the local branch and the remote branch in Git. They function as a local copy of the remote branch and serve two main purposes:
 
 - Tracking the state of a branch on the remote repository:
-  > Remote tracking branches allow you to see the state of branches on the remote repository without directly interacting with the remote repository. They provide information about the last known state of the remote branch, such as the commit history and the latest commit. This is useful for syncing your local repository with the remote repository and staying up to date with changes made by others.
+
+  > Remote tracking branches provide information about the last known state of the remote branch, such as the commit history and the latest commit. This allows you to see the state of branches on the remote repository without directly interacting with it. It helps in syncing your local repository with the remote repository and staying up to date with changes made by others.
+
 - Facilitating collaboration and synchronization:
 
   > Remote tracking branches enable you to collaborate with others by fetching and pushing changes to and from the remote repository. <ins>**When you fetch changes from the remote repository, Git updates the remote tracking branches to reflect the latest state of the remote branches.**</ins> You can then compare the changes in the remote tracking branches with your local branches to merge or rebase your work.
@@ -464,8 +476,56 @@ What happens to the remote tracking branch if you do some work (add commits) on 
 
 > When you perform work and make commits on a local branch that is tracking a remote branch, the remote tracking branch does not change/update itself automatically. They can diverge, and that is totally fine. That is the point of this tracking reference, so that you know how far ahead you are.
 
-- > To update the remote tracking branch and reflect your local changes on the remote repository, you need to push your local branch to the remote repository. This operation sends your new commits to the remote repository and updates the remote branch accordingly.
+What happens if someone adds commits to a remote branch while you have a local branch tracking that remote branch?
 
-  - > If the remote branch has not been modified by someone else since you last fetched or pulled, your push operation will be successful, and the remote tracking branch will be updated to match the new state of the remote branch.
+> It does not automatically update itself when new commits are added to the remote branch. To incorporate the new commits from the remote branch into your local tracking branch, you need to perform a git fetch or git pull operation.
 
-  - > If the remote branch has been modified by someone else in the meantime, Git will reject your push, indicating that the remote branch has diverged from your local branch. In this case, you will need to pull the latest changes from the remote repository, merge them with your local changes, and then push again to update the remote tracking branch. Or you can forcefully push by adding the `-f` option (not recommended).
+- `git fetch [Remote_Name]`: Update remote tracking branches.
+
+  > It retrieves any new commits or changes from the specified remote repository without merging them into your current branch. This allows you to have an up-to-date view of the remote repository without modifying your current branch.
+
+  > It updates all remote tracking branches in your local repository that correspond to branches in the remote repository. If there are new branches in the remote repository, it also retrieves them.
+
+  > You can use `git fetch [Remote_Name] [Branch_Name]` to fetch a specific branch from the remote repository instead of fetching all branches.
+
+  <p align="center">
+    <img src="./fetch.png" height="auto" width="550">
+  </p>
+  <p align="center">
+    <img src="./fetch2.png" height="auto" width="550">
+  </p>
+
+> When you run `git status` with a remote set up and remote tracking branches configured, Git checks the status of your local branches in relation to their corresponding remote tracking branches. It does not directly check the status of the remote branches on the remote repository.
+
+<br>
+
+### 🔷 Applying changes
+
+**Updating remote branches.**
+
+`git push`: Upload your local changes to a remote repository.
+
+> To update the remote tracking branch and reflect your local changes on the remote repository, you need to push your local branch to the remote repository. This operation sends your new commits to the remote repository and updates the remote branch accordingly. However, there may be some situations:
+
+- Remote has no changes:
+
+  > If the remote branch has not been modified by someone else since you last fetched or pulled, your push operation will be successful, and the remote tracking branch will be updated to match the new state of the remote branch.
+
+- Remote has changes:
+
+  > If the remote branch has been modified by someone else in the meantime, Git will reject your push, indicating that the remote branch has diverged from your local branch. In this case, you will need to update you local branch with the latest changes from the remote repository. Or you can forcefully push by adding the `-f` option (not recommended because it overwrites the remote branch, potentially discarding other people's work).
+
+  - `git pull [Remote_Name] [Branch_Name]` - Update local branch with the latest changes from a remote repository.
+
+    > `git pill` is just a combination of `git fetch` and `git merge`. When you run git pull, Git first performs a git fetch operation. It updates the corresponding remote tracking branch in your local repository to reflect the state of the remote repository. Then Git automatically merges the retrieved changes from the remote tracking branch into your current branch you are on.
+
+    > However, if there are conflicts between the changes in your current branch and the changes from the remote tracking branch, Git will pause the process and prompt you to resolve the conflicts manually. Once the conflicts are resolved, you can complete the merge by committing the changes. Then you can push the changes again.
+
+    <p align="center">
+      <img src="./pull.png" height="auto" width="550">
+    </p>
+
+    > You can use `git pull` without specifying a particular remote or branch. When you do that, Git assumes the following defaults:
+
+    - > Git assumes the remote to be the default remote repository, which is typically named 'origin'.
+    - > Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
