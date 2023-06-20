@@ -109,6 +109,8 @@ Ignoring files `.gitignore`:
 
   > Keep each commit focused on a single thing. A commit should have only one purpose. This makes it much easier to undo or rollback changes later on. It also makes your project easier to review.
 
+  > You can use the `git commit -am '[Message]'` syntax to perform both the git add and git commit operations at once.
+
   - `--amend` - Modify / Amend the most recent commit.
 
     > Let's say you have just made a commit and then realize that you forgot something, such as a typo in a file or including a file itself, or even made a mistake in the commit message. Instead of creating a completely new and separate commit to fix it, you can modify the previous commit using this command.
@@ -479,6 +481,8 @@ What happens to the remote tracking branch if you do some work (add commits) on 
 What happens if someone adds commits to a remote branch while you have a local branch tracking that remote branch?
 
 > It does not automatically update itself when new commits are added to the remote branch. To incorporate the new commits from the remote branch into your local tracking branch, you need to perform a git fetch or git pull operation.
+
+- `git ls-remote`: List all references (branches, tags, or other references) available in a remote repository.
 
 - `git fetch [Remote_Name]`: Update remote tracking branches.
 
