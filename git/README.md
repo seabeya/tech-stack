@@ -207,11 +207,14 @@ There are two primary types of merges in Git:
 
 - Fast-forward merge:
 
-  > This type of merge occurs when there have been no new commits on the target branch since the source commit was created. In such cases, Git simply moves the pointer of the target branch to the latest commit of the source branch without creating a new merge commit. This process results in a linear commit history.
+  > This type of merge occurs when there have been no new commits on the target branch since the source commit was created. In such cases, Git simply moves the pointer of the target branch to the latest commit of the source branch without creating a new merge commit. This process results in a linear commit history. _Ex: (HEAD -> main, dev)_.
 
   <p align="center">
     <img src="./fast-forward.png" height="auto" width="550">
   </p>
+
+  - `git merge --no-ff [Name]` - The `--no-ff` flag forces Git to always create a new merge commit, even if a fast-forward merge could have been performed.
+    > This ensures that the history of the merged branch is preserved, and a merge commit is automatically created with the message "Merge branch 'dev'" for example.
 
 - Three-way merge:
 
