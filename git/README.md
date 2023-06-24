@@ -26,6 +26,7 @@
 3. [Branches](#-branches)
    - [Core branching commands](#-core-branching-commands)
    - [Merging branches](#-merging-branches)
+   - [Rebasing](#-rebasing)
 4. [Comparing changes](#-comparing-changes)
 5. [Stashing](#-stashing)
 6. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
@@ -233,6 +234,45 @@ There are two primary types of merges in Git:
   <p align="center">
     <img src="./three-way.png" height="auto" width="550">
   </p>
+
+<br>
+
+### 🔷 Rebasing
+
+- `git rebase [Branch_Name]`: Incorporate the latest changes from the given branch into your current branch.
+
+  > This command essentially replays the commits from your current branch on top of the latest commit in the given branch.
+
+  > If a conflict occurs, you can resolve it manually and choose what to keep. To mark the conflicts as resolved, you need to add the modified files using the command `git add [File]...`. Once you have resolved the conflicts and added the files, you can continue the rebase process by running the command `git rebase --continue`.
+
+  - `--abort` - To abort and get back to the state before "git rebase".
+
+What is it?
+
+> Imagine you have decided to work on a new feature, so you create a new feature branch. While you are working on it, your collaborators complete their tasks, such as bug fixes, and merge their code into the main branch. Now, you want to incorporate those changes into your feature branch because there might be bug fixes that you don't want to work on in a codebase with known issues.
+
+> To obtain those changes, you can merge the main branch into your feature branch. By doing this, you can continue your work with the updated codebase. As you progress with your work, there may be additional bug fixes or other changes in the main branch that you would like to include in your feature branch. In such cases, you can perform another merge.
+
+> However, imagine that the main branch is very active, and this situation occurs 2-3 times a day. If you have to work on your feature branch for a long time, this can result in a messy history filled with numerous meaningless merge commits. Your feature branch might end up with 100 merge commits that do not actually provide any meaningful information about the work you are doing.
+
+> This cluttered history can make it difficult to understand the development process and track the actual changes made in your feature branch. It also makes the commit history less clean and linear.
+
+  <p align="center">
+    <img src="./merge-fix.png" height="auto" width="600">
+  </p>
+
+> To address this issue, Git provides the "git rebase" command, which allows you to reapply your changes on top of the updated main branch instead of creating additional merge commits. It achieves this by identifying the common ancestor commit between the current branch and the branch onto which you want to rebase.
+
+> This way, your feature branch will have a more coherent, meaningful, and linear commit history, making it easier to review, understand, and collaborate with others.
+
+> During a rebase, Git creates new commits by replaying the original commits (feature branch) on top of a different base commit (latest commit from the main branch). As a result, the new commits will have different commit hashes, even if the changes within the commits remain the same.
+
+  <p align="center">
+    <img src="./rebase.png" height="auto" width="600">
+  </p>
+
+> **Warning**:
+> Rebasing should be avoided in shared or public repositories because it can lead to conflicts when multiple people are working on the same branch. This can make it harder to merge changes and collaborate effectively. Furthermore, once you have pushed the rebased commits, it becomes challenging for others to integrate their work since their commit history no longer matches the repository's history. It's generally recommended to use git rebase on local branches or branches that haven't been pushed yet.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
@@ -536,3 +576,7 @@ What happens if someone adds commits to a remote branch while you have a local b
 
     - > Git assumes the remote to be the default remote repository, which is typically named 'origin'.
     - > Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
