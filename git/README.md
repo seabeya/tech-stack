@@ -125,6 +125,12 @@ Ignoring files `.gitignore`:
   - > `--oneline` - Show commit logs in a minimized format.
   - > `-[Number]` - Limit the number of commits to output.
   - > `--merge` - Show only the merge commits in the commit history, excluding regular non-merge commits.
+- `git ls-files`: List all the files that are currently tracked by Git in the repository.
+  > The files that Git is aware of and manages.
+- `git rm [File]...`: Remove files from a Git repository.
+  > When you remove a file using git rm, Git stops tracking changes to that file, and the file will be removed in the next commit.
+  - `--cached` - Remove a file from the index but keep it in the working directory.
+    > It effectively stops tracking changes to the file but leaves the file intact on your local disk.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
