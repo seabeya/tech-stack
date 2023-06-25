@@ -36,6 +36,7 @@
    - [Getting Started](#-getting-started)
    - [Setting Up a Remote](#-setting-up-a-remote)
    - [Applying changes](#-applying-changes)
+9. [Git Tags](#-git-tags)
 
 <br>
 
@@ -658,3 +659,61 @@ What happens if someone adds commits to a remote branch while you have a local b
 <p align="right">
     <a href="#git">back to top ⬆</a>
 </p>
+
+<br>
+<br>
+
+## 🔶 Git Tags
+
+Git tags are references to specific points in a Git repository's history. They are used to mark important milestones or versions of a project, such as releases, major updates, or significant commits.
+
+- `git tag`: View a list of all existing tags.
+  - `-l "*beta*"` - List all tags that match a particular pattern.
+  - `[Tag]` - Create a new lightweight tag referring to the HEAD commit.
+  - `-a [Tag]` - Create a new annotated tag referring to the HEAD commit.
+    > Git will open your default text editor, allowing you to enter a message for the tag. Alternatively, you can use the `-m "[Message]"` option as a shortcut.
+  - `[Tag] [Commit_Hash]` - Tag a specific commit.
+  - `-f [Tag] [Commit_Hash]` - Forcefully tag a specific commit.
+    > Tag names should be unique, which means you cannot tag more than one commit with the same tag. However, what if you want to move a tag from one commit to another? In such a scenario, you can forcefully tag the desired commit, and the tag will automatically be moved.
+  - `-d [Tag]` - Delete a specific tag.
+- `git show [Tag]`: Display the information and changes associated with a specific tag.
+- `git checkout [Tag]`: Same as checking out a commit.
+- `git diff [Tag1] [Tag2]`: Same as diffing two commits.
+- `git push [Remote_Name] --tags`: Push all existing tags to the remote repository.
+
+  > By default, the `git push` command does not transfer tags to the remote repository.
+
+  > If you want to push a specific tag only, you can use the `git push [Remote_Name] [Tag]` syntax.
+
+<br>
+
+There are two types of Git tags:
+
+- Lightweight tags:
+  > Lightweight tags are simply pointers to specific commits. They are created with a name and are not stored as full objects within Git. They are useful for marking specific commits without any additional information.
+- Annotated tags:
+  > Annotated tags are stored as full objects in Git and contain more information. They include a name, email address, date, and message, similar to a commit. Annotated tags are typically used when you want to add additional context, such as release notes or other metadata, to the tag.
+
+<br>
+
+**Semantic Versioning**
+
+Semantic Versioning is a versioning scheme for software that provides a consistent and meaningful way to communicate changes and compatibility between different versions of a software package.
+
+<p align="center">
+    <b>MAJOR . MINOR . PATCH</b>
+</p>
+
+- MAJOR version:
+  > The MAJOR version is incremented when incompatible changes are made in the software. This means that the new version introduces changes that could break compatibility with previous versions.
+- MINOR version:
+  > The MINOR version is incremented when new features or functionalities are added to the software in a backward-compatible manner. This means that the new version introduces new functionality but does not break compatibility with the existing features or APIs.
+- PATCH version:
+  > The PATCH version is incremented when backward-compatible bug fixes or patches are applied to the software. It indicates that the new version includes bug fixes or minor enhancements that do not introduce any new features or break compatibility with existing functionality.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
