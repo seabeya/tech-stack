@@ -26,11 +26,12 @@
 3. [Branches](#-branches)
    - [Core branching commands](#-core-branching-commands)
    - [Merging branches](#-merging-branches)
-   - [Rebasing](#-rebasing)
-4. [Comparing changes](#-comparing-changes)
-5. [Stashing](#-stashing)
-6. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
-7. [GitHub](#-github)
+4. [Rebasing](#-rebasing)
+   - [Integrate changes](#-integrate-changes)
+5. [Comparing changes](#-comparing-changes)
+6. [Stashing](#-stashing)
+7. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
+8. [GitHub](#-github)
    - [Getting Started](#-getting-started)
    - [Setting Up a Remote](#-setting-up-a-remote)
    - [Applying changes](#-applying-changes)
@@ -241,9 +242,21 @@ There are two primary types of merges in Git:
     <img src="./three-way.png" height="auto" width="550">
   </p>
 
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
 <br>
 
-### 🔷 Rebasing
+## 🔶 Rebasing
+
+> **Warning**:
+> Rebasing should be avoided in shared or public repositories because it can lead to conflicts when multiple people are working on the same branch. This can make it harder to merge changes and collaborate effectively. Furthermore, once you have pushed the rebased commits, it becomes challenging for others to integrate their work since their commit history no longer matches the repository's history. It's generally recommended to use git rebase on local branches or branches that haven't been pushed yet.
+
+<br>
+
+### 🔷 Integrate changes
 
 - `git rebase [Branch_Name]`: Incorporate the latest changes from the given branch into your current branch.
 
@@ -276,9 +289,6 @@ What is it?
   <p align="center">
     <img src="./rebase.png" height="auto" width="600">
   </p>
-
-> **Warning**:
-> Rebasing should be avoided in shared or public repositories because it can lead to conflicts when multiple people are working on the same branch. This can make it harder to merge changes and collaborate effectively. Furthermore, once you have pushed the rebased commits, it becomes challenging for others to integrate their work since their commit history no longer matches the repository's history. It's generally recommended to use git rebase on local branches or branches that haven't been pushed yet.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
