@@ -28,6 +28,7 @@
    - [Merging branches](#-merging-branches)
 4. [Rebasing](#-rebasing)
    - [Integrate changes](#-integrate-changes)
+   - [Interactive Rebase (modifying commit history)](#-interactive-rebase-modifying-commit-history)
 5. [Comparing changes](#-comparing-changes)
 6. [Stashing](#-stashing)
 7. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
@@ -289,6 +290,67 @@ What is it?
   <p align="center">
     <img src="./rebase.png" height="auto" width="600">
   </p>
+
+<br>
+
+### 🔷 Interactive Rebase (modifying commit history)
+
+Interactive Rebase allows you to modify the commit history of a branch (in place). By interacting with the commit history during the rebase process, you can reorder, combine, edit, or delete commits. This can be useful for cleaning up your branch's history, squashing multiple commits into a single commit, splitting a commit into smaller ones, or removing irrelevant or erroneous commits.
+
+- `git rebase -i [Commit_Hash]`: Initiates an interactive rebase from the given commit.
+
+  > '[Commit_Hash]' is the reference to the commit you want to rebase onto. You will be editing everything after the specified commit.
+
+  > When you use this command, you enter interactive mode.
+
+<br>
+
+**To interact with the interactive mode.**
+
+- Open the interactive rebase list:
+
+  > After executing the `git rebase -i [Commit_Hash]` command, Git opens a text editor or prompt displaying the list of commits. Each commit is represented by a line starting with the word "pick", followed by the commit hash and commit message. Additionally, a brief explanation of the available options is also shown.
+
+- Choose an action for each commit:
+
+  > On each line, replace the word "pick" (the default action) with the desired action for that commit. This allows you to specify actions like editing, reordering, combining, or even dropping commits.
+
+- Save the changes and exit the editor:
+
+  > Once you have made the desired modifications to the commit list, save the file and close the text editor. If you are using a prompt, follow the instructions provided to confirm or save the changes.
+
+- Handle any requested actions:
+
+  > If you specified any actions, such as editing during the interactive rebase, Git pauses the rebase process after applying each commit. At these points, you can make changes to the commit, amend the commit message, or perform any necessary modifications. After making the changes, save them and use the command `git rebase --continue` to proceed with the rebase.
+
+- Resolve any conflicts:
+
+  > During the rebase process, conflicts may arise if Git encounters incompatible changes between the commits being applied and the target branch. In such cases, Git will pause the rebase, and you need to resolve the conflicts manually by editing the conflicting files. After resolving the conflicts, use the command `git rebase --continue` to continue with the rebase.
+
+- Complete the interactive rebase:
+  > Once you have finished specifying actions for all the commits, resolved any conflicts, and completed any requested actions, Git applies the modifications to the commit history. If everything goes smoothly, Git will finish the rebase, and you will have a modified commit history as per your instructions.
+
+<br>
+
+**Some of the main interactive Git rebase options.**
+
+- `pick`: This is the default action used by Git when applying each commit. It leaves the commit unchanged.
+
+- `reword`: It allows you to edit the commit message of a particular commit.
+
+  > When you select this option, Git will pause the rebase process and prompt you to modify the commit message in your text editor.
+
+- `edit`: This option lets you make changes to the commit itself.
+
+  > After selecting edit, Git will pause the rebase process and drop you into the shell with the working directory checked out to the commit you selected. You can make changes, amend the commit, and even add additional changes before continuing the rebase.
+
+- `squash`: This option allows you to combine the changes from the selected commit into the previous commit.
+
+  > When you select squash, Git will prompt you to edit the commit message, combining the messages of the two commits into one.
+
+- `fixup`: It is similar to squash but discards the commit message of the selected commit, assuming you want to combine it with the previous commit without modifying the message.
+
+- `drop`: Selecting this option removes the commit from the history entirely. The commit and its changes are discarded.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
