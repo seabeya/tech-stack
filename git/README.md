@@ -26,6 +26,7 @@
 3. [Branches](#-branches)
    - [Core branching commands](#-core-branching-commands)
    - [Merging branches](#-merging-branches)
+   - [Cherry Picking](#-cherry-picking)
 4. [Rebasing](#-rebasing)
    - [Integrate changes](#-integrate-changes)
    - [Interactive Rebase (modifying commit history)](#-interactive-rebase-modifying-commit-history)
@@ -244,6 +245,20 @@ There are two primary types of merges in Git:
   <p align="center">
     <img src="./three-way.png" height="auto" width="550">
   </p>
+
+<br>
+
+### 🔷 Cherry Picking
+
+In Git, "cherry picking" refers to the process of selecting and applying specific individual commits from one branch to another.
+
+> This is useful when you want to apply specific changes without merging the entire branch.
+
+- `git cherry-pick [Commit_Hash]`: Apply the changes from a specific commit (from a different branch) to the current branch.
+  > In case of conflicts, Git will pause the cherry picking process and allow you to resolve the conflicts manually.
+
+> **Note**:
+> Cherry picking creates new commits with different commit IDs, so if not managed carefully, it can lead to duplicate commits when merged later.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
