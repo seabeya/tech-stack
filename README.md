@@ -29,7 +29,7 @@
 
 - **Math** `planned ⚫`
 - [**Linux** (Debian based)](./linux/README.md) `🟢`
-- [**Git**](./git/README.md) `in-progress 🟡`
+- [**Git**](./git/README.md) `🟢`
 - **JavaScript** `planned ⚫`
 - **React / Next.js** `planned ⚫`
 - **Data Structures & Algorithms** `planned ⚫`
