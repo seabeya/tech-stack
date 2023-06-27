@@ -37,6 +37,7 @@
    - [Setting Up a Remote](#-setting-up-a-remote)
    - [Applying changes](#-applying-changes)
 9. [Git Tags](#-git-tags)
+10. [Reflogs (retrieving lost work)](#-reflogs-retrieving-lost-work)
 
 <br>
 
@@ -444,7 +445,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   > In Git, the "detached HEAD" state occurs when the HEAD pointer is directly pointing to a specific commit rather than a branch reference (latest commit of current branch). This can happen when you check out a specific commit, a tag, or a branch that is not up to date. While in a detached HEAD state, you can still look around, make changes and create commits, but these commits won't belong to any branch and can be easily lost.
 
-- `git restore --source [Commit_Hash] [File]...`: Restore the contents of the given files to their state from the given commit (including).
+- `git restore --source [Commit_Hash] [File]...`: Restore the contents of the given files to their state from the given commit.
 
   > It simply adds the "Commit_Hash" state of the given files as unstaged changes; there will not be any time travel.
 
@@ -472,7 +473,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   > `git reset [File]...` does the same thing as well.
 
-- `git reset [--Options] [Commit_Hash]`: Rewind the repository to the specified commit (including).
+- `git reset [--Options] [Commit_Hash]`: Rewind the repository to the specified commit (to the state immediately after the given commit was made).
 
   - ` ` - Jump to a specific commit and discard all the commits that come after it. 3️⃣ --> 1️⃣
 
@@ -710,6 +711,37 @@ Semantic Versioning is a versioning scheme for software that provides a consiste
   > The MINOR version is incremented when new features or functionalities are added to the software in a backward-compatible manner. This means that the new version introduces new functionality but does not break compatibility with the existing features or APIs.
 - PATCH version:
   > The PATCH version is incremented when backward-compatible bug fixes or patches are applied to the software. It indicates that the new version includes bug fixes or minor enhancements that do not introduce any new features or break compatibility with existing functionality.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Reflogs (retrieving lost work)
+
+The reflog is a local history that is specific to your repository and is not shared with remote repositories.
+
+> The reflog entries contain information such as the commit or reference ID, the action performed (e.g., commit, merge, switch, branch deletion), the date and time of the action, and a brief description of the operation.
+
+- `git reflog`: Show all reflogs.
+
+  - `show [Branch_Name]` - Display the reflog for the given branch.
+  - `--date=iso` - Show the reflog entries with their respective timestamps in the ISO 8601 format
+
+The reflog is useful in situations where you have accidentally deleted or lost commits, branches, or other references.
+
+> You can recover lost work by applying some [time-traveling](#-time-traveling-undoing-changes) actions that we discussed earlier.
+
+- `git checkout [Reflog_Hash]`: Travel to a specific hash and open it in 'detached HEAD' mode.
+
+or
+
+- `git reset [--Options] [Reflog_Hash]`: Rewind the repository to the given hash state.
+
+> **Note**:
+> Reflogs in Git have an expiration time. By default, reflog entries expire after a certain period (90 days) to prevent them from growing indefinitely and consuming excessive disk space.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
