@@ -26,13 +26,19 @@
 3. [Branches](#-branches)
    - [Core branching commands](#-core-branching-commands)
    - [Merging branches](#-merging-branches)
-4. [Comparing changes](#-comparing-changes)
-5. [Stashing](#-stashing)
-6. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
-7. [GitHub](#-github)
+   - [Cherry Picking](#-cherry-picking)
+4. [Rebasing](#-rebasing)
+   - [Integrate changes](#-integrate-changes)
+   - [Interactive Rebase (modifying commit history)](#-interactive-rebase-modifying-commit-history)
+5. [Comparing changes](#-comparing-changes)
+6. [Stashing](#-stashing)
+7. [Time Traveling (undoing changes)](#-time-traveling-undoing-changes)
+8. [GitHub](#-github)
    - [Getting Started](#-getting-started)
    - [Setting Up a Remote](#-setting-up-a-remote)
    - [Applying changes](#-applying-changes)
+9. [Git Tags](#-git-tags)
+10. [Reflogs (retrieving lost work)](#-reflogs-retrieving-lost-work)
 
 <br>
 
@@ -124,6 +130,12 @@ Ignoring files `.gitignore`:
   - > `--oneline` - Show commit logs in a minimized format.
   - > `-[Number]` - Limit the number of commits to output.
   - > `--merge` - Show only the merge commits in the commit history, excluding regular non-merge commits.
+- `git ls-files`: List all the files that are currently tracked by Git in the repository.
+  > The files that Git is aware of and manages.
+- `git rm [File]...`: Remove files from a Git repository.
+  > When you remove a file using git rm, Git stops tracking changes to that file, and the file will be removed in the next commit.
+  - `--cached` - Remove a file from the index but keep it in the working directory.
+    > It effectively stops tracking changes to the file but leaves the file intact on your local disk.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
@@ -234,6 +246,129 @@ There are two primary types of merges in Git:
     <img src="./three-way.png" height="auto" width="550">
   </p>
 
+<br>
+
+### 🔷 Cherry Picking
+
+In Git, "cherry picking" refers to the process of selecting and applying specific individual commits from one branch to another.
+
+> This is useful when you want to apply specific changes without merging the entire branch.
+
+- `git cherry-pick [Commit_Hash]`: Apply the changes from a specific commit (from a different branch) to the current branch.
+  > In case of conflicts, Git will pause the cherry picking process and allow you to resolve the conflicts manually.
+
+> **Note**:
+> Cherry picking creates new commits with different commit IDs, so if not managed carefully, it can lead to duplicate commits when merged later.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Rebasing
+
+> **Warning**:
+> Rebasing should be avoided in shared or public repositories because it can lead to conflicts when multiple people are working on the same branch. This can make it harder to merge changes and collaborate effectively. Furthermore, once you have pushed the rebased commits, it becomes challenging for others to integrate their work since their commit history no longer matches the repository's history. It's generally recommended to use git rebase on local branches or branches that haven't been pushed yet.
+
+<br>
+
+### 🔷 Integrate changes
+
+- `git rebase [Branch_Name]`: Incorporate the latest changes from the given branch into your current branch.
+
+  > This command essentially replays the commits from your current branch on top of the latest commit in the given branch.
+
+  > If a conflict occurs, you can resolve it manually and choose what to keep. To mark the conflicts as resolved, you need to add the modified files using the command `git add [File]...`. Once you have resolved the conflicts and added the files, you can continue the rebase process by running the command `git rebase --continue`.
+
+  - `--abort` - To abort and get back to the state before "git rebase".
+
+What is it?
+
+> Imagine you have decided to work on a new feature, so you create a new feature branch. While you are working on it, your collaborators complete their tasks, such as bug fixes, and merge their code into the main branch. Now, you want to incorporate those changes into your feature branch because there might be bug fixes that you don't want to work on in a codebase with known issues.
+
+> To obtain those changes, you can merge the main branch into your feature branch. By doing this, you can continue your work with the updated codebase. As you progress with your work, there may be additional bug fixes or other changes in the main branch that you would like to include in your feature branch. In such cases, you can perform another merge.
+
+> However, imagine that the main branch is very active, and this situation occurs 2-3 times a day. If you have to work on your feature branch for a long time, this can result in a messy history filled with numerous meaningless merge commits. Your feature branch might end up with 100 merge commits that do not actually provide any meaningful information about the work you are doing.
+
+> This cluttered history can make it difficult to understand the development process and track the actual changes made in your feature branch. It also makes the commit history less clean and linear.
+
+  <p align="center">
+    <img src="./merge-fix.png" height="auto" width="600">
+  </p>
+
+> To address this issue, Git provides the "git rebase" command, which allows you to reapply your changes on top of the updated main branch instead of creating additional merge commits. It achieves this by identifying the common ancestor commit between the current branch and the branch onto which you want to rebase.
+
+> This way, your feature branch will have a more coherent, meaningful, and linear commit history, making it easier to review, understand, and collaborate with others.
+
+> During a rebase, Git creates new commits by replaying the original commits (feature branch) on top of a different base commit (latest commit from the main branch). As a result, the new commits will have different commit hashes, even if the changes within the commits remain the same.
+
+  <p align="center">
+    <img src="./rebase.png" height="auto" width="600">
+  </p>
+
+<br>
+
+### 🔷 Interactive Rebase (modifying commit history)
+
+Interactive Rebase allows you to modify the commit history of a branch (in place). By interacting with the commit history during the rebase process, you can reorder, combine, edit, or delete commits. This can be useful for cleaning up your branch's history, squashing multiple commits into a single commit, splitting a commit into smaller ones, or removing irrelevant or erroneous commits.
+
+- `git rebase -i [Commit_Hash]`: Initiates an interactive rebase from the given commit.
+
+  > '[Commit_Hash]' is the reference to the commit you want to rebase onto. You will be editing everything after the specified commit.
+
+  > When you use this command, you enter interactive mode.
+
+<br>
+
+**To interact with the interactive mode.**
+
+- Open the interactive rebase list:
+
+  > After executing the `git rebase -i [Commit_Hash]` command, Git opens a text editor or prompt displaying the list of commits. Each commit is represented by a line starting with the word "pick", followed by the commit hash and commit message. Additionally, a brief explanation of the available options is also shown.
+
+- Choose an action for each commit:
+
+  > On each line, replace the word "pick" (the default action) with the desired action for that commit. This allows you to specify actions like editing, reordering, combining, or even dropping commits.
+
+- Save the changes and exit the editor:
+
+  > Once you have made the desired modifications to the commit list, save the file and close the text editor. If you are using a prompt, follow the instructions provided to confirm or save the changes.
+
+- Handle any requested actions:
+
+  > If you specified any actions, such as editing during the interactive rebase, Git pauses the rebase process after applying each commit. At these points, you can make changes to the commit, amend the commit message, or perform any necessary modifications. After making the changes, save them and use the command `git rebase --continue` to proceed with the rebase.
+
+- Resolve any conflicts:
+
+  > During the rebase process, conflicts may arise if Git encounters incompatible changes between the commits being applied and the target branch. In such cases, Git will pause the rebase, and you need to resolve the conflicts manually by editing the conflicting files. After resolving the conflicts, use the command `git rebase --continue` to continue with the rebase.
+
+- Complete the interactive rebase:
+  > Once you have finished specifying actions for all the commits, resolved any conflicts, and completed any requested actions, Git applies the modifications to the commit history. If everything goes smoothly, Git will finish the rebase, and you will have a modified commit history as per your instructions.
+
+<br>
+
+**Some of the main interactive Git rebase options.**
+
+- `pick`: This is the default action used by Git when applying each commit. It leaves the commit unchanged.
+
+- `reword`: It allows you to edit the commit message of a particular commit.
+
+  > When you select this option, Git will pause the rebase process and prompt you to modify the commit message in your text editor.
+
+- `edit`: This option lets you make changes to the commit itself.
+
+  > After selecting edit, Git will pause the rebase process and drop you into the shell with the working directory checked out to the commit you selected. You can make changes, amend the commit, and even add additional changes before continuing the rebase.
+
+- `squash`: This option allows you to combine the changes from the selected commit into the previous commit.
+
+  > When you select squash, Git will prompt you to edit the commit message, combining the messages of the two commits into one.
+
+- `fixup`: It is similar to squash but discards the commit message of the selected commit, assuming you want to combine it with the previous commit without modifying the message.
+
+- `drop`: Selecting this option removes the commit from the history entirely. The commit and its changes are discarded.
+
 <p align="right">
     <a href="#git">back to top ⬆</a>
 </p>
@@ -325,7 +460,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   > In Git, the "detached HEAD" state occurs when the HEAD pointer is directly pointing to a specific commit rather than a branch reference (latest commit of current branch). This can happen when you check out a specific commit, a tag, or a branch that is not up to date. While in a detached HEAD state, you can still look around, make changes and create commits, but these commits won't belong to any branch and can be easily lost.
 
-- `git restore --source [Commit_Hash] [File]...`: Restore the contents of the given files to their state from the given commit (including).
+- `git restore --source [Commit_Hash] [File]...`: Restore the contents of the given files to their state from the given commit.
 
   > It simply adds the "Commit_Hash" state of the given files as unstaged changes; there will not be any time travel.
 
@@ -353,7 +488,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   > `git reset [File]...` does the same thing as well.
 
-- `git reset [--Options] [Commit_Hash]`: Rewind the repository to the specified commit (including).
+- `git reset [--Options] [Commit_Hash]`: Rewind the repository to the specified commit (to the state immediately after the given commit was made).
 
   - ` ` - Jump to a specific commit and discard all the commits that come after it. 3️⃣ --> 1️⃣
 
@@ -536,3 +671,96 @@ What happens if someone adds commits to a remote branch while you have a local b
 
     - > Git assumes the remote to be the default remote repository, which is typically named 'origin'.
     - > Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Git Tags
+
+Git tags are references to specific points in a Git repository's history. They are used to mark important milestones or versions of a project, such as releases, major updates, or significant commits.
+
+- `git tag`: View a list of all existing tags.
+  - `-l "*beta*"` - List all tags that match a particular pattern.
+  - `[Tag]` - Create a new lightweight tag referring to the HEAD commit.
+  - `-a [Tag]` - Create a new annotated tag referring to the HEAD commit.
+    > Git will open your default text editor, allowing you to enter a message for the tag. Alternatively, you can use the `-m "[Message]"` option as a shortcut.
+  - `[Tag] [Commit_Hash]` - Tag a specific commit.
+  - `-f [Tag] [Commit_Hash]` - Forcefully tag a specific commit.
+    > Tag names should be unique, which means you cannot tag more than one commit with the same tag. However, what if you want to move a tag from one commit to another? In such a scenario, you can forcefully tag the desired commit, and the tag will automatically be moved.
+  - `-d [Tag]` - Delete a specific tag.
+- `git show [Tag]`: Display the information and changes associated with a specific tag.
+- `git checkout [Tag]`: Same as checking out a commit.
+- `git diff [Tag1] [Tag2]`: Same as diffing two commits.
+- `git push [Remote_Name] --tags`: Push all existing tags to the remote repository.
+
+  > By default, the `git push` command does not transfer tags to the remote repository.
+
+  > If you want to push a specific tag only, you can use the `git push [Remote_Name] [Tag]` syntax.
+
+<br>
+
+There are two types of Git tags:
+
+- Lightweight tags:
+  > Lightweight tags are simply pointers to specific commits. They are created with a name and are not stored as full objects within Git. They are useful for marking specific commits without any additional information.
+- Annotated tags:
+  > Annotated tags are stored as full objects in Git and contain more information. They include a name, email address, date, and message, similar to a commit. Annotated tags are typically used when you want to add additional context, such as release notes or other metadata, to the tag.
+
+<br>
+
+**Semantic Versioning**
+
+Semantic Versioning is a versioning scheme for software that provides a consistent and meaningful way to communicate changes and compatibility between different versions of a software package.
+
+<p align="center">
+    <b>MAJOR . MINOR . PATCH</b>
+</p>
+
+- MAJOR version:
+  > The MAJOR version is incremented when incompatible changes are made in the software. This means that the new version introduces changes that could break compatibility with previous versions.
+- MINOR version:
+  > The MINOR version is incremented when new features or functionalities are added to the software in a backward-compatible manner. This means that the new version introduces new functionality but does not break compatibility with the existing features or APIs.
+- PATCH version:
+  > The PATCH version is incremented when backward-compatible bug fixes or patches are applied to the software. It indicates that the new version includes bug fixes or minor enhancements that do not introduce any new features or break compatibility with existing functionality.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Reflogs (retrieving lost work)
+
+The reflog is a local history that is specific to your repository and is not shared with remote repositories.
+
+> The reflog entries contain information such as the commit or reference ID, the action performed (e.g., commit, merge, switch, branch deletion), the date and time of the action, and a brief description of the operation.
+
+- `git reflog`: Show all reflogs.
+
+  - `show [Branch_Name]` - Display the reflog for the given branch.
+  - `--date=iso` - Show the reflog entries with their respective timestamps in the ISO 8601 format
+
+The reflog is useful in situations where you have accidentally deleted or lost commits, branches, or other references.
+
+> You can recover lost work by applying some [time-traveling](#-time-traveling-undoing-changes) actions that we discussed earlier.
+
+- `git checkout [Reflog_Hash]`: Travel to a specific hash and open it in 'detached HEAD' mode.
+
+or
+
+- `git reset [--Options] [Reflog_Hash]`: Rewind the repository to the given hash state.
+
+> **Note**:
+> Reflogs in Git have an expiration time. By default, reflog entries expire after a certain period (90 days) to prevent them from growing indefinitely and consuming excessive disk space.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
