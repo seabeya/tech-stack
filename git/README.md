@@ -626,6 +626,8 @@ What happens if someone adds commits to a remote branch while you have a local b
 
 - `git fetch [Remote_Name]`: Update remote tracking branches.
 
+  - `--prune` - Remove any local references to remote branches (remote tracking branches) that no longer exist on the remote repository.
+
   > It retrieves any new commits or changes from the specified remote repository without merging them into your current branch. This allows you to have an up-to-date view of the remote repository without modifying your current branch.
 
   > It updates all remote tracking branches in your local repository that correspond to branches in the remote repository. If there are new branches in the remote repository, it also retrieves them.
