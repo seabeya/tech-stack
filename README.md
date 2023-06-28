@@ -32,7 +32,7 @@
 - [**Git**](./git/README.md) `🟢`
 - **JavaScript** `planned ⚫`
 - **React / Next.js** `planned ⚫`
-- **Data Structures & Algorithms** `planned ⚫`
+- [**Data Structures & Algorithms**](./dsa/README.md) `in-progress 🟡`
 - **Node.js (Express)** `planned ⚫`
 - **SQL (PostgreSQL)** `planned ⚫`
 - **Redis** `planned ⚫`
