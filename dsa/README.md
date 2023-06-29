@@ -23,6 +23,8 @@
 
 1. [Complexity (Big O)](#-complexity-big-o)
    - [BigO Rules](#-bigo-rules)
+2. [Data Structures](#-data-structures)
+   - [Array](#-array)
 
 <br>
 
@@ -143,3 +145,90 @@ Overview:
 
 <br>
 <br>
+
+## 🔶 Data Structures
+
+- [Array](#-array)
+
+<br>
+
+### 🔷 Array
+
+Array is a built-in data structure that allows you to store multiple values in a single variable. Each value in an array is called an element, and elements are accessed using their index, which starts from 0 for the first element.
+
+| Operations                 | Complexity | Why                                                                                                                           |
+| -------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Access / Edit i-th element | `O(1)`     | Arrays provide direct access to elements using their index.                                                                   |
+| Insert\* / Remove end      | `O(1)`     | Inserting or removing an element at the end simply requires adjusting the index of the last element.                          |
+| Insert / Remove            | `O(n)`     | Inserting or removing an element at a specific index requires shifting all the subsequent elements to accommodate the change. |
+
+<br>
+
+#### 🔻 How arrays stored in memory
+
+In lower-level languages like C or C++, arrays are typically implemented as contiguous memory blocks.
+
+> This means that the elements of the array are stored in consecutive memory locations, one after another, without any gaps or padding between them.
+
+> When an array is created, a block of memory is allocated to hold all its elements. The memory addresses of the elements are determined based on the starting address of the array. The address of the first element is the starting address, and the subsequent elements are stored at increasing memory addresses.
+
+```c++
+int myArray[5] = {3, 7, 1, 2, 3};
+```
+
+> Assuming each integer occupies 4 bytes of memory, the memory addresses of the elements would be as follows:
+
+```c++
+Address of myArray[0] = starting address
+Address of myArray[1] = starting address + 4
+Address of myArray[2] = starting address + 8
+Address of myArray[3] = starting address + 12
+Address of myArray[4] = starting address + 16
+```
+
+> By having contiguous memory storage, accessing array elements becomes efficient. Since the elements are stored consecutively, the memory address of any element can be calculated using the starting address and the size of each element. This allows for direct access to any element using simple arithmetic calculations, without the need for traversal or searching.
+
+<br>
+
+#### 🔻 Static and Dynamic arrays
+
+- Static Arrays:
+  - Static arrays have a fixed size that is declared in advance.
+  - They occupy a predetermined amount of memory throughout the program's lifetime.
+  - If you try to add more elements than the array size allows, you may encounter overflow errors or memory corruption.
+- Dynamic Arrays:
+  - Dynamic arrays do not require a specific size to be declared in advance.
+  - They can grow or shrink as needed during runtime.
+  - Some languages may have a default value for the initial capacity of a dynamic array. When the capacity is exceeded, the array needs to be resized.
+  - Resizing a dynamic array typically involves creating a new, larger block of memory (often 2x or 1.5x the previous size), copying all the existing elements to the new block, and deallocating the old block.
+    > The worst-case scenario for resizing a dynamic array has a time complexity of O(n), as it requires copying all the elements to a new memory block one by one.
+
+<br>
+
+#### 🔻 Arrays in JavaScript
+
+```js
+const myArray = [1, 2, 6, 3, "test"];
+const myArray = new Array(5); // Array sized 5
+```
+
+JavaScript arrays are dynamic and can grow or shrink as needed.
+
+> In JavaScript, an array is implemented as an object with numeric keys and are not contiguous memory blocks. It does not necessarily allocate memory for all possible indices up to the specified length. Instead, it allocates memory for the elements that are actually present in the array
+
+> When you create an array with a specific length in JavaScript, such as `const arr = new Array(1000000)`, it sets the initial length of the array but does not allocate memory for one million entries. Instead, it creates an array object with the specified length property.
+
+> JavaScript arrays are sparse, meaning they can have gaps between elements. In the case of an array with a length of one million but only a few elements, memory is only allocated for those existing elements, and the remaining indices are essentially empty slots.
+
+```js
+const arr = new Array(1000000);
+arr[0] = "Hello";
+arr[999999] = "World";
+```
+
+> In this example, the array arr has a length of one million, but memory is only allocated for two elements, one at index 0 and another at index 999999. The remaining indices between 1 and 999998 do not have any memory allocated.
+
+> This dynamic nature of JavaScript arrays allows for flexibility in terms of memory usage and efficient handling of sparse arrays. It also means that operations like resizing or inserting elements can be more flexible compared to fixed-size arrays in languages like C.
+
+> **Note**:
+> JavaScript is not a low-level language; therefore, the JS engine performs various optimizations under the hood. The implementation of certain features may differ from other languages, as it depends on the specific approach taken by the engine.
