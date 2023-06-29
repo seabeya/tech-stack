@@ -25,6 +25,7 @@
    - [BigO Rules](#-bigo-rules)
 2. [Data Structures](#-data-structures)
    - [Array](#-array)
+   - [Hash Table](#-hash-table)
 
 <br>
 
@@ -149,6 +150,7 @@ Overview:
 ## 🔶 Data Structures
 
 - [Array](#-array)
+- [Hash Table](#-hash-table)
 
 <br>
 
@@ -232,3 +234,31 @@ arr[999999] = "World";
 
 > **Note**:
 > JavaScript is not a low-level language; therefore, the JS engine performs various optimizations under the hood. The implementation of certain features may differ from other languages, as it depends on the specific approach taken by the engine.
+
+<br>
+
+### 🔷 Hash Table
+
+A hash table, also known as a hash map, is a data structure that allows efficient storage and retrieval of key-value pairs.
+
+| Operations    | Complexity |
+| ------------- | ---------- |
+| Access / Edit | `O(1)`     |
+| Insert        | `O(1)`     |
+| Remove        | `O(1)`     |
+
+<br>
+
+JavaScript doesn't have a built-in data structure called a "hash table". But you can implement similar functionality using objects ({}) and the built-in [Map object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
+
+- Using Objects as Hash Tables:
+  ```js
+  const hashTable = {};
+  ```
+- Using the Map object:
+
+  ```js
+  const hashTable = new Map();
+  ```
+
+> Hash Tables are often the best approach for optimizing time complexity with some additional space costs.
