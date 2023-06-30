@@ -26,6 +26,7 @@
 2. [Data Structures](#-data-structures)
    - [Array](#-array)
    - [Hash Table](#-hash-table)
+   - [Linked List](#-linked-list)
 
 <br>
 
@@ -149,8 +150,9 @@ Overview:
 
 ## 🔶 Data Structures
 
-- [Array](#-array)
-- [Hash Table](#-hash-table)
+<p align="center">
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a>
+</p>
 
 <br>
 
@@ -262,3 +264,180 @@ JavaScript doesn't have a built-in data structure called a "hash table". But you
   ```
 
 > Hash Tables are often the best approach for optimizing time complexity with some additional space costs.
+
+<br>
+
+### 🔷 Linked List
+
+A linked list is a linear data structure that consists of a sequence of elements called nodes.
+
+| Operations                 | Complexity | Why                                                                                                                                                                                                                                   |
+| -------------------------- | :--------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Access / Edit first & last |   `O(1)`   | Because a linked list maintains references to the first and last elements.                                                                                                                                                            |
+| Insert front & end         |   `O(1)`   | We have references to the first and last elements, so we can easily insert an item at the front or end of the linked list and update the appropriate references.                                                                      |
+| Delete first & (\*last)    |   `O(1)`   | Since we have reference to the first element, we can easily update the reference of the first element to point to the second element. \*Deleting the last element in O(1) time is only possible if we are using a Doubly Linked List. |
+| Access / Edit              |   `O(n)`   | Requires traversing the list to reach the desired position.                                                                                                                                                                           |
+| Insert                     |   `O(n)`   | Requires traversing the list to reach the desired position.                                                                                                                                                                           |
+| Delete                     |   `O(n)`   | Requires traversing the list to reach the desired position.                                                                                                                                                                           |
+
+<br>
+
+#### 🔻 Structure
+
+Linked lists are made up of list nodes.
+
+> Each node in a linked list can be located anywhere in memory; it does not require contiguous blocks of memory. The order of nodes is maintained through the use of pointers.
+
+- Singly Linked List
+
+  <img src="./singlyLL.png" height="auto" width="600">
+
+  <img src="./singlyLLN.png" height="auto" width="200">
+
+  - **Value**: The data that a list node holds. It can be anything.
+  - **Next**: A pointer/reference that indicates the next list node in the linked list. `ListNode1.next = ListNode2`
+
+- Doubly Lined List
+
+  <img src="./doublyLL.png" height="auto" width="600">
+
+  <img src="./doublyLLN.png" height="auto" width="200">
+
+  - **Value**: The data that list node holds. It can be anything.
+  - **Next**: A pointer/reference that says what is the next list node in th linked list. `ListNode1.next = ListNode2`
+  - **Prev**: A pointer/reference that indicates the previous list node in the linked list. `ListNode2.prev = ListNode1`
+
+<br>
+
+#### 🔻 Implementation
+
+There is no Linked List data structure in JavaScript by default, but we can build it.
+
+Singly Linked List:
+
+```js
+class ListNode {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null; // First Node
+    this.tail = null; // Last Node
+    this.size = 0;
+  }
+
+  // Access any (by index)
+  get(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    }
+
+    let currNode = this.head;
+    for (let i = 0; i < index; i++) {
+      currNode = currNode.next;
+    }
+
+    return currNode;
+  }
+
+  // Insert end
+  append(value) {
+    const newNode = new ListNode(value);
+
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+
+    this.size++;
+  }
+
+  // Insert front
+  prepend(value) {
+    const newNode = new ListNode(value);
+
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    this.size++;
+  }
+
+  // Insert any
+  insertAt(index, value) {
+    if (index <= 0) {
+      this.prepend(value);
+    } else if (index >= this.size) {
+      this.append(value);
+    } else {
+      const newNode = new ListNode(value);
+      const parent = this.get(index - 1);
+      newNode.next = parent.next;
+      parent.next = newNode;
+      this.size++;
+    }
+  }
+
+  // Delete any (by index)
+  deleteAt(index) {
+    if (this.head === null) {
+      throw new Error("List is empty!");
+    }
+
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    } else if (index === 0) {
+      this.head = this.head.next;
+
+      if (this.head === null) {
+        this.tail = null;
+      }
+    } else {
+      const parent = this.get(index - 1);
+      parent.next = parent.next.next;
+
+      if (index === this.size - 1) {
+        this.tail = parent;
+      }
+
+      this.size--;
+    }
+  }
+
+  // Just a random extra method
+  toArray() {
+    const list = [];
+    let currNode = this.head;
+
+    while (currNode !== null) {
+      list.push(currNode.value);
+      currNode = currNode.next;
+    }
+
+    return list;
+  }
+}
+
+const myList = new LinkedList();
+
+myList.append("000");
+myList.append(1);
+myList.append("string 2");
+myList.insertAt(2, "new 2");
+console.log(myList.toArray()); // Array(4) ['000', 1, 'new 2', 'string 2']
+myList.prepend({ test: "object data" });
+myList.deleteAt(2);
+console.log(myList.get(3)); // ListNode {value: 'string 2', next: null}
+console.log(myList.toArray()); // Array(4) [{…}, '000', 'new 2', 'string 2']
+```
