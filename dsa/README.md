@@ -27,6 +27,7 @@
    - [Array](#-array)
    - [Hash Table](#-hash-table)
    - [Linked List](#-linked-list)
+   - [Stack](#-stack)
 
 <br>
 
@@ -151,7 +152,7 @@ Overview:
 ## 🔶 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a>
 </p>
 
 <br>
@@ -440,4 +441,132 @@ myList.prepend({ test: "object data" });
 myList.deleteAt(2);
 console.log(myList.get(3)); // ListNode {value: 'string 2', next: null}
 console.log(myList.toArray()); // Array(4) [{…}, '000', 'new 2', 'string 2']
+```
+
+<br>
+
+### 🔷 Stack
+
+> Last-In-First-Out
+
+The term "stack" refers to a data structure that follows the Last-In-First-Out (LIFO) principle. It is a collection of elements that supports two main operations: push and pop.
+
+| Operations           | Complexity |
+| -------------------- | ---------- |
+| Push (insert end)    | `O(1)`     |
+| Pop (delete end)     | `O(1)`     |
+| Peek (view last/top) | `O(1)`     |
+
+<br>
+
+#### 🔻 Implementation
+
+There is no built-in Stacks data structure in JavaScript by default, but we can build one using two main options: using an array or using a linked list.
+
+Array-based stacks:
+
+- Good: `Random access`, `Easy to implement`;
+- Bad: `Inset/Delete start & middle`, `When stack size is unknown in advance`;
+
+```js
+class Stack {
+  constructor() {
+    this.stack = [];
+  }
+
+  push(value) {
+    this.stack.push(value);
+  }
+
+  pop() {
+    if (this.stack.length === 0) {
+      throw new Error("Cannot pop from an empty stack");
+    }
+
+    return this.stack.pop();
+  }
+
+  peek() {
+    if (this.stack.length === 0) {
+      throw new Error("Stack is empty");
+    }
+
+    return this.stack.at(-1);
+  }
+}
+
+const stack = new Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+
+console.log(stack.peek()); // 3
+console.log(stack.pop()); // 3
+console.log(stack.pop()); // 2
+console.log(stack.pop()); // 1
+console.log(stack.peek()); // Error: Stack is empty
+```
+
+<br>
+
+Linked list-based stacks:
+
+> As we know, it is not efficient to delete an item at the end of a Singly Linked List. But, instead of adding to the end and removing from the end, we can add to the front and remove from the front. This way, we can achieve our goals efficiently.
+
+- Good: `Can grow/shrink as needed`;
+- Bad: `Random access`;
+
+```js
+class StackNode {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class Stack {
+  constructor() {
+    this.top = null;
+    this.size = 0;
+  }
+
+  // Add item to the beginning of the list:
+  push(value) {
+    const newNode = new StackNode(value);
+    newNode.next = this.top;
+    this.top = newNode;
+    this.size++;
+  }
+
+  // Delete item from the beginning of the list:
+  pop() {
+    if (this.top === null) {
+      throw new Error("Cannot pop from an empty stack");
+    }
+
+    const node = this.top;
+    this.top = node.next;
+    this.size--;
+    return node.value;
+  }
+
+  peek() {
+    if (this.top === null) {
+      throw new Error("Cannot peek an empty stack");
+    }
+
+    return this.top.value;
+  }
+}
+
+const stack = new Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+
+console.log(stack.peek()); // 3
+console.log(stack.pop()); // 3
+console.log(stack.pop()); // 2
+console.log(stack.pop()); // 1
+console.log(stack.peek()); // Error: Cannot peek an empty stack
 ```
