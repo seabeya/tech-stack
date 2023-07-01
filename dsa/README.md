@@ -2,7 +2,7 @@
   <img src="../logo.png" height="200">
 </p>
 
-<h1 align="center">Data Structures & Algorithms</em></h1>
+<h1 align="center">Data Structures & Algorithms</h1>
 
 <p align="center">
   Almost everything about DSA to ace a technical interview.
@@ -28,6 +28,7 @@
    - [Hash Table](#-hash-table)
    - [Linked List](#-linked-list)
    - [Stack](#-stack)
+   - [Queue](#-queue)
 
 <br>
 
@@ -152,7 +153,7 @@ Overview:
 ## 🔶 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a>
 </p>
 
 <br>
@@ -563,4 +564,84 @@ console.log(stack.pop()); // 3
 console.log(stack.pop()); // 2
 console.log(stack.pop()); // 1
 console.log(stack.peek()); // Error: Cannot peek an empty stack
+```
+
+<br>
+
+### 🔷 Queue
+
+> First-In-First-Out
+
+The term "queue" refers to a data structure that follows the First-In-First-Out (FIFO) principle, which means that the element that is inserted first will be the first one to be removed.
+
+> It is analogous to a real-life queue or line where people stand in, and the person who arrives first is served first.
+
+| Operations             | Complexity |
+| ---------------------- | ---------- |
+| Enqueue (insert end)   | `O(1)`     |
+| Dequeue (delete front) | `O(1)`     |
+| Peek (view first/top)  | `O(1)`     |
+
+<br>
+
+#### 🔻 Implementation
+
+There is no built-in Queue data structure in JavaScript by default, but we can implement it using a Singly Linked List.
+
+```js
+class QueueNode {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class Queue {
+  constructor() {
+    this.top = null; // top priority
+    this.tail = null; // least priority
+    this.size = 0;
+  }
+
+  // Add item to the end of the list:
+  enqueue(value) {
+    const newNode = new QueueNode(value);
+
+    if (!this.top) {
+      this.top = newNode;
+    } else {
+      this.tail.next = newNode;
+    }
+
+    this.tail = newNode;
+    this.size++;
+  }
+
+  // Delete item from the beginning of the list:
+  dequeue() {
+    if (this.top === null) {
+      throw new Error("Queue is empty!");
+    }
+
+    const dequeuedValue = this.top.value;
+
+    this.top = this.top.next;
+    this.size--;
+
+    if (this.size === 0) {
+      this.tail = null;
+    }
+
+    return dequeuedValue;
+  }
+
+  // Show the top item
+  peek() {
+    if (this.top === null) {
+      throw new Error("Queue is empty!");
+    }
+
+    return this.top.value;
+  }
+}
 ```
