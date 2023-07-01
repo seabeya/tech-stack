@@ -217,26 +217,20 @@ const myArray = [1, 2, 6, 3, "test"];
 const myArray = new Array(5); // Array sized 5
 ```
 
-JavaScript arrays are dynamic and can grow or shrink as needed.
-
-> In JavaScript, an array is implemented as an object with numeric keys and are not contiguous memory blocks. It does not necessarily allocate memory for all possible indices up to the specified length. Instead, it allocates memory for the elements that are actually present in the array
-
-> When you create an array with a specific length in JavaScript, such as `const arr = new Array(1000000)`, it sets the initial length of the array but does not allocate memory for one million entries. Instead, it creates an array object with the specified length property.
-
-> JavaScript arrays are sparse, meaning they can have gaps between elements. In the case of an array with a length of one million but only a few elements, memory is only allocated for those existing elements, and the remaining indices are essentially empty slots.
-
-```js
-const arr = new Array(1000000);
-arr[0] = "Hello";
-arr[999999] = "World";
-```
-
-> In this example, the array arr has a length of one million, but memory is only allocated for two elements, one at index 0 and another at index 999999. The remaining indices between 1 and 999998 do not have any memory allocated.
-
-> This dynamic nature of JavaScript arrays allows for flexibility in terms of memory usage and efficient handling of sparse arrays. It also means that operations like resizing or inserting elements can be more flexible compared to fixed-size arrays in languages like C.
-
 > **Note**:
-> JavaScript is not a low-level language; therefore, the JS engine performs various optimizations under the hood. The implementation of certain features may differ from other languages, as it depends on the specific approach taken by the engine.
+> JavaScript is not a low-level language; therefore, the JS engine performs various optimizations under the hood. The implementation of certain features may differ from other languages, depending on the specific approach taken by the engine.
+
+The implementation of JavaScript arrays also depends on the executing engine, the type of elements in the array, and how the array is used. Here is the [V8 implementation](https://chromium.googlesource.com/v8/v8.git/+/refs/heads/main/src/builtins/builtins-array.cc).
+
+> In V8, integer arrays are backed by an array of integers, floating-point arrays are backed by an array of doubles, and object arrays are backed by an array of pointers.
+
+> If an array contains gaps, it is considered a sparse array (an array without gaps is considered a packed array). Sparse arrays are backed by an array in memory if they are not too sparse, but they are backed by a <ins>**hashtable**</ins> if they are very sparse.
+
+> The way JavaScript arrays are implemented can have a significant impact on performance. For example, sparse arrays are slower to access than packed arrays.
+
+> The implementation of JavaScript arrays can also affect the way certain operations are performed on arrays. For example, the `push()` method will behave differently on a packed array than on a sparse array.
+
+> The V8 array implementation includes a number of constants that are used to determine how the array is stored and accessed. To understand better please have a look: ["Mathias Bynens - V8 internals for JavaScript developers"](https://youtu.be/m9cTaYI95Zc).
 
 <br>
 
