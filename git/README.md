@@ -2,7 +2,7 @@
   <img src="../logo.png" height="200">
 </p>
 
-<h1 align="center">Git</em></h1>
+<h1 align="center">Git</h1>
 
 <p align="center">
   Almost everything about the version control system Git.
@@ -340,11 +340,11 @@ Interactive Rebase allows you to modify the commit history of a branch (in place
 
 - Handle any requested actions:
 
-  > If you specified any actions, such as editing during the interactive rebase, Git pauses the rebase process after applying each commit. At these points, you can make changes to the commit, amend the commit message, or perform any necessary modifications. After making the changes, save them and use the command `git rebase --continue` to proceed with the rebase.
+  > If you specified any actions, such as editing during the interactive rebase, Git pauses the rebase process after applying each commit. At these points, you can make changes to the commit, amend the commit message, or perform any necessary modifications. After making the changes, save them, add them and use the command `git rebase --continue` to proceed with the rebase.
 
 - Resolve any conflicts:
 
-  > During the rebase process, conflicts may arise if Git encounters incompatible changes between the commits being applied and the target branch. In such cases, Git will pause the rebase, and you need to resolve the conflicts manually by editing the conflicting files. After resolving the conflicts, use the command `git rebase --continue` to continue with the rebase.
+  > During the rebase process, conflicts may arise if Git encounters incompatible changes between the commits being applied and the target branch. In such cases, Git will pause the rebase, and you need to resolve the conflicts manually by editing the conflicting files. After resolving the conflicts, add them and use the command `git rebase --continue` to continue with the rebase.
 
 - Complete the interactive rebase:
   > Once you have finished specifying actions for all the commits, resolved any conflicts, and completed any requested actions, Git applies the modifications to the commit history. If everything goes smoothly, Git will finish the rebase, and you will have a modified commit history as per your instructions.
