@@ -29,6 +29,8 @@
    - [Linked List](#-linked-list)
    - [Stack](#-stack)
    - [Queue](#-queue)
+   - [Tree](#-tree)
+     - [Binary Trees](#-binary-trees)
 
 <br>
 
@@ -153,7 +155,7 @@ Overview:
 ## 🔶 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-tree">Tree</a>
 </p>
 
 <br>
@@ -645,3 +647,65 @@ class Queue {
   }
 }
 ```
+
+<br>
+
+### 🔷 Tree
+
+A tree is a hierarchical data structure in computer science that resembles a tree structure with a set of connected nodes.
+
+**Terminology**
+
+- `Root`: The topmost node in a tree. It serves as the starting point of the tree and has no parent.
+- `Parent`: The node that is connected to its child nodes. Each child can have only one parent.
+- `Child`: The nodes directly connected to a parent node. A parent node can have multiple child nodes.
+- `Sibling`: Nodes that share the same parent are called siblings. They are at the same level in the tree.
+- `Leaf`: Also known as a terminal node or external node, it is a node that has no child nodes.
+- `Edge`: A connection or link between two nodes in a tree.
+- `Path`: A sequence of nodes connected by edges, from one node to another in a tree.
+- `Depth`: The depth of a node represents the number of edges from the root to that node. The root node has a depth of 0.
+- `Height`: Height refers to the longest path from the root to any leaf node, or the maximum depth among all nodes in the tree.
+- `Subtree`: A subtree is a tree structure that is part of a larger tree.
+
+<p align="center">
+  <img src="./tree.png" height="auto" width="700">
+</p>
+
+<br>
+
+#### 🔻 Binary Trees
+
+A binary tree is a type of tree data structure in which each node can have at most two child nodes, known as the left child and the right child.
+
+> It is called a "binary" tree because the branching factor of each node is limited to two.
+
+**Types of binary trees:**
+
+<p align="center">
+  <img src="./binaryTrees.png" height="auto" width="800">
+</p>
+
+- Full Binary Tree:
+
+  > A full binary tree is a binary tree in which every node has either zero or two children.
+
+- Perfect Binary Tree:
+
+  > A perfect binary tree is a binary tree in which all levels are completely filled with nodes, and all leaf nodes are at the same level.
+
+  - Node count in each level: `2^curr_level`.
+  - Last level node count: `The number of nodes in all the levels above it plus 1`.
+    > Which means half of our nodes are in the last level.
+  - Total node count: `2^(height + 1) - 1`.
+
+- Complete Binary Tree:
+
+  > A complete binary tree is a binary tree in which all levels are completely filled except possibly the last level, which is filled from left to right.
+
+- Balanced Binary Tree:
+
+  > A balanced binary tree is a binary tree in which the heights of the left and right subtrees of any node differ by at most one. Balancing the tree helps to ensure efficient operations and maintain a more uniform structure.
+
+  > When every inserted item is greater or smaller than its parent, or certain deletion operations are performed, the tree becomes unbalanced. In an unbalanced tree, lookup, insert, and delete operations have a time complexity of `O(h)` because the tree resembles a linked list. To solve this issue, we can implement [AVL Trees](https://medium.com/basecs/the-little-avl-tree-that-could-86a3cae410c7) or [Red-Black Trees](https://medium.com/basecs/painting-nodes-black-with-red-black-trees-60eacb2be9a5). These data structures perform a switch or rotation after add/delete operations to balance the tree.
+
+<br>
