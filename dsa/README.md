@@ -29,8 +29,7 @@
    - [Linked List](#-linked-list)
    - [Stack](#-stack)
    - [Queue](#-queue)
-   - [Tree](#-tree)
-     - [Binary Trees](#-binary-trees)
+   - [Trees](#-trees)
      - [Binary Search Tree](#-binary-search-tree)
 
 <br>
@@ -153,15 +152,15 @@ Overview:
 <br>
 <br>
 
-## 🔶 Data Structures
+# 🟪 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-tree">Tree</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a>
 </p>
 
 <br>
 
-### 🔷 Array
+## 🔶 Array
 
 Array is a built-in data structure that allows you to store multiple values in a single variable. Each value in an array is called an element, and elements are accessed using their index, which starts from 0 for the first element.
 
@@ -236,9 +235,14 @@ The implementation of JavaScript arrays also depends on the executing engine, th
 
 > The V8 array implementation includes a number of constants that are used to determine how the array is stored and accessed. To understand better please have a look: ["Mathias Bynens - V8 internals for JavaScript developers"](https://youtu.be/m9cTaYI95Zc).
 
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
 <br>
 
-### 🔷 Hash Table
+## 🔶 Hash Table
 
 A hash table, also known as a hash map, is a data structure that allows efficient storage and retrieval of key-value pairs.
 
@@ -264,9 +268,14 @@ JavaScript doesn't have a built-in data structure called a "hash table". But you
 
 > Hash Tables are often the best approach for optimizing time complexity with some additional space costs.
 
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
 <br>
 
-### 🔷 Linked List
+## 🔶 Linked List
 
 A linked list is a linear data structure that consists of a sequence of elements called nodes.
 
@@ -441,9 +450,14 @@ console.log(myList.get(3)); // ListNode {value: 'string 2', next: null}
 console.log(myList.toArray()); // Array(4) [{…}, '000', 'new 2', 'string 2']
 ```
 
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
 <br>
 
-### 🔷 Stack
+## 🔶 Stack
 
 > Last-In-First-Out
 
@@ -569,9 +583,14 @@ console.log(stack.pop()); // 1
 console.log(stack.peek()); // Error: Cannot peek an empty stack
 ```
 
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
 <br>
 
-### 🔷 Queue
+## 🔶 Queue
 
 > First-In-First-Out
 
@@ -649,9 +668,14 @@ class Queue {
 }
 ```
 
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
 <br>
 
-### 🔷 Tree
+## 🔶 Trees
 
 A tree is a hierarchical data structure in computer science that resembles a tree structure with a set of connected nodes.
 
@@ -711,7 +735,7 @@ A binary tree is a type of tree data structure in which each node can have at mo
 
 <br>
 
-#### 🔻 Binary Search Tree
+### 🔷 Binary Search Tree
 
 A Binary Search Tree (BST) is a type of binary tree that ensures the elements are stored in a specific order, allowing for efficient searching, insertion, and deletion operations.
 
@@ -734,7 +758,7 @@ A Binary Search Tree (BST) is a type of binary tree that ensures the elements ar
 
 <br>
 
-**Implementation:**
+#### 🔻 Implementation
 
 ```js
 class TreeNode {
@@ -766,7 +790,7 @@ console.log(tree.lookup(12)); // TreeNode {value: 12, left: TreeNode, right: Tre
 ```
 
 <p align="center">
-  <img src="./bst2.png" height="auto" width="200">
+  <img src="./bst2.png" height="auto" width="150">
 </p>
 
 <details><summary>Lookup: (find node by value)</summary>
