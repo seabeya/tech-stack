@@ -31,6 +31,7 @@
    - [Queue](#-queue)
    - [Tree](#-tree)
      - [Binary Trees](#-binary-trees)
+     - [Binary Search Tree](#-binary-search-tree)
 
 <br>
 
@@ -709,3 +710,268 @@ A binary tree is a type of tree data structure in which each node can have at mo
   > When every inserted item is greater or smaller than its parent, or certain deletion operations are performed, the tree becomes unbalanced. In an unbalanced tree, lookup, insert, and delete operations have a time complexity of `O(h)` because the tree resembles a linked list. To solve this issue, we can implement [AVL Trees](https://medium.com/basecs/the-little-avl-tree-that-could-86a3cae410c7) or [Red-Black Trees](https://medium.com/basecs/painting-nodes-black-with-red-black-trees-60eacb2be9a5). These data structures perform a switch or rotation after add/delete operations to balance the tree.
 
 <br>
+
+#### 🔻 Binary Search Tree
+
+A Binary Search Tree (BST) is a type of binary tree that ensures the elements are stored in a specific order, allowing for efficient searching, insertion, and deletion operations.
+
+| Operations      | Complexity | Why                                                                |
+| --------------- | :--------: | ------------------------------------------------------------------ |
+| Search / Lookup | `O(log n)` |                                                                    |
+| Insert          | `O(log n)` | You need to search for an eligible place to insert the given item. |
+| Remove          | `O(log n)` | You need to search for the item you want to remove.                |
+
+- Nodes in the left subtree are smaller than the current node.
+- Nodes in the right subtree are greater than or equal to the current node.
+
+<p align="center">
+    <b>Left Child</b> < <b>Parent</b> <= <b>Right Child</b>
+</p>
+
+<p align="center">
+  <img src="./bst.png" height="auto" width="400">
+</p>
+
+<br>
+
+**Implementation:**
+
+```js
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  lookup(value) { ... } //
+  insert(value) { ... } //
+  remove(value) { ... } //
+}
+
+const tree = new BinarySearchTree();
+tree.insert(12);
+tree.insert(9);
+tree.insert(25);
+tree.insert(5);
+tree.insert(20);
+tree.remove(9);
+console.log(tree.lookup(12)); // TreeNode {value: 12, left: TreeNode, right: TreeNode}
+```
+
+<p align="center">
+  <img src="./bst2.png" height="auto" width="200">
+</p>
+
+<details><summary>Lookup: (find node by value)</summary>
+
+<br>
+Iterative:
+
+> Greater speed and lower memory requirements with large trees.
+
+```js
+lookup(value) {
+  let current = this.root;
+  while (current) {
+    if (value < current.value) {
+      current = current.left;
+    } else if (value > current.value) {
+      current = current.right;
+    } else {
+      return current;
+    }
+  }
+  return null;
+}
+```
+
+Recursive:
+
+```js
+lookup(value, root = this.root) {
+  if (root === null) {
+    return null;
+  }
+
+  if (value < root.value) {
+    return this.lookup(value, root.left);
+  } else if (value > root.value) {
+    return this.lookup(value, root.right);
+  } else {
+    return root;
+  }
+}
+```
+
+</details>
+
+<details><summary>Insert:</summary>
+
+<br>
+Iterative:
+
+```js
+insert(value) {
+  const newNode = new TreeNode(value);
+  if (this.root === null) {
+    this.root = newNode;
+    return;
+  }
+
+  let current = this.root;
+  while (true) {
+    // left:
+    if (value < current.value) {
+      if (current.left === null) {
+        current.left = newNode;
+        break;
+      }
+      current = current.left;
+    }
+    // right:
+    else {
+      if (current.right === null) {
+        current.right = newNode;
+        break;
+      }
+      current = current.right;
+    }
+  }
+}
+```
+
+</details>
+
+<details><summary>Remove: (remove node by value)</summary>
+
+<br>
+
+Iterative:
+
+> Greater speed and lower memory requirements with large trees.
+
+```js
+remove(value) {
+  let current = this.root;
+  let parent = null;
+  // searching:
+  while (current) {
+    if (value < current.value) {
+      parent = current;
+      current = current.left;
+    } else if (value > current.value) {
+      parent = current;
+      current = current.right;
+    }
+    // found the node:
+    else {
+      // #1 - node has no right child:
+      if (current.right === null) {
+        // node is the root node:
+        if (parent === null) {
+          this.root = current.left;
+        } else {
+          if (current.value < parent.value) {
+            parent.left = current.left;
+          } else if (current.value > parent.value) {
+            parent.right = current.left;
+          }
+        }
+      }
+      // #2 - node has right child but right child has no left child:
+      else if (current.right.left === null) {
+        // node is the root node:
+        if (parent === null) {
+          this.root = current.left;
+        } else {
+          // link current left to current right left:
+          current.right.left = current.left;
+          if (current.value < parent.value) {
+            parent.left = current.right;
+          } else if (current.value > parent.value) {
+            parent.right = current.right;
+          }
+        }
+      }
+      // #3 - node has right child that has a left child:
+      else {
+        // find the Right child's left most child:
+        let leftmost = current.right.left;
+        let leftmostParent = current.right;
+        while (leftmost.left !== null) {
+          leftmostParent = leftmost;
+          leftmost = leftmost.left;
+        }
+        // parent's left subtree is now leftmost's right subtree:
+        leftmostParent.left = leftmost.right;
+        leftmost.left = current.left;
+        leftmost.right = current.right;
+        if (parent === null) {
+          this.root = leftmost;
+        } else {
+          if (current.value < parent.value) {
+            parent.left = leftmost;
+          } else if (current.value > parent.value) {
+            parent.tight = leftmost;
+          }
+        }
+      }
+      return true;
+    }
+  }
+  return false;
+}
+```
+
+Recursive:
+
+> Easy to read
+
+```js
+remove(value) {
+  // helper:
+  const findMinValue = (current) => {
+    while (current.left) {
+      current = current.left;
+    }
+    return current.value;
+  };
+
+  const removeNode = (value, current = this.root) => {
+    if (current === null) {
+      return null;
+    }
+    // searching:
+    if (value < current.value) {
+      current.left = removeNode(value, current.left);
+    } else if (value > current.value) {
+      current.right = removeNode(value, current.right);
+    } // found the node:
+    else {
+      // it has no children:
+      if (current.left === null && current.right === null) {
+        current = null;
+      } // it has right child:
+      else if (current.left === null) {
+        current = current.right;
+      } // it has left child:
+      else if (current.right === null) {
+        current = current.left;
+      } // it has both children:
+      else if (current.left && current.right) {
+        current.value = findMinValue(current.right);
+        current.right = removeNode(current.value, current.right);
+      }
+    }
+    return current;
+  };
+  removeNode(value);
+}
+```
