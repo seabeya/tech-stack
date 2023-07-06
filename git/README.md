@@ -190,11 +190,11 @@ What is `HEAD`?
 - `git switch`: Switch branches.
   - `[Name]` - Switch to the specified branch.
   - `-c [Name]` - Create a new branch and switch to it.
-    > You can use `-C` if the branch already exists, but we want to reset it.
-- `git checkout`: Switch branches or restore working tree files.
+    > You can use `-C` if the branch already exists, but you want to reset it.
+- `git checkout`: Switch branches (old approach) or restore working tree files (will discuss this later).
   - `[Name]` - Switch to the specified branch.
-  - `-b [Name]` - Create a new branch and switch to it. > You can use `-B` if the branch already exists, but we want to reset it.
-    > When you move between branches, your codebase will be updated accordingly to match that branch you are on.
+  - `-b [Name]` - Create a new branch and switch to it.
+    > You can use `-B` if the branch already exists, but you want to reset it.
 
 When you switch branches in Git while having uncommitted changes, the behavior depends on the nature of the changes you have made:
 
@@ -202,6 +202,8 @@ When you switch branches in Git while having uncommitted changes, the behavior d
   > Git will try to carry them over to the new branch (the changes come with you). Git will preserve your modifications in your working directory as you switch branches, allowing you to continue working on them.
 - Changes with conflicts:
   > Git will prevent the branch switch to avoid data loss and inform you about the conflicts. In this case, you need to decide whether to commit, stash, or discard your changes before switching branches.
+
+> When you move between branches, your codebase will be updated accordingly to match that branch you are on.
 
 <br>
 
