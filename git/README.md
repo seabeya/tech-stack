@@ -2,7 +2,7 @@
   <img src="../logo.png" height="200">
 </p>
 
-<h1 align="center">Git</em></h1>
+<h1 align="center">Git</h1>
 
 <p align="center">
   Almost everything about the version control system Git.
@@ -190,11 +190,11 @@ What is `HEAD`?
 - `git switch`: Switch branches.
   - `[Name]` - Switch to the specified branch.
   - `-c [Name]` - Create a new branch and switch to it.
-    > You can use `-C` if the branch already exists, but we want to reset it.
-- `git checkout`: Switch branches or restore working tree files.
+    > You can use `-C` if the branch already exists, but you want to reset it.
+- `git checkout`: Switch branches (old approach) or restore working tree files (will discuss this later).
   - `[Name]` - Switch to the specified branch.
-  - `-b [Name]` - Create a new branch and switch to it. > You can use `-B` if the branch already exists, but we want to reset it.
-    > When you move between branches, your codebase will be updated accordingly to match that branch you are on.
+  - `-b [Name]` - Create a new branch and switch to it.
+    > You can use `-B` if the branch already exists, but you want to reset it.
 
 When you switch branches in Git while having uncommitted changes, the behavior depends on the nature of the changes you have made:
 
@@ -202,6 +202,8 @@ When you switch branches in Git while having uncommitted changes, the behavior d
   > Git will try to carry them over to the new branch (the changes come with you). Git will preserve your modifications in your working directory as you switch branches, allowing you to continue working on them.
 - Changes with conflicts:
   > Git will prevent the branch switch to avoid data loss and inform you about the conflicts. In this case, you need to decide whether to commit, stash, or discard your changes before switching branches.
+
+> When you move between branches, your codebase will be updated accordingly to match that branch you are on.
 
 <br>
 
@@ -340,11 +342,11 @@ Interactive Rebase allows you to modify the commit history of a branch (in place
 
 - Handle any requested actions:
 
-  > If you specified any actions, such as editing during the interactive rebase, Git pauses the rebase process after applying each commit. At these points, you can make changes to the commit, amend the commit message, or perform any necessary modifications. After making the changes, save them and use the command `git rebase --continue` to proceed with the rebase.
+  > If you specified any actions, such as editing during the interactive rebase, Git pauses the rebase process after applying each commit. At these points, you can make changes to the commit, amend the commit message, or perform any necessary modifications. After making the changes, save them, add them and use the command `git rebase --continue` to proceed with the rebase.
 
 - Resolve any conflicts:
 
-  > During the rebase process, conflicts may arise if Git encounters incompatible changes between the commits being applied and the target branch. In such cases, Git will pause the rebase, and you need to resolve the conflicts manually by editing the conflicting files. After resolving the conflicts, use the command `git rebase --continue` to continue with the rebase.
+  > During the rebase process, conflicts may arise if Git encounters incompatible changes between the commits being applied and the target branch. In such cases, Git will pause the rebase, and you need to resolve the conflicts manually by editing the conflicting files. After resolving the conflicts, add them and use the command `git rebase --continue` to continue with the rebase.
 
 - Complete the interactive rebase:
   > Once you have finished specifying actions for all the commits, resolved any conflicts, and completed any requested actions, Git applies the modifications to the commit history. If everything goes smoothly, Git will finish the rebase, and you will have a modified commit history as per your instructions.
@@ -625,6 +627,8 @@ What happens if someone adds commits to a remote branch while you have a local b
 - `git ls-remote`: List all references (branches, tags, or other references) available in a remote repository.
 
 - `git fetch [Remote_Name]`: Update remote tracking branches.
+
+  - `--prune` - Remove any local references to remote branches (remote tracking branches) that no longer exist on the remote repository.
 
   > It retrieves any new commits or changes from the specified remote repository without merging them into your current branch. This allows you to have an up-to-date view of the remote repository without modifying your current branch.
 
