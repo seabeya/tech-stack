@@ -32,6 +32,7 @@
    - [Trees](#-trees)
      - [Binary Search Tree](#-binary-search-tree)
    - [Binary Heaps](#-binary-heaps)
+   - [Trie (Prefix Tree)](#-trie-prefix-tree)
 
 <br>
 
@@ -156,7 +157,7 @@ Overview:
 # 🟪 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a> • <a href="#-trie-prefix-tree">Trie (Prefix Tree)</a>
 </p>
 
 <br>
@@ -1227,6 +1228,140 @@ percolateDown() {
       this.swap(index, largerChildIndex);
     }
     index = largerChildIndex;
+  }
+}
+```
+
+</details>
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Trie (Prefix Tree)
+
+A trie is a tree-like data structure that provides an efficient solution for storing and searching strings.
+
+> Use cases: Autocomplete, spell checking, dictionary or word lookup, IP routing, caching mechanism, etc.
+
+| Operations    | Complexity              |
+| ------------- | ----------------------- |
+| Insert Word   | `O(size of the word)`   |
+| Search Word   | `O(size of the word)`   |
+| Search Prefix | `O(size of the prefix)` |
+
+<br>
+
+#### 🔻 Structure
+
+- Root Node: The root node represents an empty string or the starting point of the Trie.
+- Trie Node:
+  > Each node in the Trie represents a single character or component of a string. It contains the following elements:
+  - Children:
+    > A collection of child nodes, typically implemented using a data structure such as a map, dictionary, or an array. It maps each character or component to its corresponding child node.
+  - End of Word Flag:
+    > A boolean flag that indicates whether the node represents the end of a complete word or string.
+
+<p align="center">
+  <img src="./trie.png" height="auto" width="600">
+</p>
+
+> In this Trie example, we have the words 'app, apple, apply, ape, bear, talk, test, win' (the green nodes show us that the End of Word Flag is true there).
+
+<br>
+
+#### 🔻 Implementation
+
+```js
+class TrieNode {
+  constructor() {
+    this.children = new Map();
+    this.isEndOfWord = false; // isLeaf
+  }
+}
+
+class Trie {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word) {
+    let node = this.root;
+    for (let i = 0; i < word.length; i++) {
+      const char = word[i];
+      if (!node.children.has(char)) {
+        node.children.set(char, new TrieNode());
+      }
+      node = node.children.get(char);
+    }
+    node.isEndOfWord = true;
+  }
+
+  search(word) {
+    let node = this.root;
+    for (let i = 0; i < word.length; i++) {
+      const char = word[i];
+      if (!node.children.has(char)) {
+        return false;
+      }
+      node = node.children.get(char);
+    }
+    return node.isEndOfWord;
+  }
+
+  startsWith(prefix) {
+    let node = this.root;
+    for (let i = 0; i < prefix.length; i++) {
+      const char = prefix[i];
+      if (!node.children.has(char)) {
+        return false;
+      }
+      node = node.children.get(char);
+    }
+    return true;
+  }
+}
+
+// Usage:
+const trie = new Trie();
+
+trie.insert("bookmark");
+console.log(trie.search("bookmark")); // true
+console.log(trie.search("book")); // false
+console.log(trie.startsWith("book")); // true
+trie.insert("book");
+console.log(trie.search("book")); // true
+```
+
+<details><summary>(Extra) Implementing suggestions method:</summary>
+
+> This will retrieve suggestions for the given prefix. For example, if we enter 'boo', the output will be an array of suggestions: ['book', 'bookmark'].
+
+```js
+suggestions(prefix) {
+  let currentNode = this.root;
+  for (let i = 0; i < prefix.length; i++) {
+    const char = prefix[i];
+    if (!currentNode.children.has(char)) {
+      return [];
+    }
+    currentNode = currentNode.children.get(char);
+  }
+  const suggestions = [];
+  this.traverse(currentNode, prefix, suggestions);
+  return suggestions;
+}
+
+traverse(node, prefix, suggestions) {
+  if (node.isEndOfWord) {
+    suggestions.push(prefix);
+  }
+  for (const [char, child] of node.children) {
+    const newPrefix = prefix + char;
+    this.traverse(child, newPrefix, suggestions);
   }
 }
 ```
