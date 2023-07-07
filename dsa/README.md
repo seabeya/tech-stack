@@ -31,6 +31,7 @@
    - [Queue](#-queue)
    - [Trees](#-trees)
      - [Binary Search Tree](#-binary-search-tree)
+   - [Binary Heaps](#-binary-heaps)
 
 <br>
 
@@ -155,7 +156,7 @@ Overview:
 # 🟪 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a>
 </p>
 
 <br>
@@ -753,7 +754,7 @@ A Binary Search Tree (BST) is a type of binary tree that ensures the elements ar
 </p>
 
 <p align="center">
-  <img src="./bst.png" height="auto" width="400">
+  <img src="./bst.png" height="auto" width="300">
 </p>
 
 <br>
@@ -999,3 +1000,235 @@ remove(value) {
   removeNode(value);
 }
 ```
+
+</details>
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Binary Heaps
+
+A binary heap is a data structure that represents a complete binary tree, which can be either a min-heap or a max-heap.
+
+It is commonly used to implement **priority queues**, which allow efficient retrieval of the minimum (or maximum) element.
+
+| Operations | Complexity | Why                                                                    |
+| ---------- | :--------: | ---------------------------------------------------------------------- |
+| Lookup     |   `O(n)`   | We need to iterate through all elements until we find the given value. |
+| Insert     | `O(log n)` | The tree needs to be adjusted to preserve the structure.               |
+| Remove top | `O(log n)` | The tree needs to be adjusted to preserve the structure.               |
+
+<br>
+
+#### 🔻 Structure
+
+<p align="center">
+  <img src="./heaps.png" height="auto" width="600">
+</p>
+
+- Min Heap: The parent is smaller than or equal to all its children.
+  > [10, 15, 20, 60, 45, 100, 45]
+- Max Heap: The parent is greater than or equal to all its children.
+  > [100, 45, 60, 10, 20, 15, 45]
+
+<br>
+
+**Operations in Binary Heaps:**
+
+- Insertion: Time: O(log n); Space: O(n)
+  > When we insert an item, we add it at the bottom of the tree (level by level, from left to right) or at the end of the array. Then we check its validity with its parent. If it is not valid, we swap their positions. This process, known as percolation, continues until the heap property is fully restored.
+- Deletion: Time: O(log n); Space: O(n)
+  > When we delete an item from a heap, we replace the root with the last element, remove the last element, and then restore the heap property by moving the new root down and swapping it with the appropriate child (the smaller child in a min heap or the larger child in a max heap) if necessary. This process, also known as percolation, continues until the heap property is fully restored, and then we return the stored value.
+
+Comparing in a heap:
+
+- Max Heap:
+  > When both children are found, first compare child1 and child2. Take the greater value and compare it with the current parent. If the parent is smaller than the child, swap them.
+- Min Heap:
+  > When both children are found, first compare child1 and child2. Take the smaller value and compare it with the current parent. If the parent is bigger than the child, swap them.
+
+<br>
+
+#### 🔻 Relationships
+
+> These super important formulas allow us to establish relationships between items.
+
+Example heap: [10, 15, 20, 60, 45, 100, 45]
+
+- To find the parent: `parent_idx = floor((node_idx - 1) / 2)`
+  > The parent index of 45 = (4-1)/2 = floor(1.5) = 1; and that is 15.
+- To find the left child: `leftChild_idx = node_idx * 2 + 1`
+  > The left child index of 15 = 1 \* 2 + 1 = 3; adn that i 60.
+- To find the right child: `rightChild_idx = idx * 2 + 2`
+  > The right child index of 15 = 1 \* 2 + 2 = 4; and that is 45.
+
+<br>
+
+#### 🔻 Implementation
+
+```js
+class PriorityQueue {
+  constructor() {
+    this.heap = [];
+  }
+
+  getLeftChildIndex(parentIndex) {
+    return 2 * parentIndex + 1;
+  }
+
+  getRightChildIndex(parentIndex) {
+    return 2 * parentIndex + 2;
+  }
+
+  getParentIndex(childIndex) {
+    return Math.floor((childIndex - 1) / 2);
+  }
+
+  hasLeftChild(index) {
+    return this.getLeftChildIndex(index) < this.heap.length;
+  }
+
+  hasRightChild(index) {
+    return this.getRightChildIndex(index) < this.heap.length;
+  }
+
+  hasParent(index) {
+    return this.getParentIndex(index) >= 0;
+  }
+
+  leftChild(index) {
+    return this.heap[this.getLeftChildIndex(index)];
+  }
+
+  rightChild(index) {
+    return this.heap[this.getRightChildIndex(index)];
+  }
+
+  parent(index) {
+    return this.heap[this.getParentIndex(index)];
+  }
+
+  swap(indexOne, indexTwo) {
+    [this.heap[indexOne], this.heap[indexTwo]] = [
+      this.heap[indexTwo],
+      this.heap[indexOne],
+    ];
+  }
+
+  peek() {
+    if (this.heap.length === 0) {
+      return null;
+    }
+
+    return this.heap[0];
+  }
+
+  insert(item) {
+    this.heap.push(item);
+    this.percolateUp();
+  }
+
+  delete() {
+    if (this.heap.length === 0) {
+      return null;
+    }
+
+    const item = this.heap[0];
+    this.heap[0] = this.heap[this.heap.length - 1];
+    this.heap.pop();
+    this.percolateDown();
+    return item;
+  }
+
+  // Adjusting:
+  percolateUp() { ... } //
+  percolateDown() { ... } //
+
+}
+
+// Usage:
+const pq = new PriorityQueue();
+
+pq.insert(10);
+pq.insert(15);
+pq.insert(20);
+pq.insert(60);
+pq.insert(45);
+pq.insert(100);
+pq.insert(45);
+pq.insert(5);
+
+console.log(pq.delete()); // 5
+console.log(pq.heap); // Array(7) [10, 15, 20, 60, 45, 100, 45]
+// We used min heap for this example usage.
+```
+
+<details><summary>Percolation Min Heap:</summary>
+
+```js
+percolateUp() {
+  let index = this.heap.length - 1;
+  while (this.hasParent(index) && this.parent(index) > this.heap[index]) {
+    this.swap(this.getParentIndex(index), index);
+    index = this.getParentIndex(index);
+  }
+}
+
+percolateDown() {
+  let index = 0;
+  while (this.hasLeftChild(index)) {
+    let smallerChildIndex = this.getLeftChildIndex(index);
+    if (
+      this.hasRightChild(index) &&
+      this.rightChild(index) < this.leftChild(index)
+    ) {
+      smallerChildIndex = this.getRightChildIndex(index);
+    }
+    if (this.heap[index] < this.heap[smallerChildIndex]) {
+      break;
+    } else {
+      this.swap(index, smallerChildIndex);
+    }
+    index = smallerChildIndex;
+  }
+}
+```
+
+</details>
+
+<details><summary>Percolation Max Heap:</summary>
+
+```js
+percolateUp() {
+  let index = this.heap.length - 1;
+  while (this.hasParent(index) && this.parent(index) < this.heap[index]) {
+    this.swap(this.getParentIndex(index), index);
+    index = this.getParentIndex(index);
+  }
+}
+
+percolateDown() {
+  let index = 0;
+  while (this.hasLeftChild(index)) {
+    let largerChildIndex = this.getLeftChildIndex(index);
+    if (
+      this.hasRightChild(index) &&
+      this.rightChild(index) > this.leftChild(index)
+    ) {
+      largerChildIndex = this.getRightChildIndex(index);
+    }
+    if (this.heap[index] > this.heap[largerChildIndex]) {
+      break;
+    } else {
+      this.swap(index, largerChildIndex);
+    }
+    index = largerChildIndex;
+  }
+}
+```
+
+</details>
