@@ -34,6 +34,7 @@
    - [Binary Heaps](#-binary-heaps)
    - [Trie (Prefix Tree)](#-trie-prefix-tree)
    - [Graphs](#-graphs)
+   - [Matrix (2D Arrays)](#-matrix-2d-arrays)
 
 <br>
 
@@ -158,7 +159,7 @@ Overview:
 # 🟪 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a> • <a href="#-trie-prefix-tree">Trie (Prefix Tree)</a> • <a href="#-graphs">Graphs</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a> • <a href="#-trie-prefix-tree">Trie (Prefix Tree)</a> • <a href="#-graphs">Graphs</a> • <a href="#-matrix-2d-arrays">Matrix (2D Arrays)</a>
 </p>
 
 > **Note**:
@@ -1535,3 +1536,51 @@ class Graph {
   }
 }
 ```
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Matrix (2D Arrays)
+
+A 2D array, also known as a matrix, is a data structure that represents a collection of elements arranged in a two-dimensional grid or table-like format. It consists of rows and columns, where each cell or element within the matrix can be accessed using its row and column indices.
+
+> 2D arrays are useful for representing grids, tables, images, game boards, and other structured data that can be visualized as a two-dimensional arrangement.
+
+<br>
+
+#### 🔻 Structure
+
+The structure of a 2D array allows for efficient access, modification, and traversal of elements within the matrix.
+
+<p align="center">
+  <img src="./matrix.png" height="auto" width="400">
+</p>
+
+**Traversals:** `row`,`col`
+
+- Up: `-1`, `0`
+- Down: `+1`, `0`
+- Left: `0`, `-1`
+- Right: `0`, `+1`
+
+> For example, let's say we are at Row 2, Col 3, and we want to go two up. We can achieve this by using the Up formula (-1, 0) twice. This means we subtract 1 from the current row value two times, which gives us Row 0, Col 3 as the resulting location.
+
+```js
+[                       ->   [
+  [0, 0, 0, 0, 0, 0],   ->     [0, 0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0],   ->     [0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0],   ->     [0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0],   ->     [0, 0, 0, 0, 0, 0],
+];                      ->   ]
+```
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
