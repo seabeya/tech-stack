@@ -33,6 +33,7 @@
      - [Binary Search Tree](#-binary-search-tree)
    - [Binary Heaps](#-binary-heaps)
    - [Trie (Prefix Tree)](#-trie-prefix-tree)
+   - [Graphs](#-graphs)
 
 <br>
 
@@ -157,7 +158,7 @@ Overview:
 # 🟪 Data Structures
 
 <p align="center">
-  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a> • <a href="#-trie-prefix-tree">Trie (Prefix Tree)</a>
+  <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a> • <a href="#-trie-prefix-tree">Trie (Prefix Tree)</a> • <a href="#-graphs">Graphs</a>
 </p>
 
 <br>
@@ -1367,3 +1368,167 @@ traverse(node, prefix, suggestions) {
 ```
 
 </details>
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Graphs
+
+A graph is a data structure consisting of nodes (vertices) and edges that connect pairs of nodes. It is used to represent relationships between entities or elements. The nodes represent objects or concepts, while the edges represent the connections or relationships between them.
+
+> Graphs are excellent data structures for modeling real-world relationships. For example, social networks like Facebook and Twitter use graphs to model connections between users. Similarly, map applications use graphs to recommend the most efficient path to your destination by considering factors such as traffic and other associated costs.
+
+<br>
+
+#### 🔻 Structure
+
+<p align="center">
+  <img src="./graph.png" height="auto" width="350">
+</p>
+
+**Directions:**
+
+- Directed Graph:
+  > A directed graph is a type of graph in which edges have specific directions, indicating one-way relationships between nodes.
+  <p align="center">
+    <img src="./tg1.png" height="auto" width="150">
+  </p>
+- Undirected Graph:
+  > An undirected graph is a type of graph in which edges do not have specific directions, indicating a bidirectional relationship between nodes.
+  <p align="center">
+    <img src="./tg2.png" height="auto" width="150">
+  </p>
+
+**Connections:**
+
+- Cyclic Graph:
+  > A cyclic graph is a graph that contains at least one cycle. A cycle in a graph is a path that starts and ends at the same node, without visiting any other node more than once.
+  <p align="center">
+    <img src="./tg3.png" height="auto" width="250">
+  </p>
+- Acyclic Graph:
+  > An acyclic graph is a graph that does not contain any cycles. It is the opposite of a cyclic graph.
+  <p align="center">
+    <img src="./tg4.png" height="auto" width="250">
+  </p>
+
+**Edge weighting:**
+
+- Unweighted Graphs:
+  > An unweighted graph is a graph in which each edge does not have a numerical value or weight associated with it. It means that all edges in the graph are considered to have equal importance or distance.
+  <p align="center">
+    <img src="./tg5.png" height="auto" width="450">
+  </p>
+- Weighted Graphs:
+
+  > A weighted graph is a graph in which each edge is assigned a numerical value or weight. The weight represents a certain attribute or cost associated with the edge, such as distance, time, cost, capacity, or any other relevant metric.
+
+  <p align="center">
+    <img src="./tg6.png" height="auto" width="450">
+  </p>
+
+  > Let's say the numbers represent the cost of using the edges. If we want to go from 1 to 7, we need to choose the cheapest path, which is 1, 3, 4, 5, 6, 7. This path costs 2 + 5 + 7 + 4 + 1, and it is the cheapest way.
+
+<br>
+
+#### 🔻 Graph Representations
+
+> Example graphs:
+
+<p align="center">
+  <img src="./eg1.png" height="auto" width="200">
+</p>
+<p align="center">
+  <img src="./eg2.png" height="auto" width="300">
+</p>
+
+- Edge List:
+
+  > An edge list is a simple representation of a graph that lists all the edges in the graph. Each edge is typically represented as a pair of nodes that it connects.
+
+  ```js
+  const graph = [
+    [0, 2],
+    [2, 3],
+    [2, 1],
+    [1, 3],
+  ];
+  ```
+
+- Adjacency Matrix: `Space: O(v^2)`
+
+  > An adjacency matrix is a square matrix that represents a graph. The rows and columns of the matrix correspond to the nodes of the graph, and the entries indicate whether there is an edge between the vertices.
+
+  > Typically, a value of 1 or true represents the presence of an edge, and a value of 0 or false indicates the absence of an edge.
+
+  ```js
+  const graph = {
+    //  0  1  2  3
+    0: [0, 0, 1, 0], // 0 -> 2
+    1: [0, 0, 1, 1], // 1 -> 2,3
+    2: [1, 1, 0, 1], // 2 -> 0,1,3
+    3: [0, 1, 1, 0], // 3 -> 1,2
+  };
+
+  // graph[v1][v2] === 1; means an edge exists from v1 to v2.
+  // graph[v2][v1] === 1; means an edge exists from v2 to v1.
+  ```
+
+- Adjacency List:
+
+  > An adjacency list represents a graph as a collection of lists. Each node in the graph has an associated list that contains all the nodes adjacent to it.
+
+  > The keys are nodes, and the values are lists of adjacent nodes.
+
+  ```js
+  const graph = {
+    0: [2],
+    1: [2, 3],
+    2: [0, 1, 3],
+    3: [1, 2],
+  };
+
+  const graphChars = {
+    A: ["D"],
+    B: ["D"],
+    C: ["D"],
+    D: ["A", "B", "C", "E"],
+    E: ["D", "F"],
+    F: ["E"],
+  };
+  ```
+
+<br>
+
+#### 🔻 Implementation
+
+Building adjacent list:
+
+```js
+class Graph {
+  constructor() {
+    this.numberOfNode = 0;
+    this.list = {};
+  }
+
+  addVertex(node) {
+    this.list[node] = [];
+    this.numberOfNode++;
+  }
+
+  addEdge(node1, node2) {
+    // undirected (both sides)
+    this.list[node1].push(node2);
+    this.list[node2].push(node1);
+  }
+
+  // Helper - Show
+  show() {
+    console.log(this);
+  }
+}
+```
