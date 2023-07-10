@@ -30,7 +30,8 @@
 - **Math** `planned ⚫`
 - [**Linux** (Debian based)](./linux/README.md) `🟢`
 - [**Git**](./git/README.md) `🟢`
-- **JavaScript** `planned ⚫`
+- **JavaScript** `in-progress 🟡`
+  > See progress: [topic-js](https://github.com/shaanaliyev/tech-stack/blob/topic-js/js/README.md)
 - **React / Next.js** `planned ⚫`
 - [**Data Structures & Algorithms**](./dsa/README.md) `in-progress 🟡`
   > See progress: [topic-dsa](https://github.com/shaanaliyev/tech-stack/tree/topic-dsa/dsa/README.md)
