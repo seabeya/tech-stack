@@ -17,13 +17,15 @@
 #### Knowledge requirements
 
 - No previous knowledge is required!
-  > But it would be good to know that it will be painful if you are new to the JS world.
 
 ### Contents
 
 1. [How JS Works?](#-how-js-works)
    - [Code Execution](#-code-execution)
    - [Async JavaScript](#-async-javascript)
+
+> **Note**:
+> This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
 
 <br>
 
