@@ -56,9 +56,11 @@ A JavaScript engine typically has two important components when it comes to code
 
   > As functions are nested within each other, their execution contexts are stacked on top of each other in the call stack.
 
-When you run a JavaScript program, the JavaScript Engine creates an environment called the **Global Execution Context**, which manages the entire code execution.
+When you run a JavaScript program, the JavaScript Engine creates an environment called the **Execution Context**, which manages the entire code execution.
 
-Global Execution Context (GEC) has two phases:
+> The first (bottom) layer Execution Context (EC) in the call stack is called the Global Execution Context (GEC).
+
+Execution Context (EC) has two phases:
 
 1. Creation Phase.
 
@@ -93,7 +95,7 @@ let myVar2 = square(4);
   1.  `n: 10`
   2.  We jump over this function declaration part since there is nothing to execute.
   3.  We invoke/execute the function `square(10)`.
-      > When we invoke a function, a brand-new Execution Context is created under the GEC, and the following phases are applied again for it:
+      > When we invoke a function, a brand-new Execution Context (EC) is created under the GEC, and the following phases are applied again for it:
       - Creation Phase:
         1. `num: undefined` (the parameter)
         2. `result: undefined`
@@ -104,17 +106,17 @@ let myVar2 = square(4);
         3. The Return statement indicates that the function has completed and returns control to the point where the function was invoked. When the function returns, it assigns the returned value: `myVar1: 100`.
   4.  The same invocation/execution process is repeated for `square(4)`, which returns 16 to `myVar2`.
 
-The Call Stack view of the process:
+> This is how execution contexts are viewed in action within the call stack:
 
-1. The program starts.
-2. A Global Execution Context (GEC) is created.
-3. The code starts running step by step, from top to bottom.
-4. A function call `square(10)` is encountered, and a new Execution Context (E1) is created for executing the function.
-5. Execution of `square(10)` is completed, and E1 is deleted.
-6. Another function call `square(4)` is encountered, and a new Execution Context (E2) is created for executing the function.
-7. Execution of `square(4)` is completed, and E2 is deleted.
-8. The GEC is deleted from the Call Stack since there is nothing else to execute.
-9. The program stops.
+> 1. The program starts.
+> 2. A Global Execution Context (GEC) is created.
+> 3. The code starts running step by step, from top to bottom.
+> 4. A function call `square(10)` is encountered, and a new Execution Context (E1) is created for executing the function.
+> 5. Execution of `square(10)` is completed, and E1 is deleted.
+> 6. Another function call `square(4)` is encountered, and a new Execution Context (E2) is created for executing the function.
+> 7. Execution of `square(4)` is completed, and E2 is deleted.
+> 8. The GEC is deleted from the Call Stack since there is nothing else to execute.
+> 9. The program stops.
 
 > When a function is called, its execution context is pushed onto the call stack. The call stack operates on a last-in, first-out (LIFO) principle, which implies that JavaScript executes code sequentially, following a specific order of execution. While the function is being executed, no other code can be executed until the function completes and its execution context is popped off the call stack. This behavior indicates that **JavaScript processes code in a single-threaded manner**, as it can only handle one task at a time.
 
@@ -188,7 +190,27 @@ The execution sequence/phases (one circle):
     <img src="./eventLoop.png" height="auto" width="400">
   </p>
 
-Example:
+Example #1:
+
+```js
+console.log("Start");
+
+setTimeout(function cb() {
+  console.log("Hello");
+}, 3000);
+
+console.log("End");
+```
+
+<p align="center">
+  <img src="./syncProcess.png" height="auto" width="900">
+</p>
+
+> This shows how the overall execution phase process goes for the given code.
+
+<br>
+
+Example #2:
 
 ```js
 console.log("11111");
@@ -212,17 +234,17 @@ console.log("44444");
 
 > 1. As you can see, '11111' and '44444' goes first because they are sync 1st class code they don't have any relation with event loop. The GEC takes care about 1st class code, the Event Loop has no chance before it.
 
-> After GEC ends its job (executing sync 1st class functions), the Event Loop comes into the picture.
+> After GEC ends its job (executing sync 1st class code), the Event Loop comes into the picture.
 
 > 2. The Event Loop sees both of the callbacks ready and waiting to be executed in their corresponding task queues, but it chooses '33333' because it gets triggered by a Promise. Promises are microtasks and they have priority over other macro tasks, regardless of the setTimeout being set to 0 milliseconds.
 
 > 3. Finally, '22222' gets printed, as we know it belongs to the least prioritized task among the tasks inside the given code.
 
-If you want to see explanations with examples, I recommend you watch: [YouTube playlist](https://www.youtube.com/watch?v=L18RHG2DwwA&list=PLC3y8-rFHvwj1_l8acs_lBi3a0HNb3bAN&pp=iAQB).
+If you want to see explanations with more examples, I recommend you watch: [YouTube playlist](https://www.youtube.com/watch?v=L18RHG2DwwA&list=PLC3y8-rFHvwj1_l8acs_lBi3a0HNb3bAN&pp=iAQB).
 
 <br>
 
-User-triggered events:
+**User-triggered events:**
 
 > You may ask, 'Okay, I understand the timers, I/O, etc., but what about EventListeners? What is the exact priority of callback functions triggered using addEventListener (user click) compared to microtask and macrotask queue callbacks in the Event Loop?'
 
