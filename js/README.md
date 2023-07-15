@@ -23,6 +23,8 @@
 1. [How JS Works?](#-how-js-works)
    - [Code Execution](#-code-execution)
    - [Async JavaScript](#-async-javascript)
+2. [Core JS concepts](#-core-js-concepts)
+   - [Hoisting](#-hoisting)
 
 > **Note**:
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
@@ -267,3 +269,81 @@ Please take a look at the question and its accepted answer: [Stackoverflow](http
 > 3. Once the asynchronous operation completes (triggered by an event such as a timer expiration or an HTTP response being received), the environment API places the corresponding callback function into an appropriate queue.
 > 4. The Event Loop continuously checks the state of the Call Stack. If the Call Stack is empty, meaning nothing is currently being executed, the Event Loop takes the first callback function from the appropriate queue and pushes it onto the Call Stack.
 > 5. Once the callback function is pushed onto the Call Stack, it is executed synchronously like any other 1st class code.
+
+ <p align="right">
+    <a href="#javascript">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Core JS concepts
+
+### 🔷 Hoisting
+
+Hoisting is a behavior that allows you to use a variable or function before it is declared.
+
+```js
+getName(); // JavaScript
+
+console.log(a); // undefined
+
+var a = 11;
+console.log(a); // 11
+
+function getName() {
+  console.log("JavaScript");
+}
+
+console.log(x); // ReferenceError: x is not defined
+```
+
+> **Note**:
+> `undefined` and `not defined` are different things.
+>
+> - **Undefined**: It means that the variable exists in memory but does not have a specific value assigned to it yet. It can be thought of as a placeholder or a default state for variables.
+> - **Not Defined**: The variable or function doesn't exist in memory (the program is not aware of its existence).
+
+**How does hoisting occur?**
+
+> This behavior is due to the Memory Creation Phase of the Execution Context (EC). As we know, during this phase, JavaScript reads the entire program line by line and allocates memory to all variables and functions.
+
+> After completing this phase, the Execution Context (EC) enters its second phase, the Code Execution Phase. During this phase, the EC executes the code line by line, accessing the allocated values and utilizing them.
+
+> That is why we get "undefined" for `console.log(a);`. It directly reads the allocated memory and takes the value (which is "undefined" before its initialization). The same goes for the `getName();` function. The execution context sees the entire code block in memory and just runs it (functions are allocated in memory as they are).
+
+**So, what is wrong with it?**
+
+> It is a natural behavior in JavaScript that cannot be avoided, and there is nothing wrong with it. However, this behavior can sometimes lead to unexpected results if it is not understood properly.
+
+**Best practices to follow?**
+
+- Use `let` and `const` keywords instead of `var`, as they have block-level scope and are not hoisted to the top of their scope.
+- Use function expressions (using `const` or `let`) instead of function declarations.
+
+```js
+console.log(a); // ReferenceError: Cannot access 'a' before initialization
+let a = 15;
+
+console.log(b); // ReferenceError: Cannot access 'b' before initialization
+const b = 20;
+
+getName(); // ReferenceError: Cannot access 'getName' before initialization
+
+const getName = () => {
+  console.log("JavaScript");
+};
+```
+
+**What is special about `let` and `const`?**
+
+During the Memory Allocation Phase:
+
+- `let`, `const`: Stored in the TDZ (temporal dead zone) instead of global memory.
+  > This means they can only be accessed after initialization, and attempting to access them before initialization will throw a ReferenceError. Furthermore, it is not allowed to redeclare a variable with the same name in the same scope.
+- `var`: Saved in global memory, allowing us to access it at any point.
+  > However, it is "undefined" before initialization.
+
+What is TDZ (temporal dead zone)?
+
+> The TDZ is the period of time between the declaration of a variable with `let` or `const` and the assignment of a value to that variable.
