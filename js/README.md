@@ -26,6 +26,7 @@
 2. [Core JS concepts](#-core-js-concepts)
    - [Hoisting](#-hoisting)
    - [Block Scope](#-block-scope)
+   - [Function Environment](#-function-environment)
 
 > **Note**:
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
@@ -421,4 +422,96 @@ if (true) {
 }
 
 console.log(a); // 5
+```
+
+<br>
+
+### 🔷 Function Environment
+
+Each time a function is called, a new local environment is created, which includes the function's arguments, local variables.
+
+> Variables declared within a function are considered local variables and are only accessible within the function's local environment. They cannot be accessed from outside the function or from other functions unless they are explicitly returned.
+
+> The local environment has access to the memory of its parent environment. If it does not find a value in the local memory, it searches one scope higher (parent) until it either finds the value or encounters a 'not defined' error.
+
+<br>
+
+**Example #1:**
+
+```js
+let a = 10;
+let b = 20;
+
+console.log(a); // 10
+console.log(b); // 20
+
+func1();
+func2();
+func3();
+func4();
+
+function func1() {
+  let a = 11;
+  console.log(a); // 11
+
+  var c = 100; // a local variable (even though it uses the 'var' keyword)
+}
+
+function func2() {
+  let a = 12;
+  console.log(a); // 12
+  console.log(c); // ReferenceError: c is not defined
+}
+
+function func3() {
+  console.log(a); // 10 (It's accessing the outer variable because it couldn't find an inner one for "a".)
+}
+
+function func4() {
+  b = 21; // It's accessing the outer variable and updating it.
+  console.log(b); // 21
+}
+
+console.log(a); // 10
+console.log(b); // 21
+console.log(c); // ReferenceError: c is not defined
+```
+
+<br>
+
+**Example #2:**
+
+To find x:
+
+> 1. Searching in the local memory of `b()`. Couldn't find.
+> 2. Searching one level up in the local memory of its parent, a(). Couldn't find it.
+> 3. Searching one level up in the GEC's memory. Found and assigned.
+
+```js
+function a() {
+  b();
+  function b() {
+    console.log(x); // 2
+  }
+}
+let x = 2;
+a();
+```
+
+Some extra usage examples that change the output.
+
+> undefined
+
+```js
+...
+a();
+var x = 2;
+```
+
+> Cannot access 'x' before initialization
+
+```js
+...
+a();
+let x = 2;
 ```
