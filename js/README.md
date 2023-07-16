@@ -27,6 +27,7 @@
    - [Hoisting](#-hoisting)
    - [Block Scope](#-block-scope)
    - [Function Environment](#-function-environment)
+   - [Closures](#-closures)
 
 > **Note**:
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
@@ -514,4 +515,142 @@ var x = 2;
 ...
 a();
 let x = 2;
+```
+
+<br>
+
+### 🔷 Closures
+
+Closures are functions that can access values outside of their own curly braces.
+
+> They are functions bundled together with references to their surrounding state (lexical environment).
+
+Some common use cases:
+
+- Data Privacy:
+  > Closures allow for the creation of private variables and functions. By encapsulating variables and methods within a closure, you can prevent direct access or modification from outside the function.
+- Function Factories:
+  > Closures enable the creation of function factories, where you can generate and return specialized functions based on specific parameters or configurations.
+- Memoization:
+  > Closures can be employed for memoization, which is a technique that caches the results of expensive function calls to optimize performance.
+
+<br>
+
+**Example #1:**
+
+```js
+function x() {
+  let a = 10;
+  let b = 9;
+
+  function y() {
+    let b = 99; // shadowing b
+    console.log(a); //
+    console.log(b); //
+  }
+
+  a = 100; // updating a
+
+  return y; // returns y() with its lexical environments
+}
+
+let z = x();
+
+console.log(z); // y() { let b = 99; console.log(a); console.log(b); }
+
+z(); // 100  // 99
+```
+
+> The closure `z` remembers its environment `a` and `b` when returning the result.
+
+<br>
+
+**Example #2:**
+
+```js
+function x() {
+  function y() {
+    let b = 99; // shadowing b
+    console.log(a); //
+    console.log(b); //
+  }
+
+  let a = 10;
+  let b = 9;
+
+  return y; // returns y() with its lexical environments
+}
+
+let z = x();
+
+console.log(z); // y() { let b = 99; console.log(a); console.log(b); }
+
+z(); // 10  // 99
+```
+
+<br>
+
+**Example #3:**
+
+```js
+function addNumber(x) {
+  return function (y) {
+    return x + y;
+  };
+}
+
+const addFive = addNumber(10);
+console.log(addFive); // (y) { return x + y; }
+console.log(addFive(2)); // 12
+console.log(addFive(5)); // 15
+```
+
+<br>
+
+**Example #4:** (Data privacy)
+
+> `count` is not directly accessible outside of the program, but we can maintain its state.
+
+```js
+function increment() {
+  let count = 0;
+  return () => {
+    count++;
+    return count;
+  };
+}
+
+const up = increment();
+const up2 = increment();
+
+console.log(up()); // 1
+console.log(up()); // 2
+console.log(up()); // 3
+console.log(up()); // 4
+
+console.log(up2()); // 1
+console.log(up2()); // 2
+console.log(up2()); // 3
+
+console.log(count); // ReferenceError: count is not defined
+```
+
+> To prevent global variable leakage, it is efficient to use an Immediately Invoked Function Expression (IIFE): `(()=> { your code })();`
+
+<br>
+
+**Example #5:** (React `useState` hook)
+
+```js
+const useState = (curr) => {
+  return [() => curr, (newState) => (curr = newState)];
+};
+
+const [curr, update] = useState("Hello!");
+
+console.log(curr()); // Hello!
+console.log(curr()); // Hello!
+console.log(update("Hi!")); // Hi!
+console.log(curr()); // Hi!
+console.log(curr()); // Hi!
 ```
