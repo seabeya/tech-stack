@@ -28,6 +28,7 @@
    - [Block Scope](#-block-scope)
    - [Function Environment](#-function-environment)
    - [Closures](#-closures)
+   - [Promises](#-promises)
 
 > **Note**:
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
@@ -653,4 +654,198 @@ console.log(curr()); // Hello!
 console.log(update("Hi!")); // Hi!
 console.log(curr()); // Hi!
 console.log(curr()); // Hi!
+```
+
+<br>
+
+### 🔷 Promises
+
+A Promise object serves as a placeholder, representing a period of time until it receives a value from an asynchronous operation. It acts as a container for a future value.
+
+What was the problem?
+
+> The problem with callback functions arises when we pass them to third-party APIs. By doing so, we put blind trust in the owner of that third-party function, granting control of our program to a piece of code that we may not be fully aware of. This can lead to undesirable consequences, which is bad.
+
+> Let's consider a scenario with a third-party async API called `createOrder`:
+
+```js
+const cart = ["shoes", "shirts", "jackets"];
+createOrder(cart, (orderId) => {
+  proceedToPay(orderId);
+});
+```
+
+> In this case, we may not know what is happening behind the scenes in the `createOrder()` function, and the execution of our callback function is not guaranteed.
+
+Solution?
+
+> The solution is to attach a callback function to a Promise (assuming `createOrder` returns a promise):
+
+```js
+const cart = ["shoes", "shirts", "jackets"];
+const promise = createOrder(cart);
+```
+
+> Executing this line of code returns a Promise object. Initially, the object only contains state information: `pending`, `fulfilled`, or `rejected`.
+
+```js
+console.log(promise); // Promise {<pending>}
+```
+
+> The API takes some time to respond with data. After a while, it provides us with the order details and populates the Promise object with the data.
+
+> At that point, it triggers the response handler `.then()`, which is a method available on the Promise object. The `.then()` method calls its callback function only when the Promise has completed its task (fulfilled state).
+
+```js
+promise.then((orderId) => {
+  proceedToPay(orderId);
+});
+```
+
+> By attaching a callback function to a Promise object, we gain control over our program. We no longer blindly pass a callback function as we did before. The `createOrder()` function has a single responsibility: to prepare the order and populate the object with data, nothing more.
+
+<br>
+
+#### 🔻 Promise Chain
+
+It allows you to handle multiple asynchronous tasks that depend on each other's results.
+
+> Anything that we return from one chain will be passed on to the next chain.
+
+```js
+const promise = fetch("https://api.github.com/users/shaanaliyev");
+
+console.log("#1: ", promise); // #1: Promise {<pending>}
+
+promise
+  .then((response) => {
+    return response.json();
+  })
+  .then((user) => {
+    console.log(user); // {login: 'shaanaliyev', ... }
+
+    return "torvalds";
+  })
+  .then((data) => {
+    console.log(data); // torvalds
+    return fetch("https://api.github.com/users/" + data);
+  })
+  .then((response) => {
+    return response.json();
+  })
+  .then((user) => {
+    console.log(user); // {login: 'torvalds', ... }
+  });
+
+console.log("#2: ", promise); // #2: Promise {<pending>}
+```
+
+> Output:
+>
+> ```
+> Status check #1: Promise {<pending>}
+> Status check #2: Promise {<pending>}
+> {login: 'shaanaliyev', …}
+> torvalds
+> {login: 'torvalds', …}
+> ```
+
+To gracefully handle errors (rejected state), use `.catch()` after the `.then()` chain. You can use multiple .catch() statements if needed.
+
+> If we use .catch() between two blocks, it will only catch errors that occur before it. If an error occurs before the .catch() statement, it will halt the execution of the subsequent blocks until the .catch() statement itself, but not after it. If you want to catch all errors, place the .catch() statement at the end of all the .then() blocks.
+
+> It's important to note that only chains that have a return statement will work with `.catch()`.
+
+<br>
+
+#### 🔻 Creating Promise
+
+Structure:
+
+```js
+const myPromise = new Promise((resolve, reject) => {
+  // Perform asynchronous operation
+  // For example, making an API call or reading a file
+
+  // If the operation is successful, call the resolve function with the result
+  resolve("Operation completed successfully");
+
+  // If there is an error, call the reject function with the error
+  // reject("An error occurred");
+});
+```
+
+Usage:
+
+```js
+myPromise
+  .then((result) => {
+    console.log("Promise resolved:", result);
+  })
+  .catch((error) => {
+    console.log("Promise rejected:", error);
+  });
+```
+
+<br>
+
+**Example #1:**
+
+```js
+const createOrder = (cart = []) => {
+  const promise = new Promise((resolve, reject) => {
+    // reject case (validation etc):
+    if (!cart.length) {
+      const err = new Error("cart is empty");
+      reject(err);
+    }
+
+    // Logic for creating orders, etc.
+    const orderId = "1234567890"; // (mocking the process)
+
+    // resolve case:
+    if (orderId) {
+      resolve(orderId);
+    }
+  });
+  return promise;
+};
+```
+
+```js
+let cart = ["shoes", "shirts", "jeans"];
+const promise = createOrder(cart);
+
+promise
+  .then((orderId) => {
+    console.log(orderId); // 1234567890
+    // ...
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+```
+
+<br>
+
+**Example #2:**
+
+```js
+const evenOrOdd = (number) => {
+  return new Promise((resolve, reject) => {
+    if (isNaN(number)) {
+      reject(`Invalid input: ${number} is not a number.`);
+    } else if (number % 2 === 0) {
+      resolve("even");
+    } else {
+      resolve("odd");
+    }
+  });
+};
+```
+
+```js
+evenOrOdd(100)
+  .then((result) => console.log(`The number is ${result}.`)) // The number is even.
+  .catch((error) => console.error(error));
 ```
