@@ -16,7 +16,7 @@
 
 #### Knowledge requirements
 
-- No previous knowledge is required!
+- Basic knowledge of JavaScript syntax is required.
 
 ### Contents
 
