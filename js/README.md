@@ -25,6 +25,7 @@
    - [Async JavaScript](#-async-javascript)
 2. [Core JS concepts](#-core-js-concepts)
    - [Hoisting](#-hoisting)
+   - [Block Scope](#-block-scope)
 
 > **Note**:
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
@@ -347,3 +348,77 @@ During the Memory Allocation Phase:
 What is TDZ (temporal dead zone)?
 
 > The TDZ is the period of time between the declaration of a variable with `let` or `const` and the assignment of a value to that variable.
+
+<br>
+
+### 🔷 Block Scope
+
+In JavaScript, block scope refers to the visibility and accessibility of variables within a specific block of code, typically defined by curly braces `{}`.
+
+> Variables declared using the `let` and `const` keywords are limited to the block in which they are defined.
+
+A block can be a loop (`for`, `while`, `do-while`), an `if` statement, or simply a block of code surrounded by curly braces.
+
+> These control flow constructs expect a statement after them.
+
+```js
+if (true) console.log("Hello");
+```
+
+> When multiple statements need to be used together, they can be grouped by using block scopes.
+
+```js
+if (true) {
+  console.log("Hello");
+  const a = 10;
+  console.log(a);
+}
+```
+
+<br>
+
+#### 🔻 Visibility and lifetime
+
+- `var`: Hoisted in the global scope and available outside of the scope.
+- `let/const`: Hoisted within its block scope and only available there (or in its child/inner scopes).
+
+```js
+if (true) {
+  var a = 1;
+  let b = 10;
+  const c = 100;
+
+  console.log(a); // 1
+  console.log(b); // 10
+  console.log(c); // 100
+
+  if (true) {
+    console.log(c); // 100
+    var d = 1000;
+  }
+}
+
+console.log(a); // 1
+console.log(b); // ReferenceError: b is not defined
+console.log(c); // ReferenceError: c is not defined
+console.log(d); // 1000
+```
+
+<br>
+
+#### 🔻 Shadowing
+
+Shadowing refers to the situation where a variable declared in an inner scope has the same name as a variable in an outer scope. This can lead to the inner variable "shadowing" or hiding the outer variable, making it inaccessible within the inner scope.
+
+> When shadowing occurs, any references to the variable within the inner scope will refer to the inner variable, not the outer one.
+
+```js
+let a = 5; // Outer variable
+
+if (true) {
+  let a = 10; // Inner variable, shadows the outer 'x'
+  console.log(a); // 10
+}
+
+console.log(a); // 5
+```
