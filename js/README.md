@@ -29,6 +29,8 @@
    - [Function Environment](#-function-environment)
    - [Closures](#-closures)
    - [Promises](#-promises)
+3. [JS Basics](#-js-basics)
+   - [Expressions and Operators](#-expressions-and-operators)
 
 > **Note**:
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
@@ -274,7 +276,7 @@ Please take a look at the question and its accepted answer: [Stackoverflow](http
 > 4. The Event Loop continuously checks the state of the Call Stack. If the Call Stack is empty, meaning nothing is currently being executed, the Event Loop takes the first callback function from the appropriate queue and pushes it onto the Call Stack.
 > 5. Once the callback function is pushed onto the Call Stack, it is executed synchronously like any other 1st class code.
 
- <p align="right">
+<p align="right">
     <a href="#javascript">back to top ⬆</a>
 </p>
 
@@ -849,3 +851,331 @@ evenOrOdd(100)
   .then((result) => console.log(`The number is ${result}.`)) // The number is even.
   .catch((error) => console.error(error));
 ```
+
+<p align="right">
+    <a href="#javascript">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 JS Basics
+
+### 🔷 Expressions and Operators
+
+> **Note**:
+> Not going to cover all of them. If you want to see a complete list of expressions and operators, please take a look: [MDN Web Docs (expressions and operators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators).
+
+<br>
+
+- `?.`: Optional chaining.
+
+  > The optional chaining operator (?.) allows accessing properties or calling functions of an object, and if the object is `undefined` or `null`, the expression returns `undefined` instead of throwing an error.
+  >
+  > ```js
+  > obj.val?.prop;
+  > obj.val?.[expr];
+  > obj.func?.(args);
+  > ```
+
+- `condition ? ifTrue : ifFalse`: Conditional (ternary) operator.
+
+  > Also known as "short if".
+
+  ```js
+  function example() {
+    return condition1
+      ? value1
+      : condition2
+      ? value2
+      : condition3
+      ? value3
+      : value4;
+  }
+  ```
+
+  > equivalent to
+  >
+  > ```js
+  > function example() {
+  >   if (condition1) {
+  >     return value1;
+  >   } else if (condition2) {
+  >     return value2;
+  >   } else if (condition3) {
+  >     return value3;
+  >   } else {
+  >     return value4;
+  >   }
+  > }
+  > ```
+
+- Destructuring.
+
+  > Provides a concise and convenient way to extract values from arrays and objects.
+
+  > Array examples:
+  >
+  > ```js
+  > const numbers = [1, 2, 3, 4, 5];
+  > const [a, b, c] = numbers;
+  > console.log(a, b, c); // 1 2 3
+  > ```
+  >
+  > ```js
+  > let a = 5;
+  > let b = 6;
+  > [a, b] = [b, a];
+  > console.log(a); // 6
+  > console.log(b); // 5
+  > ```
+
+  > Object examples:
+  >
+  > ```js
+  > const person = {
+  >   name: "John Doe",
+  >   age: 30,
+  >   address: {
+  >     city: "New York",
+  >     country: "USA",
+  >   },
+  > };
+  >
+  > const {
+  >   name,
+  >   age,
+  >   address: { city },
+  > } = person;
+  >
+  > console.log(name); // Output: 'John Doe'
+  > console.log(age); // Output: 30
+  > console.log(city); // Output: 'New York'
+  > ```
+
+  > Function examples:
+  >
+  > ```js
+  > function printPerson({ name, age }) {
+  >   console.log(`Name: ${name}, Age: ${age}`);
+  > }
+  >
+  > printPerson(person); // Output: 'Name: John Doe, Age: 30'
+  > ```
+
+- `...`: Spread operator.
+
+  > The spread operator allows an iterable to be expanded or spread into individual elements.
+
+  > Array examples:
+  >
+  > ```js
+  > const array1 = [1, 2, 3];
+  > const array2 = [4, 5, 6];
+  > const combinedArray = [...array1, ...array2]; // [1, 2, 3, 4, 5, 6]
+  > ```
+  >
+  > ```js
+  > const numbers = [10, 20, 30, 40, 50, 60];
+  > const [first, second, ...rest] = numbers;
+  > console.log(first, second, rest); // 10 20 [30, 40, 50, 60]
+  > ```
+  >
+  > ```js
+  > const vehicles = ["USA", "30", "John Doe"];
+  > const [, , name] = vehicles;
+  > console.log(name); // John Doe
+  > ```
+
+  > Object examples:
+  >
+  > ```js
+  > const obj1 = { x: 1, y: 2 };
+  > const obj2 = { z: 3 };
+  > const combinedObject = { ...obj1, ...obj2 }; // { x: 1, y: 2, z: 3 }
+  > ```
+  >
+  > ```js
+  > const myPc = {
+  >   cpu: "i6",
+  >   gpu: "1080Ti",
+  >   ram: "32GB",
+  >   monitor: "60hz",
+  > };
+  >
+  > const updateMyPc = {
+  >   model: "asus",
+  >   cpu: "i9",
+  >   gpu: "3090Ti",
+  > };
+  >
+  > const myUpdatedPc = { ...myPc, ...updateMyPc };
+  > // {cpu: 'i9', gpu: '3090Ti', ram: '32GB', monitor: '60hz', model: 'asus'}
+  > ```
+
+  > Function examples:
+  >
+  > ```js
+  > function myFunction(x, y, z) {
+  >   console.log(x, y, z);
+  > }
+  > const values = [1, 2, 3];
+  > myFunction(...values); // 1 2 3
+  > ```
+
+- Assignment operators.
+
+  > - `x += y`: x = x + y
+  > - `x -= y`: x = x - y
+  > - `x *= y`: x = x \* y
+  > - `x /= y`: x = x / y
+  > - `x %= y`: x = x % y
+  > - `x **= y`: x = x \*\* y
+  > - `x &&= y`: x = x && y
+  > - `x ||= y`: x = x || y
+  > - `x ??= y`: x = x ?? y
+
+<br>
+
+#### 🔻 Increment & decrement operators
+
+- `a++`: Postfix increment.
+
+  ```js
+  let x = 1;
+  let y = x++;
+  console.log(`x:${x}, y:${y}`); // x:2, y:1
+  ```
+
+- `a--`: Postfix decrement.
+  ```js
+  let x = 1;
+  let y = x--;
+  console.log(`x:${x}, y:${y}`); // x:0, y:1
+  ```
+- `++a`: Prefix increment.
+  ```js
+  let x = 1;
+  let y = ++x;
+  console.log(`x:${x}, y:${y}`); // x:2, y:2
+  ```
+- `--a`: Prefix decrement.
+  ```js
+  let x = 1;
+  let y = --x;
+  console.log(`x:${x}, y:${y}`); // x:0, y:0
+  ```
+
+<br>
+
+#### 🔻 Arithmetic operators
+
+- `**` : Exponentiation.
+  ```js
+  console.log(3 ** 4); // 81
+  console.log(10 ** -2); // 0.01
+  console.log(2 ** (3 ** 2)); // 512
+  console.log((2 ** 3) ** 2); // 64
+  ```
+- `%`: Remainder.
+  ```js
+  console.log(13 % 5); // 3
+  console.log(-13 % 5); // -3
+  console.log(4 % 2); // 0
+  console.log(-4 % 2); // -0
+  ```
+
+<br>
+
+#### 🔻 Logical operators
+
+|        |                                                                                                                  |
+| ------ | ---------------------------------------------------------------------------------------------------------------- |
+| Truthy | `true`, `{}`, `[]`, `23`, `"0"`, `"false"`, `new Date()`, `-23`, `12n`, `3.14`, `-3.14`, `Infinity`, `-Infinity` |
+| Falsy  | `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, (`""` or `''` or ` `` `)                                   |
+
+- `&&`: Logical AND.
+
+  ```js
+  true && true; // true
+  true && false; // false
+  false && false; // false
+  ```
+
+  ```js
+  const a1 = null && 10; // null
+  const a2 = 0 && false; // 0
+  const a3 = false && 3 === 4; // false
+  const a4 = "Cat" && "Dog"; //  "Dog"
+  const a5 = false && "Cat"; // false
+  const a6 = "Cat" && false; // false
+  const a7 = "" && false; // ""
+  const a8 = false && ""; // false
+  ```
+
+- `||`: Logical OR.
+
+  ```js
+  true || true; // true
+  true || false; // true
+  false || false; // false
+  ```
+
+  ```js
+  const a1 = null || 10; // 10
+  const a2 = 0 || false; // false
+  const a3 = false || 3 === 4; // false
+  const a4 = "Cat" || "Dog"; //  "Cat"
+  const a5 = false || "Cat"; // "Cat"
+  const a6 = "Cat" || false; // "Cat"
+  const a7 = "" || false; // false
+  const a8 = false || ""; // ""
+  ```
+
+- `!`: Logical NOT.
+
+  > The logical NOT operator takes a single operand and returns the opposite boolean value.
+
+  ```js
+  !true; // false
+  !false; // true
+  ```
+
+  ```js
+  console.log(!0); // true
+  console.log(!"Hello"); // false
+  console.log(!null); // true
+  console.log(!undefined); // true
+  ```
+
+- `!!`: Double Logical NOT.
+
+  > The Double Logical NOT operator is used to explicitly convert a value to its corresponding boolean representation. It is essentially a shorthand way of converting any value to either `true` or `false`.
+
+  ```js
+  let a = 0;
+  console.log(!!a); // false
+
+  let b = "Hello";
+  console.log(!!b); // true
+  ```
+
+  > It is useful when you explicitly want to obtain a boolean value.
+
+- `??`: Nullish coalescing
+
+  - `null` and `undefined` - Returns right-hand side.
+  - Returns left-hand side.
+
+  ```js
+  const a1 = null ?? 10; // 10
+  const a2 = 0 ?? false; // 0
+  const a3 = false ?? 3 === 4; // false
+  const a4 = "Cat" ?? "Dog"; //  "Cat"
+  const a5 = false ?? "Cat"; // false
+  const a6 = "Cat" ?? false; // "Cat"
+  const a7 = "" ?? false; // ""
+  const a8 = false ?? ""; // false
+  ```
+
+<br>
