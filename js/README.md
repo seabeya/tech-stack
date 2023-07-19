@@ -34,8 +34,10 @@
    - [Functions](#-functions)
    - ['this' keyword](#-this-keyword)
 
+<br>
+
 > **Note**:
-> This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
+> This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will be providing you with some resources to learn the parts that haven't been mentioned: [Resources](#-resources).
 
 <br>
 
@@ -1419,3 +1421,15 @@ The "this" keyword refers to the current context or the object on which a functi
 </p>
 
 <br>
+
+<br>
+
+---
+
+### ⛓ Resources
+
+1. Starting with zero JavaScript knowledge? [W3schools JavaScript](https://www.w3schools.com/js/default.asp).
+   > If you are really new to programming, I recommend you find an online video tutorial or tutor and follow along.
+2. Have some JavaScript knowledge and want to dive deeper? [MDN JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+3. Clean Code Best Practices: [Clean Code concepts adapted for JavaScript](https://github.com/ryanmcdermott/clean-code-javascript).
+4. Best Practices: [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
