@@ -31,6 +31,7 @@
    - [Promises](#-promises)
 3. [JS Basics](#-js-basics)
    - [Expressions and Operators](#-expressions-and-operators)
+   - [Functions](#-functions)
 
 > **Note**:
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will provide you with some resources to learn the parts that haven't been mentioned.
@@ -1176,6 +1177,163 @@ evenOrOdd(100)
   const a6 = "Cat" ?? false; // "Cat"
   const a7 = "" ?? false; // ""
   const a8 = false ?? ""; // false
+  ```
+
+<br>
+
+### 🔷 Functions
+
+- `Parameters`: Identifiers/labels of functions that are only accessible inside the function scope.
+  ```js
+  function add(param1, param2) {
+    return param1 + param2;
+  }
+  ```
+- `Arguments`: Actual values passed to a function when it is called.
+  ```js
+  add(2, 3);
+  ```
+
+<br>
+
+**Function Statement (Declaration):**
+
+> A function statement, also known as a function declaration, is a way to define a function with a name using the `function` keyword.
+
+```js
+function greet(name) {
+  return "Hello, " + name + "!";
+}
+console.log(greet("John")); // Hello, John!
+```
+
+> Function statements are hoisted in JavaScript, which means they are moved to the top of their scope during the code execution phase.
+
+<br>
+
+**Function Expression:**
+
+> A function expression is a way to define a function as part of an expression. It does not require a function name and is typically assigned to a variable.
+
+```js
+const greet = function (name) {
+  return "Hello, " + name + "!";
+};
+console.log(greet("John")); // Output: Hello, John!
+```
+
+> Function expressions are not hoisted, so you cannot call them before their declaration in the code.
+
+<br>
+
+**Arrow functions (`=>`):**
+
+> Arrow functions, are a concise way to write functions in JavaScript. They provide a shorter syntax compared to regular function expressions.
+
+```js
+const add = (a, b) => {
+  return a + b;
+};
+console.log(add(2, 3)); // 5
+```
+
+```js
+const add = (a, b) => a + b;
+console.log(add(2, 3)); // 5
+```
+
+<br>
+
+**Anonymous functions:**
+
+> An anonymous function is a function without a name. They are used in a place where functions are used as values.
+
+```js
+setTimeout(function () {
+  console.log("Hello!");
+}, 1000);
+```
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.filter((n) => {
+  return n % 2 === 0;
+});
+```
+
+```js
+(function () {
+  console.log("This is an immediately invoked anonymous function.");
+})();
+```
+
+> You cannot use anonymous functions if you declare them like this:
+>
+> ```js
+> function () { // SyntaxError: Function statements require a function name
+>   console.log('Hello');
+> }
+> ```
+
+<br>
+
+**First Class Functions/Citizens:**
+
+The ability to use functions as values is known as First Class Function/Citizen.
+
+- Assigned to variables:
+
+  > You can assign a function to a variable, making it act like a value.
+
+  ```js
+  const add = function (a, b) {
+    return a + b;
+  };
+  ```
+
+- Passed as arguments to other functions:
+
+  > You can pass functions as arguments to other functions, enabling higher-order functions.
+
+  ```js
+  function executeFunction(func) {
+    func();
+  }
+
+  executeFunction(function () {
+    console.log("Hello");
+  });
+  ```
+
+- Returned from other functions:
+
+  > Functions can return other functions, allowing for closures and advanced functional patterns.
+
+  ```js
+  function createMultiplier(factor) {
+    return function (x) {
+      return x * factor;
+    };
+  }
+
+  const double = createMultiplier(2);
+  console.log(double(5)); // 10
+  ```
+
+- Stored in data structures:
+
+  > You can store functions in arrays, objects, and other data structures.
+
+  ```js
+  const functionArray = [
+    function () {
+      console.log("Function 1");
+    },
+    function () {
+      console.log("Function 2");
+    },
+  ];
+  functionArray[0](); // Output: Function 1
   ```
 
 <br>
