@@ -173,6 +173,8 @@ What is `HEAD`?
   - ` ` - List the existing branches in your repository. (\*) indicates the branch you are currently on.
   - `[Name]` - Create a new branch with the given name, based upon the current HEAD.
     > This just creates the branch. It does not switch you to that branch.
+  - `[New_Name] [Commit_Hash]` - Create a new branch based on a specific point in history.
+    > This new branch will represent a distinct version that is based on a specific commit, disregarding any subsequent commits that came after it.
   - `-d [Name]` - Delete the branch with the given name. It will delete the branch only if it has been merged. Otherwise, it will not delete it.
 
     > You can use `-D` to forcefully delete the branch, even if it has not been merged.
