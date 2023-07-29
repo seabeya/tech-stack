@@ -6,7 +6,7 @@
 
 <p align="center">
   Almost everything about DSA to ace a technical interview.
-<p>
+</p>
 
 > "Data Structures & Algorithms" is a fundamental topic in computer science and programming. It allows you to organize and manipulate data efficiently, as well as develop algorithms to solve computational problems.
 
@@ -162,7 +162,7 @@ Overview:
   <a href="#-array">Array</a> • <a href="#-hash-table">Hash Table</a> • <a href="#-linked-list">Linked List</a> • <a href="#-stack">Stack</a> • <a href="#-queue">Queue</a> • <a href="#-trees">Trees</a> • <a href="#-binary-heaps">Binary Heaps</a> • <a href="#-trie-prefix-tree">Trie (Prefix Tree)</a> • <a href="#-graphs">Graphs</a> • <a href="#-matrix-2d-arrays">Matrix (2D Arrays)</a>
 </p>
 
-> **Note**:
+> [!NOTE]
 > In this section, I will cover the structure, implementation, and additional notes of some data structures. However, I will not cover advanced algorithms such as BFS and DFS, even if they are related to the data structures discussed here. I will address those in a separate section.
 
 <br>
@@ -227,7 +227,7 @@ const myArray = [1, 2, 6, 3, "test"];
 const myArray = new Array(5); // Array sized 5
 ```
 
-> **Note**:
+> [!NOTE]
 > JavaScript is not a low-level language; therefore, the JS engine performs various optimizations under the hood. The implementation of certain features may differ from other languages, depending on the specific approach taken by the engine.
 
 The implementation of JavaScript arrays also depends on the executing engine, the type of elements in the array, and how the array is used. Here is the [V8 implementation](https://chromium.googlesource.com/v8/v8.git/+/refs/heads/main/src/builtins/builtins-array.cc).

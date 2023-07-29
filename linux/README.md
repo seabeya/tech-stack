@@ -6,7 +6,7 @@
 
 <p align="center">
   A compilation of some basic OS commands and concepts.
-<p>
+</p>
 
 > Linux is an open-source operating system kernel that serves as the foundation for various operating systems, known as Linux distributions. Debian is one such distribution that is composed entirely of free and open-source software.
 
@@ -328,7 +328,8 @@ Example: `-rwxr-x--x` translates to `751`. 7 for owner, 5 for group and 1 for th
 
 - `sudo [Command]...`: Execute a command as the superuser.
 
-  > **Note**: You may need to use `sudo` keyword before using the commands listed in this documentation.
+  > [!NOTE]
+  > You may need to use `sudo` keyword before using the commands listed in this documentation.
 
   > To start a shell session as the root user (useful when you need to execute multiple commands that require elevated privileges), use `sudo -i`.
 

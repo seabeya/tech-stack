@@ -6,7 +6,7 @@
 
 <p align="center">
   Almost everything about the version control system Git.
-<p>
+</p>
 
 > Git is the world's most popular version control system that helps teams work together on projects. It tracks changes to files over time, allowing multiple people to collaborate efficiently.
 
@@ -263,7 +263,7 @@ In Git, "cherry picking" refers to the process of selecting and applying specifi
 - `git cherry-pick [Commit_Hash]`: Apply the changes from a specific commit (from a different branch) to the current branch.
   > In case of conflicts, Git will pause the cherry picking process and allow you to resolve the conflicts manually.
 
-> **Note**:
+> [!NOTE]
 > Cherry picking creates new commits with different commit IDs, so if not managed carefully, it can lead to duplicate commits when merged later.
 
 <p align="right">
@@ -275,7 +275,7 @@ In Git, "cherry picking" refers to the process of selecting and applying specifi
 
 ## 🔶 Rebasing
 
-> **Warning**:
+> [!WARNING]
 > Rebasing should be avoided in shared or public repositories because it can lead to conflicts when multiple people are working on the same branch. This can make it harder to merge changes and collaborate effectively. Furthermore, once you have pushed the rebased commits, it becomes challenging for others to integrate their work since their commit history no longer matches the repository's history. It's generally recommended to use git rebase on local branches or branches that haven't been pushed yet.
 
 <br>
@@ -512,7 +512,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   > It is useful when working with a team as it enables collaboration by allowing everyone to easily see and understand the changes that have been undone. It maintains a clear record of the project's history and helps avoid conflicts when multiple people are making changes simultaneously.
 
-> **Note**:
+> [!NOTE]
 > Instead of using `[File]...` in the mentioned locations within this section, you can use `.` to cover everything. Additionally, instead of using `[Commit_Hash]`, you can also use the `HEAD~[Number]` syntax.
 
 <p align="right">
@@ -526,7 +526,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
 GitHub is a web-based platform that provides a centralized location for hosting and collaborating on software development projects using the Git version control system.
 
-> **Note**:
+> [!NOTE]
 > You can apply what is shown here to other remote repository hosting platforms as well; in general, they operate under the same logic.
 
 <br>
@@ -763,7 +763,7 @@ or
 
 - `git reset [--Options] [Reflog_Hash]`: Rewind the repository to the given hash state.
 
-> **Note**:
+> [!NOTE]
 > Reflogs in Git have an expiration time. By default, reflog entries expire after a certain period (90 days) to prevent them from growing indefinitely and consuming excessive disk space.
 
 <p align="right">
