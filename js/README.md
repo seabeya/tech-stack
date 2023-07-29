@@ -6,7 +6,7 @@
 
 <p align="center">
   -
-<p>
+</p>
 
 > Pain.
 
@@ -36,7 +36,7 @@
 
 <br>
 
-> **Note**:
+> [!NOTE]
 > This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will be providing you with some resources to learn the parts that haven't been mentioned: [Resources](#-resources).
 
 <br>
@@ -308,8 +308,7 @@ function getName() {
 console.log(x); // ReferenceError: x is not defined
 ```
 
-> **Note**:
-> `undefined` and `not defined` are different things.
+> [!NOTE] > `undefined` and `not defined` are different things.
 >
 > - **Undefined**: It means that the variable exists in memory but does not have a specific value assigned to it yet. It can be thought of as a placeholder or a default state for variables.
 > - **Not Defined**: The variable or function doesn't exist in memory (the program is not aware of its existence).
@@ -867,7 +866,7 @@ evenOrOdd(100)
 
 ### 🔷 Expressions and Operators
 
-> **Note**:
+> [!NOTE]
 > Not going to cover all of them. If you want to see a complete list of expressions and operators, please take a look: [MDN Web Docs (expressions and operators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators).
 
 <br>
