@@ -663,6 +663,28 @@ console.log(curr()); // Hi!
 
 <br>
 
+**Example #6:** (Memoization / Optimization)
+
+```js
+const myFunc = () => {
+  const a = [];
+  for (let i = 0; i < 10_000_000; i++) {
+    a.push(i * i);
+  }
+
+  return (index) => {
+    return a[index];
+  };
+};
+
+const myList = myFunc();
+
+console.log(myList(500)); // 250000
+console.log(myList(11200)); // 125440000
+```
+
+<br>
+
 ### 🔷 Promises
 
 A Promise object serves as a placeholder, representing a period of time until it receives a value from an asynchronous operation. It acts as a container for a future value.
