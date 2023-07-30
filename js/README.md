@@ -1365,7 +1365,7 @@ The "this" keyword refers to the current context or the object on which a functi
 
   ```js
   function regularFunction() {
-    console.log(this); // Window { ... } (or 'global' in Node.js)
+    console.log(this); // Window { ... }
   }
 
   regularFunction();
@@ -1376,7 +1376,7 @@ The "this" keyword refers to the current context or the object on which a functi
     name: "John",
     show: function () {
       function arrowFunction() {
-        console.log(this); // Window { ... } (or 'global' in Node.js)
+        console.log(this); // Window { ... }
       }
       arrowFunction();
     },
@@ -1384,17 +1384,6 @@ The "this" keyword refers to the current context or the object on which a functi
 
   myObject.show();
   ```
-
-  > When a regular function is called as a method of an object, this will be set to the object itself:
-  >
-  > ```js
-  > const myObject = {
-  >   name: "John",
-  >   show: regularFunction,
-  > };
-  >
-  > myObject.show(); // {name: 'John', show: ƒ}
-  > ```
 
 - `this` in Arrow Functions:
 
@@ -1409,6 +1398,18 @@ The "this" keyword refers to the current context or the object on which a functi
         console.log(this); // {name: 'John', show: ƒ}
       };
       arrowFunction();
+    },
+  };
+
+  myObject.show();
+  ```
+
+  ```js
+  const myObject = {
+    name: "John",
+
+    show: () => {
+      console.log(this); // Window { ... }
     },
   };
 
