@@ -26,7 +26,7 @@
 2. [Core JS concepts](#-core-js-concepts)
    - [Hoisting](#-hoisting)
    - [Block Scope](#-block-scope)
-   - [Function Environment](#-function-environment)
+   - [Function Scope](#-function-scope)
    - [Closures](#-closures)
    - [Promises](#-promises)
 3. [JS Basics](#-js-basics)
@@ -387,8 +387,8 @@ if (true) {
 
 #### 🔻 Visibility and lifetime
 
-- `var`: Hoisted in the global scope and available outside of the scope.
-- `let/const`: Hoisted within its block scope and only available there (or in its child/inner scopes).
+- `var`: Have function scope, meaning they are accessible throughout the whole function regardless of the block in which they are declared.
+- `let`, `const`: Have block scope and are only available within the block they are declared in, or in its child/inner blocks.
 
 ```js
 if (true) {
@@ -433,11 +433,11 @@ console.log(a); // 5
 
 <br>
 
-### 🔷 Function Environment
+### 🔷 Function Scope
 
 Each time a function is called, a new local environment is created, which includes the function's arguments, local variables.
 
-> Variables declared within a function are considered local variables and are only accessible within the function's local environment. They cannot be accessed from outside the function or from other functions unless they are explicitly returned.
+> Variables declared using `let`, `const`, and `var` within a function scope are considered local variables and are only accessible within the function's local environment. They cannot be accessed from outside the function or from other functions unless they are explicitly returned.
 
 > The local environment has access to the memory of its parent environment. If it does not find a value in the local memory, it searches one scope higher (parent) until it either finds the value or encounters a 'not defined' error.
 
