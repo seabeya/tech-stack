@@ -38,7 +38,7 @@
 - **Node.js (Express)** `planned ⚫`
 - **SQL (PostgreSQL)** `planned ⚫`
 - **Redis** `planned ⚫`
-- **Docker** `planned ⚫`
+- [**Docker**](./docker/README.md) `in-progress 🟡`
 - **GitHub Actions** `planned ⚫`
 - **Kubernetes** `planned ⚫`
 
