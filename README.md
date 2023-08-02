@@ -38,7 +38,8 @@
 - **Node.js (Express)** `planned ⚫`
 - **SQL (PostgreSQL)** `planned ⚫`
 - **Redis** `planned ⚫`
-- **Docker** `planned ⚫`
+- **Docker** `in-progress 🟡`
+  > See progress: [topic-docker](https://github.com/shaanaliyev/tech-stack/blob/topic-docker/docker/README.md)
 - **GitHub Actions** `planned ⚫`
 - **Kubernetes** `planned ⚫`
 
