@@ -112,6 +112,8 @@
 
 ## 🔶 Docker basics
 
+> Docker CLI official docs: https://docs.docker.com/engine/reference/commandline/cli/
+
 - `docker command --help`: Shows detailed information and usage instructions about a specific Docker command.
 - `docker system prune`: Frees up storage by clearing stopped containers, unused networks, dangling images, and build cache.
 
@@ -132,6 +134,7 @@ A Docker image is a blueprint or template that includes both the application and
   - `-a` - Removes all locally stored images.
 - `docker build [-Options]...`: Building new custom images.
   - `.` - Builds an image using the Dockerfile in the current directory.
+    > path_to_Dockerfile
   - `-f path/to/customFile` - Uses a specific Dockerfile for building (default: Dockerfile).
   - `-t name:tag` - Assigns a NAME and TAG to the image (e.g., node:16.5, node:latest).
 
@@ -149,6 +152,8 @@ Containers are running instances of images. Multiple containers can be started b
   > Use `docker create [Image_Name]` if you want to create a container without starting it immediately. The image can also be a remote image, which Docker will automatically download.
   - `--name [Container_Name]` - Assigns a name to the container, making management easier.
     > Otherwise, you would need to use the container ID for reference.
+  - `-w [Dir_Address]`: Specifies the working directory inside the container.
+    > Any default commands executed in the container will be relative to this directory.
   - `-d` - Runs the container in detached mode, freeing your terminal.
   - `-it` - Runs the container in interactive mode (combining interactive and user-friendly terminal modes).
   - `--rm` - Automatically removes the container when it's stopped.
