@@ -26,6 +26,10 @@
 2. [Docker basics](#-docker-basics)
    - [Images](#-images)
    - [Containers](#-containers)
+   - [Dockerfile](#-dockerfile)
+     - [Basic instructions](#-basic-instructions)
+     - [Arguments instructions (Build time)](#-arguments-instructions-build-time)
+     - [Environment Variables (Runtime)](#-environment-variables-runtime)
 
 <br>
 
@@ -200,3 +204,113 @@ Examples:
 
 > [!NOTE]
 > The commands should be available in the image. For example, you cannot use `redis-cli` if Redis is not available in that image.
+
+<br>
+
+### 🔷 Dockerfile
+
+A Dockerfile is a text-based script used to define the configuration and steps required to build a Docker container image.
+
+> A Dockerfile typically consists of a series of instructions that guide the process of creating a container image. These instructions include things like specifying a base image, adding files and directories, installing software packages, configuring environment variables, and defining how the container should run when launched.
+
+> Dockerfile official docs: https://docs.docker.com/engine/reference/builder/
+
+<br>
+
+#### 🔻 Basic instructions
+
+- `FROM [Image_Name]:[Tag]`: Specifies the base image for your Docker image.
+  > It forms the foundation of your container. If no tag is specified, it defaults to "latest".
+- `WORKDIR [Dir_Address]`: Sets the working directory for the subsequent instructions in the Dockerfile.
+  > This becomes the location where your project will reside within the container. Any following commands executed in the container or instructions will be relative to this directory.
+- `COPY [From_Dir] [To_Dir]`: Copies files or directories from the local host to the specified location within the container.
+  > For example, using `COPY ./ ./`: it takes files from the current directory on the host and copies them to the same relative location within the container's WORKDIR. This allows you to transfer your project files into the container for further processing.
+
+> [!NOTE]
+> During image building, Docker captures a snapshot of the source code at that specific moment. If you modify the source code after creating the image, those changes will not automatically reflect within the existing image. To incorporate the changes, you must rebuild the Docker image to create a new snapshot with the updated source code.
+
+- `RUN [Commands]`: Executes specified commands within the container during the image build process.
+  > This instruction allows you to install software, configure settings, and perform various tasks required for setting up the environment within the container. You can include multiple RUN instructions in your Dockerfile to perform a sequence of tasks.
+- `EXPOSE [Port]`: Informs Docker that the container will listen on the specified port at runtime.
+  > This does not actually publish the port externally; it's used to indicate which ports the container will use. It helps in documenting which ports are intended to be used by the containerized application, making it easier to understand the container's networking requirements. Actual port mapping to the host system is typically done when running the container.
+- `CMD ["[Command1_a]", "[Command1_b]", "[Command1_c]"]`: Specifies the default command to run when the container starts.
+  > It can include multiple commands as a list. If multiple CMD instructions are provided, the last one will overwrite any previous ones. This sets the initial command or process that the container will execute when it's launched without any specific command provided.
+- `ENTRYPOINT ["Entry_Command"]`: Defines the primary command that will be executed when the container starts.
+  > Unlike CMD, which can be overridden by providing a command when running the container, the ENTRYPOINT instruction sets a fixed command that cannot be easily overridden. Any additional arguments provided when running the container will be passed as arguments to the ENTRYPOINT command. This is useful when you want to create a container that always runs a specific command or application and only accepts additional arguments to modify its behavior.
+
+<br>
+
+#### 🔻 Arguments instructions (Build time)
+
+Dockerfile Arguments (also known as build-time variables or ARGs) are a way to parameterize the Docker image build process.
+
+> They allow you to pass values into the Docker build process, which can then be used within the Dockerfile to customize the image being built.
+
+> Once you define an argument using the ARG instruction, you can reference its value in subsequent instructions.
+
+> You can also override Dockerfile ARGs when building an image using the docker build command. When you pass an argument to the docker build command using the `--build-arg` flag, it will override the default value specified in the Dockerfile.
+
+- Dockerfile: `ARG [Arg_Name]=[Value]`
+  ```Dockerfile
+  ARG PACKAGE=nginx
+  ```
+- CLI: `--build-arg [Arg_Name]=[Value]`
+  ```
+  docker build --build-arg PACKAGE=apache2 ...
+  ```
+
+Example usage:
+
+```Dockerfile
+RUN apt-get update && apt-get install -y ${PACKAGE}
+```
+
+<br>
+
+#### 🔻 Environment Variables (Runtime)
+
+Environment variables are dynamic values that can affect the behavior of processes or applications running on a computer system.
+
+> Environment variables provide a way to customize the behavior of software without modifying the program's source code. They are particularly useful for configuration purposes and for keeping sensitive information, such as API keys or database credentials, separate from the actual codebase.
+
+> For instance, you can access environment variables in a Node.js application using `process.env.var_name`.
+
+There are methods for passing dynamic values into the container during the build process or while the container is running:
+
+- Dockerfile: `ENV [Var_Name] [Value]`
+
+  ```Dockerfile
+  ...
+  ENV PORT 80
+
+  # You can also use declared ENV variables inside the Dockerfile.
+  EXPOSE $PORT
+  ...
+  ```
+
+- CLI: `--env [Var_Name]=[Value]`
+  ```bash
+  docker run ... --env PORT=8000 ...
+  ```
+- .env file (Recommended):
+  ```bash
+  # example.env
+  PORT = 8000
+  ```
+  And then in CLI:
+  ```bash
+  docker run ... --env-file ./env/file/path/example.env
+  ```
+
+<br>
+
+> [!IMPORTANT]
+> There is a mechanism called Dockerfile caching that optimizes the build process of Docker images.
+>
+> Each instruction in the Dockerfile corresponds to a step in the image creation process. Every time an instruction is executed in the Dockerfile, it generates content that contributes to a new layer, which is then cached. These layers are stacked on top of each other to form the final image. Each layer is immutable, and subsequent layers can only add or modify files on top of the lower layers.
+>
+> When building an image, Docker attempts to reuse previously built layers if the build context (the directory containing the Dockerfile and other necessary files) hasn't changed. This reuse prevents redundant execution of unchanged steps, thereby speeding up the build process.
+>
+> Note: modifying a single instruction or related file context **invalidates** subsequent layers. Therefore, optimizing the instruction order can enhance caching benefits.
+>
+> Watch this: https://youtu.be/RP-z4dqRTZA
