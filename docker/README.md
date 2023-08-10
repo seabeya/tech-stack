@@ -30,6 +30,10 @@
      - [Basic instructions](#-basic-instructions)
      - [Arguments instructions (Build time)](#-arguments-instructions-build-time)
      - [Environment Variables (Runtime)](#-environment-variables-runtime)
+3. [Data & Volumes](#-data--volumes)
+   - [Bind mounts (Host & Container)](#-bind-mounts-host--container)
+   - [Named volumes (Container & Container)](#-named-volumes-container--container)
+   - [Anonymous volumes](#-anonymous-volumes)
 
 <br>
 
@@ -314,3 +318,84 @@ There are methods for passing dynamic values into the container during the build
 > Note: modifying a single instruction or related file context **invalidates** subsequent layers. Therefore, optimizing the instruction order can enhance caching benefits.
 >
 > Watch this: https://youtu.be/RP-z4dqRTZA
+
+<p align="right">
+    <a href="#docker">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Data & Volumes
+
+Containers are generally ephemeral and designed to be stateless, which means that the data within a container may not be preserved when the container stops or is removed.
+
+Volumes and data management mechanisms are used to overcome this limitation and to ensure data persistence.
+
+- `docker volume ls`: Lists volumes.
+- `docker volume inspect [Volume_Name]`: Displays detailed information about a specific volume.
+- `docker volume rm [Volume_Name]`: Deletes the specified volume.
+- `docker volume prune`: Deletes all dangling anonymous volumes.
+
+<br>
+
+#### 🔻 Bind mounts (Host & Container)
+
+A bind mount is a way to mount a file or directory from the host machine into a container. This allows the container to access and manipulate files on the host system, and vice versa.
+
+> Bind mounts are often used for development purposes.
+
+- `docker run ... -v [/host/path]:[/container/path]`: Sets up a bind mount.
+
+  > With this setup, any changes made to the files or directories in the bind mount location on either the host or the container will be reflected on both sides.
+
+  > If you don't want to consistently copy and use the full path, you can use: `-v $(pwd):[/container/path]` (Linux only).
+
+<br>
+
+**Read only:**
+
+By default, binding containers have `read`/`write` access to the local machine, which is not recommended as it can lead to unintended changes to local source files. To prevent the container from modifying local source files, you can add `:ro` to the binding configuration.
+
+- `docker run ... -v [/host/path]:[/container/path]:ro ...`: Establishes a bind mount while enforcing read-only access.
+
+<br>
+
+#### 🔻 Named volumes (Container & Container)
+
+Named volumes are a way to manage and persist data outside of containers while making it easily accessible to multiple containers.
+
+They are used to store data that needs to be shared and persisted across container instances, even when those containers are removed or recreated.
+
+- `docker run ... -v [Volume_Name]:[/container/path] ...`: Sets up a named volume.
+
+  > If you create another container using the same named volume (paths can be different) `-v [Volume_Name]:[/another/container/path]`, both containers will have access to the same data in the specified folders.
+
+<br>
+
+> [!NOTE]
+> You're not limited to a single data storage solution. You can also use multiple of them together or combine them.
+>
+> Example: `docker run ... -v /srv/app:/app:ro -v test_vol:/var/test ...`
+
+> [!IMPORTANT]
+> There is a concept called "more specific path wins" that comes into play when dealing with overlapping or conflicting Docker volume mounts, especially when we use multiple of them together or combine them.
+>
+> Consider a scenario where you need to bind a folder but exclude specific subfolders. By setting up these particular subfolders as named or anonymous volumes, you ensure their availability in the container's external bound directory without requiring them to be present in your host machine's bound folder.
+>
+> For Example: `docker run ... -v /var/server:/srv/www ...` Locally (on the host), we don’t have a 'node_modules' folder. This means that when we perform a bind mount, the container will attempt to synchronize itself with the host. However, we don’t have a 'node_modules' directory on our host side, which leads to a crash in the application. We have an exception: the 'node_modules' directory doesn't need to be synchronized. This issue can be resolved by using a named or anonymous volume with a more specific path: `docker run ... -v /var/server:/srv/www -v /srv/www/node_modules ...`
+
+#### 🔻 Anonymous volumes
+
+Anonymous volumes are a type of Docker volume that is created and managed by Docker itself, rather than being explicitly named or specified by the user.
+
+- `docker run ... -v [/container/path] ...`: Creates an anonymous volume.
+  > Or, in Dockerfile:
+  >
+  > ```Dockerfile
+  >  VOLUME ["/container/path"]
+  > ```
+
+A practical use case for anonymous volumes these days is when they are combined with Bind Mounts to exclude specific subfolders.
+
+> - Anonymous volumes are deleted automatically when the container is deleted.
