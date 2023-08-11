@@ -49,8 +49,8 @@
 ## 🔶 Configuration
 
 - Configure the name and email that Git will associate with your work (required before start).
-  - `git config --global user.name "[Name]"`
-  - `git config --global user.email "[Email]"`
+  - `git config --global user.name "<Name>"`
+  - `git config --global user.email "<Email>"`
     > (Optional): If you want to keep your email private, you can use the email provided by GitHub. You can find it in your GitHub settings. For example, mine is 35802638+shaanaliyev@users.noreply.github.com.
     > Without the '--global' option, the configuration will be applied locally to the current repository (you need an initialized repository to do this).
 - `git init`: Initialize a new Git repository in a directory.
@@ -103,13 +103,13 @@ Ignoring files `.gitignore`:
 
 - `git status`: Show the working tree status.
   > This includes information about the current branch you are on, the changes made to your files and their current status within the repository.
-- `git add [File]...`: Add the given new or modified files from the working directory to the staging (index) area. 1️⃣ --> 2️⃣
+- `git add <File>...`: Add the given new or modified files from the working directory to the staging (index) area. 1️⃣ --> 2️⃣
   - `.` - Stage all changes at once.
 - `git commit`: Record grouped changes from the staging area to the repository. 2️⃣ --> 3️⃣
 
   > It will open an editor for you to enter a multilane commit message. Enter the message you want, then save and exit the editor.
 
-  - `-m '[Message]'` - Shortcut that allows you to enter a single-line commit message directly without opening an editor.
+  - `-m '<Message>'` - Shortcut that allows you to enter a single-line commit message directly without opening an editor.
 
     > You can use this option multiple times to add multiple lines to the commit message. The first line is required and should summarize the changes, while the second and subsequent lines can be used for comments and additional details.
 
@@ -117,24 +117,24 @@ Ignoring files `.gitignore`:
 
   > Keep each commit focused on a single thing. A commit should have only one purpose. This makes it much easier to undo or rollback changes later on. It also makes your project easier to review.
 
-  > You can use the `git commit -am '[Message]'` syntax to perform both the git add and git commit operations at once.
+  > You can use the `git commit -am '<Message>'` syntax to perform both the git add and git commit operations at once.
 
   - `--amend` - Modify / Amend the most recent commit.
 
     > Let's say you have just made a commit and then realize that you forgot something, such as a typo in a file or including a file itself, or even made a mistake in the commit message. Instead of creating a completely new and separate commit to fix it, you can modify the previous commit using this command.
 
-    > Before using `git commit --amend`, you need to stage your changes using `git add [File]...` for the modifications you want to include in the amended commit if you have any. For typos, you can directly use the command and modify the message.
+    > Before using `git commit --amend`, you need to stage your changes using `git add <File>...` for the modifications you want to include in the amended commit if you have any. For typos, you can directly use the command and modify the message.
 
     > When you use this command, it will open an editor for you to edit the commit message. If you want to edit the commit message, you can make the changes there. Or, you can leave it as it is to not edit and then save and exit to apply the changes.
 
 - `git log`: Show commit logs.
   > It shows a detailed log of commits, including the commit hash, author information, date and time of the commit, and the commit message.
   - > `--oneline` - Show commit logs in a minimized format.
-  - > `-[Number]` - Limit the number of commits to output.
+  - > `-<Number>` - Limit the number of commits to output.
   - > `--merge` - Show only the merge commits in the commit history, excluding regular non-merge commits.
 - `git ls-files`: List all the files that are currently tracked by Git in the repository.
   > The files that Git is aware of and manages.
-- `git rm [File]...`: Remove files from a Git repository.
+- `git rm <File>...`: Remove files from a Git repository.
   > When you remove a file using git rm, Git stops tracking changes to that file, and the file will be removed in the next commit.
   - `--cached` - Remove a file from the index but keep it in the working directory.
     > It effectively stops tracking changes to the file but leaves the file intact on your local disk.
@@ -171,31 +171,31 @@ What is `HEAD`?
 - `git branch`: List, create, rename, or delete branches.
 
   - ` ` - List the existing branches in your repository. (\*) indicates the branch you are currently on.
-  - `[Name]` - Create a new branch with the given name, based upon the current HEAD.
+  - `<Name>` - Create a new branch with the given name, based upon the current HEAD.
     > This just creates the branch. It does not switch you to that branch.
-  - `[New_Name] [Commit_Hash]` - Create a new branch based on a specific point in history.
+  - `<New_Name> <Commit_Hash>` - Create a new branch based on a specific point in history.
     > This new branch will represent a distinct version that is based on a specific commit, disregarding any subsequent commits that came after it.
-  - `-d [Name]` - Delete the branch with the given name. It will delete the branch only if it has been merged. Otherwise, it will not delete it.
+  - `-d <Name>` - Delete the branch with the given name. It will delete the branch only if it has been merged. Otherwise, it will not delete it.
 
     > You can use `-D` to forcefully delete the branch, even if it has not been merged.
 
     > You can't delete the branch you're currently on, you need to switch to a different branch first.
 
-  - `-M [New_Name]` - Rename the branch that you are currently on.
+  - `-M <New_Name>` - Rename the branch that you are currently on.
 
-    > You can use `-m [Name] [New_Name]` to rename any branch.
+    > You can use `-m <Name> <New_Name>` to rename any branch.
 
   - `-vv` - Display a list of local branches along with additional information about their upstream branches.
   - `-a` - List both remote-tracking branches and local branches.
   - `-r` - List the remote-tracking branches.
 
 - `git switch`: Switch branches.
-  - `[Name]` - Switch to the specified branch.
-  - `-c [Name]` - Create a new branch and switch to it.
+  - `<Name>` - Switch to the specified branch.
+  - `-c <Name>` - Create a new branch and switch to it.
     > You can use `-C` if the branch already exists, but you want to reset it.
 - `git checkout`: Switch branches (old approach) or restore working tree files (will discuss this later).
-  - `[Name]` - Switch to the specified branch.
-  - `-b [Name]` - Create a new branch and switch to it.
+  - `<Name>` - Switch to the specified branch.
+  - `-b <Name>` - Create a new branch and switch to it.
     > You can use `-B` if the branch already exists, but you want to reset it.
 
 When you switch branches in Git while having uncommitted changes, the behavior depends on the nature of the changes you have made:
@@ -213,7 +213,7 @@ When you switch branches in Git while having uncommitted changes, the behavior d
 
 In Git, merging refers to the process of combining two or more branches together. When you merge branches in Git, the changes made in the source branch are applied to the target branch.
 
-- `git merge [Name]`: Combine changes from the given named branch into the current branch.
+- `git merge <Name>`: Combine changes from the given named branch into the current branch.
 
   - `--squash` - Combine all the commits from the merged branch and add them to the staged area of the current branch.
 
@@ -231,7 +231,7 @@ There are two primary types of merges in Git:
     <img src="./fast-forward.png" height="auto" width="550">
   </p>
 
-  - `git merge --no-ff [Name]` - The `--no-ff` flag forces Git to always create a new merge commit, even if a fast-forward merge could have been performed.
+  - `git merge --no-ff <Name>` - The `--no-ff` flag forces Git to always create a new merge commit, even if a fast-forward merge could have been performed.
     > This ensures that the history of the merged branch is preserved, and a merge commit is automatically created with the message "Merge branch 'dev'" for example.
 
 - Three-way merge:
@@ -260,7 +260,7 @@ In Git, "cherry picking" refers to the process of selecting and applying specifi
 
 > This is useful when you want to apply specific changes without merging the entire branch.
 
-- `git cherry-pick [Commit_Hash]`: Apply the changes from a specific commit (from a different branch) to the current branch.
+- `git cherry-pick <Commit_Hash>`: Apply the changes from a specific commit (from a different branch) to the current branch.
   > In case of conflicts, Git will pause the cherry picking process and allow you to resolve the conflicts manually.
 
 > [!NOTE]
@@ -282,11 +282,11 @@ In Git, "cherry picking" refers to the process of selecting and applying specifi
 
 ### 🔷 Integrate changes
 
-- `git rebase [Branch_Name]`: Incorporate the latest changes from the given branch into your current branch.
+- `git rebase <Branch_Name>`: Incorporate the latest changes from the given branch into your current branch.
 
   > This command essentially replays the commits from your current branch on top of the latest commit in the given branch.
 
-  > If a conflict occurs, you can resolve it manually and choose what to keep. To mark the conflicts as resolved, you need to add the modified files using the command `git add [File]...`. Once you have resolved the conflicts and added the files, you can continue the rebase process by running the command `git rebase --continue`.
+  > If a conflict occurs, you can resolve it manually and choose what to keep. To mark the conflicts as resolved, you need to add the modified files using the command `git add <File>...`. Once you have resolved the conflicts and added the files, you can continue the rebase process by running the command `git rebase --continue`.
 
   - `--abort` - To abort and get back to the state before "git rebase".
 
@@ -320,9 +320,9 @@ What is it?
 
 Interactive Rebase allows you to modify the commit history of a branch (in place). By interacting with the commit history during the rebase process, you can reorder, combine, edit, or delete commits. This can be useful for cleaning up your branch's history, squashing multiple commits into a single commit, splitting a commit into smaller ones, or removing irrelevant or erroneous commits.
 
-- `git rebase -i [Commit_Hash]`: Initiates an interactive rebase from the given commit.
+- `git rebase -i <Commit_Hash>`: Initiates an interactive rebase from the given commit.
 
-  > '[Commit_Hash]' is the reference to the commit you want to rebase onto. You will be editing everything after the specified commit.
+  > '<Commit_Hash>' is the reference to the commit you want to rebase onto. You will be editing everything after the specified commit.
 
   > When you use this command, you enter interactive mode.
 
@@ -332,7 +332,7 @@ Interactive Rebase allows you to modify the commit history of a branch (in place
 
 - Open the interactive rebase list:
 
-  > After executing the `git rebase -i [Commit_Hash]` command, Git opens a text editor or prompt displaying the list of commits. Each commit is represented by a line starting with the word "pick", followed by the commit hash and commit message. Additionally, a brief explanation of the available options is also shown.
+  > After executing the `git rebase -i <Commit_Hash>` command, Git opens a text editor or prompt displaying the list of commits. Each commit is represented by a line starting with the word "pick", followed by the commit hash and commit message. Additionally, a brief explanation of the available options is also shown.
 
 - Choose an action for each commit:
 
@@ -396,9 +396,9 @@ Interactive Rebase allows you to modify the commit history of a branch (in place
 
     > `--cached` does the same thing.
 
-  - `[Branch1]..[Branch2]` - List the changes between two branches.
-  - `[Commit_Hash1]..[Commit_Hash2]` - List the changes between two commits.
-    > We can view the changes within a specific file by providing a file name after any of these options. `git diff HEAD [File]...`.
+  - `<Branch1>..<Branch2>` - List the changes between two branches.
+  - `<Commit_Hash1>..<Commit_Hash2>` - List the changes between two commits.
+    > We can view the changes within a specific file by providing a file name after any of these options. `git diff HEAD <File>...`.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
@@ -423,19 +423,19 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
     > When you stash, it assigns an index, branch, and message information to that stash. The most recent stash added always has index 0, the second has index 1, and so on.
 
-  - `push -m '[Message]'` - Save changes to the stash with a specific message.
+  - `push -m '<Message>'` - Save changes to the stash with a specific message.
   - `list` - Show the stash list.
   - `pop` - Apply the most recently stashed changes to your working copy <ins>and remove</ins> them from the stash list.
-    - > `[Index_No]` - Apply a specific stash.
+    - > `<Index_No>` - Apply a specific stash.
   - `apply` - Apply the most recenly stashed changes to your working <ins>without removing</ins> it from the stash list.
 
-    - > `[Index_No]` - Apply a specific stash.
+    - > `<Index_No>` - Apply a specific stash.
       > This can be useful if you want to apply stashed changes to multiple branches.
 
     > If a conflict occurs, you can resolve it using the same method as we do in merging.
 
   - `clear` - Clear the entire stash list.
-  - `drop [Index_No]` - Remove a specific stash from the list.
+  - `drop <Index_No>` - Remove a specific stash from the list.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
@@ -446,9 +446,9 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
 ## 🔶 Time Traveling (undoing changes)
 
-- `git checkout [Commit_Hash]`: Travel to a specific commit.
+- `git checkout <Commit_Hash>`: Travel to a specific commit.
 
-  - > `HEAD~[Number]` - A different syntax to do the same thing.
+  - > `HEAD~<Number>` - A different syntax to do the same thing.
     > `~1` refers to the commit before HEAD. `~2` refers to 2 commits before HEAD and so on. _Ex: `git checkout HEAD~3` means three commits before the current HEAD._
 
   > You will travel to the state of the given commit, and everything will be as it was at that moment (the given commit included).
@@ -466,7 +466,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   > In Git, the "detached HEAD" state occurs when the HEAD pointer is directly pointing to a specific commit rather than a branch reference (latest commit of current branch). This can happen when you check out a specific commit, a tag, or a branch that is not up to date. While in a detached HEAD state, you can still look around, make changes and create commits, but these commits won't belong to any branch and can be easily lost.
 
-- `git restore --source [Commit_Hash] [File]...`: Restore the contents of the given files to their state from the given commit.
+- `git restore --source <Commit_Hash> <File>...`: Restore the contents of the given files to their state from the given commit.
 
   > It simply adds the "Commit_Hash" state of the given files as unstaged changes; there will not be any time travel.
 
@@ -474,27 +474,27 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
 **Moving between areas:**
 
-- `git restore [File]...`: Discard unstaged changes. 1️⃣ --> 0️⃣
+- `git restore <File>...`: Discard unstaged changes. 1️⃣ --> 0️⃣
 
-  > The old command to do the same thing: `git checkout [File]...`.
+  > The old command to do the same thing: `git checkout <File>...`.
 
-- `git clean [-Options]...`: Clean up untracked files and folder in a Git repository.
+- `git clean <-Options>...`: Clean up untracked files and folder in a Git repository.
 
   - `-d` - Remove untracked files and folders.
   - `-f` - To perform the clean operation forcefully.
   - `-n` - Preview what would be removed if the command were executed.
 
-- `git checkout HEAD [File]...`: Discard uncommitted changes. 1️⃣, 2️⃣ --> 0️⃣
+- `git checkout HEAD <File>...`: Discard uncommitted changes. 1️⃣, 2️⃣ --> 0️⃣
 
   > Any changes made to those files since the last commit will be discarded, and the files will be reverted to their previous state (staged area will be cleared).
 
-- `git restore --stage [File]...`: Unstage files. 2️⃣ --> 1️⃣
+- `git restore --stage <File>...`: Unstage files. 2️⃣ --> 1️⃣
 
-  > When you accidentally add a file to the staging area using "git add [File]...", you can use this command to undo it.
+  > When you accidentally add a file to the staging area using "git add <File>...", you can use this command to undo it.
 
-  > `git reset [File]...` does the same thing as well.
+  > `git reset <File>...` does the same thing as well.
 
-- `git reset [--Options] [Commit_Hash]`: Rewind the repository to the specified commit (to the state immediately after the given commit was made).
+- `git reset <--Options> <Commit_Hash>`: Rewind the repository to the specified commit (to the state immediately after the given commit was made).
 
   - ` ` - Jump to a specific commit and discard all the commits that come after it. 3️⃣ --> 1️⃣
 
@@ -504,7 +504,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   - `--soft` - Does the same thing with ` `, but this time the changes will move to the staged area, not the unstaged area. 3️⃣ --> 2️⃣
 
-- `git revert [Commit_Hash]`: Create a new commit that undoes the changes made in the specified commit.
+- `git revert <Commit_Hash>`: Create a new commit that undoes the changes made in the specified commit.
 
   > The new commit will have the changes made before the specified commit.
 
@@ -513,7 +513,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
   > It is useful when working with a team as it enables collaboration by allowing everyone to easily see and understand the changes that have been undone. It maintains a clear record of the project's history and helps avoid conflicts when multiple people are making changes simultaneously.
 
 > [!NOTE]
-> Instead of using `[File]...` in the mentioned locations within this section, you can use `.` to cover everything. Additionally, instead of using `[Commit_Hash]`, you can also use the `HEAD~[Number]` syntax.
+> Instead of using `<File>...` in the mentioned locations within this section, you can use `.` to cover everything. Additionally, instead of using `<Commit_Hash>`, you can also use the `HEAD~<Number>` syntax.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
@@ -535,7 +535,7 @@ GitHub is a web-based platform that provides a centralized location for hosting 
 
 **To get a GitHub repository to your local machine.**
 
-- `git clone [Remote_URL]`: Create a local copy of a repository hosted on GitHub.
+- `git clone <Remote_URL>`: Create a local copy of a repository hosted on GitHub.
 
   > It is not necessary to own the repository you want to clone.
 
@@ -545,7 +545,7 @@ GitHub is a web-based platform that provides a centralized location for hosting 
 
   > You can use the command `git branch -r` to see all the available remote tracking branches in the repository.
 
-  > To work on one of these branches, you need to create a local branch based on the corresponding remote tracking branch using the `git switch [Branch_Name]` command.
+  > To work on one of these branches, you need to create a local branch based on the corresponding remote tracking branch using the `git switch <Branch_Name>` command.
 
   > If you want to clone the repository into the current directory, without creating a new subdirectory for it, you can append `.` to the git clone command.
 
@@ -581,12 +581,12 @@ Prior to uploading any content to GitHub, it is necessary for us to inform Git a
 - `git remote`: Manage the remote repositories.
 
   - `-v` - Display the remote repositories associated with your local Git repository.
-  - `add [Remote_Name] [Remote_URL]` - Add a new remote repository to your local Git repository.
+  - `add <Remote_Name> <Remote_URL>` - Add a new remote repository to your local Git repository.
     > We are simply instructing Git to remember the Remote Repository URL using the name we have provided, and it's a convention to use "origin" as the default name. However, you can choose any name that makes sense to you.
-  - `rename [Remote_Name] [New_Remote_Name]` - Rename remote.
-  - `remove [Remote_Name]` - Remove remote.
+  - `rename <Remote_Name> <New_Remote_Name>` - Rename remote.
+  - `remove <Remote_Name>` - Remove remote.
 
-- `git push [Remote_Name] [Branch_Name]`: Upload your local changes to a remote repository.
+- `git push <Remote_Name> <Branch_Name>`: Upload your local changes to a remote repository.
 
   > If there is no branch with the given name on the remote repository, Git will create a new branch with that name on the remote repository.
 
@@ -596,7 +596,7 @@ Prior to uploading any content to GitHub, it is necessary for us to inform Git a
 
     > Once you have set up the upstream reference, you can use `git pull` and `git push` without explicitly specifying the remote and branch names. Git will automatically know which remote repository and branch to use based on the established tracking relationship.
 
-  > We can also push a local branch to a differently named remote branch by using the `git push [Remote_Name] [Local_Branch]:[Remote_Branch]` syntax.
+  > We can also push a local branch to a differently named remote branch by using the `git push <Remote_Name> <Local_Branch>:<Remote_Branch>` syntax.
 
 <p align="center">
     <img src="./localToRemote.png" height="auto" width="550">
@@ -628,7 +628,7 @@ What happens if someone adds commits to a remote branch while you have a local b
 
 - `git ls-remote`: List all references (branches, tags, or other references) available in a remote repository.
 
-- `git fetch [Remote_Name]`: Update remote tracking branches.
+- `git fetch <Remote_Name>`: Update remote tracking branches.
 
   - `--prune` - Remove any local references to remote branches (remote tracking branches) that no longer exist on the remote repository.
 
@@ -636,7 +636,7 @@ What happens if someone adds commits to a remote branch while you have a local b
 
   > It updates all remote tracking branches in your local repository that correspond to branches in the remote repository. If there are new branches in the remote repository, it also retrieves them.
 
-  > You can use `git fetch [Remote_Name] [Branch_Name]` to fetch a specific branch from the remote repository instead of fetching all branches.
+  > You can use `git fetch <Remote_Name> <Branch_Name>` to fetch a specific branch from the remote repository instead of fetching all branches.
 
   <p align="center">
     <img src="./fetch.png" height="auto" width="550">
@@ -665,7 +665,7 @@ What happens if someone adds commits to a remote branch while you have a local b
 
   > If the remote branch has been modified by someone else in the meantime, Git will reject your push, indicating that the remote branch has diverged from your local branch. In this case, you will need to update you local branch with the latest changes from the remote repository. Or you can forcefully push by adding the `-f` option (not recommended because it overwrites the remote branch, potentially discarding other people's work).
 
-  - `git pull [Remote_Name] [Branch_Name]` - Update local branch with the latest changes from a remote repository.
+  - `git pull <Remote_Name> <Branch_Name>` - Update local branch with the latest changes from a remote repository.
 
     > `git pill` is just a combination of `git fetch` and `git merge`. When you run git pull, Git first performs a git fetch operation. It updates the corresponding remote tracking branch in your local repository to reflect the state of the remote repository. Then Git automatically merges the retrieved changes from the remote tracking branch into your current branch you are on.
 
@@ -693,21 +693,21 @@ Git tags are references to specific points in a Git repository's history. They a
 
 - `git tag`: View a list of all existing tags.
   - `-l "*beta*"` - List all tags that match a particular pattern.
-  - `[Tag]` - Create a new lightweight tag referring to the HEAD commit.
-  - `-a [Tag]` - Create a new annotated tag referring to the HEAD commit.
-    > Git will open your default text editor, allowing you to enter a message for the tag. Alternatively, you can use the `-m "[Message]"` option as a shortcut.
-  - `[Tag] [Commit_Hash]` - Tag a specific commit.
-  - `-f [Tag] [Commit_Hash]` - Forcefully tag a specific commit.
+  - `<Tag>` - Create a new lightweight tag referring to the HEAD commit.
+  - `-a <Tag>` - Create a new annotated tag referring to the HEAD commit.
+    > Git will open your default text editor, allowing you to enter a message for the tag. Alternatively, you can use the `-m "<Message>"` option as a shortcut.
+  - `<Tag> <Commit_Hash>` - Tag a specific commit.
+  - `-f <Tag> <Commit_Hash>` - Forcefully tag a specific commit.
     > Tag names should be unique, which means you cannot tag more than one commit with the same tag. However, what if you want to move a tag from one commit to another? In such a scenario, you can forcefully tag the desired commit, and the tag will automatically be moved.
-  - `-d [Tag]` - Delete a specific tag.
-- `git show [Tag]`: Display the information and changes associated with a specific tag.
-- `git checkout [Tag]`: Same as checking out a commit.
-- `git diff [Tag1] [Tag2]`: Same as diffing two commits.
-- `git push [Remote_Name] --tags`: Push all existing tags to the remote repository.
+  - `-d <Tag>` - Delete a specific tag.
+- `git show <Tag>`: Display the information and changes associated with a specific tag.
+- `git checkout <Tag>`: Same as checking out a commit.
+- `git diff <Tag1> <Tag2>`: Same as diffing two commits.
+- `git push <Remote_Name> --tags`: Push all existing tags to the remote repository.
 
   > By default, the `git push` command does not transfer tags to the remote repository.
 
-  > If you want to push a specific tag only, you can use the `git push [Remote_Name] [Tag]` syntax.
+  > If you want to push a specific tag only, you can use the `git push <Remote_Name> <Tag>` syntax.
 
 <br>
 
@@ -750,18 +750,18 @@ The reflog is a local history that is specific to your repository and is not sha
 
 - `git reflog`: Show all reflogs.
 
-  - `show [Branch_Name]` - Display the reflog for the given branch.
+  - `show <Branch_Name>` - Display the reflog for the given branch.
   - `--date=iso` - Show the reflog entries with their respective timestamps in the ISO 8601 format
 
 The reflog is useful in situations where you have accidentally deleted or lost commits, branches, or other references.
 
-> You can recover lost work by applying some [time-traveling](#-time-traveling-undoing-changes) actions that we discussed earlier.
+> You can recover lost work by applying some <time-traveling>(#-time-traveling-undoing-changes) actions that we discussed earlier.
 
-- `git checkout [Reflog_Hash]`: Travel to a specific hash and open it in 'detached HEAD' mode.
+- `git checkout <Reflog_Hash>`: Travel to a specific hash and open it in 'detached HEAD' mode.
 
 or
 
-- `git reset [--Options] [Reflog_Hash]`: Rewind the repository to the given hash state.
+- `git reset <--Options> <Reflog_Hash>`: Rewind the repository to the given hash state.
 
 > [!NOTE]
 > Reflogs in Git have an expiration time. By default, reflog entries expire after a certain period (90 days) to prevent them from growing indefinitely and consuming excessive disk space.
