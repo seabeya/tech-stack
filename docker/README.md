@@ -34,6 +34,9 @@
    - [Bind mounts (Host & Container)](#-bind-mounts-host--container)
    - [Named volumes (Container & Container)](#-named-volumes-container--container)
    - [Anonymous volumes](#-anonymous-volumes)
+4. [Docker Compose](#-docker-compose)
+   - [Installation (docker compose)](#-installation-docker-compose)
+   - [The Compose file](#-the-compose-file)
 
 <br>
 
@@ -401,3 +404,101 @@ Anonymous volumes are a type of Docker volume that is created and managed by Doc
 A practical use case for anonymous volumes these days is when they are combined with Bind Mounts to exclude specific subfolders.
 
 > - Anonymous volumes are deleted automatically when the container is deleted.
+
+<p align="right">
+    <a href="#docker">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Docker Compose
+
+Docker Compose is a tool that allows you to define and manage multi-container Docker applications using a simple YAML file.
+
+> It provides a way to define the services, networks, and volumes required for your application in a single configuration file, making it easier to set up and manage complex applications that consist of multiple interconnected containers.
+
+<br>
+
+#### 🔻 Installation (docker compose)
+
+You don't need to do anything if you install Docker as shown in the [Docker Installation](#-installation) section. The `docker-compose-plugin` includes everything you need to work with Docker Compose.
+
+> Otherwise, check the official installation guide: https://docs.docker.com/compose/install/
+
+<br>
+
+#### 🔻 The Compose file
+
+> Official docs: https://docs.docker.com/compose/compose-file/
+
+**Key components of a Docker Compose file:**
+
+- version: [Compose versioning](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix)
+  > Specifies the version of the Compose file syntax being used. This version is important as it determines which features and options are available to you.
+- services: [All service options](https://docs.docker.com/compose/compose-file/05-services/)
+  > Defines the different services that make up your application. Each service corresponds to a Docker container. Services can be linked together, specify image names, set environment variables, define ports to expose, and more.
+- networks: [All network options](https://docs.docker.com/compose/compose-file/06-networks/)
+  > Defines custom networks that can be used to connect services. Containers within the same network can communicate with each other directly by using the service names as hostnames.
+- volumes: [All volume options](https://docs.docker.com/compose/compose-file/07-volumes/)
+  > Specifies the volumes that should be mounted in the containers. Volumes are used for persistent data storage and sharing between containers.
+
+<br>
+
+**Examples:**
+
+<details><summary>Example #1</summary>
+
+> Set up an environment for running a containerized application, specifically targeting a development scenario.
+
+```yaml
+# docker compose file syntax being used:
+version: "3.8"
+
+services:
+  # the name of the service being defined:
+  my_app:
+    # service should be built using the Dockerfile found in the current directory:
+    build: .
+    # keep Standard input (stdin) open:
+    stdin_open: true
+    # allocate a pseudo-TTY:
+    tty: true
+    # map ports:
+    ports:
+      # port 3000 of the host to port 80 of the container:
+      - "3000:80"
+      # port 9229 of the host to port 9229 of the container:
+      - "9229:9229"
+    # set up a bind mount:
+    volumes:
+      - ./:/srv/www # it maps the current directory on the host to the /srv/www directory inside the container.
+```
+
+</details>
+
+<details><summary>Example #2</summary>
+
+> Running a Redis server alongside a Node.js application in a containerized environment.
+
+```yaml
+# docker compose file syntax being used:
+version: "3.8"
+
+services:
+  # the name of the first service being defined:
+  redis-server:
+    # the service should use the official Redis Docker image:
+    image: "redis"
+  # the name of the second service being defined:
+  node-app:
+    # service should be built using the Dockerfile found in the current directory:
+    build: .
+    # map port 3000 of the host to port 80 of the container:
+    ports:
+      - "3000:80"
+    # the service should always be restarted if it stops for any reason:
+    restart: always
+```
+
+</details>
