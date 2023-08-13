@@ -37,6 +37,7 @@
 4. [Docker Compose](#-docker-compose)
    - [Installation (docker compose)](#-installation-docker-compose)
    - [The Compose file](#-the-compose-file)
+   - [Commands](#-commands)
 
 <br>
 
@@ -502,3 +503,24 @@ services:
 ```
 
 </details>
+
+<br>
+
+#### 🔻 Commands
+
+> Docker Compose CLI docs: https://docs.docker.com/compose/reference/
+
+- `docker compose <Command> --help`: Displays available options and their descriptions for the specified Docker Compose command.
+- `docker compose up <-Options>...`: Creates and starts containers.
+  - `-d` - Starts containers in detached mode.
+  - `--build` - Forces Docker Compose to re-evaluate and rebuild all images specified in the compose file.
+    > This is done even if an image already exists, ensuring that the most up-to-date images are used.
+  - `<service1> <service2> <service3>` - Starts only the selected services.
+- `docker compose down <-Options>...`: Stops and removes all containers.
+  - `-v` - Removes all volumes associated with the containers.
+  - `<service1> <service2> <service3>` - Stops and removes only the selected services
+- `docker compose ps`: Displays the status of services defined in the compose.yaml file.
+- `docker compose ls`: Lists the running Docker Compose projects.
+- `docker compose build`: Builds Docker images specified in the compose.yaml file without starting any services.
+- `docker compose run <Service_Name> <Command>`: Starts the specified service (<service_name>) defined in the docker-compose.yml file and runs the provided command within that service's container.
+  - `--rm` - Removes the service's container automatically after it's stopped.
