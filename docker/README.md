@@ -38,6 +38,7 @@
    - [Installation (docker compose)](#-installation-docker-compose)
    - [The Compose file](#-the-compose-file)
    - [Commands](#-commands)
+5. [Docker Networking](#-docker-networking)
 
 <br>
 
@@ -128,6 +129,7 @@
 
 - `docker command --help`: Shows detailed information and usage instructions about a specific Docker command.
 - `docker system prune`: Frees up storage by clearing stopped containers, unused networks, dangling images, and build cache.
+- `docker inspect <Object>`: Provides detailed, low-level information about Docker objects such as containers, images, volumes, and networks.
 
 <br>
 
@@ -524,3 +526,86 @@ services:
 - `docker compose build`: Builds Docker images specified in the compose.yaml file without starting any services.
 - `docker compose run <Service_Name> <Command>`: Starts the specified service (<service_name>) defined in the docker-compose.yml file and runs the provided command within that service's container.
   - `--rm` - Removes the service's container automatically after it's stopped.
+
+<p align="right">
+    <a href="#docker">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Docker Networking
+
+Docker networking refers to the mechanisms and features within the Docker platform that allow containers to communicate with each other and with external networks.
+
+- **Container ➡ WWW**
+
+  > Docker containers, by default, can access the internet unless network restrictions are specifically configured.
+
+- **Container ➡ Host Machine**
+
+  > Containers can connect to services running on the host machine using the special hostname:
+  >
+  > ```
+  > host.docker.internal
+  > ```
+  >
+  > or the host's IP address in the bridged network configuration.
+
+  > Example: Let's say you have a Node.js application running in a Docker container, and you want to fetch some data from a locally hosted web server on your host machine.
+  >
+  > ```js
+  > const response = await fetch("http://host.docker.internal:3000/data");
+  > ```
+
+- **Container ➡ Container**
+
+  Docker provides various networking options to facilitate communication between containers.
+
+  - **Solution #1**: Using IP Addresses (Not Recommended).
+
+    > You can discover a container's IP address by running `docker container inspect <Container_Name>`, and then employ it to establish communication with the target container.
+    >
+    > Example: From the Node.js app container to the MongoDB container.
+    >
+    > ```js
+    > mongoose.connect(
+    >  "mongodb://IP_ADDRESS:27017/myDB",
+    >  ...
+    > );
+    > ```
+
+  - **Solution #2**: Using container names.
+
+    > Containers within the same network can communicate with each other using their designated container names.
+
+    - `docker network create <Network_Name>`: Creates a network with the given name.
+
+    - `docker run ... --network <Network_Name> ...`: Connects a container to a specific network.
+
+    > Example: From the Node.js app container to the MongoDB container. Assuming we've assigned the name "mymongo" to the MongoDB container using the `--name` flag.
+    >
+    > ```js
+    > mongoose.connect(
+    >  "mongodb://mymongo:27017/myDB",
+    >  ...
+    > );
+    > ```
+
+  - **Solution #3**: Using service names (Docker Compose).
+
+    > When using Docker Compose, networks are automatically established, allowing all services defined within the compose file to seamlessly communicate using their service names. Furthermore, network settings can be customized through the compose file. Check [The Compose file](#-the-compose-file) section.
+
+    > Example: From the Node.js app container to the Redis container (as illustrated in [compose file](#-the-compose-file) example #2).
+    >
+    > ```js
+    > const client = redis.createClient({
+    >   host: "redis-server",
+    >   port: 6379,
+    > });
+    > ```
+
+  > [!NOTE]
+  > You don’t need to expose any ports when there is only a container-to-container connection. Internal networking can function without requiring any port exposure.
+
+If you're interested in delving deeper into Docker Networking, I recommend starting by watching this video: https://youtu.be/bKFMS5C4CG0.
