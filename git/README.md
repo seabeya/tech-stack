@@ -488,7 +488,7 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
   > Any changes made to those files since the last commit will be discarded, and the files will be reverted to their previous state (staged area will be cleared).
 
-- `git restore --stage <File>...`: Unstage files. 2️⃣ --> 1️⃣
+- `git restore --staged <File>...`: Unstage files. 2️⃣ --> 1️⃣
 
   > When you accidentally add a file to the staging area using "git add <File>...", you can use this command to undo it.
 
