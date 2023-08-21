@@ -404,9 +404,7 @@ Anonymous volumes are a type of Docker volume that is created and managed by Doc
   >  VOLUME ["</container/path>"]
   > ```
 
-A practical use case for anonymous volumes these days is when they are combined with Bind Mounts to exclude specific subfolders.
-
-> - Anonymous volumes are deleted automatically when the container is deleted.
+> A practical use case for anonymous volumes these days is when they are combined with Bind Mounts to exclude specific subfolders. Anonymous volumes are deleted automatically when the container is deleted.
 
 <p align="right">
     <a href="#docker">back to top ⬆</a>
@@ -522,9 +520,9 @@ services:
   - `-v` - Removes all volumes associated with the containers.
   - `<service1> <service2> <service3>` - Stops and removes only the selected services
 - `docker compose ps`: Displays the status of services defined in the compose.yaml file.
-- `docker compose ls`: Lists the running Docker Compose projects.
+- `docker compose ls`: Lists the running Docker Compose containers.
 - `docker compose build`: Builds Docker images specified in the compose.yaml file without starting any services.
-- `docker compose run <Service_Name> <Command>`: Starts the specified service (<service_name>) defined in the docker-compose.yml file and runs the provided command within that service's container.
+- `docker compose run <-Options> <Service_Name> <Command>`: Starts the specified service defined in the docker-compose.yml file and runs the provided command within that service's container.
   - `--rm` - Removes the service's container automatically after it's stopped.
 
 <p align="right">
@@ -609,3 +607,10 @@ Docker networking refers to the mechanisms and features within the Docker platfo
   > You don’t need to expose any ports when there is only a container-to-container connection. Internal networking can function without requiring any port exposure.
 
 If you're interested in delving deeper into Docker Networking, I recommend starting by watching this video: https://youtu.be/bKFMS5C4CG0.
+
+<p align="right">
+    <a href="#docker">back to top ⬆</a>
+</p>
+
+<br>
+<br>
