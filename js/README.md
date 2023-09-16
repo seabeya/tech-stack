@@ -1120,6 +1120,7 @@ evenOrOdd(100)
 | Falsy  | `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, (`""` or `''` or ` `` `)                                   |
 
 - `&&`: Logical AND.
+  > Gives the first falsey value encountered or the last value if all values are truthy.
 
   ```js
   true && true; // true
@@ -1139,6 +1140,7 @@ evenOrOdd(100)
   ```
 
 - `||`: Logical OR.
+  > Gives the first truthy value encountered or the last value if all values are falsey.
 
   ```js
   true || true; // true
