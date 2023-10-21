@@ -308,7 +308,8 @@ function getName() {
 console.log(x); // ReferenceError: x is not defined
 ```
 
-> [!NOTE] > `undefined` and `not defined` are different things.
+> [!NOTE]
+> `undefined` and `not defined` are different things.
 >
 > - **Undefined**: It means that the variable exists in memory but does not have a specific value assigned to it yet. It can be thought of as a placeholder or a default state for variables.
 > - **Not Defined**: The variable or function doesn't exist in memory (the program is not aware of its existence).
