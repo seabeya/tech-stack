@@ -190,8 +190,6 @@ Containers are running instances of images. Multiple containers can be started b
     > This is useful for monitoring a running container (similar to attached mode).
 - `docker rm <Container_Name>`: Deletes a container using its name.
 - `docker container prune`: Deletes all stopped containers.
-- `docker cp <./folder1/.> <Container_Name>:</folder2>`: Copies the contents of folder1 to the folder2 directory inside the running container.
-  > This operation goes from local to container. The positions can be reversed to copy from the container to the local machine.
 
 <br>
 
@@ -524,6 +522,7 @@ services:
 - `docker compose build`: Builds Docker images specified in the compose.yaml file without starting any services.
 - `docker compose run <-Options> <Service_Name> <Command>`: Starts the specified service defined in the docker-compose.yml file and runs the provided command within that service's container.
   - `--rm` - Removes the service's container automatically after it's stopped.
+- `docker compose cp <Service_Name>:<path/container/folder> <path/host/folder>`: Copies files/folders between a service container and the host.
 
 <p align="right">
     <a href="#docker">back to top ⬆</a>
