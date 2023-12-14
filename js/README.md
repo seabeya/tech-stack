@@ -11,7 +11,7 @@
 > Pain.
 
 <p align="right">
-    <a href="https://github.com/shaanaliyev/tech-stack#tech-stack">Main Page ↖</a>
+    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements
@@ -308,8 +308,7 @@ function getName() {
 console.log(x); // ReferenceError: x is not defined
 ```
 
-> [!NOTE]
-> `undefined` and `not defined` are different things.
+> [!NOTE] > `undefined` and `not defined` are different things.
 >
 > - **Undefined**: It means that the variable exists in memory but does not have a specific value assigned to it yet. It can be thought of as a placeholder or a default state for variables.
 > - **Not Defined**: The variable or function doesn't exist in memory (the program is not aware of its existence).
@@ -741,7 +740,7 @@ It allows you to handle multiple asynchronous tasks that depend on each other's 
 > Anything that we return from one chain will be passed on to the next chain.
 
 ```js
-const promise = fetch("https://api.github.com/users/shaanaliyev");
+const promise = fetch("https://api.github.com/users/seabeya");
 
 console.log("#1: ", promise); // #1: Promise {<pending>}
 
@@ -750,7 +749,7 @@ promise
     return response.json();
   })
   .then((user) => {
-    console.log(user); // {login: 'shaanaliyev', ... }
+    console.log(user); // {login: 'seabeya', ... }
 
     return "torvalds";
   })
@@ -773,7 +772,7 @@ console.log("#2: ", promise); // #2: Promise {<pending>}
 > ```
 > Status check #1: Promise {<pending>}
 > Status check #2: Promise {<pending>}
-> {login: 'shaanaliyev', …}
+> {login: 'seabeya', …}
 > torvalds
 > {login: 'torvalds', …}
 > ```

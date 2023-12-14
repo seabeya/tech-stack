@@ -11,7 +11,7 @@
 > Docker is a platform and technology that enables developers to create, deploy, and manage applications using containers.
 
 <p align="right">
-    <a href="https://github.com/shaanaliyev/tech-stack#tech-stack">Main Page ↖</a>
+    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements
