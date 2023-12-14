@@ -18,7 +18,7 @@
 
 - No previous knowledge is required!
 
-  > But I recommend that you watch ["Docker in 100 Seconds"](https://youtu.be/Gjnup-PuquQ) and some other 5-10 minute videos with titles like "What is Docker" before you start.
+  > But I recommend that you watch ["Docker in 100 Seconds" ↗](https://youtu.be/Gjnup-PuquQ) and some other 5-10 minute videos with titles like "What is Docker" before you start.
 
 ### Contents
 
@@ -46,7 +46,7 @@
 
 ## 🔶 Installation
 
-1. Setting up Linux repositories for the latest Docker version: [Docs](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+1. Setting up Linux repositories for the latest Docker version: [Docs ↗](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 
    ```
    sudo apt-get update
@@ -80,7 +80,7 @@
    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
    ```
 
-3. To run Docker without root privileges: [Docs](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+3. To run Docker without root privileges: [Docs ↗](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
 
    ```
    sudo groupadd docker
@@ -94,7 +94,7 @@
    newgrp docker
    ```
 
-4. Configure Docker to start on boot: [Docs](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot-with-systemd)
+4. Configure Docker to start on boot: [Docs ↗](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot-with-systemd)
 
    - Enabling:
 
@@ -433,13 +433,13 @@ You don't need to do anything if you install Docker as shown in the [Docker Inst
 
 **Key components of a Docker Compose file:**
 
-- version: [Compose versioning](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix)
+- version: [Compose versioning ↗](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix)
   > Specifies the version of the Compose file syntax being used. This version is important as it determines which features and options are available to you.
-- services: [All service options](https://docs.docker.com/compose/compose-file/05-services/)
+- services: [All service options ↗](https://docs.docker.com/compose/compose-file/05-services/)
   > Defines the different services that make up your application. Each service corresponds to a Docker container. Services can be linked together, specify image names, set environment variables, define ports to expose, and more.
-- networks: [All network options](https://docs.docker.com/compose/compose-file/06-networks/)
+- networks: [All network options ↗](https://docs.docker.com/compose/compose-file/06-networks/)
   > Defines custom networks that can be used to connect services. Containers within the same network can communicate with each other directly by using the service names as hostnames.
-- volumes: [All volume options](https://docs.docker.com/compose/compose-file/07-volumes/)
+- volumes: [All volume options ↗](https://docs.docker.com/compose/compose-file/07-volumes/)
   > Specifies the volumes that should be mounted in the containers. Volumes are used for persistent data storage and sharing between containers.
 
 <br>

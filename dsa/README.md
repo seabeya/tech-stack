@@ -230,7 +230,7 @@ const myArray = new Array(5); // Array sized 5
 > [!NOTE]
 > JavaScript is not a low-level language; therefore, the JS engine performs various optimizations under the hood. The implementation of certain features may differ from other languages, depending on the specific approach taken by the engine.
 
-The implementation of JavaScript arrays also depends on the executing engine, the type of elements in the array, and how the array is used. Here is the [V8 implementation](https://chromium.googlesource.com/v8/v8.git/+/refs/heads/main/src/builtins/builtins-array.cc).
+The implementation of JavaScript arrays also depends on the executing engine, the type of elements in the array, and how the array is used. Here is the [V8 implementation ↗](https://chromium.googlesource.com/v8/v8.git/+/refs/heads/main/src/builtins/builtins-array.cc).
 
 > In V8, integer arrays are backed by an array of integers, floating-point arrays are backed by an array of doubles, and object arrays are backed by an array of pointers.
 
@@ -240,7 +240,7 @@ The implementation of JavaScript arrays also depends on the executing engine, th
 
 > The implementation of JavaScript arrays can also affect the way certain operations are performed on arrays. For example, the `push()` method will behave differently on a packed array than on a sparse array.
 
-> The V8 array implementation includes a number of constants that are used to determine how the array is stored and accessed. To understand better please have a look: ["Mathias Bynens - V8 internals for JavaScript developers"](https://youtu.be/m9cTaYI95Zc).
+> The V8 array implementation includes a number of constants that are used to determine how the array is stored and accessed. To understand better please have a look: ["Mathias Bynens - V8 internals for JavaScript developers" ↗](https://youtu.be/m9cTaYI95Zc).
 
 <p align="right">
     <a href="#data-structures--algorithms">back to top ⬆</a>
@@ -261,7 +261,7 @@ A hash table, also known as a hash map, is a data structure that allows efficien
 
 <br>
 
-JavaScript doesn't have a built-in data structure called a "hash table". But you can implement similar functionality using objects ({}) and the built-in [Map object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
+JavaScript doesn't have a built-in data structure called a "hash table". But you can implement similar functionality using objects ({}) and the built-in [Map object ↗](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
 
 - Using Objects as Hash Tables:
   ```js
@@ -738,7 +738,7 @@ A binary tree is a type of tree data structure in which each node can have at mo
 
   > A balanced binary tree is a binary tree in which the heights of the left and right subtrees of any node differ by at most one. Balancing the tree helps to ensure efficient operations and maintain a more uniform structure.
 
-  > When every inserted item is greater or smaller than its parent, or certain deletion operations are performed, the tree becomes unbalanced. In an unbalanced tree, lookup, insert, and delete operations have a time complexity of `O(h)` because the tree resembles a linked list. To solve this issue, we can implement [AVL Trees](https://medium.com/basecs/the-little-avl-tree-that-could-86a3cae410c7) or [Red-Black Trees](https://medium.com/basecs/painting-nodes-black-with-red-black-trees-60eacb2be9a5). These data structures perform a switch or rotation after add/delete operations to balance the tree.
+  > When every inserted item is greater or smaller than its parent, or certain deletion operations are performed, the tree becomes unbalanced. In an unbalanced tree, lookup, insert, and delete operations have a time complexity of `O(h)` because the tree resembles a linked list. To solve this issue, we can implement [AVL Trees ↗](https://medium.com/basecs/the-little-avl-tree-that-could-86a3cae410c7) or [Red-Black Trees ↗](https://medium.com/basecs/painting-nodes-black-with-red-black-trees-60eacb2be9a5). These data structures perform a switch or rotation after add/delete operations to balance the tree.
 
 <br>
 

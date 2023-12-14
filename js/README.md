@@ -252,7 +252,7 @@ console.log("44444");
 
 > 3. Finally, '22222' gets printed, as we know it belongs to the least prioritized task among the tasks inside the given code.
 
-If you want to see explanations with more examples, I recommend you watch: [YouTube playlist](https://www.youtube.com/watch?v=L18RHG2DwwA&list=PLC3y8-rFHvwj1_l8acs_lBi3a0HNb3bAN&pp=iAQB).
+If you want to see explanations with more examples, I recommend you watch: [YouTube playlist ↗](https://www.youtube.com/watch?v=L18RHG2DwwA&list=PLC3y8-rFHvwj1_l8acs_lBi3a0HNb3bAN&pp=iAQB).
 
 <br>
 
@@ -266,7 +266,7 @@ document.getElementById("test").addEventListener("click", () => {
 });
 ```
 
-Please take a look at the question and its accepted answer: [Stackoverflow](https://stackoverflow.com/questions/76673558/what-is-the-priority-of-eventlistener-callback-functions-in-the-event-loop).
+Please take a look at the question and its accepted answer: [StackOverflow ↗](https://stackoverflow.com/questions/76673558/what-is-the-priority-of-eventlistener-callback-functions-in-the-event-loop).
 
 >
 
@@ -889,7 +889,7 @@ evenOrOdd(100)
 ### 🔷 Expressions and Operators
 
 > [!NOTE]
-> Not going to cover all of them. If you want to see a complete list of expressions and operators, please take a look: [MDN Web Docs (expressions and operators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators).
+> Not going to cover all of them. If you want to see a complete list of expressions and operators, please take a look: [MDN Web Docs (expressions and operators) ↗](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators).
 
 <br>
 
@@ -1120,7 +1120,7 @@ evenOrOdd(100)
 | Falsy  | `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, (`""` or `''` or ` `` `)                                   |
 
 - `&&`: Logical AND.
-  > Gives the first falsey value encountered or the last value if all values are truthy.
+  > Gives the first falsy value encountered or the last value if all values are truthy.
 
   ```js
   true && true; // true
@@ -1140,7 +1140,7 @@ evenOrOdd(100)
   ```
 
 - `||`: Logical OR.
-  > Gives the first truthy value encountered or the last value if all values are falsey.
+  > Gives the first truthy value encountered or the last value if all values are falsy.
 
   ```js
   true || true; // true
@@ -1452,8 +1452,8 @@ The "this" keyword refers to the current context or the object on which a functi
 
 ### ⛓ Resources
 
-1. Starting with zero JavaScript knowledge? [W3schools JavaScript](https://www.w3schools.com/js/default.asp).
+1. Starting with zero JavaScript knowledge? [W3schools JavaScript ↗](https://www.w3schools.com/js/default.asp).
    > If you are really new to programming, I recommend you find an online video tutorial or tutor and follow along.
-2. Have some JavaScript knowledge and want to dive deeper? [MDN JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
-3. Clean Code Best Practices: [Clean Code concepts adapted for JavaScript](https://github.com/ryanmcdermott/clean-code-javascript).
-4. Best Practices: [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
+2. Have some JavaScript knowledge and want to dive deeper? [MDN JavaScript ↗](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+3. Clean Code Best Practices: [Clean Code concepts adapted for JavaScript ↗](https://github.com/ryanmcdermott/clean-code-javascript).
+4. Best Practices: [Airbnb JavaScript Style Guide ↗](https://github.com/airbnb/javascript).

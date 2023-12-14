@@ -17,7 +17,7 @@
 #### Knowledge requirements
 
 - No previous knowledge is required!
-  > But if you are new to Git, I recommend watching ["Git Explained in 100 Seconds"](https://youtu.be/hwP7WQkmECE) before starting.
+  > But if you are new to Git, I recommend watching ["Git Explained in 100 Seconds" ↗](https://youtu.be/hwP7WQkmECE) before starting.
 
 ### Contents
 
