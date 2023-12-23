@@ -1370,12 +1370,12 @@ The "this" keyword refers to the current context or the object on which a functi
 
 - `this` in Object Methods:
 
-  > When a function is part of an object and is called as a method of that object, the this keyword inside the function refers to the object itself. It allows the method to access and modify the object's properties and methods.
+  > When a function is part of an object and is called as a method of that object, the `this` keyword inside the function refers to the object itself. It allows the method to access and modify the object's properties and methods.
 
   ```js
   const myObject = {
     name: "John",
-    show: function () {
+    show() {
       console.log(this); // {name: 'John', show: ƒ}
     },
   };
@@ -1385,7 +1385,7 @@ The "this" keyword refers to the current context or the object on which a functi
 
 - `this` in Regular Functions:
 
-  > When a regular function is called, the value of this is determined by how the function is invoked.
+  > When a regular function is called, the value of `this` is determined by how the function is invoked.
 
   ```js
   function regularFunction() {
@@ -1398,11 +1398,11 @@ The "this" keyword refers to the current context or the object on which a functi
   ```js
   const myObject = {
     name: "John",
-    show: function () {
-      function arrowFunction() {
+    show() {
+      function regularFunction() {
         console.log(this); // Window { ... }
       }
-      arrowFunction();
+      regularFunction();
     },
   };
 
@@ -1416,7 +1416,7 @@ The "this" keyword refers to the current context or the object on which a functi
   ```js
   const myObject = {
     name: "John",
-    show: function () {
+    show() {
       const arrowFunction = () => {
         // Inherits 'this' from the 'show' function
         console.log(this); // {name: 'John', show: ƒ}
