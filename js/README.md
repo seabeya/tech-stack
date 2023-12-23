@@ -33,6 +33,7 @@
    - [Expressions and Operators](#-expressions-and-operators)
    - [Functions](#-functions)
    - ['this' keyword](#-this-keyword)
+4. [Classes in JS](#-classes-in-js)
 
 <br>
 
@@ -1120,6 +1121,7 @@ evenOrOdd(100)
 | Falsy  | `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, (`""` or `''` or ` `` `)                                   |
 
 - `&&`: Logical AND.
+
   > Gives the first falsy value encountered or the last value if all values are truthy.
 
   ```js
@@ -1140,6 +1142,7 @@ evenOrOdd(100)
   ```
 
 - `||`: Logical OR.
+
   > Gives the first truthy value encountered or the last value if all values are falsy.
 
   ```js
@@ -1439,6 +1442,339 @@ The "this" keyword refers to the current context or the object on which a functi
 
   myObject.show();
   ```
+
+<p align="right">
+    <a href="#javascript">back to top ⬆</a>
+</p>
+
+<br>
+
+<br>
+
+## 🔶 Classes in JS
+
+In JavaScript, classes were introduced with ES6 to provide a more convenient and syntax-friendly way to create constructor functions and prototypes.
+
+Classes provide a way to implement object-oriented programming (OOP) principles, making it easier to organize and structure code.
+
+In object-oriented programming, a class is a blueprint for creating objects. These objects can have attributes (properties) and behaviors (methods) associated with them. The class defines the structure and behavior of the objects that will be created based on that class.
+
+- Declaration:
+
+  > You can declare a class using the `class` keyword:
+
+  ```js
+  class MyClass {
+    myVar = "Hello";
+
+    myMethod() {
+      console.log("World!");
+    }
+  }
+  ```
+
+- Instantiation & Usage:
+
+  > You can create instances of a class (objects) using the `new` keyword:
+
+  ```js
+  const test = new MyClass();
+
+  console.log(test.myVar); // Hello
+  test.myMethod(); // World!
+  ```
+
+<br>
+
+#### 🔻 Methods
+
+Methods in a class are defined just like regular functions, but they are part of the class and can access the class instance through the `this` keyword.
+
+```js
+class MyClass {
+  myVar = "Hello";
+
+  myMethod() {
+    console.log(this.myVar + " World!");
+  }
+
+  // Methods in classes can have parameters:
+  addFive(num) {
+    return num + 5;
+  }
+}
+
+const test = new MyClass();
+
+test.myMethod(); // Hello World!
+console.log(test.addFive(15)); // 20
+```
+
+<br>
+
+#### 🔻 Constructor Method
+
+The constructor method is a special method that gets called when an object is instantiated from the class. It is used for initializing object properties and performing other setup tasks.
+
+```js
+class Human {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.name} and I'm ${this.age} years old.`);
+  }
+}
+
+const person1 = new Human("Shaan", 23);
+const person2 = new Human("John", 29);
+
+person1.introduce(); // My name is Shaan and I'm 23 years old.
+person2.introduce(); // My name is John and I'm 29 years old.
+```
+
+<br>
+
+#### 🔻 Inheritance
+
+Inheritance is a concept in OOP that allows a new class (subclass or derived class) to inherit properties and methods from an existing class (superclass or base class). This promotes code reuse and the creation of a hierarchy of classes.
+
+> You can create a subclass by using the `extends` keyword.
+
+```js
+class Animal {
+  constructor(age, name) {
+    this.age = age;
+    this.name = name;
+  }
+
+  smile() {
+    console.log(":)");
+  }
+
+  eat() {
+    console.log("Eating");
+  }
+
+  getInfo() {
+    return `Name: ${this.name}; Age: ${this.age}`;
+  }
+}
+```
+
+```js
+class Dog extends Animal {
+  run() {
+    console.log("Running");
+  }
+
+  bark() {
+    console.log("Woof! Woof!");
+  }
+}
+
+class Fish extends Animal {
+  swim() {
+    console.log("Swimming");
+  }
+}
+
+const dog = new Dog(5, "Buddy");
+const fish = new Fish(1);
+
+dog.smile(); // :)
+dog.bark(); // Woof! Woof!
+console.log(dog.getInfo()); // Name: Buddy; Age: 5
+console.log(dog.name); // Buddy
+
+fish.smile(); // :)
+fish.swim(); // Swimming
+console.log(fish.getInfo()); // Name: undefined; Age: 1
+console.log(fish.name); // undefined
+```
+
+> [!NOTE]
+> If the parent class has a constructor that expects arguments, you can still pass those arguments when creating an instance of the subclass, even if the subclass itself has no constructor method.
+
+- `super()`:
+  > When a subclass has its own constructor method, it must call `super()` within its constructor to invoke the constructor of its parent class. This ensures that the initialization logic in the parent class is executed before any additional logic in the subclass constructor.
+  >
+  > ```js
+  > class Fish extends Animal {
+  >   constructor(weight, age, name = "Unnamed Fish") {
+  >     super(age, name);
+  >
+  >     this.weight = weight;
+  >   }
+  >
+  >   swim() {
+  >     console.log("Swimming");
+  >   }
+  > }
+  >
+  > const fish = new Fish(4.5, 1);
+  > fish.smile(); // :)
+  > fish.swim(); // Swimming
+  > console.log(fish.getInfo()); // Name: Unnamed Fish; Age: 1
+  > ```
+- Method overriding:
+  > Method overriding is a concept in OOP where a subclass provides a specific implementation for a method that is already defined in its superclass.
+  >
+  > ```js
+  > class Fish extends Animal {
+  >   constructor(weight, age, name = "Unnamed Fish") {
+  >     super(age, name);
+  >
+  >     this.weight = weight;
+  >   }
+  >
+  >   swim() {
+  >     console.log("Swimming");
+  >   }
+  >
+  >   // Overriding:
+  >   getInfo() {
+  >     return `Name: ${this.name}; Age: ${this.age}; Weight: ${this.weight}`;
+  >   }
+  >
+  >   // If we want to reuse the parent implementation, we can use it like:
+  >   exGetInfo() {
+  >     // super = the parent
+  >     return super.getInfo();
+  >   }
+  > }
+  >
+  > const fish = new Fish(4.5, 1);
+  > fish.smile(); // :)
+  > fish.swim(); // Swimming
+  > console.log(fish.getInfo()); // Name: Unnamed Fish; Age: 1; Weight: 4.5
+  > console.log(fish.exGetInfo()); // Name: Unnamed Fish; Age: 1
+  > ```
+
+<br>
+
+#### 🔻 Private properties
+
+Private properties are not accessible from outside the class, even in subclasses, providing a way to encapsulate data and hide it from external manipulation.
+
+> Private properties are created using the `#` keyword (ES10).
+
+```js
+class MyClass {
+  #privateField;
+
+  constructor(value) {
+    this.#privateField = value;
+  }
+
+  #privateMethod() {
+    console.log("Private!");
+  }
+
+  getPrivateField() {
+    return this.#privateField;
+  }
+
+  setPrivateField(newValue) {
+    this.#privateField = newValue;
+  }
+
+  runPrivateMethod() {
+    this.#privateMethod();
+  }
+}
+
+const test = new MyClass("Hello!");
+
+console.log(test.getPrivateField()); // Hello!
+test.setPrivateField("Hello World!");
+console.log(test.getPrivateField()); // Hello World!
+
+test.runPrivateMethod(); // Private!
+```
+
+<br>
+
+#### 🔻 Getters and Setters
+
+Getters and setters are methods that allow you to control access to the properties of a class. They provide a way to get and set the values of private properties, allowing you to encapsulate and control access to the internal state of an object.
+
+> Use `get` keyword for getters and `set` for setters.
+
+```js
+class Person {
+  #firstName;
+  #lastName;
+
+  constructor(firstName, lastName) {
+    this.#firstName = firstName;
+    this.#lastName = lastName;
+  }
+
+  get fullName() {
+    return `${this.#firstName} ${this.#lastName}`;
+  }
+
+  set firstName(newFirstName) {
+    this.#firstName = newFirstName;
+  }
+
+  set lastName(newLastName) {
+    this.#lastName = newLastName;
+  }
+}
+
+// Usage
+const person = new Person("John", "Doe");
+
+// Using the getter
+console.log(person.fullName); // John Doe
+
+// Using the setters
+person.firstName = "Sh";
+person.lastName = "A";
+
+// Using the getter again
+console.log(person.fullName); // Sh A
+```
+
+Here are some situations where setters and getters are useful:
+
+- Encapsulation and Abstraction:
+  > Setters and getters allow you to encapsulate the internal representation of an object. The actual implementation details are hidden, and external code interacts with the object through a well-defined interface.
+- Validation and Control:
+  > Setters enable you to validate and control the values assigned to properties. You can add conditions or checks to ensure that the assigned values meet certain criteria before updating the internal state.
+
+<br>
+
+#### 🔻 Static Methods
+
+Static methods are methods that are called on the class itself rather than on an instance of the class. Static methods are useful for utility functions or operations that are not tied to a specific instance of the class.
+
+> They are defined using the `static` keyword within a class.
+
+```js
+class MathOperations {
+  // Instance method
+  add(x, y) {
+    return x + y;
+  }
+
+  // Static method
+  static multiply(x, y) {
+    return x * y;
+  }
+}
+
+// Using static method
+console.log(MathOperations.multiply(10, 5)); // 50
+
+// Using instance method
+const mathInstance = new MathOperations();
+console.log(mathInstance.add(10, 5)); // 15
+```
 
 <p align="right">
     <a href="#javascript">back to top ⬆</a>
