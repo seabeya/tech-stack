@@ -25,6 +25,11 @@
    - [Installation](#-installation)
 2. [Types](#-types)
    - [Basic Types](#-basic-types)
+   - [Complex Types](#-complex-types)
+     - [Type Aliases](#-type-aliases)
+     - [Intersection Types](#-intersection-types)
+     - [Literal Types](#-literal-types)
+     - [Interface](#-interface)
 
 <br>
 
@@ -284,3 +289,108 @@ function add(a: number, b: number): number {
     > ```
 
  <br>
+
+### 🔷 Complex Types
+
+#### 🔻 Type Aliases
+
+Type aliases are a way to create a name for a type.
+
+> You use the `type` keyword to create type aliases.
+
+```ts
+type Point = {
+  x: number;
+  y: number;
+};
+
+const myPoint: Point = { x: 10, y: 20 };
+```
+
+```ts
+type NumOrString = number | string;
+
+function add(a: NumOrString, b: NumOrString) {
+  ...
+}
+```
+
+> They are especially useful in scenarios where you need to reuse a specific combination of types in multiple places in your code.
+
+<br>
+
+#### 🔻 Intersection Types
+
+Intersection types involve combining multiple types into a single type that has all the features of each individual type.
+
+> You use `&` to bring different types together.
+
+```ts
+type Person = {
+  name: string;
+  age: number;
+};
+
+type Employee = {
+  employeeID: string;
+  role: string;
+};
+
+type EmployeePerson = Person & Employee;
+```
+
+<br>
+
+#### 🔻 Literal Types
+
+Literal types involve using specific, literal values as types. Instead of just using general types like `number` or `string`, you specify exact values that a variable can have.
+
+```ts
+let direction: "left" | "right" | "up" | "down";
+direction = "up"; // Ok
+direction = "diagonal"; // Error
+```
+
+<br>
+
+#### 🔻 Interface
+
+An interface is like a plan or blueprint for how something should look. It helps you define the structure of an object, specifying the properties an object should have and their types. It saves us from using the inline object type and adds reusability.
+
+> To create an interface in TypeScript, you use the keyword `interface`.
+
+```ts
+interface User {
+  name: string;
+  age: number;
+  getBirthYear(currYear: number): number;
+}
+
+const logUserInfo = (user: User) => {
+  const currYear = new Date().getFullYear();
+  console.log(user.name, user.age, user.getBirthYear(currYear));
+};
+
+const user1 = {
+  name: "Sh",
+  age: 23,
+  getBirthYear(currYear: number) {
+    return currYear - this.age;
+  },
+};
+
+logUserInfo(user1); // Ok.
+
+const user2 = {
+  name: "John",
+};
+
+logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
+```
+
+<p align="right">
+    <a href="#typescript">back to top ⬆</a>
+</p>
+
+<br>
+<br>
