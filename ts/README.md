@@ -30,6 +30,8 @@
      - [Intersection Types](#-intersection-types)
      - [Literal Types](#-literal-types)
      - [Interface](#-interface)
+3. [More...](#-more)
+   - [Access Modifiers](#-access-modifiers)
 
 <br>
 
@@ -394,3 +396,106 @@ logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
 
 <br>
 <br>
+
+## 🔶 More...
+
+#### 🔻 Access Modifiers
+
+In TypeScript, just like in many object-oriented programming languages, the `public`, `private`, and `protected` keywords are used to control the access levels of class members (properties and methods).
+
+> These access modifiers help define the visibility and accessibility of class members both within and outside of the class.
+
+- Public:
+  > Members are accessible from any part of the program, both within and outside the class.
+  >
+  > ```ts
+  > class Example {
+  >   public name: string;
+  >
+  >   constructor(name: string) {
+  >     this.name = name;
+  >   }
+  > }
+  >
+  > const instance = new Example("John");
+  > console.log(instance.name); // Accessing a public property
+  > ```
+  >
+  > This is the default access level if no modifier is specified.
+- Private:
+  > Members are only accessible within the class where they are defined.
+  >
+  > ```ts
+  > class Example {
+  >   private secret: string;
+  >
+  >   constructor(secret: string) {
+  >     this.secret = secret;
+  >   }
+  >
+  >   getSecret() {
+  >     console.log(this.secret); // Accessing a private property within the class
+  >   }
+  > }
+  >
+  > const instance = new Example("Hidden");
+  > instance.getSecret(); // Ok
+  > console.log(instance.secret); // Error
+  > ```
+- Protected:
+  > Members are similar to private, but they are also accessible within subclasses.
+  >
+  > ```ts
+  > class Animal {
+  >   protected sound: string;
+  >
+  >   constructor(sound: string) {
+  >     this.sound = sound;
+  >   }
+  > }
+  >
+  > class Dog extends Animal {
+  >   bark() {
+  >     console.log(this.sound); // Accessing a protected property in a subclass
+  >   }
+  > }
+  >
+  > const dog = new Dog("Woof");
+  > dog.bark(); // Ok
+  > console.log(dog.sound); // Error
+  > ```
+
+When you prefix a constructor parameter with an access modifier (such as `public`, `private`, or `protected`), TypeScript automatically generates a corresponding property with that access level.
+
+```ts
+class Testing {
+  constructor(public a: string, public b: string) {}
+}
+
+const xd = new Testing("aaa", "bbb");
+
+console.log(xd.a, xd.b);
+```
+
+and
+
+```ts
+class Testing {
+  public a: string;
+  public b: string;
+
+  constructor(a: string, b: string) {
+    this.a = a;
+    this.b = b;
+  }
+}
+
+const xd = new Testing("aaa", "bbb");
+
+console.log(xd.a, xd.b);
+```
+
+are the same.
+
+> [!NOTE]
+> TypeScript's `private` modifier doesn't prevent access at runtime; instead, use JavaScript's `#` symbol for runtime prevention ([Classes in JS > Private properties](https://github.com/seabeya/tech-stack/blob/main/js/README.md#-private-properties)).
