@@ -247,6 +247,44 @@ function add(a: number, b: number): number {
   ```ts
   const myVar: number | string; // myVar can be either a string or a number.
   ```
+  - Union-typed object:
+    > TypeScript only allows you to access properties that are common to all types in the union.
+    >
+    > ```ts
+    > type Company = {
+    >   name: string;
+    >   location: string;
+    > };
+    >
+    > type Person = {
+    >   name: string;
+    >   age: number;
+    > };
+    >
+    > function example(obj: Company | Person) {
+    >   console.log(obj.name); // Ok
+    >   console.log(obj.location); // Error
+    >   console.log(obj.age); // Error
+    > }
+    > ```
+    >
+    > However, if you want to access a property that is specific to one of the types, you need to use type guards:
+    >
+    > ```ts
+    > function example(obj: Company | Person) {
+    >   console.log(obj.name); // Ok
+    >
+    >   if ("location" in obj) {
+    >     // obj is Company type
+    >     console.log(obj.location); // Ok
+    >     console.log(obj.age); // Error
+    >   } else {
+    >     // obj is Person type
+    >     console.log(obj.age); // Ok
+    >     console.log(obj.location); // Error
+    >   }
+    > }
+    > ```
 - Functions:
   - Return Types:
     > To specify the return type for a function, use `:` after the function parameter section.
