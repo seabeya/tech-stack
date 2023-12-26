@@ -31,6 +31,7 @@
      - [Intersection Types](#-intersection-types)
      - [Literal Types](#-literal-types)
      - [Interface](#-interface)
+     - [Optional Properties](#-optional-properties)
 3. [Working with Classes](#-working-with-classes)
    - [Access Modifiers](#-access-modifiers)
    - ["implements" keyword](#-implements-keyword)
@@ -435,6 +436,18 @@ const user2 = {
 };
 
 logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
+```
+
+<br>
+
+#### 🔻 Optional Properties
+
+In TypeScript, optional properties allow you to specify that a property may or may not be present in an object.
+
+> You can mark certain properties as optional by appending a question mark (`?`) to the property name.
+
+```ts
+const person: { name: string; age?: number } = { name: "Sh" };
 ```
 
 <p align="right">
