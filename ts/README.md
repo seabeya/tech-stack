@@ -30,8 +30,9 @@
      - [Intersection Types](#-intersection-types)
      - [Literal Types](#-literal-types)
      - [Interface](#-interface)
-3. [More...](#-more)
+3. [Working with Classes](#-working-with-classes)
    - [Access Modifiers](#-access-modifiers)
+   - ["implements" keyword](#-implements-keyword)
 
 <br>
 
@@ -435,7 +436,7 @@ logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
 <br>
 <br>
 
-## 🔶 More...
+## 🔶 Working with Classes
 
 #### 🔻 Access Modifiers
 
@@ -537,3 +538,41 @@ are the same.
 
 > [!NOTE]
 > TypeScript's `private` modifier doesn't prevent access at runtime; instead, use JavaScript's `#` symbol for runtime prevention ([Classes in JS > Private properties](https://github.com/seabeya/tech-stack/blob/main/js/README.md#-private-properties)).
+
+<br>
+
+#### 🔻 "implements" keyword
+
+When a class implements an interface using the `implements` keyword, it means that the class promises to provide implementations for all the members (properties and methods) declared by that interface.
+
+```ts
+interface Reportable {
+  generateReport(): string;
+}
+
+class SystemStatus implements Reportable {
+  systemName: string;
+  status: string;
+
+  constructor(systemName: string, initialStatus: string) {
+    this.systemName = systemName;
+    this.status = initialStatus;
+  }
+
+  getStatus(): string {
+    return this.status;
+  }
+
+  setStatus(newStatus: string): void {
+    this.status = newStatus;
+  }
+
+  generateReport(): string {
+    return `Generating report for ${this.systemName}... Status: ${this.status}`;
+  }
+}
+
+const mySystem = new SystemStatus("MySystem", "Online");
+```
+
+> Classes may also implement multiple interfaces: `class MyClass implements Interface1, Interface2, Interface3 {`.
