@@ -31,10 +31,11 @@
      - [Intersection Types](#-intersection-types)
      - [Literal Types](#-literal-types)
      - [Interface](#-interface)
-     - [Optional Properties](#-optional-properties)
 3. [Working with Classes](#-working-with-classes)
    - [Access Modifiers](#-access-modifiers)
-   - ["implements" keyword](#-implements-keyword)
+   - [Implementing Interfaces](#-implementing-interfaces)
+4. [More...](#-more)
+   - [Optional Properties](#-optional-properties)
 
 <br>
 
@@ -469,18 +470,6 @@ logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
   >
   > You can inherit from multiple interfaces: `interface Manager extends User, Employee {`.
 
-<br>
-
-#### 🔻 Optional Properties
-
-In TypeScript, optional properties allow you to specify that a property may or may not be present in an object.
-
-> You can mark certain properties as optional by appending a question mark (`?`) to the property name.
-
-```ts
-const person: { name: string; age?: number } = { name: "Sh" };
-```
-
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
 </p>
@@ -593,9 +582,9 @@ are the same.
 
 <br>
 
-#### 🔻 "implements" keyword
+#### 🔻 Implementing Interfaces
 
-When a class implements an interface using the `implements` keyword, it means that the class promises to provide implementations for all the members (properties and methods) declared by that interface.
+When a class uses the `implements` keyword to implement an interface, it promises to provide implementations for all the members (properties and methods) declared by that interface, ensuring that the class satisfies the requirements of the particular interface.
 
 ```ts
 interface Reportable {
@@ -628,3 +617,22 @@ const mySystem = new SystemStatus("MySystem", "Online");
 ```
 
 > Classes may also implement multiple interfaces: `class MyClass implements Interface1, Interface2, Interface3 {`.
+
+<p align="right">
+    <a href="#typescript">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 More...
+
+#### 🔻 Optional Properties
+
+In TypeScript, optional properties allow you to specify that a property may or may not be present in an object.
+
+> You can mark certain properties as optional by appending a question mark (`?`) to the property name.
+
+```ts
+const person: { name: string; age?: number } = { name: "Sh" };
+```
