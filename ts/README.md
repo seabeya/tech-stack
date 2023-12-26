@@ -438,6 +438,37 @@ const user2 = {
 logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
 ```
 
+- Interface inheritance:
+  > Allows you to create a new interface that inherits properties and methods from existing interfaces. Interface extension is a way to build on top of existing definitions and compose larger, more specialized interfaces.
+  >
+  > To inherit an interface, use the keyword `extends`.
+  >
+  > ```ts
+  > interface User {
+  >   name: string;
+  >   age: number;
+  > }
+  >
+  > interface Employee extends User {
+  >   eID: number;
+  >   salary: number;
+  > }
+  >
+  > const p1: User = {
+  >   name: "Sh",
+  >   age: 23,
+  > };
+  >
+  > const p2: Employee = {
+  >   name: "John",
+  >   age: 27,
+  >   eID: 123456789,
+  >   salary: 2300,
+  > };
+  > ```
+  >
+  > You can inherit from multiple interfaces: `interface Manager extends User, Employee {`.
+
 <br>
 
 #### 🔻 Optional Properties
