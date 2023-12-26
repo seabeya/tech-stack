@@ -36,6 +36,7 @@
    - [Implementing Interfaces](#-implementing-interfaces)
 4. [More...](#-more)
    - [Optional Properties](#-optional-properties)
+   - [Type Guards](#-type-guards)
 
 <br>
 
@@ -636,3 +637,74 @@ In TypeScript, optional properties allow you to specify that a property may or m
 ```ts
 const person: { name: string; age?: number } = { name: "Sh" };
 ```
+
+<br>
+
+#### 🔻 Type Guards
+
+In TypeScript, a type guard is a mechanism that enables you to narrow down the type of a variable within a specific code block.
+
+Type guards are often used in situations where TypeScript cannot automatically determine the type of a variable due to union types or other complex type scenarios that can have multiple shapes.
+
+This mechanism allows us to utilize the specific functionalities of the particular type in a guarded code block.
+
+```ts
+function printLength(value: string | number): void {
+  if (typeof value === "string") {
+    console.log(value.length); // TypeScript knows value is a string here
+  } else {
+    console.log(value); // TypeScript knows value is a number here
+  }
+}
+```
+
+```ts
+class Car {
+  drive() {
+    console.log("Driving a car");
+  }
+}
+
+class Bicycle {
+  ride() {
+    console.log("Riding a bicycle");
+  }
+}
+
+function moveVehicle(vehicle: Car | Bicycle): void {
+  if (vehicle instanceof Car) {
+    vehicle.drive(); // TypeScript knows vehicle is a Car here
+  } else {
+    vehicle.ride(); // TypeScript knows vehicle is a Bicycle here
+  }
+}
+```
+
+```ts
+interface Bird {
+  fly(): void;
+}
+
+interface Fish {
+  swim(): void;
+}
+
+function isBird(pet: Bird | Fish): pet is Bird {
+  return "fly" in pet;
+}
+
+function move(pet: Bird | Fish): void {
+  if (isBird(pet)) {
+    pet.fly(); // Bird-specific operation
+  } else {
+    pet.swim(); // Fish-specific operation
+  }
+}
+```
+
+<p align="right">
+    <a href="#typescript">back to top ⬆</a>
+</p>
+
+<br>
+<br>
