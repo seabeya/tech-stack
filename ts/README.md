@@ -34,6 +34,7 @@
 3. [Working with Classes](#-working-with-classes)
    - [Access Modifiers](#-access-modifiers)
    - [Implementing Interfaces](#-implementing-interfaces)
+   - [Interface of a Class](#-interface-of-a-class)
 4. [More...](#-more)
    - [Optional Properties](#-optional-properties)
    - [Type Guards](#-type-guards)
@@ -587,6 +588,8 @@ are the same.
 
 When a class uses the `implements` keyword to implement an interface, it promises to provide implementations for all the members (properties and methods) declared by that interface, ensuring that the class satisfies the requirements of the particular interface.
 
+> The interface defines how the class should be.
+
 ```ts
 interface Reportable {
   generateReport(): string;
@@ -618,6 +621,71 @@ const mySystem = new SystemStatus("MySystem", "Online");
 ```
 
 > Classes may also implement multiple interfaces: `class MyClass implements Interface1, Interface2, Interface3 {`.
+
+<br>
+
+#### 🔻 Interface of a Class
+
+In TypeScript, you can use interfaces to define what you need to provide to be able to use the class. This is particularly useful when you want to establish clear eligibility requirements for users of your class.
+
+> The interface defines what you need to provide in order to use the class.
+
+```ts
+interface Sortable {
+  swap(i: number, j: number): void;
+  compare(i: number, j: number): boolean;
+  length: number;
+}
+
+class Sort {
+  constructor(private collection: Sortable) {}
+
+  public bubbleSort(): void {
+    const { length } = this.collection;
+    for (let i = 0; i < length; i++) {
+      for (let j = 1; j < length - i; j++) {
+        if (this.collection.compare(j - 1, j)) {
+          this.collection.swap(j - 1, j);
+        }
+      }
+    }
+  }
+}
+
+// The NumbersCollection class should have swap, compare and length.
+const numbersCollection = new NumbersCollection([10, 0, 100, 12, -23]);
+
+const sort = new Sort(numbersCollection);
+sort.bubbleSort();
+
+console.log(numbersCollection.data); // [-23, 0, 10, 12, 100]
+```
+
+> So, we can use this class with any type of data structure that implements the `Sortable` interface.
+>
+> Example:
+>
+> ```ts
+> class NumbersCollection implements Sortable {
+>   constructor(public data: number[]) {}
+>
+>   public get length(): number {
+>     return this.data.length;
+>   }
+>
+>   public compare(i: number, j: number): boolean {
+>     return this.data[i] > this.data[j];
+>   }
+>
+>   public swap(i: number, j: number): void {
+>     const temp = this.data[i];
+>     this.data[i] = this.data[j];
+>     this.data[j] = temp;
+>   }
+> }
+> ```
+>
+> If you wish to sort characters, the character collection object must also implement these methods in its own way: `class CharactersCollection implements Sortable { ...`.
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
