@@ -35,6 +35,7 @@
    - [Access Modifiers](#-access-modifiers)
    - [Implementing Interfaces](#-implementing-interfaces)
    - [Interface of a Class](#-interface-of-a-class)
+   - [Abstract Classes](#-abstract-classes)
 4. [More...](#-more)
    - [Optional Properties](#-optional-properties)
    - [Type Guards](#-type-guards)
@@ -686,6 +687,99 @@ console.log(numbersCollection.data); // [-23, 0, 10, 12, 100]
 > ```
 >
 > If you wish to sort characters, the character collection object must also implement these methods in its own way: `class CharactersCollection implements Sortable { ...`.
+
+<br>
+
+#### 🔻 Abstract Classes
+
+- Cannot Be Instantiated Directly:
+  > You cannot create objects directly from an abstract class.
+- Blueprint for Other Classes:
+  > Abstract classes provide a common structure or interface for a group of related classes. It defines common methods (including abstract methods) and attributes that must be implemented by its subclasses.
+- Abstract Methods:
+  > Abstract classes often include abstract methods, which are methods without a body. Subclasses must provide concrete implementations for these abstract methods.
+- May Contain Concrete Methods:
+  > Abstract classes can also contain concrete (fully implemented) methods. Subclasses inherit these methods along with the abstract ones.
+
+> This allows for more flexibility in designing and using class hierarchies because we can implement the methods in subclasses to fulfill their own specific needs.
+
+> To create abstract classes or define abstract methods, you use the `abstract` keyword.
+
+```ts
+abstract class Sort {
+  abstract compare(i: number, j: number): boolean;
+  abstract swap(i: number, j: number): void;
+  abstract length: number;
+
+  public bubbleSort(): void {
+    for (let i = 0; i < this.length; i++) {
+      for (let j = 1; j < this.length - i; j++) {
+        if (this.compare(j - 1, j)) {
+          this.swap(j - 1, j);
+        }
+      }
+    }
+  }
+}
+```
+
+```ts
+class NumbersCollection extends Sort {
+  constructor(public data: number[]) {
+    super();
+  }
+
+  public get length(): number {
+    return this.data.length;
+  }
+
+  public compare(i: number, j: number): boolean {
+    return this.data[i] > this.data[j];
+  }
+
+  public swap(i: number, j: number): void {
+    const temp = this.data[i];
+    this.data[i] = this.data[j];
+    this.data[j] = temp;
+  }
+}
+```
+
+```ts
+class CharactersCollection extends Sort {
+  constructor(public data: string) {
+    super();
+  }
+
+  public get length(): number {
+    return this.data.length;
+  }
+
+  public compare(i: number, j: number): boolean {
+    return this.data[i].toLowerCase() > this.data[j].toLowerCase();
+  }
+
+  public swap(i: number, j: number): void {
+    const characters = this.data.split("");
+
+    const temp = characters[i];
+    characters[i] = characters[j];
+    characters[j] = temp;
+
+    this.data = characters.join("");
+  }
+}
+```
+
+```ts
+const numbersCollection = new NumbersCollection([10, 0, 100, 12, -23]);
+numbersCollection.bubbleSort();
+console.log(numbersCollection.data); // [-23, 0, 10, 12, 100]
+
+const charactersCollection = new CharactersCollection("hellohowareyou");
+charactersCollection.bubbleSort();
+console.log(charactersCollection.data); // aeehhlloorwyy
+```
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
