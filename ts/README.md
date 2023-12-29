@@ -30,6 +30,7 @@
      - [Union Types](#-union-types)
      - [Intersection Types](#-intersection-types)
      - [Literal Types](#-literal-types)
+     - [Enums](#-enums)
      - [Interface](#-interface)
 3. [Working with Classes](#-working-with-classes)
    - [Access Modifiers](#-access-modifiers)
@@ -404,6 +405,77 @@ let direction: "left" | "right" | "up" | "down";
 direction = "up"; // Ok
 direction = "diagonal"; // Error
 ```
+
+<br>
+
+#### 🔻 Enums
+
+Enums allow you to define a set of named constants. Enums are useful when you have a fixed set of values that a variable can take, and you want to make your code more readable and self-explanatory.
+
+> We use the `enum` keyword to define an enum.
+
+```ts
+enum Direction {
+  North,
+  South,
+  East,
+  West,
+}
+```
+
+By default enums takes the value of 0, 1, 2, 3, ... :
+
+```ts
+let myDirection = Direction.North;
+console.log(myDirection); // 0
+```
+
+We can also explicitly assign values to enums:
+
+```ts
+enum MixedEnum {
+  First = 1,
+  Second = "SECOND",
+  Third = 3,
+}
+
+let value = MixedEnum.Second;
+console.log(value); // "SECOND"
+```
+
+You can also use enums as you would normal types:
+
+```ts
+enum Direction {
+  North,
+  South,
+  East,
+  West,
+}
+
+function move(direction: Direction) {
+  console.log(direction);
+}
+
+move(Direction.North); // 0
+```
+
+- Reverse Mapping:
+  > Enums in TypeScript also support reverse mapping, which means you can convert a value to its corresponding enum name.
+  >
+  > ```ts
+  > enum Direction {
+  >   North,
+  >   South,
+  >   East,
+  >   West,
+  > }
+  >
+  > let directionNumber: number = Direction.South;
+  > let directionName: string = Direction[directionNumber];
+  >
+  > console.log(directionName); // South
+  > ```
 
 <br>
 
