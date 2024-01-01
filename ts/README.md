@@ -883,6 +883,7 @@ Type guards are often used in situations where TypeScript cannot automatically d
 This mechanism allows us to utilize the specific functionalities of the particular type in a guarded code block.
 
 ```ts
+// Example 1:
 function printLength(value: string | number): void {
   if (typeof value === "string") {
     console.log(value.length); // TypeScript knows value is a string here
@@ -893,6 +894,7 @@ function printLength(value: string | number): void {
 ```
 
 ```ts
+// Example 2:
 class Car {
   drive() {
     console.log("Driving a car");
@@ -915,6 +917,7 @@ function moveVehicle(vehicle: Car | Bicycle): void {
 ```
 
 ```ts
+// Example 3:
 interface Bird {
   fly(): void;
 }
@@ -935,6 +938,38 @@ function move(pet: Bird | Fish): void {
   }
 }
 ```
+
+- Discriminated Unions:
+  > Discriminated Unions are a powerful and flexible way to work with different variations of a type in a type-safe manner. A discriminated union is a pattern where a type can have multiple shapes, but each shape is uniquely identified by a common property.
+  >
+  > ```ts
+  > interface Bird {
+  >   type: "bird";
+  >   flySpeed: number;
+  > }
+  >
+  > interface Horse {
+  >   type: "horse";
+  >   runSpeed: number;
+  > }
+  >
+  > type Animal = Bird | Horse;
+  >
+  > function moveAnimal(animal: Animal) {
+  >   let speed: number;
+  >   switch (animal.type) {
+  >     case "bird":
+  >       speed = animal.flySpeed;
+  >       break;
+  >     case "horse":
+  >       speed = animal.runSpeed;
+  >       break;
+  >   }
+  >   console.log("Moving at speed: " + speed);
+  > }
+  >
+  > moveAnimal({ type: "horse", runSpeed: 75 });
+  > ```
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
