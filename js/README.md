@@ -1628,7 +1628,7 @@ console.log(fish.name); // undefined
 
 <br>
 
-#### 🔻 Method overriding:
+#### 🔻 Method overriding
 
 Method overriding is a concept in OOP where a subclass provides a specific implementation for a method that is already defined in its superclass.
 
@@ -1662,6 +1662,148 @@ fish.swim(); // Swimming
 console.log(fish.getInfo()); // Name: Unnamed Fish; Age: 1; Weight: 4.5
 console.log(fish.exGetInfo()); // Name: Unnamed Fish; Age: 1
 ```
+
+<br>
+
+#### 🔻 Inheritance vs Composition
+
+- Inheritance:
+  > Inheritance is a mechanism where a new class inherits properties and methods from an existing class.
+  >
+  > - You can reuse code from the base class in the derived class.
+  > - Subclasses are tightly coupled with the implementation details of the base class.
+  > - Changes in the base class can potentially break the derived classes.
+  >
+  > ```js
+  > class Rectangle {
+  >   constructor(height, width) {
+  >     this.height = height;
+  >     this.width = width;
+  >   }
+  >
+  >   area() {
+  >     return this.height * this.width;
+  >   }
+  > }
+  >
+  > class Circle {
+  >   constructor(radius) {
+  >     this.radius = radius;
+  >   }
+  >
+  >   area() {
+  >     return Math.PI * this.radius * this.radius;
+  >   }
+  > }
+  >
+  > class Wall extends Rectangle {
+  >   constructor(color, height, width) {
+  >     super(height, width);
+  >     this.color = color;
+  >   }
+  > }
+  >
+  > class RectangleWindow extends Rectangle {
+  >   constructor(isOpen, height, width) {
+  >     super(height, width);
+  >     this.isOpen = isOpen;
+  >   }
+  >
+  >   toggleOpen() {
+  >     this.isOpen = !this.isOpen;
+  >   }
+  > }
+  >
+  > class CircleWindow extends Circle {
+  >   constructor(isOpen, radius) {
+  >     super(radius);
+  >     this.isOpen = isOpen;
+  >   }
+  >
+  >   toggleOpen() {
+  >     this.isOpen = !this.isOpen;
+  >   }
+  > }
+  >
+  > const myWall = new Wall("blue", 10, 10);
+  > const myRectangleWindow = new RectangleWindow(true, 5, 5);
+  > const myCircleWindow = new CircleWindow(false, 5);
+  >
+  > myWall.area(); // 100
+  > myRectangleWindow.area(); // 25
+  > myCircleWindow.area(); // 78.53981633974483
+  > ```
+  >
+  > <img src="./inheritance.png" height="auto" width="600">
+- Composition:
+  > Composition is a concept where an object is composed of multiple objects or behaviors. Instead of relying on a hierarchy, you create relationships between objects by including instances of other classes within your class.
+  >
+  > - Classes are independent of each other, promoting better maintainability.
+  > - You can easily swap components without affecting the rest of the system.
+  >
+  > ```js
+  > class Rectangle {
+  >   constructor(height, width) {
+  >     this.height = height;
+  >     this.width = width;
+  >   }
+  >
+  >   area() {
+  >     return this.height * this.width;
+  >   }
+  > }
+  >
+  > class Circle {
+  >   constructor(radius) {
+  >     this.radius = radius;
+  >   }
+  >
+  >   area() {
+  >     return Math.PI * this.radius * this.radius;
+  >   }
+  > }
+  >
+  > class Wall {
+  >   constructor(color, dimensions) {
+  >     this.color = color;
+  >     this.dimensions = dimensions;
+  >   }
+  >
+  >   area() {
+  >     return this.dimensions.area();
+  >   }
+  > }
+  >
+  > class Window {
+  >   constructor(isOpen, dimensions) {
+  >     this.isOpen = isOpen;
+  >     this.dimensions = dimensions;
+  >   }
+  >
+  >   toggleOpen() {
+  >     this.isOpen = !this.isOpen;
+  >   }
+  >
+  >   area() {
+  >     return this.dimensions.area();
+  >   }
+  > }
+  >
+  > const myWall = new Wall("blue", new Rectangle(10, 10));
+  > myWall.area(); // 100
+  >
+  > const myWindow = new Window(false, new Circle(5));
+  > myWindow.area(); // 78.53981633974483
+  > ```
+  >
+  > <img src="./composition.png" height="auto" width="600">
+
+When to use Inheritance or Composition:
+
+- Use inheritance when a clear "is-a" relationship exists between classes.
+- Use composition when building objects with the combination of different behaviors, without a clear "is-a" relationship.
+
+> In the example using inheritance, `CircleWindow` and `RectangleWindow` have similar methods/properties but different shapes, causing repetition. In such cases, it's better to use the composition approach.
 
 <br>
 
