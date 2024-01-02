@@ -34,6 +34,12 @@
    - [Functions](#-functions)
    - ['this' keyword](#-this-keyword)
 4. [Classes in JS](#-classes-in-js)
+   - [Methods](#-methods)
+   - [Constructor Method](#-constructor-method)
+   - [Inheritance](#-inheritance)
+   - [Private properties](#-private-properties)
+   - [Getters and Setters](#-getters-and-setters)
+   - [Static Methods](#-static-methods)
 
 <br>
 
@@ -1486,7 +1492,7 @@ In object-oriented programming, a class is a blueprint for creating objects. The
 
 <br>
 
-#### 🔻 Methods
+### 🔷 Methods
 
 Methods in a class are defined just like regular functions, but they are part of the class and can access the class instance through the `this` keyword.
 
@@ -1512,7 +1518,7 @@ console.log(test.addFive(15)); // 20
 
 <br>
 
-#### 🔻 Constructor Method
+### 🔷 Constructor Method
 
 The constructor method is a special method that gets called when an object is instantiated from the class. It is used for initializing object properties and performing other setup tasks.
 
@@ -1537,7 +1543,7 @@ person2.introduce(); // My name is John and I'm 29 years old.
 
 <br>
 
-#### 🔻 Inheritance
+### 🔷 Inheritance
 
 Inheritance is a concept in OOP that allows a new class (subclass or derived class) to inherit properties and methods from an existing class (superclass or base class). This promotes code reuse and the creation of a hierarchy of classes.
 
@@ -1619,43 +1625,47 @@ console.log(fish.name); // undefined
   > fish.swim(); // Swimming
   > console.log(fish.getInfo()); // Name: Unnamed Fish; Age: 1
   > ```
-- Method overriding:
-  > Method overriding is a concept in OOP where a subclass provides a specific implementation for a method that is already defined in its superclass.
-  >
-  > ```js
-  > class Fish extends Animal {
-  >   constructor(weight, age, name = "Unnamed Fish") {
-  >     super(age, name);
-  >
-  >     this.weight = weight;
-  >   }
-  >
-  >   swim() {
-  >     console.log("Swimming");
-  >   }
-  >
-  >   // Overriding:
-  >   getInfo() {
-  >     return `Name: ${this.name}; Age: ${this.age}; Weight: ${this.weight}`;
-  >   }
-  >
-  >   // If we want to reuse the parent implementation, we can use it like:
-  >   exGetInfo() {
-  >     // super = the parent
-  >     return super.getInfo();
-  >   }
-  > }
-  >
-  > const fish = new Fish(4.5, 1);
-  > fish.smile(); // :)
-  > fish.swim(); // Swimming
-  > console.log(fish.getInfo()); // Name: Unnamed Fish; Age: 1; Weight: 4.5
-  > console.log(fish.exGetInfo()); // Name: Unnamed Fish; Age: 1
-  > ```
 
 <br>
 
-#### 🔻 Private properties
+#### 🔻 Method overriding:
+
+Method overriding is a concept in OOP where a subclass provides a specific implementation for a method that is already defined in its superclass.
+
+```js
+class Fish extends Animal {
+  constructor(weight, age, name = "Unnamed Fish") {
+    super(age, name);
+
+    this.weight = weight;
+  }
+
+  swim() {
+    console.log("Swimming");
+  }
+
+  // Overriding:
+  getInfo() {
+    return `Name: ${this.name}; Age: ${this.age}; Weight: ${this.weight}`;
+  }
+
+  // If we want to reuse the parent implementation, we can use it like:
+  exGetInfo() {
+    // super = the parent
+    return super.getInfo();
+  }
+}
+
+const fish = new Fish(4.5, 1);
+fish.smile(); // :)
+fish.swim(); // Swimming
+console.log(fish.getInfo()); // Name: Unnamed Fish; Age: 1; Weight: 4.5
+console.log(fish.exGetInfo()); // Name: Unnamed Fish; Age: 1
+```
+
+<br>
+
+### 🔷 Private properties
 
 Private properties are not accessible from outside the class, even in subclasses, providing a way to encapsulate data and hide it from external manipulation.
 
@@ -1697,7 +1707,7 @@ test.runPrivateMethod(); // Private!
 
 <br>
 
-#### 🔻 Getters and Setters
+### 🔷 Getters and Setters
 
 Getters and setters are methods that allow you to control access to the properties of a class. They provide a way to get and set the values of private properties, allowing you to encapsulate and control access to the internal state of an object.
 
@@ -1749,7 +1759,7 @@ Here are some situations where setters and getters are useful:
 
 <br>
 
-#### 🔻 Static Methods
+### 🔷 Static Methods
 
 Static methods are methods that are called on the class itself rather than on an instance of the class. Static methods are useful for utility functions or operations that are not tied to a specific instance of the class.
 
