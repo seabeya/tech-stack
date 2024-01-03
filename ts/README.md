@@ -41,6 +41,7 @@
 4. [More...](#-more)
    - [Optional Properties](#-optional-properties)
    - [Type Guards](#-type-guards)
+     - [Discriminated Unions](#-discriminated-unions)
 
 <br>
 
@@ -80,6 +81,8 @@ npm install typescript --save-dev
 
 In TypeScript, a type is a way to define the shape and structure of a value. It allows you to specify the data type of a variable, function parameter, or the return type of a function.
 
+<br>
+
 #### 🔻 Type Inference
 
 Type inference is the ability of the TypeScript compiler to automatically deduce and assign types to variables, parameters, and return values based on the values and expressions used in the code.
@@ -99,6 +102,8 @@ const now = new Date(); // TypeScript infers "now" to be of type Date
 
 - When to use:
   > Always.
+
+<br>
 
 #### 🔻 Type Annotations
 
@@ -1003,7 +1008,7 @@ console.log(charactersCollection.data); // aeehhlloorwyy
 
 ## 🔶 More...
 
-#### 🔻 Optional Properties
+### 🔷 Optional Properties
 
 In TypeScript, optional properties allow you to specify that a property may or may not be present in an object.
 
@@ -1015,7 +1020,7 @@ const person: { name: string; age?: number } = { name: "Sh" };
 
 <br>
 
-#### 🔻 Type Guards
+### 🔷 Type Guards
 
 In TypeScript, a type guard is a mechanism that enables you to narrow down the type of a variable within a specific code block.
 
@@ -1080,37 +1085,40 @@ function move(pet: Bird | Fish): void {
 }
 ```
 
-- Discriminated Unions:
-  > Discriminated Unions are a powerful and flexible way to work with different variations of a type in a type-safe manner. A discriminated union is a pattern where a type can have multiple shapes, but each shape is uniquely identified by a common property.
-  >
-  > ```ts
-  > interface Bird {
-  >   type: "bird";
-  >   flySpeed: number;
-  > }
-  >
-  > interface Horse {
-  >   type: "horse";
-  >   runSpeed: number;
-  > }
-  >
-  > type Animal = Bird | Horse;
-  >
-  > function moveAnimal(animal: Animal) {
-  >   let speed: number;
-  >   switch (animal.type) {
-  >     case "bird":
-  >       speed = animal.flySpeed;
-  >       break;
-  >     case "horse":
-  >       speed = animal.runSpeed;
-  >       break;
-  >   }
-  >   console.log("Moving at speed: " + speed);
-  > }
-  >
-  > moveAnimal({ type: "horse", runSpeed: 75 });
-  > ```
+<br>
+
+#### 🔻 Discriminated Unions
+
+Discriminated Unions are a powerful and flexible way to work with different variations of a type in a type-safe manner. A discriminated union is a pattern where a type can have multiple shapes, but each shape is uniquely identified by a common property.
+
+```ts
+interface Bird {
+  type: "bird";
+  flySpeed: number;
+}
+
+interface Horse {
+  type: "horse";
+  runSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  let speed: number;
+  switch (animal.type) {
+    case "bird":
+      speed = animal.flySpeed;
+      break;
+    case "horse":
+      speed = animal.runSpeed;
+      break;
+  }
+  console.log("Moving at speed: " + speed);
+}
+
+moveAnimal({ type: "horse", runSpeed: 75 });
+```
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
