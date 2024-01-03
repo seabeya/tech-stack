@@ -37,6 +37,8 @@
    - [Methods](#-methods)
    - [Constructor Method](#-constructor-method)
    - [Inheritance](#-inheritance)
+     - [Method overriding](#-method-overriding)
+     - [Inheritance vs Composition](#-inheritance-vs-composition)
    - [Private properties](#-private-properties)
    - [Getters and Setters](#-getters-and-setters)
    - [Static Methods](#-static-methods)
@@ -44,7 +46,9 @@
 <br>
 
 > [!NOTE]
-> This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will be providing you with some resources to learn the parts that haven't been mentioned: [Resources](#-resources).
+> This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will be providing you with some resources to learn the parts that haven't been mentioned.
+>
+> - [Resources](#-resources)
 
 <br>
 
