@@ -42,6 +42,7 @@
    - [Optional Properties](#-optional-properties)
    - [Type Guards](#-type-guards)
      - [Discriminated Unions](#-discriminated-unions)
+     - [Type Predicates](#-type-predicates)
 
 <br>
 
@@ -1032,9 +1033,11 @@ This mechanism allows us to utilize the specific functionalities of the particul
 // Example 1:
 function printLength(value: string | number): void {
   if (typeof value === "string") {
-    console.log(value.length); // TypeScript knows value is a string here
+    // 'value' is now recognized as type 'string' within this block
+    console.log(value.length);
   } else {
-    console.log(value); // TypeScript knows value is a number here
+    // 'value' is now recognized as type 'number' within this block
+    console.log(value);
   }
 }
 ```
@@ -1055,32 +1058,11 @@ class Bicycle {
 
 function moveVehicle(vehicle: Car | Bicycle): void {
   if (vehicle instanceof Car) {
-    vehicle.drive(); // TypeScript knows vehicle is a Car here
+    // 'vehicle' is now recognized as type 'Car' within this block
+    vehicle.drive();
   } else {
-    vehicle.ride(); // TypeScript knows vehicle is a Bicycle here
-  }
-}
-```
-
-```ts
-// Example 3:
-interface Bird {
-  fly(): void;
-}
-
-interface Fish {
-  swim(): void;
-}
-
-function isBird(pet: Bird | Fish): pet is Bird {
-  return "fly" in pet;
-}
-
-function move(pet: Bird | Fish): void {
-  if (isBird(pet)) {
-    pet.fly(); // Bird-specific operation
-  } else {
-    pet.swim(); // Fish-specific operation
+    // 'vehicle' is now recognized as type 'Bicycle' within this block
+    vehicle.ride();
   }
 }
 ```
@@ -1118,6 +1100,65 @@ function moveAnimal(animal: Animal) {
 }
 
 moveAnimal({ type: "horse", runSpeed: 75 });
+```
+
+<br>
+
+#### 🔻 Type Predicates
+
+A user-defined type guard is a function whose return type is a type predicate. A type predicate is a special kind of return type that narrows the type of a variable within a certain block of code.
+
+Syntax:
+
+```ts
+function isType(value: any): value is DesiredType {
+  // Type checking logic
+  // Should return a boolean indicating whether 'value' is of type 'DesiredType'
+}
+```
+
+Examples:
+
+```ts
+// Example 1:
+function isString(value: any): value is string {
+  return typeof value === "string";
+}
+
+function processValue(input: any): void {
+  if (isString(input)) {
+    // 'input' is now recognized as type 'string' within this block
+    console.log(input.toUpperCase());
+  } else {
+    console.log("Not a string");
+  }
+}
+
+processValue("Hello"); // HELLO
+processValue(123); // Not a string
+```
+
+```ts
+// Example 2:
+interface Bird {
+  fly(): void;
+}
+
+interface Fish {
+  swim(): void;
+}
+
+function isBird(pet: Bird | Fish): pet is Bird {
+  return "fly" in pet; // return true if 'fly' is in 'pet'
+}
+
+function move(pet: Bird | Fish): void {
+  if (isBird(pet)) {
+    pet.fly(); // Bird-specific operation
+  } else {
+    pet.swim(); // Fish-specific operation
+  }
+}
 ```
 
 <p align="right">
