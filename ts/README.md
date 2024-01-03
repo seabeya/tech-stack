@@ -32,6 +32,7 @@
      - [Literal Types](#-literal-types)
      - [Enums](#-enums)
      - [Interface](#-interface)
+   - [Generics](#-generics)
 3. [Working with Classes](#-working-with-classes)
    - [Access Modifiers](#-access-modifiers)
    - [Implementing Interfaces](#-implementing-interfaces)
@@ -293,7 +294,7 @@ function add(a: number, b: number): number {
     > const myArr: (string | number)[] = ["Sh", 23, "tech-stack"];
     > ```
 
- <br>
+<br>
 
 ### 🔷 Complex Types
 
@@ -544,6 +545,146 @@ logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
   > ```
   >
   > You can inherit from multiple interfaces: `interface Manager extends User, Employee {`.
+
+<br>
+
+### 🔷 Generics
+
+Generics in TypeScript provide a way to write flexible and reusable code that can work with different data types while maintaining type safety. They allow you to define functions, classes, and data structures in a way that is independent of the specific data types they operate on.
+
+- Declaration:
+  > To define generics, you specify placeholder type parameters within angle brackets (`<>`) after the function or class name. These placeholders represent the types that will be specified when the generics are being used.
+- Usage:
+  > When using a generics-typed function or class, you provide the actual type arguments inside the angle brackets.
+  >
+  > TypeScript can also automatically infer the type from the value if you don't specify it inside the angle brackets. However, it is good practice to use them to ensure the correctness of inputs.
+
+<br>
+
+#### 🔻 Examples
+
+- Generic Function:
+  > ```ts
+  > function exampleFn<T>(param: T): T {
+  >   return param;
+  > }
+  >
+  > exampleFn<number>(10); // exampleFn<number>(param: number): number
+  > exampleFn<string>("hello"); // exampleFn<string>(param: string): string
+  >
+  > // TypeScript automatically infers the types:
+  > exampleFn(10); // exampleFn<10>(param: 10): 10
+  > exampleFn("hello"); // exampleFn<"hello">(param: "hello"): "hello"
+  > ```
+- Generic Interface:
+  > ```ts
+  > interface KeyValuePair<T, U> {
+  >   key: T;
+  >   value: U;
+  > }
+  >
+  > let pair1: KeyValuePair<number, string> = { key: 1, value: "one" };
+  > let pair2: KeyValuePair<string, boolean> = { key: "isTrue", value: true };
+  >
+  > let pair3 = { key: 1, value: "one" }; // KeyValuePair<number, string>
+  > let pair4 = { key: "isTrue", value: true }; // KeyValuePair<string, boolean>
+  > ```
+- Generic Class:
+  > ```ts
+  > class Box<T> {
+  >   private value: T;
+  >
+  >   constructor(value: T) {
+  >     this.value = value;
+  >   }
+  >
+  >   getValue(): T {
+  >     return this.value;
+  >   }
+  > }
+  >
+  > let numberBox = new Box<number>(42);
+  > numberBox.getValue(); // (method) Box<number>.getValue(): number
+  >
+  > let stringBox = new Box<string>("Hello");
+  > stringBox.getValue(); // (method) Box<string>.getValue(): string
+  >
+  > let boolBox = new Box(true); // constructor Box<boolean>(value: boolean): Box<boolean>
+  > boolBox.getValue(); // (method) Box<boolean>.getValue(): boolean
+  > ```
+- Multiple Type Parameters:
+  > ```ts
+  > function pair<T, U>(first: T, second: U): [T, U] {
+  >   return [first, second];
+  > }
+  >
+  > const p1 = pair(10, "hello"); // pair<number, string>(first: number, second: string): [number, string]
+  > const p2 = pair("world", 20); // pair<string, number>(first: string, second: number): [string, number]
+  > const p3 = pair(10, 20); // pair<number, number>(first: number, second: number): [number, number]
+  > const p4 = pair(true, "hello"); // pair<boolean, string>(first: boolean, second: string): [boolean, string]
+  > ```
+
+With or Without Generics:
+
+- Without:
+  > ```ts
+  > function swapNumbers(a: number, b: number): [number, number] {
+  >   return [b, a];
+  > }
+  >
+  > function swapStrings(a: string, b: string): [string, string] {
+  >   return [b, a];
+  > }
+  >
+  > let swappedNumbers = swapNumbers(10, 20); // [20, 10]
+  > let swappedStrings = swapStrings("Hello", "World"); // ['World', 'Hello']
+  > ```
+- With:
+  > ```ts
+  > function swap<T>(a: T, b: T): [T, T] {
+  >   return [b, a];
+  > }
+  >
+  > let swappedNumbers = swap(10, 20); // [20, 10]
+  > let swappedStrings = swap("hello", "world"); // ['world', 'hello']
+  > ```
+  - > To work with mixed values:
+    >
+    > ```ts
+    > function swap<T1, T2>(a: T1, b: T2): [T2, T1] {
+    >   return [b, a];
+    > }
+    >
+    > let swappedNumbers = swap(10, 20); // [20, 10]
+    > let swappedStrings = swap("hello", "world"); // ["world", "hello"]
+    > let swappedMix = swap(10, "world"); // ["world", 10]
+    > ```
+
+> You can use type guards to gain more power when working with generic-typed parameters.
+
+<br>
+
+#### 🔻 Generic Constraints
+
+Generic constraints help you define more specific requirements for the types that can be used as arguments in generic functions or classes. By adding constraints, you can ensure that the generic type meets certain criteria.
+
+```ts
+interface Measurable {
+  length: number;
+}
+
+// function printLength<T extends { length: number }>(input: T): void {
+function printLength<T extends Measurable>(input: T): void {
+  console.log(`Length: ${input.length}`);
+}
+
+printLength("Hello World"); // Length: 11
+printLength([1, 2, 3]); // Length: 3
+printLength({ length: 2 }); // Length: 2
+
+printLength({}); // Error: Property 'length' is missing in type '{}' but required in type 'Measurable'
+printLength(23); // Error: Argument of type '23' is not assignable to parameter of type 'Measurable'
+```
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
