@@ -30,6 +30,7 @@
      - [Union Types](#-union-types)
      - [Intersection Types](#-intersection-types)
      - [Literal Types](#-literal-types)
+     - [Indexed Access Types](#-indexed-access-types)
      - [Enums](#-enums)
      - [Interface](#-interface)
    - [Generics](#-generics)
@@ -414,6 +415,60 @@ type Options = "up" | "down" | "left" | "right";
 let direction: Options;
 direction = "up"; // Ok
 direction = "diagonal"; // Error
+```
+
+<br>
+
+#### 🔻 Indexed Access Types
+
+Indexed access types allow you to create a new type by indexing into an existing type.
+
+```ts
+// Example 1:
+type Car = {
+  brand: string;
+  model: string;
+  year: number;
+};
+
+type CarProperty = Car["brand"]; // CarProperty = string
+```
+
+```ts
+// Example 2:
+type Person = {
+  name: string;
+  age: number;
+};
+
+type PersonKey = Person[keyof Person]; // PersonKey = string | number
+```
+
+```ts
+// Example 3:
+type Letters = ["a", "b", "c"];
+type Letter = Letters[number]; // Letter = "a" | "b" | "c"
+```
+
+```ts
+// Example 4:
+const Users = [
+  { name: "Alice", age: 15 },
+  { name: "Bob", age: 23 },
+  { name: "Eve", age: 38 },
+];
+type Person = (typeof Users)[number]; // Person = { name: string, age: number }
+```
+
+```ts
+// Example 5:
+interface RoleConfig {
+  user: ["view", "edit"];
+  admin: ["view", "edit", "delete", "create"];
+}
+
+type Role = RoleConfig[keyof RoleConfig][number];
+// Role = "view" | "edit" | "delete" | "create"
 ```
 
 <br>
