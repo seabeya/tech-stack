@@ -468,8 +468,9 @@ move(Direction.North); // 0
 ```
 
 - Reverse Mapping:
-  > Enums in TypeScript also support reverse mapping, which means you can convert a value to its corresponding enum name.
-  >
+
+  Enums in TypeScript also support reverse mapping, which means you can convert a value to its corresponding enum name.
+
   > ```ts
   > enum Direction {
   >   North,
@@ -482,6 +483,28 @@ move(Direction.North); // 0
   > let directionName: string = Direction[directionNumber];
   >
   > console.log(directionName); // South
+  > ```
+
+  This is possible because, for example, this TypeScript code:
+
+  > ```ts
+  > enum MixedEnum {
+  >   First = 1,
+  >   SECOND = "SECOND",
+  >   Third = "3rd",
+  > }
+  > ```
+  >
+  > transpiles to this JS code:
+  >
+  > ```js
+  > const MixedEnum = {
+  >   First: 1,
+  >   1: "First",
+  >   SECOND: "SECOND",
+  >   Third: "3rd",
+  >   "3rd": "Third",
+  > };
   > ```
 
 <br>
