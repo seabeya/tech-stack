@@ -43,6 +43,7 @@
    - [Type Guards](#-type-guards)
      - [Discriminated Unions](#-discriminated-unions)
      - [Type Predicates](#-type-predicates)
+   - [Conditional Types](#-conditional-types)
 
 <br>
 
@@ -1185,6 +1186,20 @@ function move(pet: Bird | Fish): void {
   }
 }
 ```
+
+<br>
+
+### 🔷 Conditional Types
+
+Conditional types in TypeScript are a way to define types based on conditions.
+
+Syntax:
+
+```ts
+type myType = SomeType extends OtherType ? TypeA : TypeB;
+```
+
+> Here, `myType` either is `TypeA` or `TypeB`, depending on the condition.
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
