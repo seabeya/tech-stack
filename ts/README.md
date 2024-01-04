@@ -45,6 +45,7 @@
      - [Discriminated Unions](#-discriminated-unions)
      - [Type Predicates](#-type-predicates)
    - [Conditional Types](#-conditional-types)
+   - [Type Assertions](#-type-assertions)
    - [Built-in Utility Types](#-built-in-utility-types)
 
 <br>
@@ -1270,6 +1271,48 @@ type myType = SomeType extends OtherType ? TypeA : TypeB;
 ```
 
 > Here, `myType` either is `TypeA` or `TypeB`, depending on the condition.
+
+<br>
+
+### 🔷 Type Assertions
+
+In TypeScript, type assertions are a way to tell the compiler to treat a value as a specific type, regardless of its inferred or declared type.
+
+> They are a way to inform the compiler about the developer's knowledge of the type at a particular point in the code. In other words, they are a developer's way of saying, "Trust me, I know the type better than you do."
+
+> Only use type assertions when necessary, such as during data transformation or when working with external data sources.
+
+There are two syntaxes for type assertions in TypeScript:
+
+- Angle Bracket (`<>`) Syntax:
+  > ```ts
+  > let someValue: any = "Hello World!";
+  > let strLength: number = (<string>someValue).length;
+  > ```
+- `as` Keyword Syntax:
+  > ```ts
+  > let someValue: any = "Hello World!";
+  > let strLength: number = (someValue as string).length;
+  > ```
+
+Examples:
+
+```ts
+const configJson = `{
+  "server": {
+    "port": 3000,
+    "host": "localhost"
+  },
+  app: {
+    "name": "test"
+  }
+}`;
+
+const config = JSON.parse(configJson); // config: any
+
+const serverConf = config.server as { port: number; host: string };
+const appConf = config.app as { name: string };
+```
 
 <br>
 
