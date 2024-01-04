@@ -45,6 +45,7 @@
      - [Discriminated Unions](#-discriminated-unions)
      - [Type Predicates](#-type-predicates)
    - [Conditional Types](#-conditional-types)
+   - [Built-in Utility Types](#-built-in-utility-types)
 
 <br>
 
@@ -1269,6 +1270,111 @@ type myType = SomeType extends OtherType ? TypeA : TypeB;
 ```
 
 > Here, `myType` either is `TypeA` or `TypeB`, depending on the condition.
+
+<br>
+
+### 🔷 Built-in Utility Types
+
+Utility types are predefined generic types that provide helpful transformations and operations on other types. These utility types are built into the language and can be used to manipulate and work with existing types more conveniently.
+
+- `Partial<Type>`:
+  > Makes all properties of a type optional.
+  >
+  > ```ts
+  > interface User {
+  >   name: string;
+  >   age: number;
+  >   job: string;
+  > }
+  >
+  > const partialUser: Partial<User> = {};
+  > const partialUser2: Partial<User> = { name: "John" };
+  >
+  > console.log(partialUser); // {}
+  > console.log(partialUser2); // { name: "John" }
+  > ```
+- `Required<Type>`:
+  > Makes specific properties of a type required.
+  >
+  > ```ts
+  > interface PartialUser {
+  >   name?: string;
+  >   age?: number;
+  > }
+  >
+  > const requiredUser: Required<PartialUser> = { name: "John", age: 25 };
+  > const requiredUser2: Required<PartialUser> = { name: "Sh" }; // Error: age is missing.
+  > ```
+- `Readonly<Type>`:
+  > Prevents modification of properties after initial assignment. Protects data integrity.
+  >
+  > ```ts
+  > interface MutableUser {
+  >   name: string;
+  >   age: number;
+  > }
+  >
+  > const readOnlyUser: Readonly<MutableUser> = { name: "John", age: 25 };
+  >
+  > readOnlyUser.name = "Jane"; // Error: Cannot assign to 'name' because it is a read-only property.
+  > ```
+- `Pick<Type, Keys>`:
+  > Creates a new type containing only specified properties from an object type.
+  >
+  > ```ts
+  > interface User {
+  >   name: string;
+  >   age: number;
+  >   job: string;
+  > }
+  >
+  > const pickedUser: Pick<User, "name" | "age"> = { name: "John", age: 20 };
+  > ```
+- `Omit<Type, Keys>`:
+  > Creates a new type excluding specified properties from an object type.
+  >
+  > ```ts
+  > interface User {
+  >   name: string;
+  >   age: number;
+  >   job: string;
+  > }
+  >
+  > const omittedUser: Omit<User, "job"> = { name: "John", age: 20 };
+  > ```
+- `Exclude<UnionType, ExcludedMembers>`:
+  > Excludes types from a union type.
+  >
+  > ```ts
+  > type TypeUnion = "name" | "age" | "job";
+  >
+  > type ExcludedVersion = Exclude<TypeUnion, "age">;
+  > // type ExcludedVersion = "name" | "job"
+  > ```
+- `ReturnType<Type>`:
+  > Extracts the return type of a function type.
+  >
+  > ```ts
+  > function greet() {
+  >   return "Hello!";
+  > }
+  >
+  > type TheType = ReturnType<typeof greet>;
+  > // type TheType = string
+  > ```
+- `Parameters<Type>`:
+  > Extracts the parameter types of a function type as an tuple.
+  >
+  > ```ts
+  > function myFunction(name: string, age: number) {
+  >   console.log(`Name: ${name}, Age: ${age}`);
+  > }
+  >
+  > type TheType = Parameters<typeof myFunction>;
+  > // type TheType = [name: string, age: number]
+  > ```
+
+For the full list, please visit the official [TypeScript Utility Types ↗](https://www.typescriptlang.org/docs/handbook/utility-types.html) documentation.
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
