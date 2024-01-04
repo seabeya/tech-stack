@@ -46,6 +46,7 @@
      - [Type Predicates](#-type-predicates)
    - [Conditional Types](#-conditional-types)
    - [Type Assertions](#-type-assertions)
+     - [`as const`](#-as-const)
    - [Built-in Utility Types](#-built-in-utility-types)
 
 <br>
@@ -566,6 +567,8 @@ move(Direction.North); // 0
   >   "3rd": "Third",
   > };
   > ```
+
+Also, take a look at [`as const`](#-as-const).
 
 <br>
 
@@ -1313,6 +1316,75 @@ const config = JSON.parse(configJson); // config: any
 const serverConf = config.server as { port: number; host: string };
 const appConf = config.app as { name: string };
 ```
+
+<br>
+
+#### 🔻 `as const`
+
+In TypeScript, `as const` is a type assertion that helps narrow down the type of a value to its literal type. When you use as const on a value, TypeScript treats the value as read-only and infers the most specific literal type for that value.
+
+- Without `as const`:
+  > TypeScript infers colors as `{ red: string, blue: string, green: string }`
+  >
+  > ```ts
+  > const colors = {
+  >   red: "red",
+  >   blue: "blue",
+  >   green: "green",
+  > };
+  > ```
+- With `as const`:
+  > TypeScript infers colors as `{ readonly red: "red", readonly blue: "blue", readonly green: "green" }`
+  >
+  > ```ts
+  > const colors = {
+  >   red: "red",
+  >   blue: "blue",
+  >   green: "green",
+  > } as const;
+  >
+  > colors.red = "hello"; // Error: Cannot assign to 'red' because it is a read-only property.
+  > // This is not only top level, but also nested.
+  > ```
+
+Using as an Enum:
+
+```ts
+const routes = {
+  home: "/",
+  login: "/auth/login",
+  register: "/auth/register",
+  dashboard: "/dashboard",
+} as const;
+
+type RoutePath = (typeof routes)[keyof typeof routes];
+// type RoutePath = "/" | "/auth/login" | "/auth/register" | "/dashboard"
+
+function navigateTo(path: RoutePath) {
+  // ...
+}
+
+navigateTo("/auth/login");
+navigateTo(routes.register);
+```
+
+> What is going on: [Indexed Access Types](#-indexed-access-types).
+>
+> ```ts
+> type R = typeof routes;
+> // type R = {
+> //   readonly home: "/";
+> //   readonly login: "/auth/login";
+> //   readonly register: "/auth/register";
+> //   readonly dashboard: "/dashboard";
+> // }
+>
+> type Route = keyof typeof routes;
+> // type Route = "home" | "login" | "register" | "dashboard"
+>
+> type RoutePath2 = R[Route];
+> // type RoutePath2 = "/" | "/auth/login" | "/auth/register" | "/dashboard"
+> ```
 
 <br>
 
