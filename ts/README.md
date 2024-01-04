@@ -408,7 +408,9 @@ type EmployeePerson = Person & Employee;
 Literal types involve using specific, literal values as types. Instead of just using general types like `number` or `string`, you specify exact values that a variable can have.
 
 ```ts
-let direction: "left" | "right" | "up" | "down";
+type Options = "up" | "down" | "left" | "right";
+
+let direction: Options;
 direction = "up"; // Ok
 direction = "diagonal"; // Error
 ```
