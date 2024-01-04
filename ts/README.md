@@ -756,6 +756,7 @@ With or Without Generics:
 Generic constraints help you define more specific requirements for the types that can be used as arguments in generic functions or classes. By adding constraints, you can ensure that the generic type meets certain criteria.
 
 ```ts
+// Example 1:
 interface Measurable {
   length: number;
 }
@@ -771,6 +772,19 @@ printLength({ length: 2 }); // Length: 2
 
 printLength({}); // Error: Property 'length' is missing in type '{}' but required in type 'Measurable'
 printLength(23); // Error: Argument of type '23' is not assignable to parameter of type 'Measurable'
+```
+
+```ts
+// Example 2:
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return "Value: " + obj[key];
+}
+
+extractAndConvert({ name: "Sh", age: 23 }, "age");
+// JS also helps us to auto-complete the key (second argument).
 ```
 
 <p align="right">
