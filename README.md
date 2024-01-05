@@ -35,7 +35,7 @@
 - [**Docker**](./docker/README.md) `in-progress 🟡`
 - **React.js** `planned ⚫`
 - **Node.js (Express)** `planned ⚫`
-- [**TypeScript**](./ts/README.md) `in-progress 🟡`
+- [**TypeScript**](./ts/README.md) `🟢`
 - **SQL (PostgreSQL)** `planned ⚫`
 - **Redis** `planned ⚫`
 - **GitHub Actions** `planned ⚫`
