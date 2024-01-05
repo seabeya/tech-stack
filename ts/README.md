@@ -41,13 +41,13 @@
    - [Abstract Classes](#-abstract-classes)
 4. [More...](#-more)
    - [Optional Properties](#-optional-properties)
+   - [Conditional Types](#-conditional-types)
+   - [Type Assertions](#-type-assertions)
+     - [`as const`](#-as-const)
    - [Type Guards](#-type-guards)
      - [Discriminated Unions](#-discriminated-unions)
      - [Type Predicates](#-type-predicates)
      - [`satisfies`](#-satisfies)
-   - [Conditional Types](#-conditional-types)
-   - [Type Assertions](#-type-assertions)
-     - [`as const`](#-as-const)
    - [Built-in Utility Types](#-built-in-utility-types)
 
 <br>
@@ -1122,6 +1122,132 @@ const person: { name: string; age?: number } = { name: "Sh" };
 
 <br>
 
+### 🔷 Conditional Types
+
+Conditional types in TypeScript are a way to define types based on conditions.
+
+Syntax:
+
+```ts
+type myType = SomeType extends OtherType ? TypeA : TypeB;
+```
+
+> Here, `myType` either is `TypeA` or `TypeB`, depending on the condition.
+
+<br>
+
+### 🔷 Type Assertions
+
+In TypeScript, type assertions are a way to tell the compiler to treat a value as a specific type, regardless of its inferred or declared type.
+
+> They are a way to inform the compiler about the developer's knowledge of the type at a particular point in the code. In other words, they are a developer's way of saying, "Trust me, I know the type better than you do."
+
+> Only use type assertions when necessary, such as during data transformation or when working with external data sources.
+
+There are two syntaxes for type assertions in TypeScript:
+
+- Angle Bracket (`<>`) Syntax:
+  > ```ts
+  > let someValue: any = "Hello World!";
+  > let strLength: number = (<string>someValue).length;
+  > ```
+- `as` Keyword Syntax:
+  > ```ts
+  > let someValue: any = "Hello World!";
+  > let strLength: number = (someValue as string).length;
+  > ```
+
+Examples:
+
+```ts
+const configJson = `{
+  "server": {
+    "port": 3000,
+    "host": "localhost"
+  },
+  app: {
+    "name": "test"
+    "version": "1.0.0"
+  }
+}`;
+
+const config = JSON.parse(configJson); // config: any
+
+const serverConf = config.server as { port: number; host: string };
+const appConf = config.app as { name: string };
+```
+
+<br>
+
+#### 🔻 `as const`
+
+In TypeScript, `as const` is a type assertion that helps narrow down the type of a value to its literal type. When you use as const on a value, TypeScript treats the value as read-only and infers the most specific literal type for that value.
+
+- Without `as const`:
+  > TypeScript infers colors as `{ red: string, blue: string, green: string }`
+  >
+  > ```ts
+  > const colors = {
+  >   red: "red",
+  >   blue: "blue",
+  >   green: "green",
+  > };
+  > ```
+- With `as const`:
+  > TypeScript infers colors as `{ readonly red: "red", readonly blue: "blue", readonly green: "green" }`
+  >
+  > ```ts
+  > const colors = {
+  >   red: "red",
+  >   blue: "blue",
+  >   green: "green",
+  > } as const;
+  >
+  > colors.red = "hello"; // Error: Cannot assign to 'red' because it is a read-only property.
+  > // This is not only top level, but also nested.
+  > ```
+
+Using as an Enum:
+
+```ts
+const routes = {
+  home: "/",
+  login: "/auth/login",
+  register: "/auth/register",
+  dashboard: "/dashboard",
+} as const;
+
+type RoutePath = (typeof routes)[keyof typeof routes];
+// type RoutePath = "/" | "/auth/login" | "/auth/register" | "/dashboard"
+
+function navigateTo(path: RoutePath) {
+  // ...
+}
+
+navigateTo("/auth/login");
+navigateTo(routes.register);
+```
+
+> What is going on: [Indexed Access Types](#-indexed-access-types).
+>
+> ```ts
+> type R = typeof routes;
+> // type R = {
+> //   readonly home: "/";
+> //   readonly login: "/auth/login";
+> //   readonly register: "/auth/register";
+> //   readonly dashboard: "/dashboard";
+> // }
+>
+> type Route = keyof typeof routes;
+> // type Route = "home" | "login" | "register" | "dashboard"
+>
+> type RoutePath2 = R[Route];
+> // type RoutePath2 = "/" | "/auth/login" | "/auth/register" | "/dashboard"
+> ```
+
+<br>
+
 ### 🔷 Type Guards
 
 In TypeScript, a type guard is a mechanism that enables you to narrow down the type of a variable within a specific code block.
@@ -1329,132 +1455,6 @@ Also, watch these YouTube videos:
 
 - [The `satisfies` operator ↗](https://youtu.be/49gHWuepxxE?si=rPn33iQkwbpoiEcU).
 - [Most TS devs don't understand `satisfies` ↗](https://youtu.be/r1L35zxZQPE?si=oRsy1kQxr4yzy_jI).
-
-<br>
-
-### 🔷 Conditional Types
-
-Conditional types in TypeScript are a way to define types based on conditions.
-
-Syntax:
-
-```ts
-type myType = SomeType extends OtherType ? TypeA : TypeB;
-```
-
-> Here, `myType` either is `TypeA` or `TypeB`, depending on the condition.
-
-<br>
-
-### 🔷 Type Assertions
-
-In TypeScript, type assertions are a way to tell the compiler to treat a value as a specific type, regardless of its inferred or declared type.
-
-> They are a way to inform the compiler about the developer's knowledge of the type at a particular point in the code. In other words, they are a developer's way of saying, "Trust me, I know the type better than you do."
-
-> Only use type assertions when necessary, such as during data transformation or when working with external data sources.
-
-There are two syntaxes for type assertions in TypeScript:
-
-- Angle Bracket (`<>`) Syntax:
-  > ```ts
-  > let someValue: any = "Hello World!";
-  > let strLength: number = (<string>someValue).length;
-  > ```
-- `as` Keyword Syntax:
-  > ```ts
-  > let someValue: any = "Hello World!";
-  > let strLength: number = (someValue as string).length;
-  > ```
-
-Examples:
-
-```ts
-const configJson = `{
-  "server": {
-    "port": 3000,
-    "host": "localhost"
-  },
-  app: {
-    "name": "test"
-    "version": "1.0.0"
-  }
-}`;
-
-const config = JSON.parse(configJson); // config: any
-
-const serverConf = config.server as { port: number; host: string };
-const appConf = config.app as { name: string };
-```
-
-<br>
-
-#### 🔻 `as const`
-
-In TypeScript, `as const` is a type assertion that helps narrow down the type of a value to its literal type. When you use as const on a value, TypeScript treats the value as read-only and infers the most specific literal type for that value.
-
-- Without `as const`:
-  > TypeScript infers colors as `{ red: string, blue: string, green: string }`
-  >
-  > ```ts
-  > const colors = {
-  >   red: "red",
-  >   blue: "blue",
-  >   green: "green",
-  > };
-  > ```
-- With `as const`:
-  > TypeScript infers colors as `{ readonly red: "red", readonly blue: "blue", readonly green: "green" }`
-  >
-  > ```ts
-  > const colors = {
-  >   red: "red",
-  >   blue: "blue",
-  >   green: "green",
-  > } as const;
-  >
-  > colors.red = "hello"; // Error: Cannot assign to 'red' because it is a read-only property.
-  > // This is not only top level, but also nested.
-  > ```
-
-Using as an Enum:
-
-```ts
-const routes = {
-  home: "/",
-  login: "/auth/login",
-  register: "/auth/register",
-  dashboard: "/dashboard",
-} as const;
-
-type RoutePath = (typeof routes)[keyof typeof routes];
-// type RoutePath = "/" | "/auth/login" | "/auth/register" | "/dashboard"
-
-function navigateTo(path: RoutePath) {
-  // ...
-}
-
-navigateTo("/auth/login");
-navigateTo(routes.register);
-```
-
-> What is going on: [Indexed Access Types](#-indexed-access-types).
->
-> ```ts
-> type R = typeof routes;
-> // type R = {
-> //   readonly home: "/";
-> //   readonly login: "/auth/login";
-> //   readonly register: "/auth/register";
-> //   readonly dashboard: "/dashboard";
-> // }
->
-> type Route = keyof typeof routes;
-> // type Route = "home" | "login" | "register" | "dashboard"
->
-> type RoutePath2 = R[Route];
-> // type RoutePath2 = "/" | "/auth/login" | "/auth/register" | "/dashboard"
-> ```
 
 <br>
 
