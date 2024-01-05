@@ -44,6 +44,7 @@
    - [Type Guards](#-type-guards)
      - [Discriminated Unions](#-discriminated-unions)
      - [Type Predicates](#-type-predicates)
+     - [`satisfies`](#-satisfies)
    - [Conditional Types](#-conditional-types)
    - [Type Assertions](#-type-assertions)
      - [`as const`](#-as-const)
@@ -1263,6 +1264,74 @@ function move(pet: Bird | Fish): void {
 
 <br>
 
+#### 🔻 `satisfies`
+
+In TypeScript, the `satisfies` keyword is used to check if a specific type fulfills a certain condition or interface. It essentially acts as a type guard, ensuring that a variable holds all the necessary properties and methods defined in the condition or interface.
+
+> Unlike standard type assertions, `satisfies` preserves the original type information of the value.
+
+What is it & usage:
+
+```ts
+type CityCoordinates = { longitude: number; latitude: number };
+
+type City = string | CityCoordinates;
+
+type User = {
+  birthLocation: City;
+  currentLocation: City;
+};
+```
+
+- Normal Type Annotation:
+  > TypeScript checks types but restricts the use of specific methods.
+  >
+  > ```ts
+  > const user: User = {
+  >   birthLocation: { latitude: 0, longitude: 0 },
+  >   currentLocation: "London",
+  >   hello: "t3", // Error: 'hello' does not exist in type 'User'.
+  > };
+  >
+  > user.currentLocation.toUpperCase(); // Property 'toUpperCase' does not exist on type 'CityCoordinates'.
+  > // currentLocation: City
+  > ```
+- Type Assertions:
+  > Type assertions allow flexibility and give us complete control over the value, but they still restrict the use of specific methods.
+  >
+  > ```ts
+  > const user = {
+  >   birthLocation: { latitude: 0, longitude: 0 },
+  >   currentLocation: "London",
+  >   hello: "t3", // Ok
+  > } as User;
+  >
+  > user.currentLocation.toUpperCase(); // Property 'toUpperCase' does not exist on type 'CityCoordinates'.
+  > // currentLocation: City
+  > ```
+- `satisfies`:
+  > The `satisfies` keyword checks types and allows the use of specific methods.
+  >
+  > ```ts
+  > const user = {
+  >   birthLocation: { latitude: 0, longitude: 0 },
+  >   currentLocation: "London",
+  >   hello: "t3", // Error: 'hello' does not exist in type 'User'.
+  > } satisfies User;
+  >
+  > user.currentLocation.toUpperCase(); // OK
+  > // currentLocation: string
+  >
+  > user.birthLocation.toUpperCase(); // Error: Property 'toUpperCase' does not exist on type '{ latitude: number; longitude: number; }'.
+  > ```
+
+Also, watch these YouTube videos:
+
+- [The `satisfies` operator ↗](https://youtu.be/49gHWuepxxE?si=rPn33iQkwbpoiEcU).
+- [Most TS devs don't understand `satisfies` ↗](https://youtu.be/r1L35zxZQPE?si=oRsy1kQxr4yzy_jI).
+
+<br>
+
 ### 🔷 Conditional Types
 
 Conditional types in TypeScript are a way to define types based on conditions.
@@ -1308,6 +1377,7 @@ const configJson = `{
   },
   app: {
     "name": "test"
+    "version": "1.0.0"
   }
 }`;
 
