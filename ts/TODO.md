@@ -1,0 +1,5 @@
+- Installation & base commands.
+- TS Config.
+- The `infer` keyword with conditional types.
+- Assertion Functions.
+- Type Definition files.
