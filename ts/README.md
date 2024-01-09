@@ -5,7 +5,7 @@
 <h1 align="center">TypeScript</h1>
 
 <p align="center">
-  -
+  Almost everything about TypeScript.
 </p>
 
 > TypeScript is a superset of JavaScript that adds static typing for better code reliability.
