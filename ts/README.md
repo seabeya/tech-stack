@@ -638,6 +638,31 @@ logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
   > ```
   >
   > You can inherit from multiple interfaces: `interface Manager extends User, Employee {`.
+- Interface merging:
+  > Interface merging is a mechanism that allows you to define multiple interfaces with the same name, and TypeScript will automatically merge them into a single interface.
+  >
+  > ```ts
+  > interface Car {
+  >   brand: string;
+  >   model: string;
+  > }
+  >
+  > interface Car {
+  >   year: number;
+  > }
+  >
+  > const myCar: Car = {
+  >   brand: "Toyota",
+  >   model: "Camry",
+  >   year: 2022,
+  > };
+  >
+  > // interface Car {
+  > //   brand: string;
+  > //   model: string;
+  > //   year: number;
+  > // }
+  > ```
 
 <br>
 
