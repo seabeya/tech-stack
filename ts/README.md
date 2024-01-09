@@ -436,6 +436,9 @@ type Car = {
 };
 
 type CarProperty = Car["brand"]; // CarProperty = string
+
+// You can also use Unions:
+type CarProperty2 = Car["brand" | "year"]; // CarProperty2 = string | number
 ```
 
 ```ts
