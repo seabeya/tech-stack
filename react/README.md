@@ -27,6 +27,7 @@
    - [The `children` prop](#-the-children-prop)
    - [Passing Props Through](#-passing-props-through)
 3. [useState](#-usestate)
+   - [Working with Objects & Arrays](#-working-with-objects--arrays)
 
 <br>
 
@@ -456,5 +457,91 @@ Does any component beside the current one need to know what the current state is
 Where to define handler functions?
 
 > They are usually defined in the same component as the state it modifies. However, they might be used in different components.
+
+<br>
+
+### 🔷 Working with Objects & Arrays
+
+Do not directly mutate/update arrays or objects.
+
+- Wrong:
+  > ```jsx
+  > // Array:
+  > const [colors, setColors] = useState([]);
+  >
+  > colors.push("red");
+  > colors.push("green");
+  > colors[0] = "blue";
+  > ```
+  >
+  > ```jsx
+  > // Object:
+  > const [user, setUser] = useState({
+  >   name: "Sh",
+  >   age: 23,
+  > });
+  >
+  > user.age = 24;
+  > ```
+- Correct:
+  > Use the current value to create a new value, then use the setter function to update the value entirely with the newly created value.
+  >
+  > ```jsx
+  > // Array:
+  > const [colors, setColors] = useState([]);
+  >
+  > // add elements to the start:
+  > const addColor = (colorToAdd) => {
+  >   const updatedColors = [colorToAdd, ...colors];
+  >   setColors(updatedColors);
+  > };
+  >
+  > // add elements to the end:
+  > const addColor = (colorToAdd) => {
+  >   const updatedColors = [...colors, colorToAdd];
+  >   setColors(updatedColors);
+  > };
+  >
+  > // add an element to any index:
+  > const addColorAtIndex = (colorToAdd, index) => {
+  >   const updatedColors = [
+  >     ...colors.slice(0, index),
+  >     colorToAdd,
+  >     ...colors.slice(index),
+  >   ];
+  >   setColors(updatedColors);
+  > };
+  >
+  > // remove by index
+  > const removeByIndex = (indexToRemove) => {
+  >   const updatedColors = colors.filter((color, index) => {
+  >     return index !== indexToRemove;
+  >   });
+  >   setColors(updatedColors);
+  > };
+  > ```
+  >
+  > ```jsx
+  > // Object:
+  > const [fruit, setFruit] = useState({
+  >   name: "apple",
+  >   color: "red",
+  > });
+  >
+  > // update the value:
+  > const changeColor = (newColor) => {
+  >   const updatedFruit = {
+  >     ...fruit,
+  >     color: newColor,
+  >   };
+  >   setFruit(updatedFruit);
+  > };
+  >
+  > // remove a property (color):
+  > const removeProperty = () => {
+  >   const { color, ...rest } = fruit;
+  >   setFruit(rest);
+  > };
+  > ```
 
 <br>
