@@ -23,6 +23,14 @@
 1. [JSX](#-jsx)
    - [File Structure](#-jsx-file-structure)
    - [Syntax & Rules](#-jsx-syntax--rules)
+     - [Naming Components](#-naming-components)
+     - [One Top Level Element](#-one-top-level-element)
+     - [Returning JSX](#-returning-jsx)
+     - [Expressions Inside Curly Braces `{}`](#-expressions-inside-curly-braces)
+     - [Self-Closing Tags](#-self-closing-tags)
+     - [JSX Value Displaying Limitations](#-jsx-value-displaying-limitations)
+     - [Inline Styles](#-inline-styles)
+     - [Element Props](#-element-props)
 2. [Props](#-props)
    - [The `children` prop](#-the-children-prop)
    - [Passing Props Through](#-passing-props-through)
@@ -210,6 +218,26 @@ JSX can display `numbers` and `strings`. However, when you try to display other 
 
 <br>
 
+#### 🔻 Inline Styles
+
+Inline styles are provided as objects. If the style name has a dash in it, we remove the dash and capitalize the next letter (camelCase).
+
+```jsx
+return (
+  <p
+    style={{
+      backgroundColor: "black",
+      color: "red",
+      width: "50px",
+    }}
+  >
+    Hello!
+  </p>
+);
+```
+
+<br>
+
 #### 🔻 Element Props
 
 We can assign just about any prop to a JSX element as we would to an HTML element.
@@ -235,26 +263,6 @@ We can assign just about any prop to a JSX element as we would to an HTML elemen
   >
   > <MyComponent isActive={false}></MyComponent>
   > ```
-
-<br>
-
-#### 🔻 Inline Styles
-
-Inline styles are provided as objects. If the style name has a dash in it, we remove the dash and capitalize the next letter (camelCase).
-
-```jsx
-return (
-  <p
-    style={{
-      backgroundColor: "black",
-      color: "red",
-      width: "50px",
-    }}
-  >
-    Hello!
-  </p>
-);
-```
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
