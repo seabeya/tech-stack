@@ -26,7 +26,7 @@
      - [Naming Components](#-naming-components)
      - [One Top Level Element](#-one-top-level-element)
      - [Returning JSX](#-returning-jsx)
-     - [Expressions Inside Curly Braces `{}`](#-expressions-inside-curly-braces)
+     - [Expressions Inside Curly Braces](#-expressions-inside-curly-braces)
      - [Self-Closing Tags](#-self-closing-tags)
      - [JSX Value Displaying Limitations](#-jsx-value-displaying-limitations)
      - [Conditional Rendering](#-conditional-rendering)
@@ -37,7 +37,7 @@
    - [Passing Props Through](#-passing-props-through)
 3. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
-   - [The new value depends on the old value](#🔷-the-new-value-depends-on-the-old-value)
+   - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
 
 <br>
 
@@ -169,7 +169,7 @@ This means that you must wrap multiple elements in a single parent element.
 
 <br>
 
-#### 🔻 Expressions Inside Curly Braces `{}`
+#### 🔻 Expressions Inside Curly Braces
 
 To embed JavaScript expressions within JSX, you need to wrap them in curly braces `{}`. This allows you to dynamically compute values, access variables, or execute functions.
 
