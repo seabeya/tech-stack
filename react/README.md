@@ -29,6 +29,7 @@
      - [Expressions Inside Curly Braces `{}`](#-expressions-inside-curly-braces)
      - [Self-Closing Tags](#-self-closing-tags)
      - [JSX Value Displaying Limitations](#-jsx-value-displaying-limitations)
+     - [Conditional Rendering](#-conditional-rendering)
      - [Inline Styles](#-inline-styles)
      - [Element Props](#-element-props)
 2. [Props](#-props)
@@ -215,6 +216,72 @@ For tags without children, you should use self-closing syntax.
 JSX can display `numbers` and `strings`. However, when you try to display other types of values like `arrays`, `booleans`, etc., they are not displayed or may exhibit unexpected behavior.
 
 > This limitation only applies when you attempt to display something. You can still use them inside props, etc.
+
+<br>
+
+#### 🔻 Conditional Rendering
+
+In React, conditional rendering is a way to display different components or content based on certain conditions.
+
+> There are several ways to achieve conditional rendering. Here, I'll be showing only a few of them.
+
+- Using Ternary Operator:
+  > ```jsx
+  > const MyComponent = ({ isLoggedIn }) => {
+  >   return (
+  >     <div>
+  >       {isLoggedIn ? (
+  >         <p>Welcome, User!</p>
+  >       ) : (
+  >         <p>Please log in to access the content.</p>
+  >       )}
+  >     </div>
+  >   );
+  > };
+  > ```
+- Using an External Function:
+  > ```jsx
+  > function MyComponent({ isLoggedIn }) {
+  >   const renderProfile = () => {
+  >     if (!isLoggedIn) {
+  >       return <p>Please log in to access the content.</p>;
+  >     } else {
+  >       return <p>Welcome, User!</p>;
+  >     }
+  >   };
+  >
+  >   return <div>{renderProfile()}</div>;
+  > }
+  > ```
+- Using Logical `&&` Operator:
+  > ```jsx
+  > const MyComponent = ({ isLoggedIn }) => {
+  >   return (
+  >     <div>
+  >       {isLoggedIn && <p>Welcome, User!</p>}
+  >       {!isLoggedIn && <p>Please log in to access the content.</p>}
+  >     </div>
+  >   );
+  > };
+  > ```
+  - Risks of this approach:
+    > Everything is okay when your conditionals are `boolean` values. If the value is `false`, it will try to display the boolean value itself, and as we know from "Displaying Limitations" it will show nothing.
+    >
+    > But what if our conditionals are numbers, and we pass `0` as a falsey value? It will render the `0` itself, which is a problem.
+    >
+    > You can fix it using the Double Logical NOT `!!` operator.
+    >
+    > ```js
+    > let a = 0;
+    > console.log(!!a); // false
+    >
+    > let b = 1;
+    > console.log(!!b); // true
+    > ```
+    >
+    > Or, you can use other approaches to conditional rendering.
+
+Take a look: [JS > Expressions and Operators](https://github.com/seabeya/tech-stack/blob/main/js/README.md#-expressions-and-operators).
 
 <br>
 
