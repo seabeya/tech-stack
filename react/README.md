@@ -23,9 +23,10 @@
 1. [JSX](#-jsx)
    - [File Structure](#-jsx-file-structure)
    - [Syntax & Rules](#-jsx-syntax--rules)
-1. [Props](#-props)
+2. [Props](#-props)
    - [The `children` prop](#-the-children-prop)
    - [Passing Props Through](#-passing-props-through)
+3. [useState](#-usestate)
 
 <br>
 
@@ -379,4 +380,81 @@ function DisplayVars(props) {
 </p>
 
 <br>
+<br>
+
+## 🔶 useState
+
+State refers to the data that changes as the user interacts with our app.
+
+It is the only method through which we can modify what content React displays. If you wish to alter what is visible on the screen, `useState` is the exclusive way to achieve this.
+
+Syntax:
+
+```jsx
+const [myVar, setMyVar] = useState(defaultValue);
+```
+
+- `myVar`: The current value.
+- `setMyVar`: The setter function. The only way we use to update the value.
+- `defaultValue`: The default value (can be anything).
+
+Example:
+
+```jsx
+function App() {
+  const [count, setCount] = useState(0);
+
+  // the handler function:
+  const handleClick = () => {
+    console.log("Clicked");
+    setCount(count + 1);
+  };
+
+  return (
+    <>
+      <button onClick={handleClick}>Click</button>
+      <div>Value: {count}</div>
+    </>
+  );
+}
+```
+
+> We can use `useState` multiple times. Calling `useState` defines a new piece of state:
+>
+> ```jsx
+> const [value, setValue] = useState(0);
+> const [lastMessage, setLastMessage] = useState("");
+> const [age, setAge] = useState(23);
+> ```
+
+How it works:
+
+- React invokes the function component (in our example, `App()`) with the updated state every time we modify the state value using the setter function.
+- When a component re-renders, all its children also re-render.
+
+<br>
+
+#### 🔻 Where to Define State?
+
+Does any component beside the current one need to know what the current state is?
+
+- Yes: Define it in a common parent.
+- No: Define it where it should belong (current component).
+
+> [!WARNING]
+> Don't forget! `useState` re-renders the entire component where it is defined and its child components again and again when it gets updated. Therefore, the defining place and structuring of components are crucial when it comes to performance.
+
+<br>
+
+#### 🔻 State vs Handler Functions
+
+- When the user sees something on the screen change:
+  > We need state to implement this.
+- When the user commits some action:
+  > We need an event handler to implement this.
+
+Where to define handler functions?
+
+> They are usually defined in the same component as the state it modifies. However, they might be used in different components.
+
 <br>
