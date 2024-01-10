@@ -28,6 +28,7 @@
    - [Passing Props Through](#-passing-props-through)
 3. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
+   - [The new value depends on the old value](#🔷-the-new-value-depends-on-the-old-value)
 
 <br>
 
@@ -545,3 +546,33 @@ Do not directly mutate/update arrays or objects.
   > ```
 
 <br>
+
+### 🔷 The new value depends on the old value
+
+The state value is not the up-to-date value all the time.
+
+> This is because React batches state updates for performance reasons. So, it doesn't guarantee that the state has been updated immediately after calling `setState`.
+
+> If you have a series of state updates happening quickly, like in a loop or due to user interactions, using the regular form may lead to unexpected behavior.
+
+- The usual way:
+  > ```jsx
+  > const [counter, setCounter] = useSate(0);
+  >
+  > const handleClick = () => {
+  >   setCounter(counter + 1);
+  > };
+  > ```
+- The guaranteed way:
+  > ```jsx
+  > const [counter, setCounter] = useSate(0);
+  >
+  > const handleClick = () => {
+  >   setCounter((currentCounter) => {
+  >     // `currentCounter` is the most up-to-date version of `counter`.
+  >     return currentCounter + 1;
+  >   });
+  > };
+  > ```
+  >
+  > Here, you provide a callback function that takes the current state as an argument. React ensures that this callback function is called with the most up-to-date state, even if multiple state updates are queued.
