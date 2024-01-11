@@ -497,6 +497,30 @@ Here is the full list of supported [HTML events ↗](https://react.dev/reference
 
 <br>
 
+#### 🔻 The Event Object
+
+When you pass a function to an event handler in React, React automatically provides the event object as the first argument to the function.
+
+This way, you have access to the event object if it's necessary for your functionality.
+
+```jsx
+function App() {
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    console.log("Clicked");
+  };
+
+  return (
+    <a href="#" onClick={handleClick}>
+      Click!
+    </a>
+  );
+}
+```
+
+<br>
+
 ### 🔷 Passing Data Up
 
 We can communicate directly down to child components, but there is no way to communicate directly with the parent component. To achieve that, we use handler functions.
