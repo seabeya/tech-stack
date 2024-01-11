@@ -37,6 +37,7 @@
    - [Passing Props Through](#-passing-props-through)
 3. [Handler Functions](#-handler-functions)
    - [Passing Data Up](#-passing-data-up)
+   - [Handling Text Inputs](#-handling-text-inputs)
 4. [Working with Lists](#-working-with-lists)
 5. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
@@ -548,6 +549,49 @@ function ChildComponent({ onSubmit }) {
 ```
 
 > You can also pass that to the sibling components. So the structure will be like: `ChildComponent > ParentComponent > TheOtherChildComponent`.
+
+<br>
+
+### 🔷 Handling Text Inputs
+
+Handling text inputs involves managing the state of the input component and updating it based on user input.
+
+The steps:
+
+1. Create a new piece of state.
+2. Create a handler function to watch for the `onChange` event.
+3. When the `onChange` event fires, get the target value from the event object in the handler function.
+4. Update the state with the value.
+5. Update the input element with the new state value.
+
+```jsx
+function App() {
+  const [inputValue, setInputValue] = useState("");
+
+  // Event handler for input change
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  return (
+    <div>
+      <input type="text" value={inputValue} onChange={handleInputChange} />
+      <p className="text-white">You typed: {inputValue}</p>
+    </div>
+  );
+}
+```
+
+But why?
+
+> Handling text inputs in this way, where we manage the input value in the component's state, offers several benefits:
+>
+> - Reactivity:
+>   > By updating the component state on each input change, React will automatically re-render the component with the updated value. This ensures that the UI stays in sync with the user's input.
+> - Single Source of Truth:
+>   > The state becomes the single source of truth for the input value. This makes it easier to manage and manipulate the data because you have a clear and centralized location to access and update it.
+> - Controlled Components:
+>   > The approach used is known as creating a controlled component. The component's state "controls" the value of the input, allowing you to intercept and modify user input as needed before updating the state.
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
