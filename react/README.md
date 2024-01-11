@@ -36,6 +36,7 @@
    - [The `children` prop](#-the-children-prop)
    - [Passing Props Through](#-passing-props-through)
 3. [Handler Functions](#-handler-functions)
+   - [Passing Data Up](#-passing-data-up)
 4. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
    - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
@@ -493,6 +494,36 @@ return <button onClick={() => handleClick("Hello")}>Click</button>;
 The handler functions can also be passed as props to child components, enabling them to communicate with their parent components.
 
 Here is the full list of supported [HTML events ↗](https://react.dev/reference/react-dom/components/common#common-props).
+
+<br>
+
+### 🔷 Passing Data Up
+
+We can communicate directly down to child components, but there is no way to communicate directly with the parent component. To achieve that, we use handler functions.
+
+```jsx
+import ChildComponent from "./ChildComponent.jsx";
+
+function ParentComponent() {
+  const handleSubmit = (dataFromDown) => {
+    console.log("button clicked, ", dataFromDown);
+  };
+
+  return <ChildComponent onSubmit={handleSubmit} />;
+}
+```
+
+```jsx
+function ChildComponent({ onSubmit }) {
+  const handleClick = () => {
+    onSubmit("data from child component");
+  };
+
+  return <button onClick={handleClick}>Submit</button>;
+}
+```
+
+> You can also pass that to the sibling components. So the structure will be like: `ChildComponent > ParentComponent > TheOtherChildComponent`.
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
