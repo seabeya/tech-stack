@@ -35,7 +35,8 @@
 2. [Props](#-props)
    - [The `children` prop](#-the-children-prop)
    - [Passing Props Through](#-passing-props-through)
-3. [useState](#-usestate)
+3. [Handler Functions](#-handler-functions)
+4. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
    - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
 
@@ -459,6 +460,46 @@ function DisplayVars(props) {
 <br>
 <br>
 
+## 🔶 Handler Functions
+
+In React, a handler function refers to a function used for handling events triggered by user interactions or other actions in a React application.
+
+> When naming handler functions, it is common practice to use the `handle + EventName` or `handle + identifier + EventName` pattern.
+
+```jsx
+function App() {
+  // event handler function:
+  const handleClick = () => {
+    console.log("Clicked");
+  };
+
+  return <button onClick={handleClick}>Click</button>;
+}
+```
+
+> [!NOTE]
+> Functions passed to event handlers must be passed, not called.
+>
+> - Incorrect: `<button onClick={handleClick()}>`
+> - Correct: `<button onClick={handleClick}>`
+
+If the function uses arguments, you use it this way:
+
+```jsx
+return <button onClick={() => handleClick("Hello")}>Click</button>;
+```
+
+The handler functions can also be passed as props to child components, enabling them to communicate with their parent components.
+
+Here is the full list of supported [HTML events ↗](https://react.dev/reference/react-dom/components/common#common-props).
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
 ## 🔶 useState
 
 State refers to the data that changes as the user interacts with our app.
@@ -651,3 +692,10 @@ The state value is not the up-to-date value all the time.
   > ```
   >
   > Here, you provide a callback function that takes the current state as an argument. React ensures that this callback function is called with the most up-to-date state, even if multiple state updates are queued.
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
