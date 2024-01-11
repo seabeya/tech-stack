@@ -42,6 +42,8 @@
 5. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
    - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
+6. [useEffect](#-useeffect)
+   - [Cleanup Functions (optional)](#-cleanup-functions-optional)
 
 <br>
 
@@ -699,6 +701,8 @@ const [myVar, setMyVar] = useState(defaultValue);
 Example:
 
 ```jsx
+import { useState } from "react";
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -879,3 +883,123 @@ The state value is not the up-to-date value all the time.
 
 <br>
 <br>
+
+## 🔶 useEffect
+
+`useEffect` is a React hook that helps manage side effects in your components, allowing you to control when and how they occur. This improves the overall organization and maintainability of your code.
+
+Syntax:
+
+> `useEffect` takes two arguments:
+>
+> - A function containing the code to run.
+> - An optional array of dependencies.
+
+```jsx
+import { useEffect } from "react";
+
+function App() {
+  // ...
+
+  // Called only after the 1st (initial) render and never again:
+  useEffect(() => {
+    // your code
+  }, []); // empty array
+
+  // Called after the 1st (initial) render and every (subsequent) render.
+  useEffect(() => {
+    // your code
+  }); // no second argument
+
+  // Called after the 1st (initial) render and every subsequent render when the 'count' state changes.
+  useEffect(() => {
+    // your code
+  }, [count]); // has dependencies
+
+  // ...
+}
+```
+
+<br>
+
+#### 🔻 Cleanup Functions (optional)
+
+The first argument of `useEffect`, which contains the code to run, can also return a function, and we use the returned function for cleanup purposes.
+
+```jsx
+function App() {
+  useEffect(() => {
+    const listener = () => {
+      console.log("listener");
+    };
+
+    document.body.addEventListener("click", listener);
+
+    // Cleanup function: Remove the event listener
+    return () => {
+      document.body.removeEventListener("click", listener);
+    };
+  }, [count]);
+}
+```
+
+Purpose of Cleanup Functions:
+
+> Let's say we have one event listener. Without cleanup, every time `useEffect` runs, it will register a new listener. So, if the `useEffect` function is rendered for example 10 times, and after that, we click the body element, the listener function will run 10 times.
+>
+> With cleanup, we clean up the previous event listener and register a new one. This prevents the occurrence of weird behavior.
+
+Variations:
+
+- Second argument is an empty array:
+  > ```jsx
+  > function App() {
+  >   useEffect(() => {
+  >     console.log("hello");
+  >
+  >     // Cleanup function: Runs only when the component is unmounted
+  >     return () => {
+  >       console.log("hi");
+  >     };
+  >   }, []);
+  > }
+  > ```
+  >
+  > What happens:
+  >
+  > 1.  First render:
+  >     - Run the main function.
+  >     - Return the cleanup function.
+  >       > The cleanup function doesn't run on the first render.
+  > 2.  If we remove the component from the screen:
+  >     - Run the previously returned cleanup function.
+- Second argument is not an empty array:
+  > ```jsx
+  > function App() {
+  >   useEffect(() => {
+  >     console.log("hello");
+  >
+  >     // Cleanup function: Runs on component unmount or when 'count' changes
+  >     return () => {
+  >       console.log("hi");
+  >     };
+  >   }, [count]);
+  > }
+  > ```
+  >
+  > What happens:
+  >
+  > 1.  First render:
+  >     - Run the main function.
+  >     - Return the cleanup function.
+  >       > The cleanup function doesn't run on the first render.
+  > 2.  Second render:
+  >     - Run the previously returned cleanup function.
+  >     - Run the main function.
+  >     - Return a new cleanup function.
+  > 3.  Subsequent renders:
+  >     - Run the previously returned cleanup function.
+  >     - Run the main function.
+  >     - Return a new cleanup function.
+  > 4.  If we remove the component from the screen:
+  >     - Run the previously returned cleanup function.
