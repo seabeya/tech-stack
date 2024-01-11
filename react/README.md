@@ -44,6 +44,7 @@
    - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
 6. [useEffect](#-useeffect)
    - [Cleanup Functions (optional)](#-cleanup-functions-optional)
+7. [useReducer](#-usereducer)
 
 <br>
 
@@ -967,12 +968,12 @@ Variations:
   >
   > What happens:
   >
-  > 1.  First render:
-  >     - Run the main function.
-  >     - Return the cleanup function.
-  >       > The cleanup function doesn't run on the first render.
-  > 2.  If we remove the component from the screen:
-  >     - Run the previously returned cleanup function.
+  > 1. First render:
+  >    - Run the main function.
+  >    - Return the cleanup function.
+  >      > The cleanup function doesn't run on the first render.
+  > 2. If we remove the component from the screen:
+  >    - Run the previously returned cleanup function.
 - Second argument is not an empty array:
   > ```jsx
   > function App() {
@@ -989,17 +990,118 @@ Variations:
   >
   > What happens:
   >
-  > 1.  First render:
-  >     - Run the main function.
-  >     - Return the cleanup function.
-  >       > The cleanup function doesn't run on the first render.
-  > 2.  Second render:
-  >     - Run the previously returned cleanup function.
-  >     - Run the main function.
-  >     - Return a new cleanup function.
-  > 3.  Subsequent renders:
-  >     - Run the previously returned cleanup function.
-  >     - Run the main function.
-  >     - Return a new cleanup function.
-  > 4.  If we remove the component from the screen:
-  >     - Run the previously returned cleanup function.
+  > 1. First render:
+  >    - Run the main function.
+  >    - Return the cleanup function.
+  >      > The cleanup function doesn't run on the first render.
+  > 2. Second render:
+  >    - Run the previously returned cleanup function.
+  >    - Run the main function.
+  >    - Return a new cleanup function.
+  > 3. Subsequent renders:
+  >    - Run the previously returned cleanup function.
+  >    - Run the main function.
+  >    - Return a new cleanup function.
+  > 4. If we remove the component from the screen:
+  >    - Run the previously returned cleanup function.
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 useReducer
+
+`useReducer` is a React hook used for state management in React applications, offering an alternative to the more commonly used `useState` hook.
+
+It is useful when your state logic becomes more complex or when you have multiple actions that can affect the same state. In such cases, it can make your code more organized and maintainable.
+
+How it works:
+
+1. Reducer Function:
+
+   > This function should be a pure function, meaning it should only depend on its inputs/parameters and should not produce any side effects.
+
+   > The reducer function takes two arguments: the current `state` and an `action` object. It then returns a new state based on the action.
+
+   > The `action` object typically has a `type` property that describes the type of action being performed and can also include additional `payload` data as needed.
+
+   > All business logic related to your state should be handled here to return a new state. Ensure you never break the existing structure; do not edit the object directly, always create a new one based on the old one.
+
+   > It is also recommended to use the default case and return the current state back if there is no action matching to avoid breaking the state. Or you can throw an error.
+
+2. Hook Usage:
+
+   > Use `useReducer` in your component, passing in the `reducer` function and the initial `state` object (all state for the whole component defined in a single object) as an argument.
+
+   > It returns an array with two elements: the current `state` and a `dispatch` function (which is used to update the state).
+
+3. Dispatching Actions:
+
+   > To update the state, call the `dispatch` function with an `action` object that describes what should happen. Subsequently, the `reducer` function will be invoked with the current `state` and the provided `action` object, resulting in the generation of a new state.
+
+   > An `action` is typically an object with:
+   >
+   > - A `type` property that describes the action (communicates to the reducer how the state is supposed to change).
+   > - A `payload` property that contains some data.
+   >
+   > You can also call `dispatch` without an `action` object, but in this case, there will be no logic to separate or describe the actions in the `reducer` function.
+
+   > The component re-renders whenever you dispatch using the `dispatch` function.
+
+```jsx
+import { useReducer } from "react";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "INCREMENT":
+      // Note: we do not edit the object directly, we do it like this:
+      return { ...state, count: state.count + state.boost };
+    case "DECREMENT":
+      return { ...state, count: state.count - state.boost };
+    case "SET_BOOST":
+      return { ...state, boost: +action.payload.boost };
+    case "RESET":
+      return { count: 0, boost: 1 };
+    default:
+      return state;
+  }
+};
+
+function MyComponent() {
+  const [state, dispatch] = useReducer(reducer, { count: 0, boost: 1 });
+
+  return (
+    <div>
+      <div>
+        <p>Count: {state.count}</p>
+        <button onClick={() => dispatch({ type: "INCREMENT" })}>
+          Increment
+        </button>
+        <button onClick={() => dispatch({ type: "DECREMENT" })}>
+          Decrement
+        </button>
+      </div>
+      <div>
+        <p>Default Boost: {state.boost}</p>
+        <input
+          type="number"
+          value={state.boost}
+          onChange={(event) =>
+            dispatch({
+              type: "SET_BOOST",
+              payload: { boost: event.target.value },
+            })
+          }
+        />
+      </div>
+      <br />
+      <button onClick={() => dispatch({ type: "RESET" })}>Reset</button>
+    </div>
+  );
+}
+
+export default MyComponent;
+```
