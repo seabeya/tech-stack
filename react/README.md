@@ -39,6 +39,7 @@
 4. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
    - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
+5. [Working with Lists](#-working-with-lists)
 
 <br>
 
@@ -692,6 +693,86 @@ The state value is not the up-to-date value all the time.
   > ```
   >
   > Here, you provide a callback function that takes the current state as an argument. React ensures that this callback function is called with the most up-to-date state, even if multiple state updates are queued.
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Working with Lists
+
+In React, when you render a list of elements using a loop or map function, you are required to assign a special attribute called `key` to each rendered element. The `key` attribute is a unique identifier that helps React keep track of each element's identity within the list.
+
+```js
+const MyList = () => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
+};
+```
+
+This is for:
+
+- Reconciliation and Performance:
+  > React uses the `key` attribute to efficiently update and reconcile the Virtual DOM. When items in a list change, React can quickly identify which items have been added, removed, or updated based on their keys.
+- Preventing Unnecessary Re-renders:
+  > Without proper keys, React might not accurately determine which items have changed, leading to unnecessary re-renders of components. This can impact performance and cause unexpected behavior in your application.
+- Stable Identity:
+  > Keys provide a stable identity for elements across renders. This is crucial when elements are reordered or their positions change. React uses keys to differentiate between elements and maintain consistent behavior during updates.
+
+Rules:
+
+- Add the key to the top-most element in the list.
+- Keys must be unique within the list.
+- Keys should be stable, meaning that they should not change if the list is reordered or updated.
+  > For example, using array indices as keys is generally not recommended. However, it can be okay if you are not updating the list at all. In that case, they will be stable enough to use as keys.
+- The key must be a string or number.
+
+<br>
+
+Example:
+
+> Each item has an event handler attached to it.
+
+```jsx
+function App() {
+  const items = [
+    { id: 10001, name: "item1" },
+    { id: 10002, name: "item2" },
+  ];
+
+  const [currentItem, setCurrentItem] = useState(null);
+
+  const renderedItems = items.map((item) => {
+    return (
+      <div key={item.id} className="text-red-600">
+        {item.name}
+        <button className="text-green-600" onClick={() => setCurrentItem(item)}>
+          Select
+        </button>
+      </div>
+    );
+  });
+
+  return (
+    <div>
+      {renderedItems}
+      <div className="text-blue-600">
+        <h1>Current Item</h1>
+        {currentItem && <div>{currentItem.name}</div>}
+      </div>
+    </div>
+  );
+}
+```
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
