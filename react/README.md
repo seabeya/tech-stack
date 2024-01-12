@@ -40,14 +40,15 @@
    - [Handling Text Inputs](#-handling-text-inputs)
 4. [Working with Lists](#-working-with-lists)
 5. [Portals](#-portals)
-6. [useState](#-usestate)
-   - [Working with Objects & Arrays](#-working-with-objects--arrays)
-   - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
-7. [useEffect](#-useeffect)
-   - [Cleanup Functions (optional)](#-cleanup-functions-optional)
-8. [useReducer](#-usereducer)
-9. [useRef](#-useref)
-10. [useCallback](#-usecallback)
+6. [React Hooks](#-react-hooks)
+   - [useState](#-usestate)
+     - [Working with Objects & Arrays](#-working-with-objects--arrays)
+     - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
+   - [useEffect](#-useeffect)
+     - [Cleanup Functions (optional)](#-cleanup-functions-optional)
+   - [useReducer](#-usereducer)
+   - [useRef](#-useref)
+   - [useCallback](#-usecallback)
 
 <br>
 
@@ -744,6 +745,18 @@ export default MyComponent;
 </p>
 
 <br>
+<br>
+
+# 🟪 React Hooks
+
+<p align="center">
+  <a href="#-usestate">useState</a> • 
+  <a href="#-useeffect">useEffect</a> • 
+  <a href="#-usereducer">useReducer</a> • 
+  <a href="#-useref">useRef</a> • 
+  <a href="#-usecallback">useCallback</a>
+</p>
+
 <br>
 
 ## 🔶 useState
