@@ -39,14 +39,15 @@
    - [Passing Data Up](#-passing-data-up)
    - [Handling Text Inputs](#-handling-text-inputs)
 4. [Working with Lists](#-working-with-lists)
-5. [useState](#-usestate)
+5. [Portals](#-portals)
+6. [useState](#-usestate)
    - [Working with Objects & Arrays](#-working-with-objects--arrays)
    - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
-6. [useEffect](#-useeffect)
+7. [useEffect](#-useeffect)
    - [Cleanup Functions (optional)](#-cleanup-functions-optional)
-7. [useReducer](#-usereducer)
-8. [useRef](#-useref)
-9. [useCallback](#-usecallback)
+8. [useReducer](#-usereducer)
+9. [useRef](#-useref)
+10. [useCallback](#-usecallback)
 
 <br>
 
@@ -676,6 +677,66 @@ function App() {
     </div>
   );
 }
+```
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Portals
+
+In React, portals provide a way to render components outside the normal DOM hierarchy of the parent component.
+
+> Portals can be useful for scenarios like modals, tooltips, and other overlay UI elements.
+
+Syntax:
+
+```jsx
+const MyPortal = ({ children }) => {
+  const portalRoot = document.getElementById("portal-root");
+  return ReactDOM.createPortal(children, portalRoot);
+};
+```
+
+- `children`: React components or tree of elements that you want to render.
+- `portalRoot`: A reference to a DOM element where the child will be rendered.
+
+Example:
+
+```jsx
+import ReactDOM from "react-dom";
+
+const MyComponent = () => {
+  return ReactDOM.createPortal(
+    <div>
+      <h1>Hello!</h1>
+      <p>This content is rendered outside the normal component hierarchy.</p>
+    </div>,
+    document.getElementById("portal-root")
+  );
+};
+
+export default MyComponent;
+```
+
+> Don't forget that you need to create a new root element for the new portal, like:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    ...
+  </head>
+  <body>
+    <!-- The main root element -->
+    <div id="root"></div>
+    <!-- Root element for our portal content -->
+    <div id="portal-root"></div>
+  </body>
+</html>
 ```
 
 <p align="right">
