@@ -46,6 +46,7 @@
    - [Cleanup Functions (optional)](#-cleanup-functions-optional)
 7. [useReducer](#-usereducer)
 8. [useRef](#-useref)
+9. [useCallback](#-usecallback)
 
 <br>
 
@@ -1162,3 +1163,75 @@ Use Cases:
   > ```
 - Storing Mutable Data:
   > You can use `useRef` to store data that should not trigger a re-render when it changes. This is useful when keeping track of values between renders, such as the previous state of a component.
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 useCallback
+
+In React, `useCallback` is a hook used to memoize functions, especially callback functions, to prevent unnecessary re-renders of child components.
+
+When you create a function inside a functional component, it gets recreated on each render.
+
+`useCallback` helps by memoizing the function, ensuring it remains the same between renders unless its dependencies change.
+
+Syntax:
+
+> ```jsx
+> const memoizedCallback = useCallback(callback, dependenciesArray);
+> ```
+>
+> `useCallback` returns a memoized version of the callback function you provide, but it doesn't execute the callback function itself.
+
+How it works:
+
+- First render:
+  > During the first render, it creates and returns the memoized callback function provided as the first argument. The callback doesn't run at this stage.
+- Next renders:
+  - When the second argument is an empty array:
+    > Returns the same memoized original callback from early renders. This is useful when you want to ensure the callback function remains the same, effectively preventing it from being recreated.
+  - When the second argument contains elements that have changed since the last render:
+    > Recreates the callback function and returns the new version.
+
+Example:
+
+```jsx
+import { useState, useCallback } from "react";
+
+const MyComponent = () => {
+  const [count, setCount] = useState(0);
+
+  // Without useCallback
+  const handleClickWithoutCallback = () => {
+    console.log("Button clicked!", count);
+  };
+
+  // With useCallback
+  const handleClickWithCallback = useCallback(() => {
+    console.log("Button clicked!", count);
+  }, [count]);
+
+  return (
+    <div className="text-white">
+      <button onClick={handleClickWithoutCallback}>
+        Click without useCallback
+      </button>
+      <button onClick={handleClickWithCallback}>Click with useCallback</button>
+      <p>Count: {count}</p>
+      <button
+        onClick={() => {
+          setCount((curCount) => curCount + 1);
+        }}
+      >
+        Click to increment count!
+      </button>
+    </div>
+  );
+};
+```
+
+> `useCallback` is generally more beneficial when dealing with complex components or when optimizing performance becomes crucial.
