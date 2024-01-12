@@ -45,6 +45,7 @@
 6. [useEffect](#-useeffect)
    - [Cleanup Functions (optional)](#-cleanup-functions-optional)
 7. [useReducer](#-usereducer)
+8. [useRef](#-useref)
 
 <br>
 
@@ -1105,3 +1106,59 @@ function MyComponent() {
 
 export default MyComponent;
 ```
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 useRef
+
+Refs are a way to access and interact with DOM elements or to store a mutable reference to a value that persists across renders without causing re-renders when the `ref` value changes.
+
+How it works:
+
+1. Creating a Ref:
+   > ```jsx
+   > const myRef = useRef(initialValue);
+   > ```
+   >
+   > `initialValue` is an optional argument that initializes the ref with a specific value. So, `myRef.current` will be the `initialValue` initially or `undefined` if not specified.
+2. Accessing the Ref's Current Value:
+   > ```jsx
+   > console.log(myRef.current);
+   > ```
+   >
+   > The primary use of a `ref` is to access its `current` property, which holds the current value.
+   >
+   > You can also assign values to the current property directly: `myRef.current = newValue;`.
+
+Use Cases:
+
+- Accessing DOM Elements:
+  > You can use it to get a reference to an input field and focus on it or change its value without causing a re-render.
+  >
+  > When you create a ref using `useRef`, attach it to an HTML element, and then access the corresponding DOM element using the `current` property of the `ref` object.
+  >
+  > ```jsx
+  > import { useRef, useEffect } from "react";
+  >
+  > function MyComponent() {
+  >   const myInputRef = useRef(null);
+  >
+  >   useEffect(() => {
+  >     console.log(myInputRef.current); // <input type="text" />
+  >
+  >     // Focus on the input element when the component mounts
+  >     myInputRef.current.focus();
+  >   }, []);
+  >
+  >   return <input ref={myInputRef} type="text" />;
+  > }
+  >
+  > export default MyComponent;
+  > ```
+- Storing Mutable Data:
+  > You can use `useRef` to store data that should not trigger a re-render when it changes. This is useful when keeping track of values between renders, such as the previous state of a component.
