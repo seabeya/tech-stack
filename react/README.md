@@ -38,9 +38,7 @@
 3. [Handler Functions](#-handler-functions)
    - [Passing Data Up](#-passing-data-up)
    - [Handling Text Inputs](#-handling-text-inputs)
-4. [Working with Lists](#-working-with-lists)
-5. [Portals](#-portals)
-6. [React Hooks](#-react-hooks)
+4. [React Hooks](#-react-hooks)
    - [useState](#-usestate)
      - [Working with Objects & Arrays](#-working-with-objects--arrays)
      - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
@@ -49,6 +47,9 @@
    - [useReducer](#-usereducer)
    - [useRef](#-useref)
    - [useCallback](#-usecallback)
+5. [More...](#-more)
+   - [Working with Lists](#-working-with-lists)
+   - [Portals](#-portals)
 
 <br>
 
@@ -599,146 +600,6 @@ But why?
 >   > The state becomes the single source of truth for the input value. This makes it easier to manage and manipulate the data because you have a clear and centralized location to access and update it.
 > - Controlled Components:
 >   > The approach used is known as creating a controlled component. The component's state "controls" the value of the input, allowing you to intercept and modify user input as needed before updating the state.
-
-<p align="right">
-    <a href="#reactjs">back to top ⬆</a>
-</p>
-
-<br>
-<br>
-
-## 🔶 Working with Lists
-
-In React, when you render a list of elements using a loop or map function, you are required to assign a special attribute called `key` to each rendered element. The `key` attribute is a unique identifier that helps React keep track of each element's identity within the list.
-
-```js
-const MyList = () => {
-  const items = ["Item 1", "Item 2", "Item 3"];
-
-  return (
-    <ul>
-      {items.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ul>
-  );
-};
-```
-
-This is for:
-
-- Reconciliation and Performance:
-  > React uses the `key` attribute to efficiently update and reconcile the Virtual DOM. When items in a list change, React can quickly identify which items have been added, removed, or updated based on their keys.
-- Preventing Unnecessary Re-renders:
-  > Without proper keys, React might not accurately determine which items have changed, leading to unnecessary re-renders of components. This can impact performance and cause unexpected behavior in your application.
-- Stable Identity:
-  > Keys provide a stable identity for elements across renders. This is crucial when elements are reordered or their positions change. React uses keys to differentiate between elements and maintain consistent behavior during updates.
-
-Rules:
-
-- Add the key to the top-most element in the list.
-- Keys must be unique within the list.
-- Keys should be stable, meaning that they should not change if the list is reordered or updated.
-  > For example, using array indices as keys is generally not recommended. However, it can be okay if you are not updating the list at all. In that case, they will be stable enough to use as keys.
-- The key must be a string or number.
-
-<br>
-
-Example:
-
-> Each item has an event handler attached to it.
-
-```jsx
-function App() {
-  const items = [
-    { id: 10001, name: "item1" },
-    { id: 10002, name: "item2" },
-  ];
-
-  const [currentItem, setCurrentItem] = useState(null);
-
-  const renderedItems = items.map((item) => {
-    return (
-      <div key={item.id} className="text-red-600">
-        {item.name}
-        <button className="text-green-600" onClick={() => setCurrentItem(item)}>
-          Select
-        </button>
-      </div>
-    );
-  });
-
-  return (
-    <div>
-      {renderedItems}
-      <div className="text-blue-600">
-        <h1>Current Item</h1>
-        {currentItem && <div>{currentItem.name}</div>}
-      </div>
-    </div>
-  );
-}
-```
-
-<p align="right">
-    <a href="#reactjs">back to top ⬆</a>
-</p>
-
-<br>
-<br>
-
-## 🔶 Portals
-
-In React, portals provide a way to render components outside the normal DOM hierarchy of the parent component.
-
-> Portals can be useful for scenarios like modals, tooltips, and other overlay UI elements.
-
-Syntax:
-
-```jsx
-const MyPortal = ({ children }) => {
-  const portalRoot = document.getElementById("portal-root");
-  return ReactDOM.createPortal(children, portalRoot);
-};
-```
-
-- `children`: React components or tree of elements that you want to render.
-- `portalRoot`: A reference to a DOM element where the child will be rendered.
-
-Example:
-
-```jsx
-import ReactDOM from "react-dom";
-
-const MyComponent = () => {
-  return ReactDOM.createPortal(
-    <div>
-      <h1>Hello!</h1>
-      <p>This content is rendered outside the normal component hierarchy.</p>
-    </div>,
-    document.getElementById("portal-root")
-  );
-};
-
-export default MyComponent;
-```
-
-> Don't forget that you need to create a new root element for the new portal, like:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    ...
-  </head>
-  <body>
-    <!-- The main root element -->
-    <div id="root"></div>
-    <!-- Root element for our portal content -->
-    <div id="portal-root"></div>
-  </body>
-</html>
-```
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
@@ -1309,3 +1170,152 @@ const MyComponent = () => {
 ```
 
 > `useCallback` is generally more beneficial when dealing with complex components or when optimizing performance becomes crucial.
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+# 🟪 More...
+
+## 🔶 Working with Lists
+
+In React, when you render a list of elements using a loop or map function, you are required to assign a special attribute called `key` to each rendered element. The `key` attribute is a unique identifier that helps React keep track of each element's identity within the list.
+
+```js
+const MyList = () => {
+  const items = ["Item 1", "Item 2", "Item 3"];
+
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
+};
+```
+
+This is for:
+
+- Reconciliation and Performance:
+  > React uses the `key` attribute to efficiently update and reconcile the Virtual DOM. When items in a list change, React can quickly identify which items have been added, removed, or updated based on their keys.
+- Preventing Unnecessary Re-renders:
+  > Without proper keys, React might not accurately determine which items have changed, leading to unnecessary re-renders of components. This can impact performance and cause unexpected behavior in your application.
+- Stable Identity:
+  > Keys provide a stable identity for elements across renders. This is crucial when elements are reordered or their positions change. React uses keys to differentiate between elements and maintain consistent behavior during updates.
+
+Rules:
+
+- Add the key to the top-most element in the list.
+- Keys must be unique within the list.
+- Keys should be stable, meaning that they should not change if the list is reordered or updated.
+  > For example, using array indices as keys is generally not recommended. However, it can be okay if you are not updating the list at all. In that case, they will be stable enough to use as keys.
+- The key must be a string or number.
+
+<br>
+
+Example:
+
+> Each item has an event handler attached to it.
+
+```jsx
+function App() {
+  const items = [
+    { id: 10001, name: "item1" },
+    { id: 10002, name: "item2" },
+  ];
+
+  const [currentItem, setCurrentItem] = useState(null);
+
+  const renderedItems = items.map((item) => {
+    return (
+      <div key={item.id} className="text-red-600">
+        {item.name}
+        <button className="text-green-600" onClick={() => setCurrentItem(item)}>
+          Select
+        </button>
+      </div>
+    );
+  });
+
+  return (
+    <div>
+      {renderedItems}
+      <div className="text-blue-600">
+        <h1>Current Item</h1>
+        {currentItem && <div>{currentItem.name}</div>}
+      </div>
+    </div>
+  );
+}
+```
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Portals
+
+In React, portals provide a way to render components outside the normal DOM hierarchy of the parent component.
+
+> Portals can be useful for scenarios like modals, tooltips, and other overlay UI elements.
+
+Syntax:
+
+```jsx
+const MyPortal = ({ children }) => {
+  const portalRoot = document.getElementById("portal-root");
+  return ReactDOM.createPortal(children, portalRoot);
+};
+```
+
+- `children`: React components or tree of elements that you want to render.
+- `portalRoot`: A reference to a DOM element where the child will be rendered.
+
+Example:
+
+```jsx
+import ReactDOM from "react-dom";
+
+const MyComponent = () => {
+  return ReactDOM.createPortal(
+    <div>
+      <h1>Hello!</h1>
+      <p>This content is rendered outside the normal component hierarchy.</p>
+    </div>,
+    document.getElementById("portal-root")
+  );
+};
+
+export default MyComponent;
+```
+
+> Don't forget that you need to create a new root element for the new portal, like:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    ...
+  </head>
+  <body>
+    <!-- The main root element -->
+    <div id="root"></div>
+    <!-- Root element for our portal content -->
+    <div id="portal-root"></div>
+  </body>
+</html>
+```
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
