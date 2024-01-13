@@ -666,6 +666,8 @@ logUserInfo(user2); // Error! Missing the 'age' and 'getBirthYear' properties.
   > //   year: number;
   > // }
   > ```
+  >
+  > For example, this is useful when you receive an interface from a third party that doesn't include something you need. By using this approach, you can easily add it.
 
 <br>
 
