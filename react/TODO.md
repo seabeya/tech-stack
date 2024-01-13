@@ -1,0 +1,3 @@
+- React Route
+- Redux
+- [useContext](https://react.dev/reference/react/useContext)
