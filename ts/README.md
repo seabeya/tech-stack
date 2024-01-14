@@ -42,6 +42,7 @@
 4. [More...](#-more)
    - [Optional Properties](#-optional-properties)
    - [Conditional Types](#-conditional-types)
+     - [Conditional Structure](#-conditional-structure)
    - [Type Assertions](#-type-assertions)
      - [`as const`](#-as-const)
    - [Type Guards](#-type-guards)
@@ -1156,13 +1157,69 @@ const person: { name: string; age?: number } = { name: "Sh" };
 
 Conditional types in TypeScript are a way to define types based on conditions.
 
-Syntax:
-
 ```ts
 type myType = SomeType extends OtherType ? TypeA : TypeB;
 ```
 
-> Here, `myType` either is `TypeA` or `TypeB`, depending on the condition.
+> If `SomeType` extends `OtherType`, then `MyType` is assigned the type `TypeA`; otherwise, it is assigned the type `TypeB`.
+
+<br>
+
+#### 🔻 Conditional Structure
+
+Conditional structuring lets you set up different groups of properties depending on a specific condition/property.
+
+Example:
+
+```ts
+type MyProps = {
+  name: string;
+} & (
+  | {
+      role: "user";
+      userId: string;
+    }
+  | {
+      role: "employee";
+      employeeId: string;
+      salary: number;
+      workingHours: number;
+    }
+);
+```
+
+Usage:
+
+```ts
+const userProps: MyProps = {
+  name: "John",
+  role: "user",
+  userId: "12345",
+};
+
+const employeeProps: MyProps = {
+  name: "Alice",
+  role: "employee",
+  employeeId: "98765",
+  salary: 15000,
+  workingHours: 40,
+};
+```
+
+```ts
+const logInfo = (props: MyProps) => {
+  if (props.role === "user") {
+    const { name, role, userId } = props;
+    console.log(name, role, userId);
+  } else {
+    const { name, role, employeeId, salary, workingHours } = props;
+    console.log(name, role, employeeId, salary, workingHours);
+  }
+};
+
+logInfo(userProps);
+logInfo(employeeProps);
+```
 
 <br>
 
