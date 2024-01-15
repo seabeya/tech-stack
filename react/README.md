@@ -834,7 +834,11 @@ The state value is not always the up-to-date value.
 
 ## 🔶 useEffect
 
-`useEffect` is a React hook that helps manage side effects in your components, allowing you to control when and how they occur. This improves the overall organization and maintainability of your code.
+In simpler terms, `useEffect` is a tool in React that helps you handle additional tasks, known as side effects, in your components.
+
+> Its purpose is to let you control when and how these side effects occur, making your code more organized and easier to maintain.
+
+> When you use the `useEffect` hook, the code inside it runs after the component has been added/mounted to the DOM, making it a convenient place to handle side effects after the initial component render.
 
 Syntax:
 
