@@ -787,33 +787,43 @@ Do not directly mutate/update arrays or objects.
 
 ### 🔷 The new value depends on the old value
 
-The state value is not the up-to-date value all the time.
+The state value is not always the up-to-date value.
 
 > This is because React batches state updates for performance reasons. So, it doesn't guarantee that the state has been updated immediately after calling `setState`.
 
-> If you have a series of state updates happening quickly, like in a loop or due to user interactions, using the regular form may lead to unexpected behavior.
+> This batching mechanism helps reduce the number of re-renders and improves overall performance.
+
+> If you have a series of state updates happening quickly, using the regular form may lead to unexpected behavior.
 
 - The usual way:
   > ```jsx
-  > const [counter, setCounter] = useSate(0);
+  > const [counter, setCounter] = useState(0);
   >
   > const handleClick = () => {
   >   setCounter(counter + 1);
+  >
+  >   setCounter(counter + 1);
   > };
   > ```
+  >
+  > No matter what, this updates the state by `+1` every time you click, not `+2`. In `handleClick`, the `counter` isn't updated immediately, causing both `setCounter` calls to see the same `counter` value.
+  >
+  > `useState` doesn't trigger a component re-render if it detects that the new value is the same as the old value (applies to primitive values only). Hence, it will re-render the component only once.
 - The guaranteed way:
   > ```jsx
-  > const [counter, setCounter] = useSate(0);
+  > const [counter, setCounter] = useState(0);
   >
   > const handleClick = () => {
-  >   setCounter((currentCounter) => {
-  >     // `currentCounter` is the most up-to-date version of `counter`.
-  >     return currentCounter + 1;
+  >   setCounter((currVal) => {
+  >     // `currVal` is the most up-to-date version of `counter`.
+  >     return currVal + 1;
   >   });
+  >
+  >   setCounter((currVal) => currVal + 1);
   > };
   > ```
   >
-  > Here, you provide a callback function that takes the current state as an argument. React ensures that this callback function is called with the most up-to-date state, even if multiple state updates are queued.
+  > Here, you provide a callback function that takes the current state as an argument. React ensures that this callback function is invoked with the most up-to-date state, even if multiple state updates are queued. Consequently, the component will re-render twice.
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
