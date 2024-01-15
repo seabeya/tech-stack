@@ -684,6 +684,98 @@ Does any component beside the current one need to know what the current state is
 
 > [!WARNING]
 > Don't forget! `useState` re-renders the entire component where it is defined and its child components again and again when it gets updated. Therefore, the defining place and structuring of components are crucial when it comes to performance.
+>
+> Example:
+>
+> ```jsx
+> function ExpensiveComponent() {
+>   console.log("ExpensiveComponent rendered");
+>   return <div>This is an expensive component.</div>;
+> }
+> ```
+>
+> ```jsx
+> function AnotherExpensiveComponent() {
+>   console.log("AnotherExpensiveComponent rendered");
+>   return <div>This is another expensive component.</div>;
+> }
+> ```
+>
+> ```jsx
+> import AnotherExpensiveComponent from "./AnotherExpensiveComponent.jsx";
+>
+> function AnotherComponent() {
+>   console.log("AnotherComponent rendered");
+>
+>   return (
+>     <>
+>       <div>This is another component.</div>
+>       <AnotherExpensiveComponent />
+>     </>
+>   );
+> }
+> ```
+>
+> ```jsx
+> import AnotherComponent from "./AnotherComponent.jsx";
+>
+> // State defined in this component.
+> function MyComponent({ children }) {
+>   console.log("MyComponent rendered");
+>
+>   const [count, setCount] = useState(0);
+>
+>   function handleClick() {
+>     setCount(count + 1);
+>   }
+>
+>   return (
+>     <div>
+>       <button onClick={handleClick}>Click to count!</button>
+>       {children}
+>       <h1>{count}</h1>
+>       <AnotherComponent />
+>     </div>
+>   );
+> }
+> ```
+>
+> ```jsx
+> function ADifferentComponent() {
+>   console.log("ADifferentComponent rendered");
+>   return <div>This is a different component.</div>;
+> }
+> ```
+>
+> ```jsx
+> import ExpensiveComponent from "./ExpensiveComponent.jsx";
+> import MyComponent from "./MyComponent.jsx";
+> import ADifferentComponent from "./ADifferentComponent.jsx";
+>
+> function App() {
+>   console.log("App rendered");
+>
+>   return (
+>     <div>
+>       <MyComponent>
+>         <ExpensiveComponent />
+>       </MyComponent>
+>       <ADifferentComponent />
+>     </div>
+>   );
+> }
+> ```
+>
+> In this example, when we click the 'Click to count!' button, `MyComponent`, its child component `AnotherComponent`, and its child component `AnotherExpensiveComponent` will re-render. However, `ExpensiveComponent` will not re-render because it is not a child of `MyComponent` and does not depend on any state or props that change when the button is clicked. Similarly, `ADifferentComponent` will not re-render either; it does not depend on any state or props that change when the button is clicked.
+>
+> Here's a breakdown of the component hierarchy:
+>
+> - `App`
+>   - `MyComponent`
+>     - `AnotherComponent`
+>       - `AnotherExpensiveComponent`
+>   - `ExpensiveComponent`
+>   - `ADifferentComponent`
 
 <br>
 
