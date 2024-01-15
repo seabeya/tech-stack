@@ -684,7 +684,7 @@ Does any component beside the current one need to know what the current state is
 
 > [!WARNING]
 > Don't forget! `useState` re-renders the entire component where it is defined and its child components again and again when it gets updated. Therefore, the defining place and structuring of components are crucial when it comes to performance.
->
+
 > Example:
 >
 > ```jsx
