@@ -46,6 +46,7 @@
      - [Cleanup Functions (optional)](#-cleanup-functions-optional)
    - [useReducer](#-usereducer)
    - [useRef](#-useref)
+     - [forwardRef](#-forwardref)
    - [useCallback](#-usecallback)
 5. [More...](#-more)
    - [Working with Lists](#-working-with-lists)
@@ -1066,7 +1067,7 @@ export default MyComponent;
 
 ## 🔶 useRef
 
-Refs are a way to access and interact with DOM elements or to store a mutable reference to a value that persists across renders without causing re-renders when the `ref` value changes.
+Refs are a way to access and interact with DOM elements directly or to store a mutable reference to a value that persists across renders without causing re-renders when the `ref` value changes.
 
 How it works:
 
@@ -1088,9 +1089,7 @@ How it works:
 Use Cases:
 
 - Accessing DOM Elements:
-  > You can use it to get a reference to an input field and focus on it or change its value without causing a re-render.
-  >
-  > When you create a ref using `useRef`, attach it to an HTML element, and then access the corresponding DOM element using the `current` property of the `ref` object.
+  > Create a ref using `useRef`, attach it to an HTML element, and then access the corresponding DOM element using the `current` property of the `ref` object.
   >
   > ```jsx
   > import { useRef, useEffect } from "react";
@@ -1112,6 +1111,43 @@ Use Cases:
   > ```
 - Storing Mutable Data:
   > You can use `useRef` to store data that should not trigger a re-render when it changes. This is useful when keeping track of values between renders, such as the previous state of a component.
+
+<br>
+
+### 🔷 forwardRef
+
+Useful when you need to access the DOM element of the child component from the parent component.
+
+Example:
+
+```jsx
+import { forwardRef } from "react";
+
+const ChildComponent = forwardRef((props, ref) => {
+  return <input ref={ref} {...props} />;
+});
+```
+
+```jsx
+import { useRef } from "react";
+
+import ChildComponent from "./ChildComponent.jsx";
+
+function ParentComponent() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <ChildComponent ref={inputRef} />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
