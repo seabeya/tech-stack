@@ -52,6 +52,7 @@
 5. [More...](#-more)
    - [Working with Lists](#-working-with-lists)
    - [Portals](#-portals)
+   - [memo](#-memo)
 
 <br>
 
@@ -1515,6 +1516,45 @@ export default MyComponent;
     <div id="portal-root"></div>
   </body>
 </html>
+```
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 memo
+
+In React, the `memo` function is a higher-order component (HOC) that you can use to memoize a functional component.
+
+By wrapping a functional component with `React.memo`, React will automatically memoize the component, preventing unnecessary re-renders if the props remain unchanged.
+
+> It performs a shallow comparison of props to determine whether the component should update.
+
+Syntax:
+
+```jsx
+import { memo } from "react";
+
+const MemoizedComponent = memo(MyComponent);
+```
+
+- `useMemo` vs `memo`:
+  > Use `useMemo` when you need to memoize a specific value within a component, and use `memo` when you want to memoize the rendering of an entire functional component.
+
+Example:
+
+```jsx
+import { memo } from "react";
+
+const MyComponent = memo((props) => {
+  // Your component logic here
+  return <div>Hello!</div>;
+});
+
+export default MyComponent;
 ```
 
 <p align="right">
