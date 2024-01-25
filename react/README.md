@@ -1202,7 +1202,11 @@ Use Cases:
   > export default MyComponent;
   > ```
 - Storing Mutable Data:
-  > You can use `useRef` to store data that should not trigger a re-render when it changes. This is useful when keeping track of values between renders, such as the previous state of a component.
+  > You can use `useRef` to store data that should not trigger a re-render when it changes. This is useful when:
+  >
+  > - Keeping track of values between renders.
+  > - Caching the result of expensive computations, preventing the need to recalculate the value on each render.
+  > - Wanting to control the workflow of the current component when working with other state-related tasks.
   >
   > Here is a video explanation: https://youtu.be/42BkpGe8oxg
 
