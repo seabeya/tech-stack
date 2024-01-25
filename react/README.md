@@ -1337,44 +1337,113 @@ How it works:
   - When the second argument contains elements that have changed since the last render:
     > Recreates the callback function and returns the new version.
 
+> `useCallback` is generally more beneficial when dealing with complex components or when optimizing performance becomes crucial.
+
+<br>
+
 Example:
 
-```jsx
-import { useState, useCallback } from "react";
+> Using together with [`memo`](#-memo):
 
-const MyComponent = () => {
-  const [count, setCount] = useState(0);
-
-  // Without useCallback
-  const handleClickWithoutCallback = () => {
-    console.log("Button clicked!", count);
-  };
-
-  // With useCallback
-  const handleClickWithCallback = useCallback(() => {
-    console.log("Button clicked!", count);
-  }, [count]);
-
-  return (
-    <div className="text-white">
-      <button onClick={handleClickWithoutCallback}>
-        Click without useCallback
-      </button>
-      <button onClick={handleClickWithCallback}>Click with useCallback</button>
-      <p>Count: {count}</p>
-      <button
-        onClick={() => {
-          setCount((curCount) => curCount + 1);
-        }}
-      >
-        Click to increment count!
-      </button>
-    </div>
-  );
-};
-```
-
-> `useCallback` is generally more beneficial when dealing with complex components or when optimizing performance becomes crucial.
+- Without optimization:
+  > Every time we click the button it will re render the `ExpensiveComponent`.
+  >
+  > ```jsx
+  > import { useState } from "react";
+  >
+  > import ExpensiveComponent from "./ExpensiveComponent.jsx";
+  >
+  > function MyComponent() {
+  >   const [count, setCount] = useState(0);
+  >
+  >   const handleClick = () => {
+  >     setCount((prev) => prev + 1);
+  >   };
+  >
+  >   return (
+  >     <div>
+  >       <span>{count}</span>
+  >       <ExpensiveComponent handleClick={handleClick} />
+  >     </div>
+  >   );
+  > }
+  > ```
+  >
+  > ```jsx
+  > function ExpensiveComponent({ handleClick }) {
+  >   //  Do some expensive calculations...
+  >   console.log("Expensive calculations...");
+  >
+  >   return (
+  >     <div>
+  >       <button onClick={handleClick}>Click!</button>
+  >     </div>
+  >   );
+  > }
+  > ```
+- Half optimization:
+  > Even if we wrap the expensive component with `memo`, it won't optimize it. This is because the prop of the component (`handleClick`) function is being recreated every time in `MyComponent`, and it is different in every re-render. Consequently, `memo` detects a change in its props, allowing the component to re-render.
+  >
+  > ```jsx
+  > import { memo } from "react";
+  >
+  > const ExpensiveComponent = memo(({ handleClick }) => {
+  >   //  Do some expensive calculations...
+  >   console.log("Expensive calculations...");
+  >
+  >   return (
+  >     <div>
+  >       <button onClick={handleClick}>Click!</button>
+  >     </div>
+  >   );
+  > });
+  > ```
+- Full optimization:
+  > To fix this, we also need to memoize the function itself in `MyComponent`.
+  >
+  > ```jsx
+  > const handleClick = useCallback(() => {
+  >   setCount((prev) => prev + 1);
+  > }, []);
+  > ```
+  >
+  > So, the final version of the code will look like this:
+  >
+  > ```jsx
+  > import { useState, useCallback } from "react";
+  >
+  > import ExpensiveComponent from "./ExpensiveComponent.jsx";
+  >
+  > function MyComponent() {
+  >   const [count, setCount] = useState(0);
+  >
+  >   const handleClick = useCallback(() => {
+  >     setCount((prev) => prev + 1);
+  >   }, []);
+  >
+  >   return (
+  >     <div>
+  >       <span>{count}</span>
+  >       <ExpensiveComponent handleClick={handleClick} />
+  >     </div>
+  >   );
+  > }
+  > ```
+  >
+  > ```jsx
+  > import { memo } from "react";
+  >
+  > const ExpensiveComponent = memo(({ handleClick }) => {
+  >   //  Do some expensive calculations...
+  >   console.log("Expensive calculations...");
+  >
+  >   return (
+  >     <div>
+  >       <button onClick={handleClick}>Click!</button>
+  >     </div>
+  >   );
+  > });
+  > ```
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
@@ -1556,6 +1625,8 @@ const MyComponent = memo((props) => {
 
 export default MyComponent;
 ```
+
+> A real example: [useCallback > Example > Using together with `memo`](#-usecallback).
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
