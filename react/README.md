@@ -47,6 +47,7 @@
    - [useReducer](#-usereducer)
    - [useRef](#-useref)
      - [forwardRef](#-forwardref)
+   - [useMemo](#-usememo)
    - [useCallback](#-usecallback)
 5. [More...](#-more)
    - [Working with Lists](#-working-with-lists)
@@ -1242,6 +1243,61 @@ function ParentComponent() {
     <div>
       <ChildComponent ref={inputRef} />
       <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+<p align="right">
+    <a href="#reactjs">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 useMemo
+
+In React, the `useMemo` hook is used to memoize the result of a computation.
+
+It memoizes values, optimizing performance by preventing unnecessary re-computation.
+
+Syntax:
+
+> ```jsx
+> const memoizedValue = useMemo(() => {
+>   // computation or value to memoize
+>   return someValue;
+> }, dependenciesArray);
+> ```
+>
+> `useMemo` returns a calculated value and avoids recalculating it during re-renders, unless the dependencies change. This optimization is possible because the hook stores the previously calculated value.
+
+Example:
+
+```jsx
+import { useMemo, useState } from "react";
+
+function MyComponent({ numbers }) {
+  const [count, setCount] = useState(0);
+
+  const memoizedValue = useMemo(() => {
+    console.log(
+      "this will be called for the first time and then only when 'numbers' data changes"
+    );
+    return numbers.map((num) => num * 2).toString();
+  }, [numbers]);
+
+  return (
+    <div>
+      <span>Memoized Value: {memoizedValue}</span>
+      <span>Count: {count}</span>
+      <button
+        onClick={() => {
+          setCount((prev) => prev + 1);
+        }}
+      >
+        Count Up!
+      </button>
     </div>
   );
 }
