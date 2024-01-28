@@ -20,10 +20,32 @@
 
 ### Contents
 
-1. [#](#)
+1. [Database](#-database)
 
 <br>
 
 <hr>
 
-## 🔶
+## 🔶 Database
+
+- Create a new database:
+  ```sql
+  CREATE DATABASE db_name;
+  ```
+- Drop/remove an existing database:
+  ```sql
+  DROP DATABASE db_name; -- Can throw an error if it does not exist.
+  ```
+  ```sql
+  DROP DATABASE IF EXISTS db_name; -- Only drops if it exists (safer version).
+  ```
+  ```sql
+  DROP DATABASE db_name WITH (FORCE); -- Forces the drop.
+  ```
+
+<p align="right">
+    <a href="#sql-postgresql">back to top ⬆</a>
+</p>
+
+<br>
+<br>
