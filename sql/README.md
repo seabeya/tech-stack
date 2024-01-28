@@ -21,6 +21,8 @@
 ### Contents
 
 1. [Database](#-database)
+2. [Table](#-table)
+   - [Table Basics](#-table-basics)
 
 <br>
 
@@ -49,3 +51,42 @@
 
 <br>
 <br>
+
+## 🔶 Table
+
+### 🔷 Table Basics
+
+- Create a new table:
+  ```sql
+  CREATE TABLE table_name (
+    column_1 datatype,
+    column_2 datatype,
+    column_3 datatype,
+    ....
+  );
+  ```
+- Drop/remove an existing table:
+  ```sql
+  DROP TABLE table_name;
+  ```
+- Add, delete, or modify columns in an existing table:
+  - Add Column:
+    ```sql
+    ALTER TABLE table_name
+    ADD column_name datatype;
+    ```
+  - Drop Column:
+    ```sql
+    ALTER TABLE table_name
+    DROP COLUMN column_name;
+    ```
+  - Rename Column:
+    ```sql
+    ALTER TABLE table_name
+    RENAME COLUMN old_name TO new_name;
+    ```
+  - Change Datatype:
+    ```sql
+    ALTER TABLE table_name
+    ALTER COLUMN column_name TYPE newDatatype;
+    ```
