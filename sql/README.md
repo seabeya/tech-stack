@@ -25,6 +25,7 @@
    - [Table Basics](#-table-basics)
    - [Data Types](#-data-types)
      - [Numeric](#-numeric)
+     - [String](#-string)
 
 <br>
 
@@ -141,3 +142,25 @@ Official Docs: https://www.postgresql.org/docs/current/datatype.html
   > | `smallserial` | 2 bytes | 1 to 32767 |
   > | `serial` | 4 bytes | 1 to 2147483647 |
   > | `bigserial` | 8 bytes | 1 to 9223372036854775807 |
+
+<br>
+
+#### 🔻 String
+
+> `n` is a positive integer representing the length limit.
+
+| Type         | Description                                                                                                 |
+| ------------ | ----------------------------------------------------------------------------------------------------------- |
+| `varchar(n)` | Variable-length character strings with a maximum length of `n` characters.                                  |
+| `char(n)`    | Fixed-length character strings with a length of `n` characters (blank-padded).                              |
+| `text`       | Character strings with no specified maximum length, allowing for the storage of large amounts of text data. |
+
+More details:
+
+> If `varchar` lacks a specifier, it accepts strings of any length (simply becomes `text`).
+
+> If `char` lacks a specifier, it defaults to `char(1)`.
+
+> blank-padded: If you have a `char(10)` field and you store the string "hello" in it, since "hello" is only 5 characters long, the remaining 5 characters will be filled with blank spaces, so the stored value will be "hello " (with five additional spaces at the end). This ensures that the total length of the stored string is always `n`.
+
+> If your string data length exceeds the specified length `n` in a `varchar` field, it will only save the first `n` characters and ignore the rest.
