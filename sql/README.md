@@ -26,6 +26,7 @@
    - [Data Types](#-data-types)
      - [Numeric](#-numeric)
      - [String](#-string)
+     - [Boolean](#-boolean)
 
 <br>
 
@@ -164,3 +165,18 @@ More details:
 > blank-padded: If you have a `char(10)` field and you store the string "hello" in it, since "hello" is only 5 characters long, the remaining 5 characters will be filled with blank spaces, so the stored value will be "hello " (with five additional spaces at the end). This ensures that the total length of the stored string is always `n`.
 
 > If your string data length exceeds the specified length `n` in a `varchar` field, it will only save the first `n` characters and ignore the rest.
+
+<br>
+
+#### 🔻 Boolean
+
+| Type      | Size   | Description   |
+| --------- | ------ | ------------- |
+| `boolean` | 1 byte | true or false |
+
+The input function for type boolean accepts these values:
+
+- True: `true`, `yes`, `on`, `1`;
+- False: `false`, `no`, `off`, `0`;
+- Null: `null`;
+  > Indicates no value.
