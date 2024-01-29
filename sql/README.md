@@ -27,6 +27,8 @@
      - [Numeric](#-numeric)
      - [String](#-string)
      - [Boolean](#-boolean)
+   - [Constraints](#-constraints)
+     - [`NOT NULL`](#-not-null)
 
 <br>
 
@@ -180,3 +182,44 @@ The input function for type boolean accepts these values:
 - False: `false`, `no`, `off`, `0`;
 - Null: `null`;
   > Indicates no value.
+
+<br>
+
+### 🔷 Constraints
+
+In SQL, constraints are rules or restrictions applied to columns in a table. They enforce data integrity by defining certain conditions that must be met for the data in the table to be valid.
+
+<br>
+
+#### 🔻 `NOT NULL`
+
+Ensures that a column does not accept null values.
+
+Syntax:
+
+- When creating a table:
+  ```sql
+  CREATE TABLE table_name (
+      column_1 datatype NOT NULL,
+      ...
+  );
+  ```
+- When adding to an existing table:
+  ```sql
+  ALTER TABLE table_name
+  ALTER COLUMN column_1 SET NOT NULL;
+  ```
+  > When adding `NOT NULL` by altering, the column cannot have null values.
+  >
+  > To fix:
+  >
+  > - We need to delete each row that contains a null value for that column.
+  > - We need to update each row to something other than null.
+  >   > `UPDATE table_name SET column_1 = 'some valid value' WHERE column_1 IS NULL;`
+
+Unset/Drop:
+
+```sql
+ALTER TABLE table_name
+ALTER COLUMN column_1 DROP NOT NULL;
+```
