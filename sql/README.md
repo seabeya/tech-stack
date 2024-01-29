@@ -29,6 +29,7 @@
      - [Boolean](#-boolean)
    - [Constraints](#-constraints)
      - [`NOT NULL`](#-not-null)
+     - [`DEFAULT`](#-default)
 
 <br>
 
@@ -222,4 +223,34 @@ Unset/Drop:
 ```sql
 ALTER TABLE table_name
 ALTER COLUMN column_1 DROP NOT NULL;
+```
+
+<br>
+
+#### 🔻 `DEFAULT`
+
+Defines the default value to use when no value is provided.
+
+Syntax:
+
+- When creating a table:
+  ```sql
+  CREATE TABLE table_name (
+  column_1 datatype DEFAULT 'any value'
+  ...
+  );
+  ```
+- When adding to an existing table:
+  ```sql
+  ALTER TABLE table_name
+  ALTER COLUMN column_1 SET DEFAULT 'any value';
+  ```
+
+> When `DEFAULT` is set on a `NOT NULL` column and you insert a null value, the default value kicks in instead of throwing a `NOT NULL` error.
+
+Unset/Drop:
+
+```sql
+ALTER TABLE table_name
+ALTER COLUMN column_1 DROP DEFAULT;
 ```
