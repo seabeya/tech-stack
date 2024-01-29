@@ -30,6 +30,7 @@
    - [Constraints](#-constraints)
      - [`NOT NULL`](#-not-null)
      - [`DEFAULT`](#-default)
+     - [`UNIQUE`](#-unique)
 
 <br>
 
@@ -253,4 +254,61 @@ Unset/Drop:
 ```sql
 ALTER TABLE table_name
 ALTER COLUMN column_1 DROP DEFAULT;
+```
+
+<br>
+
+#### 🔻 `UNIQUE`
+
+Ensures that all values in a column (or combination of columns) are unique, except for `null` values.
+
+Syntax:
+
+- When creating a table:
+  - Single column uniqueness:
+    ```sql
+    CREATE TABLE table_name (
+        column_1 datatype UNIQUE,
+        column_2 datatype UNIQUE,
+        ...
+    );
+    ```
+  - Group column uniqueness:
+    > The combination of column values must be unique (not each column independently).
+    ```sql
+    CREATE TABLE table_name (
+        column_1 datatype,
+        column_2 datatype,
+        ...
+        UNIQUE(column_1, column_2)
+    );
+    ```
+    > Example: (each row represents subsequent values entered)
+    >
+    > - `column_1: 5` and `column_2: 10`
+    > - `column_1: 5` and `column_2: 11` (okay)
+    > - `column_1: 5` and `column_2: 10` (not okay, as we already have this `5:10` combination)
+- When adding to an existing table:
+  - Single column uniqueness:
+    ```sql
+    ALTER TABLE table_name
+    ADD CONSTRAINT constraint_name UNIQUE (column_1);
+    ```
+  - Group column uniqueness:
+    ```sql
+    ALTER TABLE table_name
+    ADD CONSTRAINT constraint_name UNIQUE (column_1, column_2);
+    ```
+    > When adding `UNIQUE` by altering, ensure that the column already contains unique values.
+    >
+    > To resolve duplicates:
+    >
+    > - Delete all repeated rows for those columns.
+    > - Update all repeated rows for those columns to make them unique.
+
+Unset/Drop:
+
+```sql
+ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;
 ```
