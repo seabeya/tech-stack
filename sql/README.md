@@ -78,6 +78,10 @@
   ```sql
   DROP TABLE table_name;
   ```
+- Rename an existing table:
+  ```sql
+  ALTER TABLE current_table_name RENAME TO new_table_name;
+  ```
 - Add, delete, or modify columns in an existing table:
   - Add Column:
     ```sql
