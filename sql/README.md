@@ -31,6 +31,7 @@
      - [`NOT NULL`](#-not-null)
      - [`DEFAULT`](#-default)
      - [`UNIQUE`](#-unique)
+     - [`CHECK`](#-check)
 
 <br>
 
@@ -305,6 +306,37 @@ Syntax:
     >
     > - Delete all repeated rows for those columns.
     > - Update all repeated rows for those columns to make them unique.
+
+Unset/Drop:
+
+```sql
+ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;
+```
+
+<br>
+
+#### 🔻 `CHECK`
+
+Allows you to specify a condition to check the value before inserting or updating data, except for null values.
+
+Syntax:
+
+- When creating a table:
+  ```sql
+  CREATE TABLE table_name (
+    column_1 datatype CHECK (condition)
+    ...
+  );
+  ```
+- When adding to an existing table:
+  ```sql
+  ALTER TABLE table_name
+  ADD CONSTRAINT constraint_name CHECK (condition);
+  ```
+  > When adding `CHECK` by altering, ensure that the column values already satisfy the check condition.
+  >
+  > To resolve duplicates: Update or Delete those rows.
 
 Unset/Drop:
 
