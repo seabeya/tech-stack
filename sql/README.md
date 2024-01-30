@@ -314,6 +314,8 @@ Syntax:
 
 Unset/Drop:
 
+> Default constraint name format: `<table>_<column>_key` or `<table>_<column_1>_<column_2>_key` (group)
+
 ```sql
 ALTER TABLE table_name
 DROP CONSTRAINT constraint_name;
@@ -345,6 +347,8 @@ Syntax:
 
 Unset/Drop:
 
+> Default constraint name format: `<table>_<column>_check`
+
 ```sql
 ALTER TABLE table_name
 DROP CONSTRAINT constraint_name;
@@ -370,6 +374,8 @@ CREATE TABLE table_name (
 ```
 
 Unset/Drop:
+
+> Default constraint name format: `<table>_pkey`
 
 ```sql
 ALTER TABLE table_name
