@@ -33,6 +33,7 @@
      - [`UNIQUE`](#-unique)
      - [`CHECK`](#-check)
      - [`PRIMARY KEY`](#-primary-key)
+     - [`FOREIGN KEY`](#-foreign-key)
 
 <br>
 
@@ -381,3 +382,73 @@ Unset/Drop:
 ALTER TABLE table_name
 DROP CONSTRAINT constraint_name;
 ```
+
+<br>
+
+#### 🔻 `FOREIGN KEY`
+
+A foreign key enforces referential integrity between two database tables, preventing actions that would break their relationship.
+
+- It's a field in one table referencing the primary key in another.
+- A table can have more than one foreign key constraint.
+- The table with the foreign key is the child table, while the one with the primary key is the parent table.
+
+Syntax:
+
+- When creating a table:
+  ```sql
+  CREATE TABLE child_table (
+      ...
+      child_column datatype REFERENCES parent_table (parent_column) <Rule (optional)>,
+      ...
+  );
+  ```
+- When adding to an existing table:
+  ```sql
+  ALTER TABLE child_table
+  ADD CONSTRAINT constraint_name
+  FOREIGN KEY (child_column)
+  REFERENCES parent_table (parent_column)
+  <Rule (optional)>;
+  ```
+
+Unset/Drop:
+
+> Default constraint name format: `<table>_<column>_fkey`
+
+```sql
+ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;
+```
+
+<br>
+
+**Rules:**
+
+- ON DELETE:
+
+  > This optional component defines the action to be taken when a referenced row in the parent table is deleted.
+
+  | Rule                  | Result                                                                              |
+  | --------------------- | ----------------------------------------------------------------------------------- |
+  | `ON DELETE CASCADE`   | Deletes all dependent child rows automatically when a parent row is deleted.        |
+  | `ON DELETE SET NULL`  | Sets foreign key columns in the child table to `NULL` when a parent row is deleted. |
+  | `ON DELETE RESTRICT`  | Prevents parent row deletion if dependent child rows exist.                         |
+  | `ON DELETE NO ACTION` | Default behavior, similar to `ON DELETE RESTRICT`.                                  |
+
+  > Additionally, you cannot drop the parent table while you have dependent child table(s).
+
+- ON UPDATE:
+  > Similar to ON DELETE rules, but this time no deletion occurs. For example, if you update a primary key value in the parent table while having `ON UPDATE CASCADE`, all corresponding foreign key values in the child table are automatically updated to match the new values.
+
+<br>
+
+Insertion Scenarios:
+
+> What happens when we insert into the child table.
+
+| Scenarios                                                 | Result                     |
+| --------------------------------------------------------- | -------------------------- |
+| Inserting a new row with a valid foreign key value        | Ok                         |
+| Inserting a new row with a `NULL` foreign key             | Ok (optional relationship) |
+| Inserting a new row with a non-existent foreign key value | Error                      |
