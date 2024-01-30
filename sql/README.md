@@ -32,6 +32,7 @@
      - [`DEFAULT`](#-default)
      - [`UNIQUE`](#-unique)
      - [`CHECK`](#-check)
+     - [`PRIMARY KEY`](#-primary-key)
 
 <br>
 
@@ -341,6 +342,32 @@ Syntax:
   > When adding `CHECK` by altering, ensure that the column values already satisfy the check condition.
   >
   > To resolve duplicates: Update or Delete those rows.
+
+Unset/Drop:
+
+```sql
+ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;
+```
+
+<br>
+
+#### 🔻 `PRIMARY KEY`
+
+A primary key indicates that a column uniquely identifies each row in a table.
+
+- Primary keys must have unique values and cannot contain NULL values.
+- A table can have only one primary key.
+- Adding a primary key will automatically create an index on the column.
+
+Syntax:
+
+```sql
+CREATE TABLE table_name (
+    column_1 datatype PRIMARY KEY,
+    ...
+);
+```
 
 Unset/Drop:
 
