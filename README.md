@@ -41,6 +41,3 @@
 - **GitHub Actions** `planned ⚫`
 - **Kubernetes** `planned ⚫`
 - **Amazon Web Services (AWS)** `planned ⚫`
-
-> [!NOTE]
-> I will gradually fill in the contents over time, as some notes need to be refactored and translated into English. Therefore, completing this repository will take a considerable amount of time.
