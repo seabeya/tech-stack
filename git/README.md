@@ -415,14 +415,15 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
 - `git stash`: Save changes that have not yet been committed (unstaged & staged).
 
-  - ` ` - Save changes to the stash.
+  - ` ` - Save changes to the stash (untracked not included).
 
     > Running this command will revert the changes you have made since the last commit. This means that the changes will not be carried over when you switch branches (the changes will not come with you).
 
-    > You can add muptiple stashes onto the stash list.
+    > You can add multiple stashes onto the stash list.
 
     > When you stash, it assigns an index, branch, and message information to that stash. The most recent stash added always has index 0, the second has index 1, and so on.
 
+  - `-u` - Stashes all untracked files as well.
   - `push -m '<Message>'` - Save changes to the stash with a specific message.
   - `list` - Show the stash list.
   - `pop` - Apply the most recently stashed changes to your working copy <ins>and remove</ins> them from the stash list.
