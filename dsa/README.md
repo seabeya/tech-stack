@@ -35,6 +35,8 @@
    - [Trie (Prefix Tree)](#-trie-prefix-tree)
    - [Graphs](#-graphs)
    - [Matrix (2D Arrays)](#-matrix-2d-arrays)
+3. [Algorithms](#-algorithms)
+   - [Recursion](#-recursion)
 
 <br>
 
@@ -163,7 +165,7 @@ Overview:
 </p>
 
 > [!NOTE]
-> In this section, I will cover the structure, implementation, and additional notes of some data structures. However, I will not cover advanced algorithms such as BFS and DFS, even if they are related to the data structures discussed here. I will address those in a separate section.
+> In this section, I will cover the structure, implementation, and additional notes of some data structures. However, I will not cover advanced algorithms such as BFS and DFS, even if they are related to the data structures discussed here. I will be addressing those in the [Algorithms](#-algorithms) section.
 
 <br>
 
@@ -1577,6 +1579,129 @@ The structure of a 2D array allows for efficient access, modification, and trave
   [0, 0, 0, 0, 0, 0],   ->     [0, 0, 0, 0, 0, 0],
 ];                      ->   ]
 ```
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+# 🟪 Algorithms
+
+<p align="center">
+  <a href="#-recursion">Recursion</a> •
+</p>
+
+<br>
+
+## 🔶 Recursion
+
+Recursion in programming is a technique where a function calls itself in order to solve a problem.
+
+Recursion allows you to break down a complex problem into smaller, more manageable subproblems. Each recursive call operates on a smaller piece of the original problem until a base case is reached, at which point the recursion stops.
+
+Recursion is useful when you don't know in advance how many steps or iterations will be needed to find the solution. It allows you to keep going deeper into the problem until you reach a base case that can be easily solved.
+
+- Definitions:
+
+  - Recursive Call:
+    > Calling the function again.
+  - Base Case:
+    > Defines when to stop.
+    1. The smallest valid input for the problem.
+       > This is often the simplest case where the function can return a result without further recursion.
+    2. Termination conditions.
+       > The conditions under which the recursive process should stop.
+    3. Edge cases.
+       > Any edge cases or special scenarios that require specific handling.
+  - Recursive case:
+    > Making progress towards the base case. It is important that each recursive call brings you closer to the base case.
+
+- Process:
+
+  - Stacking (going down):
+    > Each time a function calls itself recursively, a new stack frame is added on top of the previous one, containing the parameters and local variables for that specific invocation of the function.
+  - Unfolding (going up):
+    > As the base case is reached, the recursion starts to unwind. Each function call returns its value to the previous level of the call stack until the initial function call returns the final result.
+
+<br>
+
+#### 🔻 Step by Step Recursion With Examples
+
+**Example 1:** Factorial
+
+```js
+function factorial(num) {
+  // Base case:
+  if (num === 0 || num === 1) {
+    return 1;
+  }
+
+  // Recursive case & call:
+  return num * factorial(num - 1);
+}
+```
+
+- Steps: `factorial(5)`
+
+  - Stacking:
+
+    | Stack / Recursion | Current `num` | Base case? | Current recursive case & call  | Next `num` |
+    | ----------------- | ------------- | ---------- | ------------------------------ | ---------- |
+    | 1st               | `5`           | false      | `return 5 * factorial(5 - 1);` | `4`        |
+    | 2nd               | `4`           | false      | `return 4 * factorial(4 - 1);` | `3`        |
+    | 3rd               | `3`           | false      | `return 3 * factorial(3 - 1);` | `2`        |
+    | 4th               | `2`           | false      | `return 2 * factorial(2 - 1);` | `1`        |
+    | 5th               | `1`           | true       | -                              | -          |
+
+  - Unfolding:
+
+    | Stack / Recursion | Current return case | Returned |
+    | ----------------- | ------------------- | -------- |
+    | 5th               | `return 1;`         | `1`      |
+    | 4th               | `return 2 * 1;`     | `2`      |
+    | 3rd               | `return 3 * 2;`     | `6`      |
+    | 2nd               | `return 4 * 6;`     | `24`     |
+    | 1st               | `return 5 * 24;`    | `120`    |
+
+<br>
+
+**Example 2:** Reverse a string
+
+```js
+function reverseStr(str) {
+  // Base case:
+  if (str.length <= 1) {
+    return str;
+  }
+
+  // Recursive case & call:
+  return reverseStr(str.substring(1)) + str[0];
+}
+```
+
+- Steps: `reverseStr('Hello')`
+
+  - Stacking:
+
+    | Stack / Recursion | Current `str` | Base case? | Current recursive case & call      | Next `str` |
+    | ----------------- | ------------- | ---------- | ---------------------------------- | ---------- |
+    | 1st               | `'Hello'`     | false      | `return reverseStr('ello') + 'H';` | `'ello'`   |
+    | 2nd               | `'ello'`      | false      | `return reverseStr('llo') + 'e';`  | `'llo'`    |
+    | 3rd               | `'llo'`       | false      | `return reverseStr('lo') + 'l';`   | `'lo'`     |
+    | 4th               | `'lo'`        | false      | `return reverseStr('o') + 'l';`    | `'o'`      |
+    | 5th               | `'o'`         | true       | -                                  | -          |
+
+  - Unfolding:
+
+    | Stack / Recursion | Current return case    | Returned |
+    | ----------------- | ---------------------- | -------- |
+    | 5th               | `return 'o';`          | `o`      |
+    | 4th               | `return 'o' + 'l';`    | `ol`     |
+    | 3rd               | `return 'ol' + 'l';`   | `oll`    |
+    | 2nd               | `return 'oll' + 'e';`  | `olle`   |
+    | 1st               | `return 'olle' + 'H';` | `olleH`  |
 
 <p align="right">
     <a href="#data-structures--algorithms">back to top ⬆</a>
