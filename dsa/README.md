@@ -39,6 +39,7 @@
    - [Recursion](#-recursion)
    - [Sorting](#-sorting)
      - [Bubble Sort](#-bubble-sort)
+     - [Selection Sort](#-selection-sort)
 
 <br>
 
@@ -1731,7 +1732,7 @@ Sorting algorithms are a set of techniques used to arrange elements, with each a
 | Name           | Stable? | Time          | Space       | Useful When?                                                       |
 | -------------- | ------- | ------------- | ----------- | ------------------------------------------------------------------ |
 | Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Generally not recommended. Just know there is something like this. |
-| Selection Sort | `false` | `O(n^2)`      | `O(1)`      |                                                                    |
+| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Generally not recommended. Just know there is something like this. |
 | Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      |                                                                    |
 | Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      |                                                                    |
 | Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |                                                                    |
@@ -1769,4 +1770,38 @@ console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
 
 <p align="center">
   <img src="./bubbleSort.gif" height="auto" width="250">
+</p>
+
+<br>
+
+### 🔷 Selection Sort
+
+| Stable? | Time     | Space  |
+| ------- | -------- | ------ |
+| `false` | `O(n^2)` | `O(1)` |
+
+```js
+const numbers = [8, 5, 2, 6, 9, 3, 1, 4, 0, 7];
+
+function selectionSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
+      }
+    }
+    let temp = arr[i];
+    arr[i] = arr[min];
+    arr[min] = temp;
+  }
+}
+
+selectionSort(numbers);
+
+console.log(numbers); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+<p align="center">
+  <img src="./selectionSort.gif" height="auto" width="75">
 </p>
