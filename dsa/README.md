@@ -1729,20 +1729,22 @@ Sorting algorithms are a set of techniques used to arrange elements, with each a
 
 **Sorting Algorithms:**
 
-| Name           | Stable? | Time          | Space       | Useful When?                                                       |
-| -------------- | ------- | ------------- | ----------- | ------------------------------------------------------------------ |
-| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Generally not recommended. Just know there is something like this. |
-| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Generally not recommended. Just know there is something like this. |
-| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      |                                                                    |
-| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      |                                                                    |
-| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |                                                                    |
-| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |                                                                    |
-| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |                                                                    |
-| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |                                                                    |
+| Name           | Stable? | Time          | Space       | When to use? |
+| -------------- | ------- | ------------- | ----------- | ------------ |
+| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Never        |
+| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Never        |
+| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      |              |
+| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      |              |
+| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |              |
+| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |              |
+| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |              |
+| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |              |
 
 <br>
 
 ### 🔷 Bubble Sort
+
+Generally not recommended. Just know there is something like this.
 
 | Stable? | Time     | Space  |
 | ------- | -------- | ------ |
@@ -1775,6 +1777,8 @@ console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
 <br>
 
 ### 🔷 Selection Sort
+
+Generally not recommended. Just know there is something like this.
 
 | Stable? | Time     | Space  |
 | ------- | -------- | ------ |
