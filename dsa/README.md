@@ -46,6 +46,8 @@
    - [Searching](#-searching)
      - [Linear Search](#-linear-search)
      - [Binary Search](#-binary-search)
+     - [Depth First Search (DFS)](#-depth-first-search-dfs)
+       - [Tree DFS](#-tree-dfs)
 
 <br>
 
@@ -2081,3 +2083,138 @@ It works by cutting the array's part in half again and again until there's only 
 
   console.log(binarySearch([-6, -2, 0, 2, 3, 3, 5, 7, 12], -2)); // 1
   ```
+
+<br>
+
+### 🔷 Depth First Search (DFS)
+
+Depth First Search (DFS) is a graph traversal algorithm that systematically explores all the vertices of a graph or a tree by going as deeply as possible along each branch before backtracking
+
+| Time   | Space  |
+| ------ | ------ |
+| `O(n)` | `O(h)` |
+
+<br>
+
+#### 🔻 Tree DFS
+
+> [Binary Search Tree](#-binary-search-tree)
+
+<p align="center">
+  <img src="./searchTree.png" height="auto" width="300">
+</p>
+
+**Order of searching:**
+
+- PreOrder: `Node - Left - Right`
+  > [9, 4, 1, 6, 20, 15, 170]
+- InOrder: `Left - Node - Right`
+  > [1, 4, 6, 9, 15, 20, 170]
+- PostOrder: `Left - Right - Node`
+  > [1, 6, 4, 15, 170, 20, 9]
+
+> [!NOTE]
+> You can change the priority of sides, if you need. Ex: `Node - Left - Right` to `Node - Right - Left`
+
+<br>
+
+**Code:** (Recursive)
+
+```js
+class BinarySearchTree {
+  ...
+
+
+  DFSPreorder() { ... }
+
+
+  DFSInorder() { ... }
+
+
+  DFSPostorder() { ... }
+}
+
+
+const tree = new BinarySearchTree();
+tree.insert(9);
+tree.insert(4);
+tree.insert(1);
+tree.insert(6);
+tree.insert(20);
+tree.insert(15);
+tree.insert(170);
+
+console.log(tree.DFSPreorder());
+console.log(tree.DFSInorder());
+console.log(tree.DFSPostorder());
+```
+
+```js
+  DFSPreorder() {
+    const traversePreOrder = (node, list) => {
+      if (node === null) return null;
+
+
+      // node:
+      list.push(node.value);
+      // left:
+      if (node.left) {
+        traversePreOrder(node.left, list);
+      }
+      // right:
+      if (node.right) {
+        traversePreOrder(node.right, list);
+      }
+      return list;
+    };
+
+
+    return traversePreOrder(this.root, []);
+  }
+```
+
+```js
+  DFSInorder() {
+    const traverseInOrder = (node, list) => {
+      if (node === null) return null;
+
+
+      // left:
+      if (node.left) {
+        traverseInOrder(node.left, list);
+      }
+      // node:
+      list.push(node.value);
+      // right:
+      if (node.right) {
+        traverseInOrder(node.right, list);
+      }
+      return list;
+    };
+    return traverseInOrder(this.root, []);
+  }
+```
+
+```js
+  DFSPostorder() {
+    const traversePostOrder = (node, list) => {
+      if (node === null) return null;
+
+
+      // left:
+      if (node.left) {
+        traversePostOrder(node.left, list);
+      }
+      // right:
+      if (node.right) {
+        traversePostOrder(node.right, list);
+      }
+      // node
+      list.push(node.value);
+      return list;
+    };
+
+
+    return traversePostOrder(this.root, []);
+  }
+```
