@@ -1874,7 +1874,7 @@ console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
 | `true`  | `O(n log(n))` | `O(n)` |
 
 ```js
-const mergeSort = (array) => {
+function mergeSort(array) {
   // base case:
   if (array.length <= 1) return array;
   // split:
@@ -1883,10 +1883,10 @@ const mergeSort = (array) => {
   const right = array.slice(mid);
   // split until base case and then merge back while unfolding:
   return merge(mergeSort(left), mergeSort(right));
-};
+}
 
 // compare and merge:
-const merge = (left, right) => {
+function merge(left, right) {
   const temp = [];
   let l = 0;
   let r = 0;
@@ -1900,7 +1900,7 @@ const merge = (left, right) => {
     }
   }
   return [...temp, ...left.slice(l), ...right.slice(r)];
-};
+}
 
 const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
 
@@ -1931,7 +1931,7 @@ The important thing in Quick Sort is selecting a good pivot element and efficien
 | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` |
 
 ```js
-const quickSort = (arr, left = 0, right = arr.length - 1) => {
+function quickSort(arr, left = 0, right = arr.length - 1) {
   if (left < right) {
     // pivot: middle element
     const pivot = arr[Math.floor((left + right) / 2)];
@@ -1943,9 +1943,9 @@ const quickSort = (arr, left = 0, right = arr.length - 1) => {
   }
 
   return arr;
-};
+}
 
-const partition = (arr, left, right, pivot) => {
+function partition(arr, left, right, pivot) {
   while (left <= right) {
     while (arr[left] < pivot) {
       left++;
@@ -1965,7 +1965,7 @@ const partition = (arr, left, right, pivot) => {
     }
   }
   return left;
-};
+}
 
 const numbers = [2, 4, 7, 1, 0, 0, 5, 4, 8];
 
@@ -2006,14 +2006,14 @@ Searching algorithms are methods used to locate specific items within a collecti
 Checks each element of the list sequentially for the target value until a match is found or all elements have been searched.
 
 ```js
-const linearSearch = (arr, target) => {
+function linearSearch(arr, target) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === target) {
       return i;
     }
   }
   return -1;
-};
+}
 
 const numbers = [9, 1, 7, 3, -4, 0, 3, 5, 6, 5];
 
@@ -2038,7 +2038,7 @@ It works by cutting the array's part in half again and again until there's only 
 - Iterative:
 
   ```js
-  const binarySearch = (array, target) => {
+  function binarySearch(array, target) {
     let left = 0;
     let right = array.length - 1;
 
@@ -2055,7 +2055,7 @@ It works by cutting the array's part in half again and again until there's only 
     }
 
     return false;
-  };
+  }
 
   console.log(binarySearch([-6, -2, 0, 2, 3, 3, 5, 7, 12], -2)); // 1
   ```
@@ -2063,7 +2063,7 @@ It works by cutting the array's part in half again and again until there's only 
 - Recursive:
 
   ```js
-  const binarySearch = (array, target, left = 0, right = array.length - 1) => {
+  function binarySearch(array, target, left = 0, right = array.length - 1) {
     if (left > right) {
       return false;
     }
@@ -2077,7 +2077,7 @@ It works by cutting the array's part in half again and again until there's only 
     } else {
       return mid;
     }
-  };
+  }
 
   console.log(binarySearch([-6, -2, 0, 2, 3, 3, 5, 7, 12], -2)); // 1
   ```
