@@ -1840,7 +1840,6 @@ function insertionSort(arr) {
       j--;
     }
   }
-  return arr;
 }
 
 insertionSort(numbers);
