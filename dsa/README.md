@@ -45,6 +45,7 @@
      - [Quick Sort](#-quick-sort)
    - [Searching](#-searching)
      - [Linear Search](#-linear-search)
+     - [Binary Search](#-binary-search)
 
 <br>
 
@@ -2020,3 +2021,63 @@ const targetIndex = linearSearch(numbers, 5);
 
 console.log(targetIndex); // 7
 ```
+
+<br>
+
+### 🔷 Binary Search
+
+| Time        | Space  |
+| ----------- | ------ |
+| `O(log(n))` | `O(1)` |
+
+> [!IMPORTANT]  
+> The array must be sorted.
+
+It works by cutting the array's part in half again and again until there's only one possible location left.
+
+- Iterative:
+
+  ```js
+  const binarySearch = (array, target) => {
+    let left = 0;
+    let right = array.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+
+      if (array[mid] < target) {
+        left = mid + 1;
+      } else if (array[mid] > target) {
+        right = mid - 1;
+      } else {
+        return mid;
+      }
+    }
+
+    return false;
+  };
+
+  console.log(binarySearch([-6, -2, 0, 2, 3, 3, 5, 7, 12], -2)); // 1
+  ```
+
+- Recursive:
+
+  ```js
+  const binarySearch = (array, target, left = 0, right = array.length - 1) => {
+    if (left > right) {
+      return false;
+    }
+
+    const mid = Math.floor((left + right) / 2);
+
+    if (array[mid] < target) {
+      return binarySearch(array, target, mid + 1, right);
+    } else if (array[mid] > target) {
+      return binarySearch(array, target, left, mid - 1);
+    } else {
+      return mid;
+    }
+  };
+
+  console.log(binarySearch([-6, -2, 0, 2, 3, 3, 5, 7, 12], -2)); // 1
+  ```
