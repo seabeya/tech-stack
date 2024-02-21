@@ -1754,8 +1754,6 @@ Generally not recommended. Just know there is something like this.
 | `true`  | `O(n^2)` | `O(1)` |
 
 ```js
-const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
-
 function bubbleSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
@@ -1767,6 +1765,8 @@ function bubbleSort(arr) {
     }
   }
 }
+
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
 
 bubbleSort(numbers);
 
@@ -1788,8 +1788,6 @@ Generally not recommended. Just know there is something like this.
 | `false` | `O(n^2)` | `O(1)` |
 
 ```js
-const numbers = [8, 5, 2, 6, 9, 3, 1, 4, 0, 7];
-
 function selectionSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     let min = i;
@@ -1803,6 +1801,8 @@ function selectionSort(arr) {
     arr[min] = temp;
   }
 }
+
+const numbers = [8, 5, 2, 6, 9, 3, 1, 4, 0, 7];
 
 selectionSort(numbers);
 
@@ -1829,8 +1829,6 @@ console.log(numbers); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 | `true`  | `O(n^2)` | `O(1)` |
 
 ```js
-const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
-
 function insertionSort(arr) {
   for (let i = 1; i < arr.length; i++) {
     let j = i - 1;
@@ -1843,6 +1841,8 @@ function insertionSort(arr) {
     }
   }
 }
+
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
 
 insertionSort(numbers);
 
@@ -1871,8 +1871,6 @@ console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
 | `true`  | `O(n log(n))` | `O(n)` |
 
 ```js
-const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
-
 const mergeSort = (array) => {
   // base case:
   if (array.length <= 1) return array;
@@ -1901,6 +1899,8 @@ const merge = (left, right) => {
   return [...temp, ...left.slice(l), ...right.slice(r)];
 };
 
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+
 console.log(mergeSort(numbers)); // [1, 2, 3, 4, 5, 6, 7, 8]
 
 console.log(numbers); // [6, 5, 3, 1, 8, 7, 2, 4]
@@ -1928,8 +1928,6 @@ The important thing in Quick Sort is selecting a good pivot element and efficien
 | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` |
 
 ```js
-const numbers = [2, 4, 7, 1, 0, 0, 5, 4, 8];
-
 const quickSort = (arr, left = 0, right = arr.length - 1) => {
   if (left < right) {
     // pivot: middle element
@@ -1965,6 +1963,8 @@ const partition = (arr, left, right, pivot) => {
   }
   return left;
 };
+
+const numbers = [2, 4, 7, 1, 0, 0, 5, 4, 8];
 
 quickSort(numbers);
 
