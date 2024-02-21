@@ -48,6 +48,7 @@
      - [Binary Search](#-binary-search)
      - [Depth First Search (DFS)](#-depth-first-search-dfs)
        - [Tree DFS](#-tree-dfs)
+       - [Graph DFS](#-graph-dfs)
 
 <br>
 
@@ -2218,3 +2219,90 @@ console.log(tree.DFSPostorder());
     return traversePostOrder(this.root, []);
   }
 ```
+
+<br>
+
+#### 🔻 Graph DFS
+
+[Graph Representations](#-graph-representations)
+
+<p align="center">
+  <img src="./searchGraph.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [0, 1, 3, 2, 8, 4, 6, 7, 5]
+</p>
+
+- Adjacency List:
+
+  ```js
+  const adjacencyList = [
+    [1, 3],
+    [0],
+    [3, 8],
+    [0, 2, 4, 5],
+    [3, 6],
+    [3],
+    [4, 7],
+    [6],
+    [2],
+  ];
+
+  function traversalDFS(vertex, graph, values, seen) {
+    values.push(vertex);
+
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let i = 0; i < connections.length; i++) {
+      const connection = connections[i];
+
+      if (!seen[connection]) {
+        traversalDFS(connection, graph, values, seen);
+      }
+    }
+  }
+
+  const values = [];
+
+  traversalDFS(0, adjacencyList, values, {});
+
+  console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
+  ```
+
+- Adjacency Matrix:
+
+  ```js
+  const adjacencyMatrix = [
+    [0, 1, 0, 1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0],
+  ];
+  function traversalDFS(vertex, graph, values, seen) {
+    values.push(vertex);
+
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let v = 0; v < connections.length; v++) {
+      if (connections[v] > 0 && !seen[v]) {
+        traversalDFS(v, graph, values, seen);
+      }
+    }
+  }
+
+  const values = [];
+
+  traversalDFS(0, adjacencyMatrix, values, {});
+
+  console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
+  ```
