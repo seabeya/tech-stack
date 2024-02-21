@@ -43,6 +43,8 @@
      - [Insertion Sort](#-insertion-sort)
      - [Merge Sort](#-merge-sort)
      - [Quick Sort](#-quick-sort)
+   - [Searching](#-searching)
+     - [Linear Search](#-linear-search)
 
 <br>
 
@@ -1973,3 +1975,48 @@ console.log(numbers); // [0, 0, 1, 2, 4, 4, 5, 7, 8]
 
 > [!NOTE]
 > The worst-case time complexity of Quick Sort is `O(n^2)`, which occurs when the chosen pivot is consistently either the smallest or largest element in the array. In such cases, the partitioning step fails to divide the array into roughly equal-sized partitions, leading to unbalanced recursion and degraded performance.
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Searching
+
+Searching algorithms are methods used to locate specific items within a collection of data.
+
+| Name                 | Time        | Space  |
+| -------------------- | ----------- | ------ |
+| Linear Search        | `O(n)`      | `O(1)` |
+| Binary Search        | `O(log(n))` | `O(1)` |
+| Depth First Search   | `O(n)`      | `O(h)` |
+| Breadth First Search | `O(n)`      | `O(n)` |
+
+<br>
+
+### 🔷 Linear Search
+
+| Time   | Space  |
+| ------ | ------ |
+| `O(n)` | `O(1)` |
+
+Checks each element of the list sequentially for the target value until a match is found or all elements have been searched.
+
+```js
+const linearSearch = (arr, target) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === target) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+const numbers = [9, 1, 7, 3, -4, 0, 3, 5, 6, 5];
+
+const targetIndex = linearSearch(numbers, 5);
+
+console.log(targetIndex); // 7
+```
