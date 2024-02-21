@@ -40,6 +40,7 @@
    - [Sorting](#-sorting)
      - [Bubble Sort](#-bubble-sort)
      - [Selection Sort](#-selection-sort)
+     - [Insertion Sort](#-insertion-sort)
 
 <br>
 
@@ -1729,16 +1730,16 @@ Sorting algorithms are a set of techniques used to arrange elements, with each a
 
 **Sorting Algorithms:**
 
-| Name           | Stable? | Time          | Space       | When to use? |
-| -------------- | ------- | ------------- | ----------- | ------------ |
-| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Never        |
-| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Never        |
-| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      |              |
-| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      |              |
-| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |              |
-| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |              |
-| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |              |
-| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |              |
+| Name           | Stable? | Time          | Space       | When to use?                       |
+| -------------- | ------- | ------------- | ----------- | ---------------------------------- |
+| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Never                              |
+| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Never                              |
+| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      | Small Datasets, Nearly Sorted Data |
+| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      |                                    |
+| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |                                    |
+| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |                                    |
+| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |                                    |
+| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |                                    |
 
 <br>
 
@@ -1808,4 +1809,45 @@ console.log(numbers); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 <p align="center">
   <img src="./selectionSort.gif" height="auto" width="75">
+</p>
+
+<br>
+
+### 🔷 Insertion Sort
+
+- Small Datasets:
+  > Insertion Sort can be effective for sorting small datasets due to its simplicity and low overhead.
+- Real-time Data:
+  > Insertion Sort is often used in scenarios where data is being streamed in real-time and needs to be sorted as it arrives.
+- Nearly Sorted Data:
+  > When the input data is already partially sorted or contains only a few elements out of place, this algorithm can quickly rearrange the data with minimal comparisons and swaps.
+
+| Stable? | Time     | Space  |
+| ------- | -------- | ------ |
+| `true`  | `O(n^2)` | `O(1)` |
+
+```js
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let j = i - 1;
+    while (j >= 0 && arr[j + 1] < arr[j]) {
+      let temp = arr[j + 1];
+      arr[j + 1] = arr[j];
+      arr[j] = temp;
+
+      j--;
+    }
+  }
+  return arr;
+}
+
+insertionSort(numbers);
+
+console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+<p align="center">
+  <img src="./insertionSort.gif" height="auto" width="250">
 </p>
