@@ -37,6 +37,8 @@
    - [Matrix (2D Arrays)](#-matrix-2d-arrays)
 3. [Algorithms](#-algorithms)
    - [Recursion](#-recursion)
+   - [Sorting](#-sorting)
+     - [Bubble Sort](#-bubble-sort)
 
 <br>
 
@@ -1591,6 +1593,7 @@ The structure of a 2D array allows for efficient access, modification, and trave
 
 <p align="center">
   <a href="#-recursion">Recursion</a> •
+  <a href="#-sorting">Sorting</a> •
 </p>
 
 <br>
@@ -1709,3 +1712,61 @@ function reverseStr(str) {
 
 <br>
 <br>
+
+## 🔶 Sorting
+
+Sorting algorithms are a set of techniques used to arrange elements, with each algorithm having its own strengths and weaknesses, making it suitable for different scenarios and types of data.
+
+**Stable vs Unstable Sorting:**
+
+- Stable:
+  > If two or more elements have the same key value, the stable sorting algorithm will ensure that their relative order in the original list is preserved in the sorted list.
+- Unstable:
+  > If two or more elements have the same key value, the order in which they appear in the sorted list is not guaranteed to be the same as their order in the original list.
+
+<br>
+
+**Sorting Algorithms:**
+
+| Name           | Stable? | Time          | Space       | Useful When?                                                       |
+| -------------- | ------- | ------------- | ----------- | ------------------------------------------------------------------ |
+| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Generally not recommended. Just know there is something like this. |
+| Selection Sort | `false` | `O(n^2)`      | `O(1)`      |                                                                    |
+| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      |                                                                    |
+| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      |                                                                    |
+| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |                                                                    |
+| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |                                                                    |
+| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |                                                                    |
+| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |                                                                    |
+
+<br>
+
+### 🔷 Bubble Sort
+
+| Stable? | Time     | Space  |
+| ------- | -------- | ------ |
+| `true`  | `O(n^2)` | `O(1)` |
+
+```js
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+
+function bubbleSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+
+bubbleSort(numbers);
+
+console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+<p align="center">
+  <img src="./bubbleSort.gif" height="auto" width="250">
+</p>
