@@ -42,6 +42,7 @@
      - [Selection Sort](#-selection-sort)
      - [Insertion Sort](#-insertion-sort)
      - [Merge Sort](#-merge-sort)
+     - [Quick Sort](#-quick-sort)
 
 <br>
 
@@ -1731,16 +1732,16 @@ Sorting algorithms are a set of techniques used to arrange elements, with each a
 
 **Sorting Algorithms:**
 
-| Name           | Stable? | Time          | Space       | When to use?                                       |
-| -------------- | ------- | ------------- | ----------- | -------------------------------------------------- |
-| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Never                                              |
-| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Never                                              |
-| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      | Small Datasets; Nearly Sorted Data                 |
-| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      | Large Datasets; When memory usage is not a concern |
-| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |                                                    |
-| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |                                                    |
-| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |                                                    |
-| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |                                                    |
+| Name           | Stable? | Time                            | Space       | When to use?                                  |
+| -------------- | ------- | ------------------------------- | ----------- | --------------------------------------------- |
+| Bubble Sort    | `true`  | `O(n^2)`                        | `O(1)`      | Never                                         |
+| Selection Sort | `false` | `O(n^2)`                        | `O(1)`      | Never                                         |
+| Insertion Sort | `true`  | `O(n^2)`                        | `O(1)`      | Small Datasets; Nearly Sorted Data            |
+| Merge Sort     | `true`  | `O(n log(n))`                   | `O(n)`      | Large Datasets; Memory usage is not a problem |
+| Quick Sort     | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` | Medium Datasets; Memory usage is a problem    |
+| Counting Sort  | `true`  | `O(n + k)`                      | `O(k)`      |                                               |
+| Radix Sort     | `true`  | `O(nk)`                         | `O(n + k)`  |                                               |
+| Heap Sort      | `false` | `O(n log(n))`                   | `O(1)`      |                                               |
 
 <br>
 
@@ -1908,3 +1909,67 @@ console.log(numbers); // [6, 5, 3, 1, 8, 7, 2, 4]
 <p align="center">
   <img src="./mergeSort.gif" height="auto" width="250">
 </p>
+
+<br>
+
+### 🔷 Quick Sort
+
+The important thing in Quick Sort is selecting a good pivot element and efficiently partitioning the array around it. A good pivot choice helps balance the sizes of the subarrays, minimizing the number of recursive calls and reducing the overall time complexity.
+
+> The efficiency of Quick Sort heavily depends on the partitioning step, which should ideally split the array into roughly equal-sized partitions to achieve optimal performance.
+
+- Memory Efficient:
+  > Quick Sort is an in-place sorting algorithm, meaning it requires only a constant amount of additional memory space beyond the input array.
+- Adaptive Sorting:
+  > Quick Sort's performance can be further optimized by selecting a good pivot element, which allows it to adapt to the characteristics of the input data.
+
+| Stable? | Time                            | Space       |
+| ------- | ------------------------------- | ----------- |
+| `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` |
+
+```js
+const numbers = [2, 4, 7, 1, 0, 0, 5, 4, 8];
+
+const quickSort = (arr, left = 0, right = arr.length - 1) => {
+  if (left < right) {
+    // pivot: middle element
+    const pivot = arr[Math.floor((left + right) / 2)];
+
+    const index = partition(arr, left, right, pivot);
+
+    quickSort(arr, left, index - 1);
+    quickSort(arr, index, right);
+  }
+
+  return arr;
+};
+
+const partition = (arr, left, right, pivot) => {
+  while (left <= right) {
+    while (arr[left] < pivot) {
+      left++;
+    }
+
+    while (arr[right] > pivot) {
+      right--;
+    }
+
+    if (left <= right) {
+      let temp = arr[left];
+      arr[left] = arr[right];
+      arr[right] = temp;
+
+      left++;
+      right--;
+    }
+  }
+  return left;
+};
+
+quickSort(numbers);
+
+console.log(numbers); // [0, 0, 1, 2, 4, 4, 5, 7, 8]
+```
+
+> [!NOTE]
+> The worst-case time complexity of Quick Sort is `O(n^2)`, which occurs when the chosen pivot is consistently either the smallest or largest element in the array. In such cases, the partitioning step fails to divide the array into roughly equal-sized partitions, leading to unbalanced recursion and degraded performance.
