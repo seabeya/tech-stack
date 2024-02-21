@@ -41,6 +41,7 @@
      - [Bubble Sort](#-bubble-sort)
      - [Selection Sort](#-selection-sort)
      - [Insertion Sort](#-insertion-sort)
+     - [Merge Sort](#-merge-sort)
 
 <br>
 
@@ -1730,16 +1731,16 @@ Sorting algorithms are a set of techniques used to arrange elements, with each a
 
 **Sorting Algorithms:**
 
-| Name           | Stable? | Time          | Space       | When to use?                       |
-| -------------- | ------- | ------------- | ----------- | ---------------------------------- |
-| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Never                              |
-| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Never                              |
-| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      | Small Datasets, Nearly Sorted Data |
-| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      |                                    |
-| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |                                    |
-| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |                                    |
-| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |                                    |
-| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |                                    |
+| Name           | Stable? | Time          | Space       | When to use?                                       |
+| -------------- | ------- | ------------- | ----------- | -------------------------------------------------- |
+| Bubble Sort    | `true`  | `O(n^2)`      | `O(1)`      | Never                                              |
+| Selection Sort | `false` | `O(n^2)`      | `O(1)`      | Never                                              |
+| Insertion Sort | `true`  | `O(n^2)`      | `O(1)`      | Small Datasets; Nearly Sorted Data                 |
+| Merge Sort     | `true`  | `O(n log(n))` | `O(n)`      | Large Datasets; When memory usage is not a concern |
+| Quick Sort     | `false` | `O(n log(n))` | `O(log(n))` |                                                    |
+| Counting Sort  | `true`  | `O(n + k)`    | `O(k)`      |                                                    |
+| Radix Sort     | `true`  | `O(nk)`       | `O(n + k)`  |                                                    |
+| Heap Sort      | `false` | `O(n log(n))` | `O(1)`      |                                                    |
 
 <br>
 
@@ -1849,4 +1850,61 @@ console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
 
 <p align="center">
   <img src="./insertionSort.gif" height="auto" width="250">
+</p>
+
+<br>
+
+### 🔷 Merge Sort
+
+- Large Datasets:
+  > Merge Sort's time complexity of `O(n log n)` makes it highly efficient for sorting large datasets.
+- Divide and Conquer:
+  > Merge Sort follows the divide-and-conquer paradigm, breaking down the sorting task into smaller subproblems, sorting them individually, and then merging the sorted sublists to produce a fully sorted list.
+- Predictable Performance:
+  > Unlike some other sorting algorithms, Merge Sort consistently performs well regardless of the input data's distribution.
+- Parallelization:
+  > Merge Sort can be easily parallelized, allowing it to take advantage of multi-core processors and distributed computing environments. This makes it suitable for sorting very large datasets in parallel, further improving its efficiency.
+
+| Stable? | Time          | Space  |
+| ------- | ------------- | ------ |
+| `true`  | `O(n log(n))` | `O(n)` |
+
+```js
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+
+const mergeSort = (array) => {
+  // base case:
+  if (array.length <= 1) return array;
+  // split:
+  const mid = Math.floor(array.length / 2);
+  const left = array.slice(0, mid);
+  const right = array.slice(mid);
+  // split until base case and then merge back while unfolding:
+  return merge(mergeSort(left), mergeSort(right));
+};
+
+// compare and merge:
+const merge = (left, right) => {
+  const temp = [];
+  let l = 0;
+  let r = 0;
+  while (l < left.length && r < right.length) {
+    if (left[l] <= right[r]) {
+      temp.push(left[l]);
+      l++;
+    } else {
+      temp.push(right[r]);
+      r++;
+    }
+  }
+  return [...temp, ...left.slice(l), ...right.slice(r)];
+};
+
+console.log(mergeSort(numbers)); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+console.log(numbers); // [6, 5, 3, 1, 8, 7, 2, 4]
+```
+
+<p align="center">
+  <img src="./mergeSort.gif" height="auto" width="250">
 </p>
