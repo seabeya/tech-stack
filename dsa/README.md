@@ -52,6 +52,7 @@
        - [2D Arrays / Matrix DFS](#-2d-arrays--matrix-dfs)
      - [Breadth First Search (BFS)](#-breadth-first-search-bfs)
        - [Tree BFS](#-tree-bfs)
+       - [Graph BFS](#-graph-bfs)
 
 <br>
 
@@ -2273,6 +2274,7 @@ console.log(tree.DFSPostorder());
 
   const values = [];
 
+  // 0 is the starting point (index) here: adjacencyList[0]
   traversalDFS(0, adjacencyList, values, {});
 
   console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
@@ -2308,6 +2310,7 @@ console.log(tree.DFSPostorder());
 
   const values = [];
 
+  // 0 is the starting point (index) here: adjacencyMatrix[0]
   traversalDFS(0, adjacencyMatrix, values, {});
 
   console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
@@ -2350,6 +2353,7 @@ function search(matrix) {
   const seen = new Set();
   const values = [];
 
+  // 0, 0 as the starting points (row, col): arr2d[0][0] = 1
   dfs(matrix, 0, 0, seen, values);
 
   return values;
@@ -2455,4 +2459,100 @@ tree.insert(15);
 tree.insert(170);
 
 console.log(tree.BFS()); // [9, 4, 20, 1, 6, 15, 170
+```
+
+<br>
+
+#### 🔻 Graph BFS
+
+[Graph Representations](#-graph-representations)
+
+<p align="center">
+  <img src="./searchGraph.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [0, 1, 3, 2, 4, 5, 8, 6, 7]
+</p>
+
+- Adjacency List:
+
+```js
+const adjacencyList = [
+  [1, 3],
+  [0],
+  [3, 8],
+  [0, 2, 4, 5],
+  [3, 6],
+  [3],
+  [4, 7],
+  [6],
+  [2],
+];
+
+const traversalBFS = function (graph) {
+  const seen = {};
+  const queue = [0]; // the starting point (index).
+  const values = [];
+
+  while (queue.length) {
+    const vertex = queue.shift();
+
+    values.push(vertex);
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let i = 0; i < connections.length; i++) {
+      const connection = connections[i];
+      if (!seen[connection]) {
+        queue.push(connection);
+      }
+    }
+  }
+
+  return values;
+};
+
+console.log(traversalBFS(adjacencyList)); // [0, 1, 3, 2, 4, 5, 8, 6, 7]
+```
+
+- Adjacency Matrix:
+
+```js
+const adjacencyMatrix = [
+  [0, 1, 0, 1, 0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 1, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0],
+];
+function traversalBFS(graph) {
+  const seen = {};
+  const queue = [0]; // the starting point (index).
+  const values = [];
+
+  while (queue.length) {
+    const vertex = queue.shift();
+
+    values.push(vertex);
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let v = 0; v < connections.length; v++) {
+      if (connections[v] > 0 && !seen[v]) {
+        queue.push(v);
+      }
+    }
+  }
+
+  return values;
+}
+
+console.log(traversalBFS(adjacencyMatrix)); // [0, 1, 3, 2, 4, 5, 8, 6, 7]
 ```
