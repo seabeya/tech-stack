@@ -2091,7 +2091,9 @@ It works by cutting the array's part in half again and again until there's only 
 
 ### 🔷 Depth First Search (DFS)
 
-Depth First Search (DFS) is a graph traversal algorithm that systematically explores all the vertices of a graph or a tree by going as deeply as possible along each branch before backtracking
+Depth First Search (DFS) is a graph traversal algorithm used to explore nodes in a graph or a tree. DFS explores as far as possible along each branch before backtracking.
+
+It's like traversing a maze by exploring one path all the way to the end before backtracking and trying a different path.
 
 | Time   | Space  |
 | ------ | ------ |
