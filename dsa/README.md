@@ -49,6 +49,7 @@
      - [Depth First Search (DFS)](#-depth-first-search-dfs)
        - [Tree DFS](#-tree-dfs)
        - [Graph DFS](#-graph-dfs)
+       - [2D Arrays / Matrix DFS](#-2d-arrays--matrix-dfs)
 
 <br>
 
@@ -1604,6 +1605,7 @@ The structure of a 2D array allows for efficient access, modification, and trave
 <p align="center">
   <a href="#-recursion">Recursion</a> •
   <a href="#-sorting">Sorting</a> •
+  <a href="#-searching">Searching</a> •
 </p>
 
 <br>
@@ -2306,3 +2308,69 @@ console.log(tree.DFSPostorder());
 
   console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
   ```
+
+<br>
+
+#### 🔻 2D Arrays / Matrix DFS
+
+[Matrix (2D Arrays)](#-matrix-2d-arrays)
+
+<p align="center">
+  ⬆➡⬇⬅
+</p>
+
+<p align="center">
+  <img src="./searchMatrixDFS.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [1, 2, 3, 4, 5, 10, 15, 20, 19, 14, 9, 8, 13, 18, 17, 12, 7, 6, 11, 16]
+</p>
+
+```js
+const arr2d = [
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15],
+  [16, 17, 18, 19, 20],
+];
+
+const directions = [
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+  [0, -1],
+];
+
+function search(matrix) {
+  const seen = new Set();
+  const values = [];
+
+  dfs(matrix, 0, 0, seen, values);
+
+  return values;
+}
+
+function dfs(matrix, row, col, seen, values) {
+  if (
+    row < 0 ||
+    col < 0 ||
+    row >= matrix.length ||
+    col >= matrix[0].length ||
+    seen.has(`${row}${col}`)
+  ) {
+    return;
+  }
+
+  values.push(matrix[row][col]);
+  seen.add(`${row}${col}`);
+
+  for (let i = 0; i < directions.length; i++) {
+    const curDir = directions[i];
+    dfs(matrix, row + curDir[0], col + curDir[1], seen, values);
+  }
+}
+
+console.log(search(arr2d));
+// [1, 2, 3, 4, 5, 10, 15, 20, 19, 14, 9, 8, 13, 18, 17, 12, 7, 6, 11, 16]
+```
