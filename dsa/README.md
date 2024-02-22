@@ -50,6 +50,8 @@
        - [Tree DFS](#-tree-dfs)
        - [Graph DFS](#-graph-dfs)
        - [2D Arrays / Matrix DFS](#-2d-arrays--matrix-dfs)
+     - [Breadth First Search (BFS)](#-breadth-first-search-bfs)
+       - [Tree BFS](#-tree-bfs)
 
 <br>
 
@@ -2375,4 +2377,82 @@ function dfs(matrix, row, col, seen, values) {
 
 console.log(search(arr2d));
 // [1, 2, 3, 4, 5, 10, 15, 20, 19, 14, 9, 8, 13, 18, 17, 12, 7, 6, 11, 16]
+```
+
+<br>
+
+### 🔷 Breadth First Search (BFS)
+
+Breadth First Search (BFS) is a graph traversal algorithm used to explore nodes in a graph or a tree level by level.
+
+It starts at a specified node (usually called the "root" node) and explores all of its neighbors at the present depth level before moving on to the nodes at the next depth level.
+
+| Time   | Space  |
+| ------ | ------ |
+| `O(n)` | `O(n)` |
+
+<br>
+
+#### 🔻 Tree BFS
+
+> [Binary Search Tree](#-binary-search-tree)
+
+<p align="center">
+  <img src="./searchTree.png" height="auto" width="300">
+</p>
+
+<p align="center">
+  [9, 4, 20, 1, 6, 15, 170]
+</p>
+
+> Iterative:
+
+```js
+class QueueNode { ...}
+class Queue { ... }
+
+
+class TreeNode { ... }
+class BinarySearchTree {
+  ...
+
+
+  BFS() {
+    if (this.root === null) return null;
+
+    const list = [];
+    const queue = new Queue();
+
+    queue.enqueue(this.root);
+
+    while (queue.size > 0) {
+      const currentNode = queue.peek();
+
+      list.push(currentNode.value);
+
+      if (currentNode.left) {
+        queue.enqueue(currentNode.left);
+      }
+
+      if (currentNode.right) {
+        queue.enqueue(currentNode.right);
+      }
+
+      queue.dequeue();
+    }
+
+    return list;
+  }
+}
+
+const tree = new BinarySearchTree();
+tree.insert(9);
+tree.insert(4);
+tree.insert(1);
+tree.insert(6);
+tree.insert(20);
+tree.insert(15);
+tree.insert(170);
+
+console.log(tree.BFS()); // [9, 4, 20, 1, 6, 15, 170
 ```
