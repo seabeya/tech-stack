@@ -53,6 +53,7 @@
      - [Breadth First Search (BFS)](#-breadth-first-search-bfs)
        - [Tree BFS](#-tree-bfs)
        - [Graph BFS](#-graph-bfs)
+       - [2D Arrays / Matrix BFS](#-2d-arrays--matrix-bfs)
 
 <br>
 
@@ -2274,7 +2275,7 @@ console.log(tree.DFSPostorder());
 
   const values = [];
 
-  // 0 is the starting point (index) here: adjacencyList[0]
+  // 0 is the starting point (index): adjacencyList[0]
   traversalDFS(0, adjacencyList, values, {});
 
   console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
@@ -2310,7 +2311,7 @@ console.log(tree.DFSPostorder());
 
   const values = [];
 
-  // 0 is the starting point (index) here: adjacencyMatrix[0]
+  // 0 is the starting point (index): adjacencyMatrix[0]
   traversalDFS(0, adjacencyMatrix, values, {});
 
   console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
@@ -2353,7 +2354,7 @@ function search(matrix) {
   const seen = new Set();
   const values = [];
 
-  // 0, 0 as the starting points (row, col): arr2d[0][0] = 1
+  // 0, 0 are the starting points (row, col): arr2d[0][0] = 1
   dfs(matrix, 0, 0, seen, values);
 
   return values;
@@ -2555,4 +2556,71 @@ function traversalBFS(graph) {
 }
 
 console.log(traversalBFS(adjacencyMatrix)); // [0, 1, 3, 2, 4, 5, 8, 6, 7]
+```
+
+<br>
+
+#### 🔻 2D Arrays / Matrix BFS
+
+[Matrix (2D Arrays)](#-matrix-2d-arrays)
+
+<p align="center">
+  ⬆➡⬇⬅
+</p>
+
+<p align="center">
+  <img src="./searchMatrixBFS.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [13, 8, 14, 18, 12, 3, 9, 7, 15, 19, 17, 11, 4, 2, 10, 6, 20, 16, 5, 1]
+</p>
+
+```js
+const arr2d = [
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15],
+  [16, 17, 18, 19, 20],
+];
+
+const directions = [
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+  [0, -1],
+];
+
+function bfs(matrix) {
+  const seen = new Set();
+  const values = [];
+  const queue = [[2, 2]]; // the starting point (row, col)
+
+  while (queue.length) {
+    const [row, col] = queue.shift();
+
+    if (
+      row < 0 ||
+      row >= matrix.length ||
+      col < 0 ||
+      col >= matrix[0].length ||
+      seen.has(`${row}${col}`)
+    ) {
+      continue;
+    }
+
+    seen.add(`${row}${col}`);
+    values.push(matrix[row][col]);
+
+    for (let i = 0; i < directions.length; i++) {
+      const currentDir = directions[i];
+      queue.push([row + currentDir[0], col + currentDir[1]]);
+    }
+  }
+
+  return values;
+}
+
+console.log(bfs(arr2d));
+// [13, 8, 14, 18, 12, 3, 9, 7, 15, 19, 17, 11, 4, 2, 10, 6, 20, 16, 5, 1]
 ```
