@@ -1883,6 +1883,9 @@ console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
 | ------- | ------------- | ------ |
 | `true`  | `O(n log(n))` | `O(n)` |
 
+> [!NOTE]
+> Even the data is already ordered, Mergesort still divides, sorts, and merges the subarrays, resulting in rewriting 100% of elements into another array and then back into the original one.
+
 ```js
 function mergeSort(array) {
   // base case:
@@ -1939,6 +1942,9 @@ The important thing in Quick Sort is selecting a good pivot element and efficien
 | Stable? | Time                            | Space       |
 | ------- | ------------------------------- | ----------- |
 | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` |
+
+> [!NOTE]
+> Minimizes unnecessary swaps, so with ordered data, it swaps nothing if the data is sorted.
 
 ```js
 function quickSort(arr, left = 0, right = arr.length - 1) {
