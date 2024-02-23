@@ -1944,7 +1944,7 @@ The important thing in Quick Sort is selecting a good pivot element and efficien
 | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` |
 
 > [!NOTE]
-> Minimizes unnecessary swaps, so with ordered data, it swaps nothing if the data is sorted.
+> Quicksort minimizes unnecessary swaps, it swaps nothing if the data is already sorted.
 
 ```js
 function quickSort(arr, left = 0, right = arr.length - 1) {
