@@ -43,6 +43,7 @@
      - [Insertion Sort](#-insertion-sort)
      - [Merge Sort](#-merge-sort)
      - [Quick Sort](#-quick-sort)
+     - [Counting Sort](#-counting-sort)
    - [Searching](#-searching)
      - [Linear Search](#-linear-search)
      - [Binary Search](#-binary-search)
@@ -1744,16 +1745,16 @@ Sorting algorithms are a set of techniques used to arrange elements, with each a
 
 **Sorting Algorithms:**
 
-| Name           | Stable? | Time                            | Space       | When to use?                                  |
-| -------------- | ------- | ------------------------------- | ----------- | --------------------------------------------- |
-| Bubble Sort    | `true`  | `O(n^2)`                        | `O(1)`      | Never                                         |
-| Selection Sort | `false` | `O(n^2)`                        | `O(1)`      | Never                                         |
-| Insertion Sort | `true`  | `O(n^2)`                        | `O(1)`      | Small Datasets; Nearly Sorted Data            |
-| Merge Sort     | `true`  | `O(n log(n))`                   | `O(n)`      | Large Datasets; Memory usage is not a problem |
-| Quick Sort     | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` | Medium Datasets; Memory usage is a problem    |
-| Counting Sort  | `true`  | `O(n + k)`                      | `O(k)`      |                                               |
-| Radix Sort     | `true`  | `O(nk)`                         | `O(n + k)`  |                                               |
-| Heap Sort      | `false` | `O(n log(n))`                   | `O(1)`      |                                               |
+| Name                               | Stable? | Time                            | Space       | When to use?                                            |
+| ---------------------------------- | ------- | ------------------------------- | ----------- | ------------------------------------------------------- |
+| [Bubble Sort](#-bubble-sort)       | `true`  | `O(n^2)`                        | `O(1)`      | Never                                                   |
+| [Selection Sort](#-selection-sort) | `false` | `O(n^2)`                        | `O(1)`      | Never                                                   |
+| [Insertion Sort](#-insertion-sort) | `true`  | `O(n^2)`                        | `O(1)`      | Small Datasets; Nearly Sorted Data                      |
+| [Merge Sort](#-merge-sort)         | `true`  | `O(n log(n))`                   | `O(n)`      | Large Datasets; Memory usage is not a problem           |
+| [Quick Sort](#-quick-sort)         | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` | Medium Datasets; Memory usage is a problem              |
+| [Counting Sort](#-counting-sort)   | `true`  | `O(n + k)`                      | `O(k)`      | Small Range of Input Values; Non-negative integers only |
+| Radix Sort                         | `true`  | `O(nk)`                         | `O(n + k)`  |                                                         |
+| Heap Sort                          | `false` | `O(n log(n))`                   | `O(1)`      |                                                         |
 
 <br>
 
@@ -1985,6 +1986,45 @@ console.log(numbers); // [0, 0, 1, 2, 4, 4, 5, 7, 8]
 
 > [!NOTE]
 > The worst-case time complexity of Quick Sort is `O(n^2)`, which occurs when the chosen pivot is consistently either the smallest or largest element in the array. In such cases, the partitioning step fails to divide the array into roughly equal-sized partitions, leading to unbalanced recursion and degraded performance.
+
+<br>
+
+### 🔷 Counting Sort
+
+- Small Range of Input Values:
+  > Counting Sort works best when the range of input values (the difference between the maximum and minimum values) is relatively small compared to the number of elements in the input array.
+- Non-negative integers only:
+  > Counting Sort utilizes the array structure to count occurrences of each unique integer in the input array. It then reconstructs the sorted array based on these counts.
+
+| Stable? | Time       | Space  |
+| ------- | ---------- | ------ |
+| `true`  | `O(n + k)` | `O(k)` |
+
+```js
+function countingSort(arr) {
+  const max = Math.max(...arr);
+  const store = new Array(max + 1).fill(0);
+
+  for (let i = 0; i < arr.length; i++) {
+    const number = arr[i];
+    store[number]++;
+  }
+
+  let cursor = 0;
+  for (let i = 0; i < store.length; i++) {
+    for (let j = 0; j < store[i]; j++) {
+      arr[cursor] = i;
+      cursor++;
+    }
+  }
+}
+
+const numbers = [2, 4, 7, 3, 2, 7, 0, 4, 4, 4, 9, 5, 3];
+
+countingSort(numbers);
+
+console.log(numbers); // [0, 2, 2, 3, 3, 4, 4, 4, 4, 5, 7, 7, 9]
+```
 
 <p align="right">
     <a href="#data-structures--algorithms">back to top ⬆</a>
