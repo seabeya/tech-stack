@@ -2043,12 +2043,12 @@ console.log(numbers); // [0, 2, 2, 3, 3, 4, 4, 4, 4, 5, 7, 7, 9]
 
 Searching algorithms are methods used to locate specific items within a collection of data.
 
-| Name                 | Time        | Space  |
-| -------------------- | ----------- | ------ |
-| Linear Search        | `O(n)`      | `O(1)` |
-| Binary Search        | `O(log(n))` | `O(1)` |
-| Depth First Search   | `O(n)`      | `O(h)` |
-| Breadth First Search | `O(n)`      | `O(n)` |
+| Name                                                     | Time        | Space  |
+| -------------------------------------------------------- | ----------- | ------ |
+| [Linear Search](#-linear-search)                         | `O(n)`      | `O(1)` |
+| [Binary Search](#-binary-search)                         | `O(log(n))` | `O(1)` |
+| [Depth First Search (DFS)](#-depth-first-search-dfs)     | `O(n)`      | `O(h)` |
+| [Breadth First Search (BFS)](#-breadth-first-search-bfs) | `O(n)`      | `O(n)` |
 
 <br>
 
