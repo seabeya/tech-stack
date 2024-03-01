@@ -55,6 +55,8 @@
        - [Tree BFS](#-tree-bfs)
        - [Graph BFS](#-graph-bfs)
        - [2D Arrays / Matrix BFS](#-2d-arrays--matrix-bfs)
+   - [Other Advanced Techniques and Tricks](#-other-advanced-techniques-and-tricks)
+     - [The Gauss trick](#-the-gauss-trick)
 
 <br>
 
@@ -1611,6 +1613,7 @@ The structure of a 2D array allows for efficient access, modification, and trave
   <a href="#-recursion">Recursion</a> •
   <a href="#-sorting">Sorting</a> •
   <a href="#-searching">Searching</a> •
+  <a href="#-other-advanced-techniques-and-tricks">Other Advanced Techniques and Tricks</a>
 </p>
 
 <br>
@@ -2670,3 +2673,82 @@ function bfs(matrix) {
 console.log(bfs(arr2d));
 // [13, 8, 14, 18, 12, 3, 9, 7, 15, 19, 17, 11, 4, 2, 10, 6, 20, 16, 5, 1]
 ```
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Other Advanced Techniques and Tricks
+
+### 🔷 The Gauss trick
+
+A method for efficiently `O(1)` finding the sum of an arithmetic series
+
+The formula:
+
+```js
+S = (n / 2) * (a + l);
+```
+
+- `S` is the sum of the series.
+- `a` is the first term.
+- `l` is the last term.
+- `n` is the number of terms. `n = (l - a) / d + 1`
+  - `d` is the common difference (constant difference between terms).
+
+<br>
+
+<details><summary>Examples:</summary>
+
+1. Sum of numbers from 0 to 10:
+
+   ```js
+   a = 0
+   l = 10
+   n = ((10 - 0) / 1 + 1) = 11
+
+   S = (11 / 2) * (0 + 10)
+   S = 5.5 * 10
+   S = 55
+   ```
+
+2. Sum of numbers from -5 to 2:
+
+   ```js
+   a = -5;
+   l = 2;
+   n = (2 - (-5)) / 1 + 1 = 8
+
+   S = (8 / 2) * (-5 + 2)
+   S = 4 * (-3)
+   S = -12
+   ```
+
+3. Sum of numbers from -2 to 213:
+
+   ```js
+   a = -2
+   l = 213
+   n = (213 - (-2)) / 1 + 1 = 216
+
+   S = (216 / 2) * (-2 + 213)
+   S = 108 * 211
+   S = 22788
+   ```
+
+4. Sum of numbers `[2, 4, 6, 8, 10, 12, 14]`:
+
+```js
+a = 2
+l = 14
+n = (14 - 2) / 2 + 1 = 7
+
+S = (7 / 2) * (2 + 14)
+S = 3.5 * 16
+S = 56
+```
+
+</details>
