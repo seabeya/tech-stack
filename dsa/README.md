@@ -1884,7 +1884,7 @@ console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
 | `true`  | `O(n log(n))` | `O(n)` |
 
 > [!NOTE]
-> Even the data is already ordered, Mergesort still divides, sorts, and merges the subarrays, resulting in rewriting 100% of elements into another array and then back into the original one.
+> Even the data is already sorted, Mergesort still divides, sorts, and merges the subarrays, resulting in rewriting 100% of elements into another array and then back into the original one.
 
 ```js
 function mergeSort(array) {
