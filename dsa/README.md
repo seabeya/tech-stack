@@ -56,7 +56,7 @@
        - [Graph BFS](#-graph-bfs)
        - [2D Arrays / Matrix BFS](#-2d-arrays--matrix-bfs)
    - [Other Advanced Techniques and Tricks](#-other-advanced-techniques-and-tricks)
-     - [The Gauss trick](#-the-gauss-trick)
+     - [The Gauss' Trick](#-the-gauss-trick)
 
 <br>
 
@@ -2683,7 +2683,7 @@ console.log(bfs(arr2d));
 
 ## 🔶 Other Advanced Techniques and Tricks
 
-### 🔷 The Gauss trick
+### 🔷 The Gauss' Trick
 
 A method for efficiently `O(1)` finding the sum of an arithmetic series
 
@@ -2741,14 +2741,14 @@ S = (n / 2) * (a + l);
 
 4. Sum of numbers `[2, 4, 6, 8, 10, 12, 14]`:
 
-```js
-a = 2
-l = 14
-n = (14 - 2) / 2 + 1 = 7
+   ```js
+   a = 2
+   l = 14
+   n = (14 - 2) / 2 + 1 = 7
 
-S = (7 / 2) * (2 + 14)
-S = 3.5 * 16
-S = 56
-```
+   S = (7 / 2) * (2 + 14)
+   S = 3.5 * 16
+   S = 56
+   ```
 
 </details>
