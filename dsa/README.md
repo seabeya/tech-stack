@@ -2066,6 +2066,12 @@ quickSort(numbers);
 console.log(numbers); // [0, 0, 1, 2, 4, 4, 5, 7, 8]
 ```
 
+> Not the exact same items, but overall, it looks something like this:
+
+<p align="center">
+  <img src="./quickSort.gif" height="auto" width="250">
+</p>
+
 > [!NOTE]
 > The worst-case time complexity of Quick Sort is `O(n^2)`, which occurs when the chosen pivot is consistently either the smallest or largest element in the array. In such cases, the partitioning step fails to divide the array into roughly equal-sized partitions, leading to unbalanced recursion and degraded performance.
 
