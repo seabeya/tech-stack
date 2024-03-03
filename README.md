@@ -41,3 +41,6 @@
 - **GitHub Actions** `planned ⚫`
 - **Kubernetes** `planned ⚫`
 - **Amazon Web Services (AWS)** `planned ⚫`
+
+> [!NOTE]
+> The original notes are in a different file format and are not in English. Therefore, it will take some time to refactor and publish them.
