@@ -38,6 +38,8 @@
    - [Data Basics](#-data-basics)
      - [`SELECT`](#-select)
      - [`WHERE`](#-where)
+   - [Operators & Functions](#-operators--functions)
+     - [Operators](#-operators)
 
 <br>
 
@@ -513,3 +515,57 @@ SELECT *
 FROM employees
 WHERE department = 'Sales';
 ```
+
+<br>
+
+### 🔷 Operators & Functions
+
+Operators and functions are used with the `SELECT` statement and the `WHERE` clause to filter and manipulate the data.
+
+<br>
+
+#### 🔻 Operators
+
+- Logical Operators:
+
+  | Operator | Description                                                                                                                                         |
+  | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `AND`    | Returns `true` if both conditions separated by `AND` are true. Otherwise, it returns `false`.                                                       |
+  | `OR`     | Returns `true` if at least one of the conditions separated by `OR` is true. Otherwise, it returns `false`.                                          |
+  | `NOT`    | Returns `true` if the following condition is false, and returns `false` if the following condition is true. It negates the result of the condition. |
+
+- Mathematical Operators:
+
+  | Operator | Description     | Example      |
+  | -------- | --------------- | ------------ |
+  | `+`      | Addition.       | 2 + 3 → 5    |
+  | `-`      | Subtraction.    | 2 - 3 → -1   |
+  | `*`      | Multiplication. | 2 \* 3 → 6   |
+  | `/`      | Division.       | 10 / 2 → 5   |
+  | `%`      | Remainder.      | 5 % 4 → 1    |
+  | `^`      | Exponentiation. | 2 ^ 3 → 8    |
+  | `\|/`    | Square root.    | \|/ 25 → 5   |
+  | `\|\|/`  | Cube root.      | \|\|/ 64 → 4 |
+  | `@`      | Absolute value. | @ -5 → 5     |
+
+  ```sql
+  SELECT title, price * units_sold AS revenue FROM books;
+  ```
+
+- Comparison Operators:
+
+  | Operator | Description               |
+  | -------- | ------------------------- |
+  | `=`      | Equal.                    |
+  | `!=`     | Not equal.                |
+  | `<>`     | Not equal.                |
+  | `<`      | Less than.                |
+  | `<=`     | Less than or equal to.    |
+  | `>`      | Greater than.             |
+  | `>=`     | Greater than or equal to. |
+
+  > They all return a boolean value, `true` or `false`.
+
+  ```sql
+  SELECT name, salary FROM employees WHERE age >= 30;
+  ```
