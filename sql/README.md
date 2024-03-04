@@ -34,6 +34,9 @@
      - [`CHECK`](#-check)
      - [`PRIMARY KEY`](#-primary-key)
      - [`FOREIGN KEY`](#-foreign-key)
+3. [Data](#-data)
+   - [Data Basics](#-data-basics)
+     - [`SELECT`](#-select)
 
 <br>
 
@@ -452,3 +455,35 @@ Insertion Scenarios:
 | Inserting a new row with a valid foreign key value        | Ok                         |
 | Inserting a new row with a `NULL` foreign key             | Ok (optional relationship) |
 | Inserting a new row with a non-existent foreign key value | Error                      |
+
+<p align="right">
+    <a href="#sql-postgresql">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Data
+
+### 🔷 Data Basics
+
+#### 🔻 `SELECT`
+
+The `SELECT` statement is used to retrieve data from one or more tables in a database.
+
+- Select all columns from a table:
+
+  > Note: Using `*` to select all columns is generally considered bad practice. It's recommended to explicitly specify the columns you need whenever possible.
+
+  ```sql
+  SELECT * FROM table_name;
+  ```
+
+- Select specific columns from a table:
+  ```sql
+  SELECT column1, column2 FROM table_name;
+  ```
+- Select unique values from a specific column in a table:
+  ```sql
+  SELECT DISTINCT column1 FROM table_name;
+  ```
