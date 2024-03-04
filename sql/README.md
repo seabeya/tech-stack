@@ -37,6 +37,7 @@
 3. [Data](#-data)
    - [Data Basics](#-data-basics)
      - [`SELECT`](#-select)
+     - [`WHERE`](#-where)
 
 <br>
 
@@ -487,3 +488,28 @@ The `SELECT` statement is used to retrieve data from one or more tables in a dat
   ```sql
   SELECT DISTINCT column1 FROM table_name;
   ```
+
+<br>
+
+#### 🔻 `WHERE`
+
+The `WHERE` clause is used to filter rows from a table based on specified conditions.
+
+> It allows you to selectively retrieve, update, or delete rows that meet certain criteria.
+
+> You can filter rows based on various conditions such as equality, comparison operators, pattern matching, and logical operators.
+
+Syntax:
+
+```sql
+SELECT * FROM table_name
+WHERE <condition>;
+```
+
+Example:
+
+```sql
+SELECT *
+FROM employees
+WHERE department = 'Sales';
+```
