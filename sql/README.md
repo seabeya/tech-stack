@@ -583,4 +583,31 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
       > SELECT * FROM employees WHERE bonus_salary IS NULL;
       > ```
 
+  - Array Comparisons: [Docs ↗](https://www.postgresql.org/docs/14/functions-comparisons.html)
+
+    - `IN`: Checks if a value matches any value in a specified list or subquery.
+      > > `expression IN (value1, value2, ...)` is equivalent to
+      > >
+      > > ```sql
+      > > expression = value1
+      > > OR
+      > > expression = value2
+      > > OR
+      > > ...
+      > > ```
+      >
+      > ```sql
+      > SELECT * FROM employees WHERE name IN ('John', 'Jane', ...);
+      > ```
+    - `ANY`/`SOME`: Compares a single value to any value in an array, returning `true` if the value matches any element in the array.
+      > Syntax: `expression operator SOME (array expression)`
+      >
+      > ```sql
+      > SELECT * FROM employees WHERE 350 > ANY (salary_history);
+      > ```
+    - `ALL`: Compares a single value to all values in an array, returning `true` if the value matches every element in the array.
+      > ```sql
+      > SELECT * FROM employees WHERE 500 < ALL (salary_history);
+      > ```
+
   > They all return a Boolean (`true`/`false`) value.
