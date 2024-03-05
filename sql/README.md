@@ -564,8 +564,23 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
   | `>`      | Greater than.             |
   | `>=`     | Greater than or equal to. |
 
-  > They all return a boolean value, `true` or `false`.
-
   ```sql
   SELECT name, salary FROM employees WHERE age >= 30;
   ```
+
+  - Comparison Predicates: [Docs ↗](https://www.postgresql.org/docs/14/functions-comparison.html#FUNCTIONS-COMPARISON-PRED-TABLE)
+
+    - `BETWEEN`: Simplifies range tests.
+      > `a BETWEEN x AND y` is equivalent to `a >= x AND a <= y`
+      >
+      > ```sql
+      > SELECT * FROM employees WHERE salary BETWEEN 1100 AND 1700;
+      > ```
+    - `IS`: Used for making specific comparisons.
+      > `IS NULL`, `IS NOT NULL`, `IS TRUE`, `IS FALSE`, `IS NOT TRUE`, `IS NOT FALSE`;
+      >
+      > ```sql
+      > SELECT * FROM employees WHERE bonus_salary IS NULL;
+      > ```
+
+  > They all return a Boolean (`true`/`false`) value.
