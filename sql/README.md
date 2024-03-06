@@ -45,6 +45,9 @@
    - [Operators & Functions](#-operators--functions)
      - [Operators](#-operators)
      - [Functions](#-functions)
+   - [Aggregation of Records (`GROUP BY`)](#-aggregation-of-records-group-by)
+     - [Aggregate Functions](#-aggregate-functions)
+     - [`HAVING`](#-having)
 
 <br>
 
@@ -733,3 +736,98 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
     > ```
 
 <br>
+
+### 🔷 Aggregation of Records (`GROUP BY`)
+
+The `GROUP BY` clause is used to group rows that have the same values into summary rows.
+
+- You can only select columns that are being grouped.
+  ```sql
+  SELECT age FROM employees GROUP BY age;
+  ```
+- To select columns that are not being grouped, you have to use [aggregate functions](#-aggregate-functions).
+
+<br>
+
+#### 🔻 Aggregate Functions
+
+Aggregate functions are functions that perform a calculation on a set of values and return a single value.
+
+> These functions are typically used with the `GROUP BY` clause to perform operations across multiple rows and generate summary results.
+
+| Function             | Description                                |
+| -------------------- | ------------------------------------------ |
+| `COUNT(column_name)` | Counts the number of rows in a group.      |
+| `SUM(column_name)`   | Calculates the sum of values in a group.   |
+| `AVG(column_name)`   | Computes the average of values in a group. |
+| `MIN(column_name)`   | Finds the minimum value in a group.        |
+| `MAX(column_name)`   | Finds the maximum value in a group.        |
+
+Examples:
+
+- > Selects the maximum salary for each distinct age:
+  >
+  > ```sql
+  > SELECT  MAX(salary), age FROM employees GROUP BY age;
+  > ```
+
+> [!NOTE]
+> We can also call the functions directly. For example, to select the overall maximum salary:
+>
+> ```sql
+> SELECT  MAX(salary) FROM employees;
+> ```
+>
+> However, we still can't select other ungrouped columns because when using aggregate functions, SQL requires that all selected columns either be included in the `GROUP BY` clause or be part of an aggregate function.
+
+- > Counts the total number of rows in the "employees" table:
+  >
+  > ```sql
+  > SELECT  COUNT(*) FROM employees;
+  > ```
+  >
+  > We are using `*` here because if we have chosen a specific column and it contains a `NULL` value, the aggregation function will ignore it, potentially resulting in an incorrect count.
+
+- > To see how many employees share the same age:
+  >
+  > ```sql
+  > SELECT  COUNT(*), age FROM employees GROUP BY age;
+  > ```
+
+<br>
+
+#### 🔻 `HAVING`
+
+The `HAVING` clause is used to filter the results of a GROUP BY clause based on specified conditions.
+
+> While the `WHERE` clause filters **individual rows** before they are grouped, the `HAVING` clause filters **group rows** after they have been formed by the `GROUP BY` operation.
+
+Examples:
+
+- > This query selects the departments where the average salary is greater than $2,500
+  >
+  > ```sql
+  > SELECT department, AVG(salary) as avg_salary
+  > FROM employees
+  > GROUP BY department
+  > HAVING AVG(salary) > 2500;
+  > ```
+
+- > This query first filters the employees who were hired after `January 1, 2023`, and then selects the departments where the average salary of these employees is greater than $2,500.
+  >
+  > ```sql
+  > SELECT department, AVG(salary) as avg_salary
+  > FROM employees
+  > WHERE hire_date >= '2023-01-01'
+  > GROUP BY department
+  > HAVING AVG(salary) > 2500;
+  > ```
+
+- > This query selects the departments with fewer than 5 employees.
+  >
+  > ```sql
+  > SELECT department, COUNT(*) as num_employees
+  > FROM employees
+  > GROUP BY department
+  > HAVING COUNT(*) < 5;
+  > ```
