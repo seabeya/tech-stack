@@ -682,11 +682,11 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
     - `%`: Matches any sequence of characters, including none.
     - `_`: Matches any single character.
 
-    Examples:
+  Examples:
 
-    > - `'abc%'`: Any string that starts with `abc`.
-    > - `'%xyz'`: Any string that ends with `xyz`
-    > - `'_a%'`: Any string where the second character is `a`.
+  > - `'abc%'`: Any string that starts with `abc`.
+  > - `'%xyz'`: Any string that ends with `xyz`
+  > - `'_a%'`: Any string where the second character is `a`.
 
 <br>
 
