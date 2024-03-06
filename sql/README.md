@@ -568,6 +568,8 @@ WHERE department = 'Sales';
 
 Operators and functions are used with the `SELECT` statement and the `WHERE` clause to filter and manipulate the data.
 
+<br>
+
 #### 🔻 Operators
 
 - Logical Operators:
