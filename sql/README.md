@@ -568,8 +568,6 @@ WHERE department = 'Sales';
 
 Operators and functions are used with the `SELECT` statement and the `WHERE` clause to filter and manipulate the data.
 
-<br>
-
 #### 🔻 Operators
 
 - Logical Operators:
@@ -579,6 +577,8 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
   | `AND`    | Returns `true` if both conditions separated by `AND` are true. Otherwise, it returns `false`.                                                       |
   | `OR`     | Returns `true` if at least one of the conditions separated by `OR` is true. Otherwise, it returns `false`.                                          |
   | `NOT`    | Returns `true` if the following condition is false, and returns `false` if the following condition is true. It negates the result of the condition. |
+
+<br>
 
 - Mathematical Operators:
 
@@ -597,6 +597,8 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
   ```sql
   SELECT title, price * units_sold AS revenue FROM books;
   ```
+
+<br>
 
 - Comparison Operators:
 
@@ -660,6 +662,29 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
 
 <br>
 
+- `LIKE` (pattern matching):
+
+  Pattern matching allows you to search for patterns in strings, similar to regular expressions but with a simpler syntax.
+
+  Syntax:
+
+  ```sql
+  SELECT * FROM table_name WHERE column_name LIKE '<pattern>';
+  ```
+
+  - Pattern:
+
+    - `%`: Matches any sequence of characters, including none.
+    - `_`: Matches any single character.
+
+    Examples:
+
+    > - `'abc%'`: Any string that starts with `abc`.
+    > - `'%xyz'`: Any string that ends with `xyz`
+    > - `'_a%'`: Any string where the second character is `a`.
+
+<br>
+
 #### 🔻 Functions
 
 - Mathematical Functions. [Docs ↗](https://www.postgresql.org/docs/14/functions-math.html#FUNCTIONS-MATH-FUNC-TABLE)
@@ -704,3 +729,5 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
     > ```sql
     > SELECT LEAST(23, 4, 128, 2000) AS min_value;
     > ```
+
+<br>
