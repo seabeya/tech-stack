@@ -40,6 +40,7 @@
      - [`WHERE`](#-where)
    - [Operators & Functions](#-operators--functions)
      - [Operators](#-operators)
+     - [Functions](#-functions)
 
 <br>
 
@@ -611,3 +612,10 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
       > ```
 
   > They all return a Boolean (`true`/`false`) value.
+
+<br>
+
+#### 🔻 Functions
+
+- Mathematical Functions: [Docs ↗](https://www.postgresql.org/docs/14/functions-math.html#FUNCTIONS-MATH-FUNC-TABLE)
+- String Functions: [Docs ↗](https://www.postgresql.org/docs/14/functions-string.html)
