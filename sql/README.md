@@ -617,5 +617,45 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
 
 #### 🔻 Functions
 
-- Mathematical Functions: [Docs ↗](https://www.postgresql.org/docs/14/functions-math.html#FUNCTIONS-MATH-FUNC-TABLE)
-- String Functions: [Docs ↗](https://www.postgresql.org/docs/14/functions-string.html)
+- Mathematical Functions. [Docs ↗](https://www.postgresql.org/docs/14/functions-math.html#FUNCTIONS-MATH-FUNC-TABLE)
+- String Functions. [Docs ↗](https://www.postgresql.org/docs/14/functions-string.html)
+- Conditional Expressions. [Docs ↗](https://www.postgresql.org/docs/current/functions-conditional.html)
+  - `CASE`: Allows you to perform conditional logic within SQL queries.
+    > It evaluates a list of conditions and returns a result based on the first condition that is `true`.
+    >
+    > ```sql
+    > SELECT name, age, salary,
+    >     CASE lvl
+    >         WHEN 'A' THEN 'Manager'
+    >         WHEN 'B' THEN 'Senior Dev'
+    >         WHEN 'C' THEN 'Dev'
+    >         ELSE 'Intern'
+    >     END AS seniority
+    > FROM employees;
+    > ```
+    >
+    > or
+    >
+    > ```sql
+    > SELECT name, age, salary,
+    >     CASE
+    >         WHEN salary >= 5000 THEN 'Rich'
+    >         WHEN salary >= 2500 THEN 'Average'
+    >         ELSE 'Poor'
+    >     END AS wealth
+    > FROM employees;
+    > ```
+  - `COALESCE`: Returns the first non-null expression from a list of expressions.
+    > It is often used to provide a default value when the input value is `null`.
+    >
+    > ```sql
+    > SELECT COALESCE(bonus_salary, 0) AS bonus_salary FROM employees;
+    > ```
+  - `GREATEST`: Takes multiple input values and returns the largest one among them.
+    > ```sql
+    > SELECT GREATEST(23, 4, 128, 2000) AS max_value;
+    > ```
+  - `LEAST`: Takes multiple input values and returns the smallest one among them.
+    > ```sql
+    > SELECT LEAST(23, 4, 128, 2000) AS min_value;
+    > ```
