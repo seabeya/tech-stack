@@ -49,6 +49,11 @@
      - [Aggregate Functions](#-aggregate-functions)
      - [`HAVING`](#-having)
    - [Joins](#-joins)
+     - [Inner Join](#-inner-join)
+     - [Left Join](#-left-join)
+     - [Right Join](#-right-join)
+     - [Full Join](#-full-join)
+     - [Self Join](#-self-join)
 
 <br>
 
@@ -922,3 +927,31 @@ SELECT * FROM photos FULL JOIN employees ON photos.employee_id = employees.id;
 <p align="center">
   <img src="./fullJoin.png" height="auto" width="250">
 </p>
+
+<br>
+
+#### 🔻 Self Join
+
+Self-join is a special type of join operation where a table is joined with itself.
+
+This can be useful when you have a table with hierarchical data or when you need to compare rows within the same table.
+
+Example:
+
+- > To find all dates' `id` with higher temperatures compared to its previous dates (yesterday). [Leetcode ↗](https://leetcode.com/problems/rising-temperature/description/)
+  >
+  > ```
+  > +---------------+---------+
+  > | Column Name   | Type    |
+  > +---------------+---------+
+  > | id            | int     |
+  > | recordDate    | date    |
+  > | temperature   | int     |
+  > +---------------+---------+
+  > ```
+  >
+  > ```sql
+  > SELECT w1.id
+  > FROM Weather AS w1, Weather AS w2
+  > WHERE w1.Temperature > w2.Temperature AND w1.recordDate - w2.recordDate = 1
+  > ```
