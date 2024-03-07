@@ -48,6 +48,7 @@
    - [Aggregation of Records (`GROUP BY`)](#-aggregation-of-records-group-by)
      - [Aggregate Functions](#-aggregate-functions)
      - [`HAVING`](#-having)
+   - [Joins](#-joins)
 
 <br>
 
@@ -831,3 +832,93 @@ Examples:
   > GROUP BY department
   > HAVING COUNT(*) < 5;
   > ```
+
+<br>
+
+### 🔷 Joins
+
+Joins in SQL are operations used to combine rows from two or more tables based on a related column.
+
+Syntax:
+
+```sql
+SELECT *
+FROM table1
+JOIN table2 ON table1.column_name = table2.column_name;
+```
+
+- If you specifically want to select column names but they are colliding, use **Table Aliases** to differentiate them.
+
+  ```sql
+  SELECT url, photos.id, employees.id FROM photos JOIN employees ON photos.employee_id = employees.id;
+  ```
+
+  > To prettify the output:
+  >
+  > ```sql
+  > SELECT url, photos.id AS photos_id, employees.id AS employees_id FROM photos JOIN employees ON photos.employee_id = employees.id;
+  > ```
+
+- If you don't specify a join type explicitly, the default join type is an `INNER JOIN`.
+
+<br>
+
+#### 🔻 Inner Join
+
+Returns rows when there is at least one match in both tables.
+
+```sql
+SELECT * FROM photos INNER JOIN employees ON photos.employee_id = employees.id;
+```
+
+<p align="center">
+  <img src="./innerJoin.png" height="auto" width="250">
+</p>
+
+<br>
+
+#### 🔻 Left Join
+
+Returns all rows from the left table (table1), and the matched rows from the right table (table2).
+
+> If there is no match, the result is `NULL` on the right side.
+
+```sql
+SELECT * FROM photos LEFT JOIN employees ON photos.employee_id = employees.id;
+```
+
+<p align="center">
+  <img src="./leftJoin.png" height="auto" width="250">
+</p>
+
+<br>
+
+#### 🔻 Right Join
+
+Returns all rows from the right table (table2), and the matched rows from the left table (table1).
+
+> If there is no match, the result is NULL on the left side.
+
+```sql
+SELECT * FROM photos RIGHT JOIN employees ON photos.employee_id = employees.id;
+```
+
+<p align="center">
+  <img src="./rightJoin.png" height="auto" width="250">
+</p>
+
+<br>
+
+#### 🔻 Full Join
+
+Returns all rows when there is a match in either left or right table.
+
+> The result is NULL on the side where there is no match.
+
+```sql
+SELECT * FROM photos FULL JOIN employees ON photos.employee_id = employees.id;
+```
+
+<p align="center">
+  <img src="./fullJoin.png" height="auto" width="250">
+</p>
