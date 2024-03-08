@@ -36,6 +36,7 @@
      - [`FOREIGN KEY`](#-foreign-key)
 3. [Data](#-data)
    - [Data Basics](#-data-basics)
+     - [`INSERT`](#-insert)
      - [`SELECT`](#-select)
      - [`WHERE`](#-where)
      - [Result Control](#-result-control)
@@ -483,6 +484,40 @@ Insertion Scenarios:
 ## 🔶 Data
 
 ### 🔷 Data Basics
+
+#### 🔻 `INSERT`
+
+The `INSERT` statement is used to add new rows (data) into a table.
+
+Syntax:
+
+```sql
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+```
+
+> The `column`-`value` order is important.
+
+Some other variants:
+
+- > If you're inserting data into all columns and the values you're inserting correspond to the columns in the same order, you don't need to explicitly specify the column names:
+  >
+  > ```sql
+  > INSERT INTO table_name VALUES (value1, value2, ...);
+  > ```
+
+- > If you want to insert multiple rows in a single statement:
+  >
+  > ```sql
+  > INSERT INTO table_name (column1, column2, ...)
+  > VALUES
+  >    (value1_1, value1_2, ...),
+  >    (value2_1, value2_2, ...),
+  >    ...
+  >    (valueN_1, valueN_2, ...);
+  > ```
+
+<br>
 
 #### 🔻 `SELECT`
 
