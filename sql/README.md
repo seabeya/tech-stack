@@ -8,8 +8,6 @@
   SQL (Structured Query Language) is a programming language used for managing relational databases. PostgreSQL is a powerful, open-source relational database management system that supports SQL queries and provides advanced features.
 </p>
 
-> sql.
-
 <p align="right">
     <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
 </p>
