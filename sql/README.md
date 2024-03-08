@@ -39,6 +39,7 @@
      - [`INSERT`](#-insert)
      - [`SELECT`](#-select)
      - [`WHERE`](#-where)
+     - [`UPDATE`](#-update)
      - [Result Control](#-result-control)
        - [`ORDER BY`](#order-by)
        - [`LIMIT`](#limit)
@@ -564,6 +565,25 @@ SELECT *
 FROM employees
 WHERE department = 'Sales';
 ```
+
+<br>
+
+#### 🔻 `UPDATE`
+
+The `UPDATE` statement is used to modify existing records (data) in a table.
+
+Syntax:
+
+```sql
+UPDATE table_name
+SET column1 = new_value1, column2 = new_value2, ...
+WHERE <condition>;
+```
+
+> This statement updates the values of specified columns in existing rows that meet the specified condition.
+
+> [!WARNING]
+> If you omit the condition, it will update all rows. So, be careful.
 
 <br>
 
