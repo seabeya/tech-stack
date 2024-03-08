@@ -41,6 +41,7 @@
    - [Applying changes](#-applying-changes)
 9. [Git Tags](#-git-tags)
 10. [Reflogs (retrieving lost work)](#-reflogs-retrieving-lost-work)
+11. [Git Aliases](#-git-aliases)
 
 <br>
 
@@ -415,14 +416,15 @@ Stashing is a feature that allows you to temporarily save changes in your workin
 
 - `git stash`: Save changes that have not yet been committed (unstaged & staged).
 
-  - ` ` - Save changes to the stash.
+  - ` ` - Save changes to the stash (untracked not included).
 
     > Running this command will revert the changes you have made since the last commit. This means that the changes will not be carried over when you switch branches (the changes will not come with you).
 
-    > You can add muptiple stashes onto the stash list.
+    > You can add multiple stashes onto the stash list.
 
     > When you stash, it assigns an index, branch, and message information to that stash. The most recent stash added always has index 0, the second has index 1, and so on.
 
+  - `-u` - Stashes all untracked files as well.
   - `push -m '<Message>'` - Save changes to the stash with a specific message.
   - `list` - Show the stash list.
   - `pop` - Apply the most recently stashed changes to your working copy <ins>and remove</ins> them from the stash list.
@@ -765,6 +767,39 @@ or
 
 > [!NOTE]
 > Reflogs in Git have an expiration time. By default, reflog entries expire after a certain period (90 days) to prevent them from growing indefinitely and consuming excessive disk space.
+
+<p align="right">
+    <a href="#git">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Git Aliases
+
+Git aliases are shortcuts or custom commands that you can create to simplify and speed up your Git workflow.
+
+- To create an alias:
+  ```sh
+  git config --global alias.<Alias_Name> '<Git_Command>'
+  ```
+  > Example:
+  >
+  > ```sh
+  > # Create an alias for showing the commit log in one line
+  > git config --global alias.lo 'log --oneline'
+  > ```
+  >
+  > Usage:
+  >
+  > ```sh
+  > git lo
+  > ```
+- To remove an already defined alias:
+
+  ```sh
+  git config --global --unset alias.<Alias_Name>
+  ```
 
 <p align="right">
     <a href="#git">back to top ⬆</a>

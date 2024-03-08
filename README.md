@@ -33,9 +33,9 @@
 - [**JavaScript**](./js/README.md) `in-progress 🟡`
 - [**Data Structures & Algorithms**](./dsa/README.md) `in-progress 🟡`
 - [**Docker**](./docker/README.md) `in-progress 🟡`
-- **React.js** `planned ⚫`
+- [**React.js**](./react/README.md) `in-progress 🟡`
 - **Node.js (Express)** `planned ⚫`
-- **TypeScript** `planned ⚫`
+- [**TypeScript**](./ts/README.md) `🟢`
 - [**SQL (PostgreSQL)**](./sql/README.md) `in-progress 🟡`
 - **Redis** `planned ⚫`
 - **GitHub Actions** `planned ⚫`
@@ -43,4 +43,4 @@
 - **Amazon Web Services (AWS)** `planned ⚫`
 
 > [!NOTE]
-> I will gradually fill in the contents over time, as some notes need to be refactored and translated into English. Therefore, completing this repository will take a considerable amount of time.
+> The original notes are in a different file format and are not in English. Therefore, it will take some time to refactor and publish them.
