@@ -40,6 +40,7 @@
      - [`SELECT`](#-select)
      - [`WHERE`](#-where)
      - [`UPDATE`](#-update)
+     - [`DELETE`](#-delete)
      - [Result Control](#-result-control)
        - [`ORDER BY`](#order-by)
        - [`LIMIT`](#limit)
@@ -583,7 +584,27 @@ WHERE <condition>;
 > This statement updates the values of specified columns in existing rows that meet the specified condition.
 
 > [!WARNING]
-> If you omit the condition, it will update all rows. So, be careful.
+> If you omit the condition, it will update all rows.
+
+<br>
+
+#### 🔻 `DELETE`
+
+The `DELETE` statement is used to remove existing records (data) from a table.
+
+Syntax:
+
+```sql
+DELETE FROM table_name
+WHERE <condition>;
+```
+
+> This statement removes rows from the specified table that meet the specified condition.
+
+> [!WARNING]
+> If you omit the WHERE clause, it will delete all rows from the table.
+
+> Deleting rows may also trigger cascading deletes if foreign key constraints are set up with cascading delete actions.
 
 <br>
 
