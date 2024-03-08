@@ -5,10 +5,8 @@
 <h1 align="center">React.js</h1>
 
 <p align="center">
-  -
+  React.js is a popular JavaScript library for building interactive user interfaces with reusable components.
 </p>
-
-> ReactJS.
 
 <p align="right">
     <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>

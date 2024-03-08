@@ -5,7 +5,7 @@
 <h1 align="center">SQL <em>(PostgreSQL)</em></h1>
 
 <p align="center">
-  -
+  SQL (Structured Query Language) is a programming language used for managing relational databases. PostgreSQL is a powerful, open-source relational database management system that supports SQL queries and provides advanced features.
 </p>
 
 > sql.

@@ -5,10 +5,8 @@
 <h1 align="center">Linux <em>(debian based)</em></h1>
 
 <p align="center">
-  A compilation of some basic OS commands and concepts.
+  Linux is an open-source operating system kernel that serves as the foundation for various operating systems, known as Linux distributions. Debian is one such distribution that is composed entirely of free and open-source software.
 </p>
-
-> Linux is an open-source operating system kernel that serves as the foundation for various operating systems, known as Linux distributions. Debian is one such distribution that is composed entirely of free and open-source software.
 
 <p align="right">
     <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>

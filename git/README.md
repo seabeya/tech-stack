@@ -5,10 +5,8 @@
 <h1 align="center">Git</h1>
 
 <p align="center">
-  Almost everything about the version control system Git.
+  Git is the world's most popular version control system that helps teams work together on projects. It tracks changes to files over time, allowing multiple people to collaborate efficiently.
 </p>
-
-> Git is the world's most popular version control system that helps teams work together on projects. It tracks changes to files over time, allowing multiple people to collaborate efficiently.
 
 <p align="right">
     <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>

@@ -5,10 +5,8 @@
 <h1 align="center">Docker</h1>
 
 <p align="center">
-  Almost everything about the containerization platform Docker.
+  Docker is a platform and technology that enables developers to create, deploy, and manage applications using containers.
 </p>
-
-> Docker is a platform and technology that enables developers to create, deploy, and manage applications using containers.
 
 <p align="right">
     <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>

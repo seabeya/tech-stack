@@ -5,10 +5,8 @@
 <h1 align="center">Data Structures & Algorithms</h1>
 
 <p align="center">
-  Almost everything about DSA to ace a technical interview.
+  "Data Structures & Algorithms" is a fundamental topic in computer science and programming. It allows you to organize and manipulate data efficiently, as well as develop algorithms to solve computational problems.
 </p>
-
-> "Data Structures & Algorithms" is a fundamental topic in computer science and programming. It allows you to organize and manipulate data efficiently, as well as develop algorithms to solve computational problems.
 
 <p align="right">
     <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>

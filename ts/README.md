@@ -5,10 +5,8 @@
 <h1 align="center">TypeScript</h1>
 
 <p align="center">
-  Almost everything about TypeScript.
+  TypeScript is a superset of JavaScript that adds static typing for better code reliability.
 </p>
-
-> TypeScript is a superset of JavaScript that adds static typing for better code reliability.
 
 <p align="right">
     <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
