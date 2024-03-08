@@ -36,7 +36,7 @@
 - [**React.js**](./react/README.md) `in-progress 🟡`
 - **Node.js (Express)** `planned ⚫`
 - [**TypeScript**](./ts/README.md) `🟢`
-- **SQL (PostgreSQL)** `planned ⚫`
+- [**SQL (PostgreSQL)**](./sql/README.md) `in-progress 🟡`
 - **Redis** `planned ⚫`
 - **GitHub Actions** `planned ⚫`
 - **Kubernetes** `planned ⚫`
