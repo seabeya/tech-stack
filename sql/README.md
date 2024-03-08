@@ -626,6 +626,9 @@ WHERE <condition>;
   > SELECT * FROM employees ORDER BY age OFFSET 3;
   > ```
 
+> [!IMPORTANT]
+> It's important to use `ORDER BY` when using `LIMIT` and `OFFSET` to ensure consistent results, as the database engine may not guarantee a specific order otherwise.
+
 <br>
 
 ### 🔷 Operators & Functions
