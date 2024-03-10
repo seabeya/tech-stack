@@ -58,6 +58,10 @@
 
 <br>
 
+The official PostgreSQL documentation: https://www.postgresql.org/docs/current/sql.html
+
+<br>
+
 <hr>
 
 ## 🔶 Database
