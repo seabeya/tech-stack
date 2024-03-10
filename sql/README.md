@@ -58,7 +58,10 @@
 
 <br>
 
-The official PostgreSQL documentation: https://www.postgresql.org/docs/current/sql.html
+> [!NOTE]
+> Resources to learn the parts that haven't been mentioned and more.
+>
+> - [Resources](#-resources)
 
 <br>
 
@@ -1036,3 +1039,17 @@ Example:
   > FROM Weather AS w1, Weather AS w2
   > WHERE w1.Temperature > w2.Temperature AND w1.recordDate - w2.recordDate = 1
   > ```
+
+<p align="right">
+    <a href="#sql-postgresql">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+---
+
+### ⛓ Resources
+
+1. The official PostgreSQL documentation: https://www.postgresql.org/docs/current/sql.html
+2. Step by step PostgreSQL tutorial: https://www.postgresqltutorial.com
