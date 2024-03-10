@@ -1053,3 +1053,4 @@ Example:
 
 1. The official PostgreSQL documentation: https://www.postgresql.org/docs/current/sql.html
 2. Step by step PostgreSQL tutorial: https://www.postgresqltutorial.com
+3. Database and SQL Roadmap (all in one): https://www.databasestar.com/sql-roadmap/
