@@ -632,6 +632,21 @@ WHERE <condition>;
 
 <br>
 
+- `DELETE USING`:
+
+  > Allows you to join multiple tables in a delete operation, making it possible to delete rows from one table based on a condition involving another related table.
+
+  Example:
+
+  ```sql
+  DELETE FROM orders
+  USING customers
+  WHERE orders.customer_id = customers.customer_id
+  AND customers.country = 'USA';
+  ```
+
+<br>
+
 #### 🔻 `TRUNCATE`
 
 Deletes all data from tables.
