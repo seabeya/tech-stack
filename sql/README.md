@@ -550,6 +550,22 @@ The `SELECT` statement is used to retrieve data from one or more tables in a dat
 
 <br>
 
+Extra:
+
+- > You can use the `RETURNING` keyword to return affected rows from any of the `INSERT`, `UPDATE`, or `DELETE` statements.
+  >
+  > - Examples:
+  >
+  >   > ```sql
+  >   > UPDATE employees SET age = 99 WHERE id = 2 RETURNING *;
+  >   > ```
+  >
+  >   > ```sql
+  >   > DELETE FROM employees WHERE id = 4 RETURNING name, salary;
+  >   > ```
+
+<br>
+
 #### 🔻 `WHERE`
 
 The `WHERE` clause is used to filter rows from a table based on specified conditions.
@@ -608,7 +624,7 @@ WHERE <condition>;
 > This statement removes rows from the specified table that meet the specified condition.
 
 > [!WARNING]
-> If you omit the WHERE clause, it will delete all rows from the table.
+> If you omit the `WHERE` clause, it will delete all rows from the table.
 >
 > However, if you still want to delete all rows from a table, it is not efficient to use a `WHERE` clause; it is better to use `TRUNCATE` instead.
 
