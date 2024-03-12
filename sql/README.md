@@ -39,6 +39,7 @@
      - [`WHERE`](#-where)
      - [`UPDATE`](#-update)
      - [`DELETE`](#-delete)
+     - [`TRUNCATE`](#-truncate)
      - [Result Control](#-result-control)
        - [`ORDER BY`](#order-by)
        - [`LIMIT`](#limit)
@@ -608,8 +609,33 @@ WHERE <condition>;
 
 > [!WARNING]
 > If you omit the WHERE clause, it will delete all rows from the table.
+>
+> However, if you still want to delete all rows from a table, it is not efficient to use a `WHERE` clause; it is better to use `TRUNCATE` instead.
 
 > Deleting rows may also trigger cascading deletes if foreign key constraints are set up with cascading delete actions.
+
+<br>
+
+#### 🔻 `TRUNCATE`
+
+Deletes all data from tables.
+
+> It is faster than `DELETE` because it doesn't generate individual delete statements for each row.
+
+Syntax:
+
+```sql
+TRUNCATE TABLE table_name1, table_name2, ... <Options>
+```
+
+Options:
+
+- (default) `CONTINUE IDENTITY` : Do not change the values of sequences.
+- `RESTART IDENTITY`: Automatically restart sequences owned by columns.
+- (default) `RESTRICT` : Refuse to truncate if any of the (parent) tables have foreign-key references from (child) tables that are not listed in the command.
+- `CASCADE`: Truncate all (parent) tables that have foreign-key references also truncate all dependent child tables.
+
+> `TRUNCATE` is transaction-safe in PostgreSQL. Can safely roll back if the surrounding transaction does not commit.
 
 <br>
 
