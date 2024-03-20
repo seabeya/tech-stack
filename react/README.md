@@ -38,8 +38,8 @@
    - [Handling Text Inputs](#-handling-text-inputs)
 4. [React Hooks](#-react-hooks)
    - [useState](#-usestate)
-     - [Working with Objects & Arrays](#-working-with-objects--arrays)
      - [The new value depends on the old value](#-the-new-value-depends-on-the-old-value)
+     - [Working with Objects & Arrays](#-working-with-objects--arrays)
    - [useEffect](#-useeffect)
      - [Cleanup Functions (optional)](#-cleanup-functions-optional)
    - [useReducer](#-usereducer)
@@ -673,6 +673,9 @@ How it works:
 - React invokes the function component (in our example, `App()`) with the updated state every time we modify the state value using the setter function.
 - When a component re-renders, all its children also re-render.
 
+> [!NOTE]
+> useState doesn't trigger a component re-render if it detects that the new value is the same as the old value.
+
 <br>
 
 #### 🔻 Where to Define State?
@@ -792,6 +795,123 @@ Where to define handler functions?
 
 <br>
 
+### 🔷 The new value depends on the old value
+
+When you call `setState`, React doesn't immediately update the component's state. Instead, it has a batching mechanism for handling multiple `setState` calls within the same event loop cycle.
+
+React state batching refers to the process by which React groups multiple state update calls into a single update for performance optimization. When you update a state in React, it schedules the update and batches multiple state updates together before applying them to the component's state.
+
+```jsx
+import { useState } from "react";
+
+export default function Home() {
+  console.log("Rendering Home Page...");
+
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  const handleClick = () => {
+    setCount1(10);
+    setCount2(20);
+  };
+
+  return (
+    <>
+      <h1>
+        {count1} - {count2}
+      </h1>
+      <button onClick={handleClick}>Update Both</button>
+    </>
+  );
+}
+```
+
+> In this example, even if we have two different states and we are updating both of them in a function, the component will rerender only once (the log "Rendering Home Page..." will be printed once). This is because of the batching performance optimization.
+
+<br>
+
+What is the problem?
+
+> The problem occurs when you have a series of state updates happening quickly that depend on the old state value.
+
+> ```jsx
+> import { useState } from "react";
+>
+> export default function Home() {
+>   console.log("Rendering Home Page...");
+>
+>   const [count, setCount] = useState(0);
+>
+>   const handleClick = () => {
+>     setCount(count + 1);
+>
+>     setCount(count + 3);
+>
+>     setCount(count + 2);
+>   };
+>
+>   return (
+>     <>
+>       <h1>{count}</h1>
+>       <button onClick={handleClick}>Update Both</button>
+>     </>
+>   );
+> }
+> ```
+>
+> In this example, we are updating the same state value multiple times, and the new value depends on the old value. This will update the `count` by `+2` instead of `+6` every time we click the button. Because the `setCount` is getting the current state value (`count`) from outside, the outside state value is the state value that waits for batching (not being updated after every `setState` call)
+>
+> Step by step:
+>
+> 1. It sees `setCount(count + 1)` and schedules the update.
+> 2. Then it sees `setCount(count + 3)` and realizes that the `count` value is the same as the one seen from the setter that was scheduled a bit ago, and it just overwrites the previously scheduled setter.
+> 3. Finally, it sees `setCount(count + 2)` and the same process occurs.
+>
+> > Overall, it only updates the component for `setCount(count + 2)`.
+
+<br>
+
+What is the solution?
+
+> ```jsx
+> setCount((currValue) => currValue + 1);
+> ```
+
+> When you pass a function to the `useState` setter function, it receives the up-to-date previous state value (`currValue`) as an argument.
+>
+> This ensures that the state updates are based on the latest state values and avoids issues related to batching.
+
+> ```jsx
+> import { useState } from "react";
+>
+> export default function Home() {
+>   console.log("Rendering Home Page...");
+>
+>   const [count, setCount] = useState(0);
+>
+>   const handleClick = () => {
+>     setCount((count) => count + 1);
+>
+>     setCount((count) => count + 3);
+>
+>     setCount((count) => count + 2);
+>   };
+>
+>   return (
+>     <>
+>       <h1>{count}</h1>
+>       <button onClick={handleClick}>Update Both</button>
+>     </>
+>   );
+> }
+> ```
+>
+> In this example, the component will still be rerendered once when you click the button, but the setter functions will get the latest values. So, the overall count will increase by `+6`.
+
+In general, it is good to use this syntax when your new state value depends on the previous state value.
+
+<br>
+
 ### 🔷 Working with Objects & Arrays
 
 Do not directly mutate/update arrays or objects.
@@ -875,48 +995,6 @@ Do not directly mutate/update arrays or objects.
   >   setFruit(rest);
   > };
   > ```
-
-<br>
-
-### 🔷 The new value depends on the old value
-
-The state value is not always the up-to-date value.
-
-> This is because React batches state updates for performance reasons. So, it doesn't guarantee that the state has been updated immediately after calling `setState`.
-
-> This batching mechanism helps reduce the number of re-renders and improves overall performance.
-
-> If you have a series of state updates happening quickly, using the regular form may lead to unexpected behavior.
-
-- The usual way:
-  > ```jsx
-  > const [counter, setCounter] = useState(0);
-  >
-  > const handleClick = () => {
-  >   setCounter(counter + 1);
-  >
-  >   setCounter(counter + 1);
-  > };
-  > ```
-  >
-  > No matter what, this updates the state by `+1` every time you click, not `+2`. In `handleClick`, the `counter` isn't updated immediately, causing both `setCounter` calls to see the same `counter` value.
-  >
-  > `useState` doesn't trigger a component re-render if it detects that the new value is the same as the old value (applies to primitive values only). Hence, it will re-render the component only once.
-- The guaranteed way:
-  > ```jsx
-  > const [counter, setCounter] = useState(0);
-  >
-  > const handleClick = () => {
-  >   setCounter((currVal) => {
-  >     // `currVal` is the most up-to-date version of `counter`.
-  >     return currVal + 1;
-  >   });
-  >
-  >   setCounter((currVal) => currVal + 1);
-  > };
-  > ```
-  >
-  > Here, you provide a callback function that takes the current state as an argument. React ensures that this callback function is invoked with the most up-to-date state, even if multiple state updates are queued. Consequently, the component will re-render twice.
 
 <p align="right">
     <a href="#reactjs">back to top ⬆</a>
