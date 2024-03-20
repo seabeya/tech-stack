@@ -853,7 +853,7 @@ What is the problem?
 >   return (
 >     <>
 >       <h1>{count}</h1>
->       <button onClick={handleClick}>Update Both</button>
+>       <button onClick={handleClick}>Update</button>
 >     </>
 >   );
 > }
@@ -900,13 +900,13 @@ What is the solution?
 >   return (
 >     <>
 >       <h1>{count}</h1>
->       <button onClick={handleClick}>Update Both</button>
+>       <button onClick={handleClick}>Update</button>
 >     </>
 >   );
 > }
 > ```
 >
-> In this example, the component will still be rerendered once when you click the button, but the setter functions will get the latest values. So, the overall count will increase by `+6`.
+> In this example, the component will still be rerendered only once when you click the button, but the setter functions will get the latest values. So, the overall count will increase by `+6`.
 
 In general, it is good to use this syntax when your new state value depends on the previous state value.
 
