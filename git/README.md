@@ -799,6 +799,12 @@ Git aliases are shortcuts or custom commands that you can create to simplify and
   git config --global --unset alias.<Alias_Name>
   ```
 
+- To list all already defined aliases:
+
+  ```sh
+  git config --global --list
+  ```
+
 <p align="right">
     <a href="#git">back to top ⬆</a>
 </p>
