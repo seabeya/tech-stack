@@ -904,6 +904,25 @@ evenOrOdd(100)
   .catch((error) => console.error(error));
 ```
 
+<br>
+
+> [!NOTE]
+> The body of a JavaScript Promise, the function you pass to the Promise constructor, executes `synchronously`. This means the code inside the function runs on the main thread immediately when the Promise is created.
+>
+> > Example:
+> >
+> > ```js
+> > console.log(1);
+> > new Promise(() => console.log(2));
+> > console.log(3);
+> > ```
+> >
+> > Here, the promise and its body will be executed directly in the call stack without involving any async execution queues.
+> >
+> > Output: `1 2 3`
+>
+> The asynchronous nature of Promises comes into play when you attach callbacks to handle the resolved or rejected state.
+
 <p align="right">
     <a href="#javascript">back to top ⬆</a>
 </p>
