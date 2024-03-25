@@ -68,66 +68,83 @@ JavaScript (JS) is a programming language that runs on a combination of a JavaSc
 A JavaScript engine typically has two important components when it comes to code execution:
 
 - `Memory Heap`: This is where dynamic memory allocation occurs.
-  > It is responsible for allocating and managing memory for objects and variables created during the execution of a JS program. Objects and variables are stored in the memory heap until they are no longer needed or explicitly deallocated.
-- `Call Stack`: The call stack keeps track of the execution context of a program.
+  > It's responsible for allocating and managing memory for objects, variables, function references, and other data structures created during the program's runtime. Objects and data remain in the heap until they are no longer needed (garbage collection) or explicitly deallocated.
+- `Call Stack`: It keeps track of the order in which functions are called.
 
-  > The call stack operates on a last-in, first-out (LIFO) principle, meaning that the most recently pushed execution context is the first one to be popped off and executed.
+  - > When a function is invoked, a new EC is created for that function.
+  - > This EC is pushed onto the call stack.
+  - > The JavaScript engine executes the code within that EC's code execution phase.
 
-  > When a function is called, its execution context is pushed onto the call stack.
+  > The call stack operates on a last-in, first-out (LIFO) principle, meaning that the most recently pushed execution context is the first one to be executed and popped off.
 
-  > As functions are nested within each other, their execution contexts are stacked on top of each other in the call stack.
-
-When you run a JavaScript program, the JavaScript Engine creates an environment called the **Execution Context**, which manages the entire code execution.
-
-> The first (bottom) layer Execution Context (EC) in the call stack is called the Global Execution Context (GEC).
-
-Execution Context (EC) has two phases:
-
-1. Creation Phase.
-
-   > JavaScript reads the entire program line by line and allocates memory to all variables and functions.
-
-   > In this phase, variables are allocated memory space and assigned the initial value of `undefined`, and functions are allocated memory space as their entire function reference.
-
-2. Code Execution Phase.
-   > JavaScript runs through the entire program once again, line by line, and executes the code. This phase is where all variable assignments, logical functions, and calculations are performed.
+  > As functions are nested, their associated ECs get pushed onto the call stack, forming a nested structure that reflects the function call hierarchy.
 
 <br>
 
-**Example:**
+When you run a JavaScript program, these phases occur one after another:
 
-```js
-const n = 10;
-function square(num) {
-  const result = num * num;
-  return result;
-}
+1. When a JavaScript program starts, the engine creates the Global Execution Context (GEC).
+   > It serves as the foundation for the entire program's code execution.
+2. Creation Phase.
+   > This phase happens before any actual code execution.
+   >
+   > JavaScript goes through the entire program line by line, allocating memory for variables and functions encountered.
+   >
+   > Variables are initialized with `undefined` to indicate they haven't been assigned a value yet.
+   >
+   > Function definitions (body) are stored entirely (as executable code) in memory during this phase.
+3. Code Execution Phase.
+   > JavaScript goes through the program again, line by line, this time executing the code.
+   >
+   > This is where variables are assigned values, expressions are evaluated, and statements are carried out.
 
-let myVar1 = square(n);
-let myVar2 = square(4);
-```
+<br>
 
-- Creation Phase:
-  1. `n: undefined`
-  2. `square: { ... }`
-  3. `myVar1: undefined`
-  4. `myVar2: undefined`
-- Code Execution Phase:
-  1.  `n: 10`
-  2.  We jump over this function declaration part since there is nothing to execute.
-  3.  We invoke/execute the function `square(10)`.
-      > When we invoke a function, a brand-new Execution Context (EC) is created under the GEC, and the following phases are applied again for it:
-      - Creation Phase:
-        1. `num: undefined` (the parameter)
-        2. `result: undefined`
-        3. There is no action required for the Return statement in the Creation Phase, so we skip over it.
-      - Code Execution Phase:
-        1. `num: 10` (the parameter)
-        2. `result: 100` (100 comes from `num * num` --> `10*10`)
-        3. The Return statement indicates that the function has completed and returns control to the point where the function was invoked. When the function returns, it assigns the returned value: `myVar1: 100`.
-  4.  The same invocation/execution process is repeated for `square(4)`, which returns 16 to `myVar2`.
+> Example:
+>
+> ```js
+> const n = 10;
+> function square(num) {
+>   const result = num * num;
+>   return result;
+> }
+>
+> let myVar1 = square(n);
+> let myVar2 = square(4);
+> ```
+>
+> 1. GEC created.
+> 2. Creation Phase:
+>    1. `n: undefined`
+>    2. `square: { ... }`
+>    3. `myVar1: undefined`
+>    4. `myVar2: undefined`
+> 3. Code Execution Phase:
+>    1. `n: 10`
+>       > The value `10` is assigned to the previously allocated memory for `n`.
+>    2. We skip over the function declaration for `square`.
+>       > As it's already processed during creation. There is nothing to do with it in this phase.
+>    3. We invoke/execute the function `square(10)`.
+>       > When we invoke a function, a brand-new Execution Context (EC) is created for it under the GEC, and the following phases are applied:
+>       - Creation Phase:
+>         1. `num: undefined` (the parameter)
+>         2. `result: undefined`
+>         3. There is no action required for the Return statement in the Creation Phase, so we skip over it.
+>       - Code Execution Phase:
+>         1. `num: 10`
+>            > The value of `n` (which is `10`) is passed as an argument and assigned to the parameter `num`.
+>         2. `result: 100`
+>            > The code `num * num` is executed, and the result (`100`) is assigned to the result variable.
+>         3. `myVar1: 100`
+>            > The Return statement indicates that the function has completed and returns control to the point where the function was invoked.
+>            >
+>            > When the function returns, it assigns the returned value: `myVar1: 100`.
+>    4. The same invocation/execution process is repeated when `square(4)` is called.
+>       > This time, `num` receives the value `4`, leading to `myVar2` being assigned `16`.
 
-> This is how execution contexts are viewed in action within the call stack:
+<br>
+
+The call stack view of this process:
 
 > 1. The program starts.
 > 2. A Global Execution Context (GEC) is created.
@@ -139,6 +156,7 @@ let myVar2 = square(4);
 > 8. The GEC is deleted from the Call Stack since there is nothing else to execute.
 > 9. The program stops.
 
+> [!IMPORTANT]
 > When a function is called, its execution context is pushed onto the call stack. The call stack operates on a last-in, first-out (LIFO) principle, which implies that JavaScript executes code sequentially, following a specific order of execution. While the function is being executed, no other code can be executed until the function completes and its execution context is popped off the call stack. This behavior indicates that **JavaScript processes code in a single-threaded manner**, as it can only handle one task at a time.
 
 <br>
