@@ -175,137 +175,141 @@ Environment APIs are part of the JavaScript runtime environment (e.g., web brows
 
 <br>
 
-#### 🔻 Overall mechanism
+Important definitions:
 
-The things that you need to know first:
-
-- Callback?
+- Callbacks:
   > A callback in JavaScript is a function passed as an argument to another function, which is invoked later, often asynchronously or in response to an event. It allows for handling asynchronous operations by executing code when a certain task is completed or an event occurs.
-- Execution Queues:
-  > Execution Queues are first-in, first-out (FIFO) data structures that hold callback functions awaiting execution. The specific queue in which a callback function resides is defined by its trigger.
-  - Microtask Queues.
-    - nextTick Queue:
-      > The callback functions triggered by `process.nextTick()` sit inside this queue.
-    - Promise Queue:
-      > The callback functions triggered by Promises.
-  - Macrotask Queues (Callback Queues / Message Queues).
-    - Timer Queue:
-      > The callback functions triggered by either `setTimeout()` or `setInterval()`.
-    - I/O Queue:
-      > The callback functions triggered by most of the built-in async modules, such as reading/writing files (`fs.readFile()`), etc.
-    - Check Queue:
-      > The callback functions triggered by `setImmediate()`.
-    - Close Queue:
-      > Callback functions related to the closing of resources or processes.
+- Execution Queues (Task Queues):
+  > Execution Queues are first-in, first-out (FIFO) data structures that hold callback functions fired by async APIs.
+  >
+  > When you use an asynchronous API, the JavaScript engine doesn't wait for it to finish. Instead, it registers/schedules a callback function (using the call stack) to be placed in an appropriate queue (depending on the trigger) and continues executing synchronous code on the call stack.
+  >
+  > When an asynchronous operation/task completes, the operator gets triggered, and its corresponding callback function is placed in one of the queues.
+  >
+  > > A registered callback function can be triggered in the following ways: `addEventListener` click event (button click), `setTimeout` expiration of a specified time interval, `fetch('url')` obtaining a response from an endpoint, etc.
+- Event Loop:
+  > The Event Loop is a fundamental concept in JavaScript that is responsible for managing the execution of asynchronous operations. It's a never-ending loop that constantly checks for things to do.
+  >
+  > The event loop constantly monitors the call stack and queues. Once the call stack becomes empty (meaning all synchronous code has finished), the event loop pulls the next callback function from the appropriate queue (considering their execution order) and pushes it onto the call stack for execution.
+
+> [!NOTE]
+> Synchronous code does not enter any queue before the call stack. Synchronous code executes directly on the call stack.
 
 <br>
 
-**Event Loop:**
+#### 🔻 Execution queues and their priorities
 
-The Event Loop is a fundamental concept in JavaScript that is responsible for managing the execution of asynchronous operations.
+> [!IMPORTANT]
+> Execution queues have priorities over each other. That means one type of queue should wait for a different type of queue to empty completely if it has lower priority compared to it.
 
-> When an asynchronous operation/task completes, the operator gets triggered, and its corresponding callback function is placed in one of the queues listed above, depending on the task source.
+1. Microtask Queues.
+   > Higher Priority.
+   - > The callback functions triggered by `process.nextTick()` sit inside this queue.
+   - > The callback functions triggered by Promises. Ex, `.then()`, `.catch()`.
+   - > `MutationObserver` callbacks when changes are detected in the DOM.
+2. Macrotask Queues (Callback Queues / Message Queues).
+   > Lower Priority.
+   - > The callback functions triggered by either `setTimeout()` or `setInterval()`.
+   - > User interface events (clicks, key presses).
+   - > I/O operations (network requests, file system access).
 
-> A registered callback function can be triggered in the following ways: `addEventListener` click event (button click), `setTimeout` expiration of a specified time interval, `fetch('url')` obtaining a response from an endpoint, etc.
+<br>
 
-> On the other side, the event loop itself continuously checks if the Call Stack is empty, and if it is, it picks the top callback function from the queues, considering their execution order, and pushes it onto the call stack for execution.
-
-> The queues have priorities over each other. That means one type of queue should wait for a different type of queue to empty completely if it has lower priority compared to it.
-
-The execution sequence/phases (one circle):
-
-> 1. Microtask Queues (first nextTick queue, then Promise queue).
-> 2. Timer Queue.
-> 3. Microtask Queues (first nextTick queue, then Promise queue).
-> 4. I/O Queue.
-> 5. Microtask Queues (first nextTick queue, then Promise queue).
-> 6. Check Queue.
-> 7. Microtask Queues (first nextTick queue, then Promise queue).
-> 8. Close Queue.
-> 9. Microtask Queues (first nextTick queue, then Promise queue).
-> 10. If there are more callbacks or tasks remaining to be processed, the event loop goes back to step #1. Otherwise, it terminates (or enter a wait state until new events or callbacks arrive).
-
-  <p align="center">
-    <img src="./eventLoop.png" height="auto" width="400">
-  </p>
-
-Example #1:
-
-```js
-console.log("Start");
-
-setTimeout(function cb() {
-  console.log("Hello");
-}, 3000);
-
-console.log("End");
-```
+**The mechanism:**
 
 <p align="center">
-  <img src="./syncProcess.png" height="auto" width="900">
+ <img src="./asyncSystem.png" height="auto" width="900">
 </p>
 
-> This shows how the overall execution phase process goes for the given code.
+Examples:
 
-<br>
-
-Example #2:
-
-```js
-console.log("11111");
-
-setTimeout(() => {
-  console.log("22222");
-}, 0);
-
-Promise.resolve().then(() => {
-  console.log("33333");
-});
-
-console.log("44444");
-
-// Output:
-// 11111
-// 44444
-// 33333
-// 22222
-```
-
-> 1. As you can see, '11111' and '44444' goes first because they are sync 1st class code they don't have any relation with event loop. The GEC takes care about 1st class code, the Event Loop has no chance before it.
-
-> After GEC ends its job (executing sync 1st class code), the Event Loop comes into the picture.
-
-> 2. The Event Loop sees both of the callbacks ready and waiting to be executed in their corresponding task queues, but it chooses '33333' because it gets triggered by a Promise. Promises are microtasks and they have priority over other macro tasks, regardless of the setTimeout being set to 0 milliseconds.
-
-> 3. Finally, '22222' gets printed, as we know it belongs to the least prioritized task among the tasks inside the given code.
-
-If you want to see explanations with more examples, I recommend you watch: [YouTube playlist ↗](https://www.youtube.com/watch?v=L18RHG2DwwA&list=PLC3y8-rFHvwj1_l8acs_lBi3a0HNb3bAN&pp=iAQB).
-
-<br>
-
-**User-triggered events:**
-
-> You may ask, 'Okay, I understand the timers, I/O, etc., but what about EventListeners? What is the exact priority of callback functions triggered using addEventListener (user click) compared to microtask and macrotask queue callbacks in the Event Loop?'
-
-```js
-document.getElementById("test").addEventListener("click", () => {
-  console.log("????");
-});
-```
-
-Please take a look at the question and its accepted answer: [StackOverflow ↗](https://stackoverflow.com/questions/76673558/what-is-the-priority-of-eventlistener-callback-functions-in-the-event-loop).
-
+> #1:
 >
+> ```js
+> console.log(1);
+>
+> setTimeout(function cb() {
+>   console.log(2);
+> }, 3000);
+>
+> console.log(3);
+> ```
+>
+> Output:
+>
+> ```sh
+> 1
+> 3
+> 2
+> ```
+>
+> Steps:
+>
+> 1. `console.log(1)`
+>    > - is pushed onto the call stack.
+>    > - it is sync.
+>    > - executed directly (deleted from the call stack).
+>    > - logs `1` to the console.
+> 2. `setTimeout(function cb() {console.log(2); }, 3000);`
+>    > - is pushed onto the call stack.
+>    > - it is async (uses the timer API).
+>    > - the timer API registers/schedules the function to be pushed to the queue after 3000 milliseconds (deleted from the call stack).
+>    > - the env API does its job in the background (timer starts).
+> 3. `console.log(3)`
+>    > - is pushed onto the call stack.
+>    > - it is sync.
+>    > - executed directly (deleted from the call stack).
+>    > - logs `3` to the console.
+> 4. Once the async operation (timer) completes, the timer API pushes the callback function into the macro task queue.
+>
+> > Meanwhile, the event loop continuously checks if the call stack is empty (which it is).
+>
+> 5. The event loop takes the callback function from the queue and loads it into the call stack.
+> 6. `console.log(2);`
+>    > - it is synchronous.
+>    > - executed directly (deleted from the call stack).
+> 7. Done!
 
 <br>
 
-**Overall mechanism summary:**
-
-> 1. When an asynchronous operation is invoked, it is typically handled by the environment API, which manages the operation separately from the Call Stack.
-> 2. The environment API initiates the operation, registers a callback function (e.g., timer starts), and then continues executing the main (1st class) code in the Call Stack.
-> 3. Once the asynchronous operation completes (triggered by an event such as a timer expiration or an HTTP response being received), the environment API places the corresponding callback function into an appropriate queue.
-> 4. The Event Loop continuously checks the state of the Call Stack. If the Call Stack is empty, meaning nothing is currently being executed, the Event Loop takes the first callback function from the appropriate queue and pushes it onto the Call Stack.
-> 5. Once the callback function is pushed onto the Call Stack, it is executed synchronously like any other 1st class code.
+> #2:
+>
+> ```js
+> Promise.resolve().then(() => {
+>   console.log(1);
+> });
+>
+> queueMicrotask(() => {
+>   console.log(2);
+> });
+>
+> setTimeout(() => {
+>   console.log(3);
+> }, 0);
+>
+> console.log(4);
+>
+> new Promise(() => {
+>   console.log(5);
+> });
+>
+> (async () => {
+>   console.log(6);
+> })();
+> ```
+>
+> > Output:
+>
+> ```sh
+> 4
+> 5
+> 6
+> 1
+> 2
+> 3
+> ```
+>
+> Check this video: [Frontend Masters - Test Your JavaScript Knowledge with Lydia Hallie | Preview ↗](https://youtu.be/IHQcma93fpE?si=1v-1QD4r3hXQcLx3&t=29)
 
 <p align="right">
     <a href="#javascript">back to top ⬆</a>
