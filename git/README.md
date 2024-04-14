@@ -755,7 +755,7 @@ The reflog is a local history that is specific to your repository and is not sha
 
 The reflog is useful in situations where you have accidentally deleted or lost commits, branches, or other references.
 
-> You can recover lost work by applying some <time-traveling>(#-time-traveling-undoing-changes) actions that we discussed earlier.
+> You can recover lost work by applying some [time-traveling](#-time-traveling-undoing-changes) actions that we discussed earlier.
 
 - `git checkout <Reflog_Hash>`: Travel to a specific hash and open it in 'detached HEAD' mode.
 
