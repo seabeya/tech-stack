@@ -33,6 +33,28 @@
    - [Trie (Prefix Tree)](#-trie-prefix-tree)
    - [Graphs](#-graphs)
    - [Matrix (2D Arrays)](#-matrix-2d-arrays)
+3. [Algorithms](#-algorithms)
+   - [Related Techniques and Tricks](#-related-techniques-and-tricks)
+     - [Recursion](#-recursion)
+     - [The Gauss' Trick](#-the-gauss-trick)
+   - [Sorting](#-sorting)
+     - [Bubble Sort](#-bubble-sort)
+     - [Selection Sort](#-selection-sort)
+     - [Insertion Sort](#-insertion-sort)
+     - [Merge Sort](#-merge-sort)
+     - [Quick Sort](#-quick-sort)
+     - [Counting Sort](#-counting-sort)
+   - [Searching](#-searching)
+     - [Linear Search](#-linear-search)
+     - [Binary Search](#-binary-search)
+     - [Depth First Search (DFS)](#-depth-first-search-dfs)
+       - [Tree DFS](#-tree-dfs)
+       - [Graph DFS](#-graph-dfs)
+       - [2D Arrays / Matrix DFS](#-2d-arrays--matrix-dfs)
+     - [Breadth First Search (BFS)](#-breadth-first-search-bfs)
+       - [Tree BFS](#-tree-bfs)
+       - [Graph BFS](#-graph-bfs)
+       - [2D Arrays / Matrix BFS](#-2d-arrays--matrix-bfs)
 
 <br>
 
@@ -161,7 +183,7 @@ Overview:
 </p>
 
 > [!NOTE]
-> In this section, I will cover the structure, implementation, and additional notes of some data structures. However, I will not cover advanced algorithms such as BFS and DFS, even if they are related to the data structures discussed here. I will address those in a separate section.
+> In this section, I will cover the structure, implementation, and additional notes of some data structures. However, I will not cover advanced algorithms such as BFS and DFS, even if they are related to the data structures discussed here. I will be addressing those in the [Algorithms](#-algorithms) section.
 
 <br>
 
@@ -1574,6 +1596,1159 @@ The structure of a 2D array allows for efficient access, modification, and trave
   [0, 0, 0, 1, 0, 0],   ->     [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],   ->     [0, 0, 0, 0, 0, 0],
 ];                      ->   ]
+```
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+# 🟪 Algorithms
+
+<p align="center">
+  <a href="#-related-techniques-and-tricks">Related Techniques and Tricks</a> •
+  <a href="#-sorting">Sorting</a> •
+  <a href="#-searching">Searching</a>
+</p>
+
+<br>
+
+## 🔶 Related Techniques and Tricks
+
+### 🔷 Recursion
+
+Recursion in programming is a technique where a function calls itself in order to solve a problem.
+
+Recursion allows you to break down a complex problem into smaller, more manageable subproblems. Each recursive call operates on a smaller piece of the original problem until a base case is reached, at which point the recursion stops.
+
+Recursion is useful when you don't know in advance how many steps or iterations will be needed to find the solution. It allows you to keep going deeper into the problem until you reach a base case that can be easily solved.
+
+- Definitions:
+
+  - Recursive Call:
+    > Calling the function again.
+  - Base Case:
+    > Defines when to stop.
+    1. The smallest valid input for the problem.
+       > This is often the simplest case where the function can return a result without further recursion.
+    2. Termination conditions.
+       > The conditions under which the recursive process should stop.
+    3. Edge cases.
+       > Any edge cases or special scenarios that require specific handling.
+  - Recursive case:
+    > Making progress towards the base case. It is important that each recursive call brings you closer to the base case.
+
+- Process:
+
+  - Stacking (going down):
+    > Each time a function calls itself recursively, a new stack frame is added on top of the previous one, containing the parameters and local variables for that specific invocation of the function.
+  - Unfolding (going up):
+    > As the base case is reached, the recursion starts to unwind. Each function call returns its value to the previous level of the call stack until the initial function call returns the final result.
+
+<br>
+
+#### 🔻 Step by Step Recursion With Examples
+
+**Example 1:** Factorial
+
+```js
+function factorial(num) {
+  // Base case:
+  if (num === 0 || num === 1) {
+    return 1;
+  }
+
+  // Recursive case & call:
+  return num * factorial(num - 1);
+}
+```
+
+- Steps: `factorial(5)`
+
+  - Stacking:
+
+    | Stack / Recursion | Current `num` | Base case? | Current recursive case & call  | Next `num` |
+    | ----------------- | ------------- | ---------- | ------------------------------ | ---------- |
+    | 1st               | `5`           | false      | `return 5 * factorial(5 - 1);` | `4`        |
+    | 2nd               | `4`           | false      | `return 4 * factorial(4 - 1);` | `3`        |
+    | 3rd               | `3`           | false      | `return 3 * factorial(3 - 1);` | `2`        |
+    | 4th               | `2`           | false      | `return 2 * factorial(2 - 1);` | `1`        |
+    | 5th               | `1`           | true       | -                              | -          |
+
+  - Unfolding:
+
+    | Stack / Recursion | Current return case | Returned |
+    | ----------------- | ------------------- | -------- |
+    | 5th               | `return 1;`         | `1`      |
+    | 4th               | `return 2 * 1;`     | `2`      |
+    | 3rd               | `return 3 * 2;`     | `6`      |
+    | 2nd               | `return 4 * 6;`     | `24`     |
+    | 1st               | `return 5 * 24;`    | `120`    |
+
+<br>
+
+**Example 2:** Reverse a string
+
+```js
+function reverseStr(str) {
+  // Base case:
+  if (str.length <= 1) {
+    return str;
+  }
+
+  // Recursive case & call:
+  return reverseStr(str.substring(1)) + str[0];
+}
+```
+
+- Steps: `reverseStr('Hello')`
+
+  - Stacking:
+
+    | Stack / Recursion | Current `str` | Base case? | Current recursive case & call      | Next `str` |
+    | ----------------- | ------------- | ---------- | ---------------------------------- | ---------- |
+    | 1st               | `'Hello'`     | false      | `return reverseStr('ello') + 'H';` | `'ello'`   |
+    | 2nd               | `'ello'`      | false      | `return reverseStr('llo') + 'e';`  | `'llo'`    |
+    | 3rd               | `'llo'`       | false      | `return reverseStr('lo') + 'l';`   | `'lo'`     |
+    | 4th               | `'lo'`        | false      | `return reverseStr('o') + 'l';`    | `'o'`      |
+    | 5th               | `'o'`         | true       | -                                  | -          |
+
+  - Unfolding:
+
+    | Stack / Recursion | Current return case    | Returned |
+    | ----------------- | ---------------------- | -------- |
+    | 5th               | `return 'o';`          | `o`      |
+    | 4th               | `return 'o' + 'l';`    | `ol`     |
+    | 3rd               | `return 'ol' + 'l';`   | `oll`    |
+    | 2nd               | `return 'oll' + 'e';`  | `olle`   |
+    | 1st               | `return 'olle' + 'H';` | `olleH`  |
+
+<br>
+
+### 🔷 The Gauss' Trick
+
+A method for efficiently `O(1)` finding the sum of an arithmetic series
+
+The formula:
+
+```js
+S = (n / 2) * (a + l);
+```
+
+- `S` is the sum of the series.
+- `a` is the first term.
+- `l` is the last term.
+- `n` is the number of terms. `n = (l - a) / d + 1`
+  - `d` is the common difference (constant difference between terms).
+
+<br>
+
+<details><summary>Examples:</summary>
+
+1. Sum of numbers from 0 to 10:
+
+   ```js
+   a = 0
+   l = 10
+   n = ((10 - 0) / 1 + 1) = 11
+
+   S = (11 / 2) * (0 + 10)
+   S = 5.5 * 10
+   S = 55
+   ```
+
+2. Sum of numbers from -5 to 2:
+
+   ```js
+   a = -5;
+   l = 2;
+   n = (2 - (-5)) / 1 + 1 = 8
+
+   S = (8 / 2) * (-5 + 2)
+   S = 4 * (-3)
+   S = -12
+   ```
+
+3. Sum of numbers from -2 to 213:
+
+   ```js
+   a = -2
+   l = 213
+   n = (213 - (-2)) / 1 + 1 = 216
+
+   S = (216 / 2) * (-2 + 213)
+   S = 108 * 211
+   S = 22788
+   ```
+
+4. Sum of numbers `[2, 4, 6, 8, 10, 12, 14]`:
+
+   ```js
+   a = 2
+   l = 14
+   n = (14 - 2) / 2 + 1 = 7
+
+   S = (7 / 2) * (2 + 14)
+   S = 3.5 * 16
+   S = 56
+   ```
+
+</details>
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Sorting
+
+Sorting algorithms are a set of techniques used to arrange elements, with each algorithm having its own strengths and weaknesses, making it suitable for different scenarios and types of data.
+
+**Stable vs Unstable Sorting:**
+
+- Stable:
+  > If two or more elements have the same key value, the stable sorting algorithm will ensure that their relative order in the original list is preserved in the sorted list.
+- Unstable:
+  > If two or more elements have the same key value, the order in which they appear in the sorted list is not guaranteed to be the same as their order in the original list.
+
+<br>
+
+**Sorting Algorithms:**
+
+| Name                               | Stable? | Time                            | Space       | When to use?                                            |
+| ---------------------------------- | ------- | ------------------------------- | ----------- | ------------------------------------------------------- |
+| [Bubble Sort](#-bubble-sort)       | `true`  | `O(n^2)`                        | `O(1)`      | Never                                                   |
+| [Selection Sort](#-selection-sort) | `false` | `O(n^2)`                        | `O(1)`      | Never                                                   |
+| [Insertion Sort](#-insertion-sort) | `true`  | `O(n^2)`                        | `O(1)`      | Small Datasets; Nearly Sorted Data                      |
+| [Merge Sort](#-merge-sort)         | `true`  | `O(n log(n))`                   | `O(n)`      | Large Datasets; Memory usage is not a problem           |
+| [Quick Sort](#-quick-sort)         | `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` | Medium Datasets; Memory usage is a problem              |
+| [Counting Sort](#-counting-sort)   | `true`  | `O(n + k)`                      | `O(k)`      | Small Range of Input Values; Non-negative integers only |
+| Radix Sort                         | `true`  | `O(nk)`                         | `O(n + k)`  |                                                         |
+| Heap Sort                          | `false` | `O(n log(n))`                   | `O(1)`      |                                                         |
+
+<br>
+
+### 🔷 Bubble Sort
+
+Generally not recommended. Just know there is something like this.
+
+| Stable? | Time     | Space  |
+| ------- | -------- | ------ |
+| `true`  | `O(n^2)` | `O(1)` |
+
+```js
+function bubbleSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+
+bubbleSort(numbers);
+
+console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+<p align="center">
+  <img src="./bubbleSort.gif" height="auto" width="250">
+</p>
+
+<br>
+
+### 🔷 Selection Sort
+
+Generally not recommended. Just know there is something like this.
+
+| Stable? | Time     | Space  |
+| ------- | -------- | ------ |
+| `false` | `O(n^2)` | `O(1)` |
+
+```js
+function selectionSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
+      }
+    }
+    let temp = arr[i];
+    arr[i] = arr[min];
+    arr[min] = temp;
+  }
+}
+
+const numbers = [8, 5, 2, 6, 9, 3, 1, 4, 0, 7];
+
+selectionSort(numbers);
+
+console.log(numbers); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+<p align="center">
+  <img src="./selectionSort.gif" height="auto" width="75">
+</p>
+
+<br>
+
+### 🔷 Insertion Sort
+
+- Small Datasets:
+  > Insertion Sort can be effective for sorting small datasets due to its simplicity and low overhead.
+- Real-time Data:
+  > Insertion Sort is often used in scenarios where data is being streamed in real-time and needs to be sorted as it arrives.
+- Nearly Sorted Data:
+  > When the input data is already partially sorted or contains only a few elements out of place, this algorithm can quickly rearrange the data with minimal comparisons and swaps.
+
+| Stable? | Time     | Space  |
+| ------- | -------- | ------ |
+| `true`  | `O(n^2)` | `O(1)` |
+
+```js
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let j = i - 1;
+    while (j >= 0 && arr[j + 1] < arr[j]) {
+      let temp = arr[j + 1];
+      arr[j + 1] = arr[j];
+      arr[j] = temp;
+
+      j--;
+    }
+  }
+}
+
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+
+insertionSort(numbers);
+
+console.log(numbers); // [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+<p align="center">
+  <img src="./insertionSort.gif" height="auto" width="250">
+</p>
+
+<br>
+
+### 🔷 Merge Sort
+
+- Large Datasets:
+  > Merge Sort's time complexity of `O(n log n)` makes it highly efficient for sorting large datasets.
+- Divide and Conquer:
+  > Merge Sort follows the divide-and-conquer paradigm, breaking down the sorting task into smaller subproblems, sorting them individually, and then merging the sorted sublists to produce a fully sorted list.
+- Predictable Performance:
+  > Unlike some other sorting algorithms, Merge Sort consistently performs well regardless of the input data's distribution.
+- Parallelization:
+  > Merge Sort can be easily parallelized, allowing it to take advantage of multi-core processors and distributed computing environments. This makes it suitable for sorting very large datasets in parallel, further improving its efficiency.
+
+| Stable? | Time          | Space  |
+| ------- | ------------- | ------ |
+| `true`  | `O(n log(n))` | `O(n)` |
+
+> [!NOTE]
+> Even the data is already sorted, Mergesort still divides, sorts, and merges the subarrays, resulting in rewriting 100% of elements into another array and then back into the original one.
+
+```js
+function mergeSort(array) {
+  // base case:
+  if (array.length <= 1) return array;
+  // split:
+  const mid = Math.floor(array.length / 2);
+  const left = array.slice(0, mid);
+  const right = array.slice(mid);
+  // split until base case and then merge back while unfolding:
+  return merge(mergeSort(left), mergeSort(right));
+}
+
+// compare and merge:
+function merge(left, right) {
+  const temp = [];
+  let l = 0;
+  let r = 0;
+  while (l < left.length && r < right.length) {
+    if (left[l] <= right[r]) {
+      temp.push(left[l]);
+      l++;
+    } else {
+      temp.push(right[r]);
+      r++;
+    }
+  }
+  return [...temp, ...left.slice(l), ...right.slice(r)];
+}
+
+const numbers = [6, 5, 3, 1, 8, 7, 2, 4];
+
+console.log(mergeSort(numbers)); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+console.log(numbers); // [6, 5, 3, 1, 8, 7, 2, 4]
+```
+
+<p align="center">
+  <img src="./mergeSort.gif" height="auto" width="250">
+</p>
+
+<br>
+
+### 🔷 Quick Sort
+
+The important thing in Quick Sort is selecting a good pivot element and efficiently partitioning the array around it. A good pivot choice helps balance the sizes of the subarrays, minimizing the number of recursive calls and reducing the overall time complexity.
+
+> The efficiency of Quick Sort heavily depends on the partitioning step, which should ideally split the array into roughly equal-sized partitions to achieve optimal performance.
+
+- Memory Efficient:
+  > Quick Sort is an in-place sorting algorithm, meaning it requires only a constant amount of additional memory space beyond the input array.
+- Adaptive Sorting:
+  > Quick Sort's performance can be further optimized by selecting a good pivot element, which allows it to adapt to the characteristics of the input data.
+
+| Stable? | Time                            | Space       |
+| ------- | ------------------------------- | ----------- |
+| `false` | `O(n log(n))` (worst: `O(n^2)`) | `O(log(n))` |
+
+> [!NOTE]
+> Quicksort minimizes unnecessary swaps, it swaps nothing if the data is already sorted.
+
+```js
+function quickSort(arr, left = 0, right = arr.length - 1) {
+  if (left < right) {
+    // pivot: middle element
+    const pivot = arr[Math.floor((left + right) / 2)];
+
+    const index = partition(arr, left, right, pivot);
+
+    quickSort(arr, left, index - 1);
+    quickSort(arr, index, right);
+  }
+
+  return arr;
+}
+
+function partition(arr, left, right, pivot) {
+  while (left <= right) {
+    while (arr[left] < pivot) {
+      left++;
+    }
+
+    while (arr[right] > pivot) {
+      right--;
+    }
+
+    if (left <= right) {
+      let temp = arr[left];
+      arr[left] = arr[right];
+      arr[right] = temp;
+
+      left++;
+      right--;
+    }
+  }
+  return left;
+}
+
+const numbers = [2, 4, 7, 1, 0, 0, 5, 4, 8];
+
+quickSort(numbers);
+
+console.log(numbers); // [0, 0, 1, 2, 4, 4, 5, 7, 8]
+```
+
+> Not the exact same items, but overall, it looks something like this:
+
+<p align="center">
+  <img src="./quickSort.gif" height="auto" width="250">
+</p>
+
+> [!NOTE]
+> The worst-case time complexity of Quick Sort is `O(n^2)`, which occurs when the chosen pivot is consistently either the smallest or largest element in the array. In such cases, the partitioning step fails to divide the array into roughly equal-sized partitions, leading to unbalanced recursion and degraded performance.
+
+<br>
+
+### 🔷 Counting Sort
+
+- Small Range of Input Values:
+  > Counting Sort works best when the range of input values (the difference between the maximum and minimum values) is relatively small compared to the number of elements in the input array.
+- Non-negative integers only:
+  > Counting Sort utilizes the array structure to count occurrences of each unique integer in the input array. It then reconstructs the sorted array based on these counts.
+
+| Stable? | Time       | Space  |
+| ------- | ---------- | ------ |
+| `true`  | `O(n + k)` | `O(k)` |
+
+```js
+function countingSort(arr) {
+  const max = Math.max(...arr);
+  const store = new Array(max + 1).fill(0);
+
+  for (let i = 0; i < arr.length; i++) {
+    const number = arr[i];
+    store[number]++;
+  }
+
+  let cursor = 0;
+  for (let i = 0; i < store.length; i++) {
+    for (let j = 0; j < store[i]; j++) {
+      arr[cursor] = i;
+      cursor++;
+    }
+  }
+}
+
+const numbers = [2, 4, 7, 3, 2, 7, 0, 4, 4, 4, 9, 5, 3];
+
+countingSort(numbers);
+
+console.log(numbers); // [0, 2, 2, 3, 3, 4, 4, 4, 4, 5, 7, 7, 9]
+```
+
+<p align="right">
+    <a href="#data-structures--algorithms">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Searching
+
+Searching algorithms are methods used to locate specific items within a collection of data.
+
+| Name                                                     | Time        | Space  |
+| -------------------------------------------------------- | ----------- | ------ |
+| [Linear Search](#-linear-search)                         | `O(n)`      | `O(1)` |
+| [Binary Search](#-binary-search)                         | `O(log(n))` | `O(1)` |
+| [Depth First Search (DFS)](#-depth-first-search-dfs)     | `O(n)`      | `O(h)` |
+| [Breadth First Search (BFS)](#-breadth-first-search-bfs) | `O(n)`      | `O(n)` |
+
+<br>
+
+### 🔷 Linear Search
+
+| Time   | Space  |
+| ------ | ------ |
+| `O(n)` | `O(1)` |
+
+Checks each element of the list sequentially for the target value until a match is found or all elements have been searched.
+
+```js
+function linearSearch(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === target) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+const numbers = [9, 1, 7, 3, -4, 0, 3, 5, 6, 5];
+
+const targetIndex = linearSearch(numbers, 5);
+
+console.log(targetIndex); // 7
+```
+
+<br>
+
+### 🔷 Binary Search
+
+| Time        | Space  |
+| ----------- | ------ |
+| `O(log(n))` | `O(1)` |
+
+> [!IMPORTANT]  
+> The array must be sorted.
+
+It works by cutting the array's part in half again and again until there's only one possible location left.
+
+- Iterative:
+
+  ```js
+  function binarySearch(array, target) {
+    let left = 0;
+    let right = array.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+
+      if (array[mid] < target) {
+        left = mid + 1;
+      } else if (array[mid] > target) {
+        right = mid - 1;
+      } else {
+        return mid;
+      }
+    }
+
+    return false;
+  }
+
+  console.log(binarySearch([-6, -2, 0, 2, 3, 3, 5, 7, 12], -2)); // 1
+  ```
+
+- Recursive:
+
+  ```js
+  function binarySearch(array, target, left = 0, right = array.length - 1) {
+    if (left > right) {
+      return false;
+    }
+
+    const mid = Math.floor((left + right) / 2);
+
+    if (array[mid] < target) {
+      return binarySearch(array, target, mid + 1, right);
+    } else if (array[mid] > target) {
+      return binarySearch(array, target, left, mid - 1);
+    } else {
+      return mid;
+    }
+  }
+
+  console.log(binarySearch([-6, -2, 0, 2, 3, 3, 5, 7, 12], -2)); // 1
+  ```
+
+<br>
+
+### 🔷 Depth First Search (DFS)
+
+Depth First Search (DFS) is a graph traversal algorithm used to explore nodes in a graph or a tree. DFS explores as far as possible along each branch before backtracking.
+
+It's like traversing a maze by exploring one path all the way to the end before backtracking and trying a different path.
+
+| Time   | Space  |
+| ------ | ------ |
+| `O(n)` | `O(h)` |
+
+<br>
+
+#### 🔻 Tree DFS
+
+> [Binary Search Tree](#-binary-search-tree)
+
+<p align="center">
+  <img src="./searchTree.png" height="auto" width="300">
+</p>
+
+**Order of searching:**
+
+- PreOrder: `Node - Left - Right`
+  > [9, 4, 1, 6, 20, 15, 170]
+- InOrder: `Left - Node - Right`
+  > [1, 4, 6, 9, 15, 20, 170]
+- PostOrder: `Left - Right - Node`
+  > [1, 6, 4, 15, 170, 20, 9]
+
+> [!NOTE]
+> You can change the priority of sides, if you need. Ex: `Node - Left - Right` to `Node - Right - Left`
+
+<br>
+
+**Code:** (Recursive)
+
+```js
+class BinarySearchTree {
+  ...
+
+
+  DFSPreorder() { ... }
+
+
+  DFSInorder() { ... }
+
+
+  DFSPostorder() { ... }
+}
+
+
+const tree = new BinarySearchTree();
+tree.insert(9);
+tree.insert(4);
+tree.insert(1);
+tree.insert(6);
+tree.insert(20);
+tree.insert(15);
+tree.insert(170);
+
+console.log(tree.DFSPreorder());
+console.log(tree.DFSInorder());
+console.log(tree.DFSPostorder());
+```
+
+```js
+  DFSPreorder() {
+    const traversePreOrder = (node, list) => {
+      if (node === null) return null;
+
+
+      // node:
+      list.push(node.value);
+      // left:
+      if (node.left) {
+        traversePreOrder(node.left, list);
+      }
+      // right:
+      if (node.right) {
+        traversePreOrder(node.right, list);
+      }
+      return list;
+    };
+
+
+    return traversePreOrder(this.root, []);
+  }
+```
+
+```js
+  DFSInorder() {
+    const traverseInOrder = (node, list) => {
+      if (node === null) return null;
+
+
+      // left:
+      if (node.left) {
+        traverseInOrder(node.left, list);
+      }
+      // node:
+      list.push(node.value);
+      // right:
+      if (node.right) {
+        traverseInOrder(node.right, list);
+      }
+      return list;
+    };
+    return traverseInOrder(this.root, []);
+  }
+```
+
+```js
+  DFSPostorder() {
+    const traversePostOrder = (node, list) => {
+      if (node === null) return null;
+
+
+      // left:
+      if (node.left) {
+        traversePostOrder(node.left, list);
+      }
+      // right:
+      if (node.right) {
+        traversePostOrder(node.right, list);
+      }
+      // node
+      list.push(node.value);
+      return list;
+    };
+
+
+    return traversePostOrder(this.root, []);
+  }
+```
+
+<br>
+
+#### 🔻 Graph DFS
+
+[Graph Representations](#-graph-representations)
+
+<p align="center">
+  <img src="./searchGraph.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [0, 1, 3, 2, 8, 4, 6, 7, 5]
+</p>
+
+- Adjacency List:
+
+  ```js
+  const adjacencyList = [
+    [1, 3],
+    [0],
+    [3, 8],
+    [0, 2, 4, 5],
+    [3, 6],
+    [3],
+    [4, 7],
+    [6],
+    [2],
+  ];
+
+  function traversalDFS(vertex, graph, values, seen) {
+    values.push(vertex);
+
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let i = 0; i < connections.length; i++) {
+      const connection = connections[i];
+
+      if (!seen[connection]) {
+        traversalDFS(connection, graph, values, seen);
+      }
+    }
+  }
+
+  const values = [];
+
+  // 0 is the starting point (index): adjacencyList[0]
+  traversalDFS(0, adjacencyList, values, {});
+
+  console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
+  ```
+
+- Adjacency Matrix:
+
+  ```js
+  const adjacencyMatrix = [
+    [0, 1, 0, 1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0],
+  ];
+  function traversalDFS(vertex, graph, values, seen) {
+    values.push(vertex);
+
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let v = 0; v < connections.length; v++) {
+      if (connections[v] > 0 && !seen[v]) {
+        traversalDFS(v, graph, values, seen);
+      }
+    }
+  }
+
+  const values = [];
+
+  // 0 is the starting point (index): adjacencyMatrix[0]
+  traversalDFS(0, adjacencyMatrix, values, {});
+
+  console.log(values); // [0, 1, 3, 2, 8, 4, 6, 7, 5]
+  ```
+
+<br>
+
+#### 🔻 2D Arrays / Matrix DFS
+
+[Matrix (2D Arrays)](#-matrix-2d-arrays)
+
+<p align="center">
+  ⬆➡⬇⬅
+</p>
+
+<p align="center">
+  <img src="./searchMatrixDFS.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [1, 2, 3, 4, 5, 10, 15, 20, 19, 14, 9, 8, 13, 18, 17, 12, 7, 6, 11, 16]
+</p>
+
+```js
+const arr2d = [
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15],
+  [16, 17, 18, 19, 20],
+];
+
+const directions = [
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+  [0, -1],
+];
+
+function search(matrix) {
+  const seen = new Set();
+  const values = [];
+
+  // 0, 0 are the starting points (row, col): arr2d[0][0] = 1
+  dfs(matrix, 0, 0, seen, values);
+
+  return values;
+}
+
+function dfs(matrix, row, col, seen, values) {
+  if (
+    row < 0 ||
+    col < 0 ||
+    row >= matrix.length ||
+    col >= matrix[0].length ||
+    seen.has(`${row}${col}`)
+  ) {
+    return;
+  }
+
+  values.push(matrix[row][col]);
+  seen.add(`${row}${col}`);
+
+  for (let i = 0; i < directions.length; i++) {
+    const curDir = directions[i];
+    dfs(matrix, row + curDir[0], col + curDir[1], seen, values);
+  }
+}
+
+console.log(search(arr2d));
+// [1, 2, 3, 4, 5, 10, 15, 20, 19, 14, 9, 8, 13, 18, 17, 12, 7, 6, 11, 16]
+```
+
+<br>
+
+### 🔷 Breadth First Search (BFS)
+
+Breadth First Search (BFS) is a graph traversal algorithm used to explore nodes in a graph or a tree level by level.
+
+It starts at a specified node (usually called the "root" node) and explores all of its neighbors at the present depth level before moving on to the nodes at the next depth level.
+
+| Time   | Space  |
+| ------ | ------ |
+| `O(n)` | `O(n)` |
+
+<br>
+
+#### 🔻 Tree BFS
+
+> [Binary Search Tree](#-binary-search-tree)
+
+<p align="center">
+  <img src="./searchTree.png" height="auto" width="300">
+</p>
+
+<p align="center">
+  [9, 4, 20, 1, 6, 15, 170]
+</p>
+
+> Iterative:
+
+```js
+class QueueNode { ...}
+class Queue { ... }
+
+
+class TreeNode { ... }
+class BinarySearchTree {
+  ...
+
+
+  BFS() {
+    if (this.root === null) return null;
+
+    const list = [];
+    const queue = new Queue();
+
+    queue.enqueue(this.root);
+
+    while (queue.size > 0) {
+      const currentNode = queue.peek();
+
+      list.push(currentNode.value);
+
+      if (currentNode.left) {
+        queue.enqueue(currentNode.left);
+      }
+
+      if (currentNode.right) {
+        queue.enqueue(currentNode.right);
+      }
+
+      queue.dequeue();
+    }
+
+    return list;
+  }
+}
+
+const tree = new BinarySearchTree();
+tree.insert(9);
+tree.insert(4);
+tree.insert(1);
+tree.insert(6);
+tree.insert(20);
+tree.insert(15);
+tree.insert(170);
+
+console.log(tree.BFS()); // [9, 4, 20, 1, 6, 15, 170
+```
+
+<br>
+
+#### 🔻 Graph BFS
+
+[Graph Representations](#-graph-representations)
+
+<p align="center">
+  <img src="./searchGraph.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [0, 1, 3, 2, 4, 5, 8, 6, 7]
+</p>
+
+- Adjacency List:
+
+```js
+const adjacencyList = [
+  [1, 3],
+  [0],
+  [3, 8],
+  [0, 2, 4, 5],
+  [3, 6],
+  [3],
+  [4, 7],
+  [6],
+  [2],
+];
+
+const traversalBFS = function (graph) {
+  const seen = {};
+  const queue = [0]; // the starting point (index).
+  const values = [];
+
+  while (queue.length) {
+    const vertex = queue.shift();
+
+    values.push(vertex);
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let i = 0; i < connections.length; i++) {
+      const connection = connections[i];
+      if (!seen[connection]) {
+        queue.push(connection);
+      }
+    }
+  }
+
+  return values;
+};
+
+console.log(traversalBFS(adjacencyList)); // [0, 1, 3, 2, 4, 5, 8, 6, 7]
+```
+
+- Adjacency Matrix:
+
+```js
+const adjacencyMatrix = [
+  [0, 1, 0, 1, 0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 1, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0],
+];
+function traversalBFS(graph) {
+  const seen = {};
+  const queue = [0]; // the starting point (index).
+  const values = [];
+
+  while (queue.length) {
+    const vertex = queue.shift();
+
+    values.push(vertex);
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+
+    for (let v = 0; v < connections.length; v++) {
+      if (connections[v] > 0 && !seen[v]) {
+        queue.push(v);
+      }
+    }
+  }
+
+  return values;
+}
+
+console.log(traversalBFS(adjacencyMatrix)); // [0, 1, 3, 2, 4, 5, 8, 6, 7]
+```
+
+<br>
+
+#### 🔻 2D Arrays / Matrix BFS
+
+[Matrix (2D Arrays)](#-matrix-2d-arrays)
+
+<p align="center">
+  ⬆➡⬇⬅
+</p>
+
+<p align="center">
+  <img src="./searchMatrixBFS.png" height="auto" width="350">
+</p>
+
+<p align="center">
+  [13, 8, 14, 18, 12, 3, 9, 7, 15, 19, 17, 11, 4, 2, 10, 6, 20, 16, 5, 1]
+</p>
+
+```js
+const arr2d = [
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15],
+  [16, 17, 18, 19, 20],
+];
+
+const directions = [
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+  [0, -1],
+];
+
+function bfs(matrix) {
+  const seen = new Set();
+  const values = [];
+  const queue = [[2, 2]]; // the starting point (row, col)
+
+  while (queue.length) {
+    const [row, col] = queue.shift();
+
+    if (
+      row < 0 ||
+      row >= matrix.length ||
+      col < 0 ||
+      col >= matrix[0].length ||
+      seen.has(`${row}${col}`)
+    ) {
+      continue;
+    }
+
+    seen.add(`${row}${col}`);
+    values.push(matrix[row][col]);
+
+    for (let i = 0; i < directions.length; i++) {
+      const currentDir = directions[i];
+      queue.push([row + currentDir[0], col + currentDir[1]]);
+    }
+  }
+
+  return values;
+}
+
+console.log(bfs(arr2d));
+// [13, 8, 14, 18, 12, 3, 9, 7, 15, 19, 17, 11, 4, 2, 10, 6, 20, 16, 5, 1]
 ```
 
 <p align="right">
