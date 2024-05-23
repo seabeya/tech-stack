@@ -340,7 +340,9 @@ console.log(x); // ReferenceError: x is not defined
 ```
 
 > [!NOTE]
+>
 > `undefined` and `not defined` are different things.
+>
 > - **Undefined**: It means that the variable exists in memory but does not have a specific value assigned to it yet. It can be thought of as a placeholder or a default state for variables.
 > - **Not Defined**: The variable or function doesn't exist in memory (the program is not aware of its existence).
 
@@ -1418,79 +1420,97 @@ The ability to use functions as values is known as First Class Function/Citizen.
 
 ### 🔷 `this` keyword
 
-The "this" keyword refers to the current context or the object on which a function is being executed.
+The `this` keyword refers to the current context or the object on which a function is being executed.
 
+- `this` in Global Context:
+  > When used in the global context (outside any function), `this` refers to the global object.
+  >
+  > ```js
+  > console.log(this); // Window { ... }
+  > ```
 - `this` in Object Methods:
-
-  > When a function is part of an object and is called as a method of that object, the `this` keyword inside the function refers to the object itself. It allows the method to access and modify the object's properties and methods.
-
-  ```js
-  const myObject = {
-    name: "John",
-    show() {
-      console.log(this); // {name: 'John', show: ƒ}
-    },
-  };
-
-  myObject.show();
-  ```
-
+  > When used inside a method of an object, `this` refers to the object itself.
+  >
+  > ```js
+  > const myObject = {
+  >   name: "John",
+  >   show() {
+  >     console.log(this); // Object { name: "John", show: ƒ }
+  >   },
+  > };
+  > myObject.show();
+  > ```
 - `this` in Regular Functions:
-
-  > When a regular function is called, the value of `this` is determined by how the function is invoked.
-
-  ```js
-  function regularFunction() {
-    console.log(this); // Window { ... }
-  }
-
-  regularFunction();
-  ```
-
-  ```js
-  const myObject = {
-    name: "John",
-    show() {
-      function regularFunction() {
-        console.log(this); // Window { ... }
-      }
-      regularFunction();
-    },
-  };
-
-  myObject.show();
-  ```
-
+  > When used inside a regular function, `this` refers to the global object (in non-strict mode) or `undefined` (in strict mode).
+  >
+  > ```js
+  > function myFunction() {
+  >   console.log(this); // Window { ... } / undefined
+  > }
+  > myFunction();
+  > ```
+- `this` in Regular Function in Object Method:
+  > When used inside a nested regular function within a method, `this` refers to the global object (in non-strict mode) or undefined (in strict mode) not the current object.
+  >
+  > ```js
+  > const myObject = {
+  >   name: "John",
+  >   show() {
+  >     function myFunction() {
+  >       console.log(this); // Window { ... } / undefined
+  >     }
+  >     myFunction();
+  >   },
+  > };
+  >
+  > myObject.show();
+  > ```
 - `this` in Arrow Functions:
-
-  > Arrow functions do not have their own `this` context. Instead, they inherit the `this` value from the surrounding scope (lexical scope).
-
-  ```js
-  const myObject = {
-    name: "John",
-    show() {
-      const arrowFunction = () => {
-        // Inherits 'this' from the 'show' function
-        console.log(this); // {name: 'John', show: ƒ}
-      };
-      arrowFunction();
-    },
-  };
-
-  myObject.show();
-  ```
-
-  ```js
-  const myObject = {
-    name: "John",
-
-    show: () => {
-      console.log(this); // Window { ... }
-    },
-  };
-
-  myObject.show();
-  ```
+  > Arrow functions do not have their own `this` context. Instead, they inherit the `this` value from the surrounding scope.
+  >
+  > ```js
+  > const myObject = {
+  >   name: "John",
+  >   show() {
+  >     const myFunction = () => {
+  >       // Inherits 'this' from the 'show' function
+  >       console.log(this); // {name: 'John', show: ƒ}
+  >     };
+  >     myFunction();
+  >   },
+  > };
+  >
+  > myObject.show();
+  > ```
+  >
+  > or
+  >
+  > ```js
+  > const myObject = {
+  >   name: "John",
+  >
+  >   show: () => {
+  >     console.log(this); // Window { ... }
+  >   },
+  > };
+  >
+  > myObject.show();
+  > ```
+- `this` in Event Handlers:
+  > When `this` is used inside an event handler (with regular function), it refers to the element that received the event.
+  >
+  > ```js
+  > document.getElementById("myButton").addEventListener("click", function () {
+  >   console.log(this); // <button id="myButton">...</button>
+  > });
+  > ```
+  >
+  > or
+  >
+  > ```html
+  > <button id="myButton" onclick="console.log(this)">Click!</button>
+  > <!-- <button id="myButton">...</button> -->
+  > ```
 
 <p align="right">
     <a href="#javascript">back to top ⬆</a>
