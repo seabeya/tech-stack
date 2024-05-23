@@ -31,7 +31,7 @@
    - [Expressions and Operators](#-expressions-and-operators)
    - [Functions](#-functions)
    - ['this' keyword](#-this-keyword)
-   - [`call`, `apply`, and `bind`](#-call-apply-and-bind)
+   - ['call', 'apply', and 'bind'](#-call-apply-and-bind)
 4. [Classes in JS](#-classes-in-js)
    - [Methods](#-methods)
    - [Constructor Method](#-constructor-method)
