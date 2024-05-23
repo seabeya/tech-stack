@@ -31,6 +31,7 @@
    - [Expressions and Operators](#-expressions-and-operators)
    - [Functions](#-functions)
    - ['this' keyword](#-this-keyword)
+   - [`call`, `apply`, and `bind`](#-call-apply-and-bind)
 4. [Classes in JS](#-classes-in-js)
    - [Methods](#-methods)
    - [Constructor Method](#-constructor-method)
@@ -1510,6 +1511,56 @@ The `this` keyword refers to the current context or the object on which a functi
   > ```html
   > <button id="myButton" onclick="console.log(this)">Click!</button>
   > <!-- <button id="myButton">...</button> -->
+  > ```
+
+<p align="right">
+    <a href="#javascript">back to top ⬆</a>
+</p>
+
+<br>
+
+### 🔷 `call`, `apply`, and `bind`
+
+In JavaScript, `call`, `apply`, and `bind` are methods you can use to control the context (`this` value) of a function.
+
+- `call`: Invokes the function immediately.
+  > The `call` method calls a function with a given `this` value and arguments provided one by one.
+  >
+  > ```js
+  > functionName.call(thisValue, arg1, arg2, ...);
+  > ```
+  >
+  > ```js
+  > function greet(greeting, punctuation) {
+  >   console.log(greeting + ", " + this.name + punctuation);
+  > }
+  >
+  > const person = { name: "John" };
+  >
+  > greet.call(person, "Hello", "!"); // "Hello, John!"
+  > ```
+- `apply`: Invokes the function immediately.
+  > The `apply` method is similar to call, but it takes arguments as an array.
+  >
+  > ```js
+  > functionName.apply(thisValue, [arg1, arg2, ...]);
+  > ```
+- `bind`: Creates a new function to be called later.
+  > The `bind` method creates a new function that, when called, has its `this` value set to the provided value.
+  >
+  > ```js
+  > functionName.bind(thisValue, arg1, arg2, ...);
+  > ```
+  >
+  > ```js
+  > function greet(greeting, punctuation) {
+  >   console.log(greeting + ", " + this.name + punctuation);
+  > }
+  >
+  > const person = { name: "John" };
+  >
+  > const greetCharlie = greet.bind(person, "Hey", "!");
+  > greetCharlie(); // "Hey, John!"
   > ```
 
 <p align="right">
