@@ -1513,10 +1513,6 @@ The `this` keyword refers to the current context or the object on which a functi
   > <!-- <button id="myButton">...</button> -->
   > ```
 
-<p align="right">
-    <a href="#javascript">back to top ⬆</a>
-</p>
-
 <br>
 
 ### 🔷 `call`, `apply`, and `bind`
