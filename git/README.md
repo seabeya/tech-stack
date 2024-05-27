@@ -54,6 +54,7 @@
     > Without the `--global` option, the configuration will be applied locally to the current repository (you need an initialized repository to do this).
 - `git init`: Initialize a new Git repository in a directory.
   > When you run this command in a folder, it sets up all the necessary files and directories that Git needs to start tracking changes in your project. _(You need this once per project.)_
+- `git config --global --list`: Lists all the global configuration settings you've set up for Git on your computer.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
