@@ -650,32 +650,29 @@ What happens if someone adds commits to a remote branch while you have a local b
 
 **Updating remote branches.**
 
-`git push`: Upload your local changes to a remote repository.
+- `git push`: Upload your local changes to a remote repository.
 
-> To update the remote tracking branch and reflect your local changes on the remote repository, you need to push your local branch to the remote repository. This operation sends your new commits to the remote repository and updates the remote branch accordingly. However, there may be some situations:
+  > To update the remote tracking branch and reflect your local changes on the remote repository, you need to push your local branch to the remote repository. This operation sends your new commits to the remote repository and updates the remote branch accordingly. However, there may be some situations:
 
-- Remote has no changes:
+  - Remote has no changes:
+    > If the remote branch has not been modified by someone else since you last fetched or pulled, your push operation will be successful, and the remote tracking branch will be updated to match the new state of the remote branch.
+  - Remote has changes:
+    > If the remote branch has been modified by someone else in the meantime, Git will reject your push, indicating that the remote branch has diverged from your local branch. In this case, you will need to update you local branch with the latest changes from the remote repository. Or you can forcefully push by adding the `-f` option (not recommended because it overwrites the remote branch, potentially discarding other people's work).
 
-  > If the remote branch has not been modified by someone else since you last fetched or pulled, your push operation will be successful, and the remote tracking branch will be updated to match the new state of the remote branch.
+- `git pull <Remote_Name> <Branch_Name>` - Update local branch with the latest changes from a remote repository.
 
-- Remote has changes:
-
-  > If the remote branch has been modified by someone else in the meantime, Git will reject your push, indicating that the remote branch has diverged from your local branch. In this case, you will need to update you local branch with the latest changes from the remote repository. Or you can forcefully push by adding the `-f` option (not recommended because it overwrites the remote branch, potentially discarding other people's work).
-
-  - `git pull <Remote_Name> <Branch_Name>` - Update local branch with the latest changes from a remote repository.
-
-    > `git pull` is just a combination of `git fetch` and `git merge`. When you run git pull, Git first performs a git fetch operation. It updates the corresponding remote tracking branch in your local repository to reflect the state of the remote repository. Then Git automatically merges the retrieved changes from the remote tracking branch into your current branch you are on.
-
-    > However, if there are conflicts between the changes in your current branch and the changes from the remote tracking branch, Git will pause the process and prompt you to resolve the conflicts manually. Once the conflicts are resolved, you can complete the merge by committing the changes. Then you can push the changes again.
+  > `git pull` is just a combination of `git fetch` and `git merge`. When you run `git pull`, Git first performs a git fetch operation. It updates the corresponding remote tracking branch in your local repository to reflect the state of the remote repository. Then Git automatically merges (fast-forward) the retrieved changes from the remote tracking branch into your current branch you are on (files get updated).
+  >
+  > However, if there are conflicts between the changes in your current branch and the changes from the remote tracking branch, Git will pause the process and prompt you to resolve the conflicts manually. Once the conflicts are resolved, you can complete the merge by committing the changes. Then you can push the changes again.
 
     <p align="center">
       <img src="./pull.png" height="auto" width="550">
     </p>
 
-    > You can use `git pull` without specifying a particular remote or branch. When you do that, Git assumes the following defaults:
+  > You can use `git pull` without specifying a particular remote or branch. When you do that, Git assumes the following defaults:
 
-    - > Git assumes the remote to be the default remote repository, which is typically named **'origin'**.
-    - > Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
+  - > Git assumes the remote to be the default remote repository, which is typically named **'origin'**.
+  - > Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
