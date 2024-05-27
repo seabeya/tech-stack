@@ -635,14 +635,14 @@ What happens if someone adds commits to a remote branch while you have a local b
 
   - `--prune` - Remove any local references to remote branches (remote tracking branches) that no longer exist on the remote repository.
 
+> When you run `git status` with a remote set up and remote tracking branches configured, Git checks the status of your local branches in relation to their corresponding remote tracking branches. It does not directly check the status of the remote branches on the remote repository.
+
   <p align="center">
     <img src="./fetch.png" height="auto" width="550">
   </p>
   <p align="center">
     <img src="./fetch2.png" height="auto" width="550">
   </p>
-
-> When you run `git status` with a remote set up and remote tracking branches configured, Git checks the status of your local branches in relation to their corresponding remote tracking branches. It does not directly check the status of the remote branches on the remote repository.
 
 <br>
 
