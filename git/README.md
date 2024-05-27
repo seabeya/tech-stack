@@ -627,13 +627,13 @@ What happens if someone adds commits to a remote branch while you have a local b
 
 - `git fetch <Remote_Name>`: Update remote tracking branches.
 
-  - `--prune` - Remove any local references to remote branches (remote tracking branches) that no longer exist on the remote repository.
-
   > It retrieves any new commits or changes from the specified remote repository without merging them into your current branch. This allows you to have an up-to-date view of the remote repository without modifying your current branch.
-
+  >
   > It updates all remote tracking branches in your local repository that correspond to branches in the remote repository. If there are new branches in the remote repository, it also retrieves them.
-
+  >
   > You can use `git fetch <Remote_Name> <Branch_Name>` to fetch a specific branch from the remote repository instead of fetching all branches.
+
+  - `--prune` - Remove any local references to remote branches (remote tracking branches) that no longer exist on the remote repository.
 
   <p align="center">
     <img src="./fetch.png" height="auto" width="550">
@@ -664,7 +664,7 @@ What happens if someone adds commits to a remote branch while you have a local b
 
   - `git pull <Remote_Name> <Branch_Name>` - Update local branch with the latest changes from a remote repository.
 
-    > `git pill` is just a combination of `git fetch` and `git merge`. When you run git pull, Git first performs a git fetch operation. It updates the corresponding remote tracking branch in your local repository to reflect the state of the remote repository. Then Git automatically merges the retrieved changes from the remote tracking branch into your current branch you are on.
+    > `git pull` is just a combination of `git fetch` and `git merge`. When you run git pull, Git first performs a git fetch operation. It updates the corresponding remote tracking branch in your local repository to reflect the state of the remote repository. Then Git automatically merges the retrieved changes from the remote tracking branch into your current branch you are on.
 
     > However, if there are conflicts between the changes in your current branch and the changes from the remote tracking branch, Git will pause the process and prompt you to resolve the conflicts manually. Once the conflicts are resolved, you can complete the merge by committing the changes. Then you can push the changes again.
 
@@ -674,7 +674,7 @@ What happens if someone adds commits to a remote branch while you have a local b
 
     > You can use `git pull` without specifying a particular remote or branch. When you do that, Git assumes the following defaults:
 
-    - > Git assumes the remote to be the default remote repository, which is typically named 'origin'.
+    - > Git assumes the remote to be the default remote repository, which is typically named **'origin'**.
     - > Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
 
 <p align="right">
