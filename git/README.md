@@ -537,17 +537,13 @@ GitHub is a web-based platform that provides a centralized location for hosting 
 
 - `git clone <Remote_URL>`: Create a local copy of a repository hosted on GitHub.
 
+  - `.` - Clone the repository contents into the current directory, without creating a new subdirectory for it.
+
   > It is not necessary to own the repository you want to clone.
 
-  > When you run git clone, Git downloads all files, version history, branches, and tags, creating a complete local copy of the repository.
+  > When you run `git clone`, Git downloads all files, version history, branches, and tags, creating a complete local copy of the repository with all the necessary connections.
 
-  > By default, only the default branch will be available in the local branch form. Other branches will be accessible only as remote tracking branches.
-
-  > You can use the command `git branch -r` to see all the available remote tracking branches in the repository.
-
-  > To work on one of these branches, you need to create a local branch based on the corresponding remote tracking branch using the `git switch <Branch_Name>` command.
-
-  > If you want to clone the repository into the current directory, without creating a new subdirectory for it, you can append `.` to the git clone command.
+  > By default, only the default branch will be available in the local branch form. Other branches will be accessible only as remote tracking branches. You can use the command `git branch -r` to see all the available remote tracking branches in the repository. To work on one of those remote branches, you need to create a local branch based on the corresponding remote tracking branch using the `git switch <Branch_Name>` command.
 
 <br>
 
@@ -576,13 +572,14 @@ GitHub is a web-based platform that provides a centralized location for hosting 
 
 Prior to uploading any content to GitHub, it is necessary for us to inform Git about the existence of our remote repository on GitHub.
 
+> [!NOTE]
 > If you clone a GitHub repository, you don't need to manually set up the remote repository in Git. The cloning process automatically establishes the remote repository as the default origin.
 
 - `git remote`: Manage the remote repositories.
 
   - `-v` - Display the remote repositories associated with your local Git repository.
   - `add <Remote_Name> <Remote_URL>` - Add a new remote repository to your local Git repository.
-    > We are simply instructing Git to remember the Remote Repository URL using the name we have provided, and it's a convention to use "origin" as the default name. However, you can choose any name that makes sense to you.
+    > We are simply instructing Git to remember the Remote Repository URL using the name we have provided, and it's a convention to use **"origin"** as the default name. However, you can choose any name that makes sense to you.
   - `rename <Remote_Name> <New_Remote_Name>` - Rename remote.
   - `remove <Remote_Name>` - Remove remote.
 
