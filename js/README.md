@@ -1915,6 +1915,8 @@ When to use Inheritance or Composition:
 
 > In the example using inheritance, `CircleWindow` and `RectangleWindow` have similar methods/properties but different shapes, causing repetition. In such cases, it's better to use the composition approach.
 
+> Recommending to watch: [The Flaws of Inheritance - CodeAesthetic](https://www.youtube.com/watch?v=hxGOiiR9ZKg)
+
 <br>
 
 ### 🔷 Private properties
