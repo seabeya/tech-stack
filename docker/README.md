@@ -367,8 +367,6 @@ You don't need to do anything if you install Docker as shown in the [Docker Inst
 
 **Key components of a Docker Compose file:**
 
-- version: [Compose versioning ↗](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix)
-  > Specifies the version of the Compose file syntax being used. This version is important as it determines which features and options are available to you.
 - services: [All service options ↗](https://docs.docker.com/compose/compose-file/05-services/)
   > Defines the different services that make up your application. Each service corresponds to a Docker container. Services can be linked together, specify image names, set environment variables, define ports to expose, and more.
 - networks: [All network options ↗](https://docs.docker.com/compose/compose-file/06-networks/)
@@ -385,9 +383,6 @@ You don't need to do anything if you install Docker as shown in the [Docker Inst
 > Set up an environment for running a containerized application, specifically targeting a development scenario.
 
 ```yaml
-# docker compose file syntax being used:
-version: "3.8"
-
 services:
   # the name of the service being defined:
   my_app:
@@ -415,9 +410,6 @@ services:
 > Running a Redis server alongside a Node.js application in a containerized environment.
 
 ```yaml
-# docker compose file syntax being used:
-version: "3.8"
-
 services:
   # the name of the first service being defined:
   redis-server:
