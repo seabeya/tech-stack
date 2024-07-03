@@ -18,82 +18,17 @@
 
 ### Contents
 
-1. [Directory Structure](#-directory-structure)
-2. [Basic commands](#-basic-commands)
-3. [Process / Monitor commands](#-process--monitor-commands)
-4. [Using multiple commands together](#-using-multiple-commands-together)
-5. [Permissions](#-permissions)
+1. [Basic commands](#-basic-commands)
+2. [Process / Monitor commands](#-process--monitor-commands)
+3. [Using multiple commands together](#-using-multiple-commands-together)
+4. [Permissions](#-permissions)
    - [Overview](#-overview)
    - [Commands](#-commands)
-6. [User & Group commands](#-user--group-commands)
+5. [User & Group commands](#-user--group-commands)
 
 <br>
 
 <hr>
-
-## 🔶 Directory Structure
-
-The Linux directory structure, often referred to as the Filesystem Hierarchy Standard (FHS), organizes files and directories on a Linux system in a hierarchical manner. It provides a consistent and organized way to store and locate files, making it easier to navigate and manage the system.
-
-- `/` (root): The root is the top-level directory in the Linux filesystem hierarchy. All other directories and files are located beneath it.
-
-- `/boot`: The boot directory contains files related to the system's boot process. It includes the kernel, initial RAM disk (initrd), and boot loader configurations.
-
-- `/bin`: The bin directory contains essential binary executables (commands) that are available to all users. It typically includes commonly used utilities such as `ls`, `cp`, `curl`, and `mkdir`.
-
-- `/sbin`: The sbin directory contains system binaries (commands) that are primarily used for system administration. These executables are typically available only to the root user.
-
-- `/dev`: The dev directory contains device files that represent physical and virtual devices connected to the system, such as hard drives, USB devices, and serial ports.
-
-  > These are not device drivers themselves, but rather dynamic files that act as interfaces between the operating system and the hardware devices.
-
-  > These device files allow you to read from and write to the devices, send control commands, and perform various operations. When you interact with these files, the system communicates with the corresponding hardware or device driver to handle the requested actions.
-
-- `/etc`: The etc directory contains system-wide configuration files. It includes various configuration files for the operating system, services, and applications.
-
-  > This is where you customize all your programs.
-
-- `/lib`: The lib directory contains libraries (shared object files) that are essential for the system and other executables to function properly.
-
-  > Libraries are collections of code and resources that provide common functionality to applications and programs.
-
-- `/media`: The media directory is used as a mount point for removable media such as USB drives, CDs, and DVDs. When a device is inserted, it is usually mounted under this directory.
-
-- `/mnt`: The mnt directory is used as a temporary mount point for filesystems. It is often used by system administrators to manually mount temporary filesystems or network shares.
-
-- `/opt`: The opt directory is intended for the installation of optional software packages. It provides a location for third-party applications that are not part of the core system distribution.
-
-  > Developers or development teams may use the /opt directory to install development tools or libraries that are specific to their projects. This can help keep project-specific dependencies separate from the system-wide installations.
-
-  > When you install software manually, bypassing the system's package manager, you can choose to place it under /opt to ensure it does not interfere with other system files or packages.
-
-- `/proc`: The proc directory provides a virtual filesystem that exposes information about running processes and system resources. It is used by various system utilities to gather information dynamically.
-
-  > Many of these files are dynamically generated during the boot time or even on the fly, with the kernel translating the information to appear as files.
-
-- `/run`: The run directory in Linux is a temporary filesystem (tempfs - data is stored in RAM) that holds runtime data and information for running processes. It is typically used to store system-related runtime files and state information during the system's runtime.
-
-- `/home`: The home directory is the default location for user home directories. Each user typically has a subdirectory under /home where they can store their personal files and configurations.
-
-- `/root`: The root directory is the home directory for the root user (superuser). It contains configuration files and personal files specific to the root user.
-
-- `/tmp`: The tmp directory is used for temporary files created by applications and users. The contents of this directory are generally cleared upon reboot.
-
-- `/usr`: The usr directory contains user-related files and programs. It is divided into subdirectories such as /usr/bin (user binaries), /usr/lib (user libraries), /usr/share (shared data files), and more.
-
-- `/var`: The var directory contains variable data files that are expected to change during the system's operation.
-
-  > It includes log files, temporary files, MySQL databases, other database files, email inboxes, web server data files, and other data that is specific to running services.
-
-- `/srv`: The srv directory is a designated location for storing data files that are served by the system.
-  > Typically used by system administrators to store data related to services such as web servers (/srv/www), FTP (/srv/ftp) servers, or other network services. This directory is specifically meant to contain files that will be accessed by external users.
-
-<p align="right">
-    <a href="#linux-debian-based">back to top ⬆</a>
-</p>
-
-<br>
-<br>
 
 ## 🔶 Basic commands
 
