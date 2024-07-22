@@ -2056,4 +2056,3 @@ console.log(mathInstance.add(10, 5)); // 15
    > If you are really new to programming, I recommend you find an online video tutorial or tutor and follow along.
 2. Have some JavaScript knowledge and want to dive deeper? [MDN JavaScript ↗](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 3. Clean Code Best Practices: [Clean Code concepts adapted for JavaScript ↗](https://github.com/ryanmcdermott/clean-code-javascript).
-4. Best Practices: [Airbnb JavaScript Style Guide ↗](https://github.com/airbnb/javascript).
