@@ -181,3 +181,23 @@
 | `%T`         | Prints the type of the value.                                       | `("%T", 123)`                            | `int`                |
 | `%+v`        | Prints struct fields with their names.                              | `("%+v", Person{Name: "John", Age: 35})` | `{Name:John Age:35}` |
 | `%%`         | Prints a literal `%` sign.                                          | `("%%")`                                 | `%`                  |
+
+> Examples:
+>
+> - Printing a string and an integer:
+>   ```go
+>   func main() {
+>       name := "John"
+>       age := 35
+>       fmt.Printf("Name: %s, Age: %d", name, age) // Name: John, Age: 35
+>   }
+>   ```
+> - Formatting a floating-point number:
+>   ```go
+>   func main() {
+>       pi := 3.14159
+>       fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
+>   }
+>   ```
+
+<br>
