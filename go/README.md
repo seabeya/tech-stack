@@ -20,6 +20,7 @@
 
 1. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
+   - [Declaring Variables](#-declaring-variables)
 
 <br>
 
@@ -71,5 +72,56 @@
   | `string` | "anything surrounded by double quotes" |
 
   > Zero value (default): `""`
+
+<br>
+
+### 🔷 Declaring Variables
+
+1.  Using the `var` keyword:
+
+    ```go
+    var varName type = value
+    ```
+
+    > - You always have to specify either `type` or `value` (or both):
+    >   ```go
+    >   var name string = "John"
+    >   var surname = "Doe" // Go can infer the type of the variable from the initial value.
+    >   var age int // zero value: 0
+    >   ```
+    > - Declaring multiple variables of the same or different types in a single line:
+    >   ```go
+    >   var name, age = "John", 30
+    >   var a, b, c int = 1, 2, 3 // If the type keyword is used, it is only possible to declare one type of variable per line.
+    >   ```
+    > - Using grouped declaration syntax to declare variables together:
+    >   ```go
+    >   var (
+    >   	name    string = "John"
+    >   	surname        = "Doe"
+    >   	age     int
+    >   )
+    >   ```
+
+2.  Using the `:=` syntax:
+
+    ```go
+    varName := value
+    ```
+
+    > - You always have to follow the syntax above:
+    >   ```go
+    >   name := "John"
+    >   ```
+    > - This shorthand is only available inside functions.
+    > - Declare multiple variables in a single line:
+    >   ```go
+    >   name, age := "John", 30
+    >   ```
+
+<br>
+
+> [!NOTE]
+> Variables declared without an explicit initial value are given their zero value.
 
 <br>
