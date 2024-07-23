@@ -152,4 +152,6 @@
     >   )
     >   ```
 
+    > - Computations on constants are done at compile time, not at runtime.
+
 <br>
