@@ -89,11 +89,13 @@
     >   var surname = "Doe" // Go can infer the type of the variable from the initial value.
     >   var age int // zero value: 0
     >   ```
+
     > - Declaring multiple variables of the same or different types in a single line:
     >   ```go
     >   var name, age = "John", 30
     >   var a, b, c int = 1, 2, 3 // If the type keyword is used, it is only possible to declare one type of variable per line.
     >   ```
+
     > - Using grouped declaration syntax to declare variables together:
     >   ```go
     >   var (
@@ -113,8 +115,10 @@
     >   ```go
     >   name := "John"
     >   ```
-    > - This shorthand is only available inside functions.
-    > - Declare multiple variables in a single line:
+
+    > - This syntax is only available inside functions.
+
+    > - Declaring multiple variables in a single line:
     >   ```go
     >   name, age := "John", 30
     >   ```
@@ -123,5 +127,29 @@
 
 > [!NOTE]
 > Variables declared without an explicit initial value are given their zero value.
+
+<br>
+
+3.  Constants:
+
+    > Constants are fixed values that cannot be changed once they are set. They are read-only.
+
+    ```go
+    const varName type = value
+    ```
+
+    > - Constants can be declared without explicit types, but they must be declared with values:
+    >   ```go
+    >   const daysInWeek int = 7
+    >   const hoursInDay = 24
+    >   ```
+
+    > - Declaring multiple constants in a single block:
+    >   ```go
+    >   const (
+    >   	daysInWeek = 7
+    >   	hoursInDay = 24
+    >   )
+    >   ```
 
 <br>
