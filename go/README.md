@@ -21,6 +21,7 @@
 1. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
+   - [String Formatting](#-string-formatting)
 
 <br>
 
@@ -155,3 +156,28 @@
     > - Computations on constants are done at compile time, not at runtime.
 
 <br>
+
+### 🔷 String Formatting
+
+| Placeholders | Description                                                         | Usage                                    | Output               |
+| ------------ | ------------------------------------------------------------------- | ---------------------------------------- | -------------------- |
+| `%v`         | Default placeholder for everything.                                 | `("%v", 123)`                            | `123`                |
+|              |                                                                     |                                          |                      |
+| `%s`         | Plain string.                                                       | `("%s", "hello")`                        | `hello`              |
+| `%q`         | String with double quotes.                                          | `("%q", "hello")`                        | `"hello"`            |
+|              |                                                                     |                                          |                      |
+| `%d`         | Integer in base 10.                                                 | `("%d", 123)`                            | `123`                |
+| `%b`         | Integer in base 2.                                                  | `("%b", 123)`                            | `1111011`            |
+| `%o`         | Integer in base 8.                                                  | `("%o", 123)`                            | `173`                |
+| `%x`         | Integer in base 16 with lowercase letters.                          | `("%x", 123)`                            | `7b`                 |
+| `%X`         | Integer in base 16 with uppercase letters.                          | `("%X", 123)`                            | `7B`                 |
+|              |                                                                     |                                          |                      |
+| `%f`         | Floating-point number in decimal format.                            | `("%f", 123.456)`                        | `123.456000`         |
+| `%e`         | Floating-point number in scientific notation with a lowercase 'e'   | `("%e", 123.456)`                        | `1.234560e+02`       |
+| `%E`         | Floating-point number in scientific notation with an uppercase 'E'. | `("%E", 123.456)`                        | `1.234560E+02`       |
+|              |                                                                     |                                          |                      |
+| `%t`         | Boolean value.                                                      | `("%t", true)`                           | `true`               |
+|              |                                                                     |                                          |                      |
+| `%T`         | Prints the type of the value.                                       | `("%T", 123)`                            | `int`                |
+| `%+v`        | Prints struct fields with their names.                              | `("%+v", Person{Name: "John", Age: 35})` | `{Name:John Age:35}` |
+| `%%`         | Prints a literal `%` sign.                                          | `("%%")`                                 | `%`                  |
