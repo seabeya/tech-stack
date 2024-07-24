@@ -25,6 +25,9 @@
 2. [Functions](#-functions)
    - [Pass-by-Value](#-pass-by-value)
    - [Pass-by-Reference with Pointers](#-pass-by-reference-with-pointers)
+3. [Data Structures](#-data-structures)
+   - [Structs](#-structs)
+     - [Structs Methods](#-structs-methods)
 
 <br>
 
@@ -273,14 +276,14 @@ In Go, functions use `pass-by-value` for arguments. This means that when you pas
 
 ```go
 func main() {
-    num := 5
-    increment(num)
-    fmt.Println("Outside function:", num) // Outside function: 5
+  num := 5
+  increment(num)
+  fmt.Println("Outside function:", num) // Outside function: 5
 }
 
 func increment(num int) {
-    num++
-    fmt.Println("Inside function:", num) // Inside function: 6
+  num++
+  fmt.Println("Inside function:", num) // Inside function: 6
 }
 ```
 
@@ -292,14 +295,14 @@ If you need to modify the original value, you can use pointers. A pointer holds 
 
 ```go
 func main() {
-	num := 5
-	increment(&num)
-	fmt.Println("Outside function:", num) // Outside function: 6
+  num := 5
+  increment(&num)
+  fmt.Println("Outside function:", num) // Outside function: 6
 }
 
 func increment(num *int) {
-	*num++
-	fmt.Println("Inside function:", *num) // Inside function: 6
+  *num++
+  fmt.Println("Inside function:", *num) // Inside function: 6
 }
 ```
 
@@ -308,4 +311,110 @@ func increment(num *int) {
 </p>
 
 <br>
+<br>
+
+## 🔶 Data Structures
+
+### 🔷 Structs
+
+Structs in Go are a way to group related variables under a single name.
+
+- Defining a struct:
+  ```go
+  type person struct {
+      name string
+      age  int
+  }
+  ```
+- Creating a struct instance:
+  ```go
+  user := person{name: "John", age: 35}
+  ```
+  or zero valued:
+  ```go
+  var user person
+  ```
+- Accessing and modifying struct fields:
+  ```go
+  fmt.Println(user.name) // John
+  user.age = 30
+  ```
+- Embedded and nested structs:
+
+  ```go
+  type address struct {
+  	city    string
+  	state   string
+  	zipCode string
+  }
+
+  type contact struct {
+  	phone string
+  	email string
+  }
+
+  type person struct {
+  	name    string
+  	age     int
+  	address         // Embedded struct
+  	contact contact // Nested struct
+
+  }
+
+  func main() {
+  	user := person{
+  		name: "John",
+  		age:  35,
+  		address: address{
+  			city:    "Los Angeles",
+  			state:   "California",
+  			zipCode: "00000",
+  		},
+  		contact: contact{
+  			phone: "(000) 000-0000",
+  			email: "john@example.com",
+  		},
+  	}
+
+  	fmt.Println(user)               // {John 35 {Los Angeles California 00000}}
+  	fmt.Println(user.city)          // Los Angeles
+  	fmt.Println(user.contact.phone) // (000) 000-0000
+  }
+  ```
+
+<br>
+
+#### 🔻 Structs Methods
+
+- Defining a method:
+  ```go
+  func (p person) sayHello() {
+    fmt.Println("Hello, my name is " + p.name)
+  }
+  ```
+- Calling a method:
+  ```go
+  user := person{name: "John", age: 35}
+  user.sayHello() // Hello, my name is John
+  ```
+- Manipulating using methods:
+
+  > Here, we need to use pointers to manipulate the struct through the method because of the pass-by-value rule.
+
+  ```go
+  func main() {
+    user := person{name: "John", age: 35}
+
+    user.sayHello() // Hello, my name is John
+
+    user.changeName("Sha'an")
+
+    user.sayHello() // Hello, my name is Sha'an
+  }
+
+  func (p *person) changeName(name string) {
+    p.name = name
+  }
+  ```
+
 <br>
