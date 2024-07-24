@@ -376,7 +376,7 @@ Structs in Go are a way to group related variables under a single name.
   		},
   	}
 
-  	fmt.Println(user)               // {John 35 {Los Angeles California 00000}}
+  	fmt.Println(user)               // {John 35 {Los Angeles California 00000} {(000) 000-0000 john@example.com}}
   	fmt.Println(user.city)          // Los Angeles
   	fmt.Println(user.contact.phone) // (000) 000-0000
   }
