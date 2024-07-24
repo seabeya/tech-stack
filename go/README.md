@@ -193,16 +193,16 @@
 > - Printing a string and an integer:
 >   ```go
 >   func main() {
->     name := "John"
->     age := 35
->     fmt.Printf("Name: %s, Age: %d", name, age) // Name: John, Age: 35
+>   	name := "John"
+>   	age := 35
+>   	fmt.Printf("Name: %s, Age: %d", name, age) // Name: John, Age: 35
 >   }
 >   ```
 > - Formatting a floating-point number:
 >   ```go
 >   func main() {
->     pi := 3.14159
->     fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
+>   	pi := 3.14159
+>   	fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
 >   }
 >   ```
 
@@ -218,7 +218,7 @@
 - Declaring a function:
   ```go
   func add(a int, b int) int {
-    return a + b
+  	return a + b
   }
   ```
 - Calling a function:
@@ -228,7 +228,7 @@
 - Functions can have multiple return values:
   ```go
   func swap(a, b int) (int, int) {
-    return b, a
+  	return b, a
   }
   ```
   ```go
@@ -244,26 +244,26 @@
   > When you have named return values, you can use the return keyword without specifying the values. It will automatically return the named return values. However, using the return keyword without specifying the values can hurt readability, so it is not recommended.
   ```go
   func calculate(x int) (result int) {
-    result = x * x
-    return
+  	result = x * x
+  	return
   }
   ```
 - Variadic functions:
   > Variadic functions are functions that can accept a variable number of arguments.
   ```go
   func sum(numbers ...int) int {
-    total := 0
-    for _, number := range numbers {
-  	  total += number
-    }
-    return total
+  	total := 0
+  	for _, number := range numbers {
+  		total += number
+  	}
+  	return total
   }
   ```
 - Anonymous functions:
   > Anonymous functions are functions that don't have a name.
   ```go
   greet := func(name string) {
-    fmt.Println("Hello, " + name)
+  	fmt.Println("Hello, " + name)
   }
   greet("John") // Output: Hello, John
   ```
@@ -276,14 +276,14 @@ In Go, functions use `pass-by-value` for arguments. This means that when you pas
 
 ```go
 func main() {
-  num := 5
-  increment(num)
-  fmt.Println("Outside function:", num) // Outside function: 5
+	num := 5
+	increment(num)
+	fmt.Println("Outside:", num) // Outside: 5
 }
 
 func increment(num int) {
-  num++
-  fmt.Println("Inside function:", num) // Inside function: 6
+	num++
+	fmt.Println("Inside:", num) // Inside: 6
 }
 ```
 
@@ -295,14 +295,14 @@ If you need to modify the original value, you can use pointers. A pointer holds 
 
 ```go
 func main() {
-  num := 5
-  increment(&num)
-  fmt.Println("Outside function:", num) // Outside function: 6
+	num := 5
+	increment(&num)
+	fmt.Println("Outside:", num) // Outside: 6
 }
 
 func increment(num *int) {
-  *num++
-  fmt.Println("Inside function:", *num) // Inside function: 6
+	*num++
+	fmt.Println("Inside:", *num) // Inside: 6
 }
 ```
 
@@ -322,8 +322,8 @@ Structs in Go are a way to group related variables under a single name.
 - Defining a struct:
   ```go
   type person struct {
-      name string
-      age  int
+  	name string
+  	age  int
   }
   ```
 - Creating a struct instance:
@@ -389,7 +389,7 @@ Structs in Go are a way to group related variables under a single name.
 - Defining a method:
   ```go
   func (p person) sayHello() {
-    fmt.Println("Hello, my name is " + p.name)
+  	fmt.Println("Hello, my name is " + p.name)
   }
   ```
 - Calling a method:
@@ -403,17 +403,17 @@ Structs in Go are a way to group related variables under a single name.
 
   ```go
   func main() {
-    user := person{name: "John", age: 35}
+  	user := person{name: "John", age: 35}
 
-    user.sayHello() // Hello, my name is John
+  	user.sayHello() // Hello, my name is John
 
-    user.changeName("Sha'an")
+  	user.changeName("Sha'an")
 
-    user.sayHello() // Hello, my name is Sha'an
+  	user.sayHello() // Hello, my name is Sha'an
   }
 
   func (p *person) changeName(name string) {
-    p.name = name
+  	p.name = name
   }
   ```
 
