@@ -22,6 +22,9 @@
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
    - [String Formatting](#-string-formatting)
+2. [Functions](#-functions)
+   - [Pass-by-Value](#-pass-by-value)
+   - [Pass-by-Reference with Pointers](#-pass-by-reference-with-pointers)
 
 <br>
 
@@ -59,10 +62,10 @@
 
 - Float:
 
-  | Keyword   | Size     | Values                 |
-  | --------- | -------- | ---------------------- |
-  | `float32` | 32 bitss | -3.4e+38 to 3.4e+38    |
-  | `float64` | 64 bits  | -1.7e+308 to +1.7e+308 |
+  | Keyword   | Size    | Values                 |
+  | --------- | ------- | ---------------------- |
+  | `float32` | 32 bits | -3.4e+38 to 3.4e+38    |
+  | `float64` | 64 bits | -1.7e+308 to +1.7e+308 |
 
   > Zero value (default): `0`
 
@@ -187,17 +190,122 @@
 > - Printing a string and an integer:
 >   ```go
 >   func main() {
->       name := "John"
->       age := 35
->       fmt.Printf("Name: %s, Age: %d", name, age) // Name: John, Age: 35
+>     name := "John"
+>     age := 35
+>     fmt.Printf("Name: %s, Age: %d", name, age) // Name: John, Age: 35
 >   }
 >   ```
 > - Formatting a floating-point number:
 >   ```go
 >   func main() {
->       pi := 3.14159
->       fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
+>     pi := 3.14159
+>     fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
 >   }
 >   ```
 
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Functions
+
+- Declaring a function:
+  ```go
+  func add(a int, b int) int {
+    return a + b
+  }
+  ```
+- Calling a function:
+  ```go
+  result := add(2, 3) // result = 5
+  ```
+- Functions can have multiple return values:
+  ```go
+  func swap(a, b int) (int, int) {
+    return b, a
+  }
+  ```
+  ```go
+  x, y := 1, 2
+  x, y = swap(x, y) // x = 2, y = 1
+  ```
+- Ignoring return values:
+  > Ignoring return values is useful when you don't need to use the return values of a function.
+  ```go
+  x, _ = getCoords()
+  ```
+- Named return values:
+  > When you have named return values, you can use the return keyword without specifying the values. It will automatically return the named return values. However, using the return keyword without specifying the values can hurt readability, so it is not recommended.
+  ```go
+  func calculate(x int) (result int) {
+    result = x * x
+    return
+  }
+  ```
+- Variadic functions:
+  > Variadic functions are functions that can accept a variable number of arguments.
+  ```go
+  func sum(numbers ...int) int {
+    total := 0
+    for _, number := range numbers {
+  	  total += number
+    }
+    return total
+  }
+  ```
+- Anonymous functions:
+  > Anonymous functions are functions that don't have a name.
+  ```go
+  greet := func(name string) {
+    fmt.Println("Hello, " + name)
+  }
+  greet("John") // Output: Hello, John
+  ```
+
+<br>
+
+### 🔷 Pass-by-Value
+
+In Go, functions use `pass-by-value` for arguments. This means that when you pass a value to a function, Go creates a copy of that value and passes the copy to the function. The function works with this copy, so changes made to the parameter inside the function do not affect the original value.
+
+```go
+func main() {
+    num := 5
+    increment(num)
+    fmt.Println("Outside function:", num) // Outside function: 5
+}
+
+func increment(num int) {
+    num++
+    fmt.Println("Inside function:", num) // Inside function: 6
+}
+```
+
+<br>
+
+### 🔷 Pass-by-Reference with Pointers
+
+If you need to modify the original value, you can use pointers. A pointer holds the memory address of a value. When you pass a pointer to a function, you’re passing the address of the value, not a copy of it. This allows the function to modify the original value.
+
+```go
+func main() {
+	num := 5
+	increment(&num)
+	fmt.Println("Outside function:", num) // Outside function: 6
+}
+
+func increment(num *int) {
+	*num++
+	fmt.Println("Inside function:", *num) // Inside function: 6
+}
+```
+
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
 <br>
