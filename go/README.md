@@ -28,6 +28,7 @@
 3. [Data Structures](#-data-structures)
    - [Structs](#-structs)
      - [Structs Methods](#-structs-methods)
+   - [Arrays](#-arrays)
 
 <br>
 
@@ -225,6 +226,9 @@
   ```go
   result := add(2, 3) // result = 5
   ```
+
+Extra:
+
 - Functions can have multiple return values:
   ```go
   func swap(a, b int) (int, int) {
@@ -339,6 +343,9 @@ Structs in Go are a way to group related variables under a single name.
   fmt.Println(user.name) // John
   user.age = 30
   ```
+
+Extra:
+
 - Embedded and nested structs:
 
   ```go
@@ -397,6 +404,9 @@ Structs in Go are a way to group related variables under a single name.
   user := person{name: "John", age: 35}
   user.sayHello() // Hello, my name is John
   ```
+
+Extra:
+
 - Manipulating using methods:
 
   > Here, we need to use pointers to manipulate the struct through the method because of the pass-by-value rule.
@@ -418,3 +428,51 @@ Structs in Go are a way to group related variables under a single name.
   ```
 
 <br>
+
+### 🔷 Arrays
+
+In Go, array is a fixed-size sequence of elements of the same type.
+
+- Declaring an array:
+  ```go
+  var arr [5]int // zero valued
+  ```
+  > Initializing at the time of declaration:
+  ```go
+  var arr = [5]int{1, 2, 3, 4, 5}
+  ```
+- Accessing array elements:
+  ```go
+  fmt.Println(arr[0]) // 1
+  ```
+- Modifying array elements:
+  ```go
+  arr[0] = 100
+  fmt.Println(arr[0]) // 100
+  ```
+
+Extra:
+
+- Letting the compiler decide the size of the array:
+  ```go
+  var arr = [...]int{1, 5: 2, 3, 4, 5}
+  ```
+- Initializing specific indexes of an array:
+  > When you use the index: value syntax, you specify the value for a particular index in the array. This allows you to skip some indices (with zero values) and directly assign values to others.
+  ```go
+  var arr = [...]int{10, 20, 5: 1, 30, 8: 2, 40}
+  fmt.Println(arr) // [10 20 0 0 0 1 30 0 2 40]
+  ```
+- Slicing an array:
+  > Slicing allows you to create a slice from an array or an existing slice.
+  ```go
+  arr := [5]int{0, 10, 20, 30, 40}
+  fmt.Println(arr[1:3]) // [10 20]
+  ```
+  Syntax:
+  > ```go
+  > slice1 := arr[2:4] // From index 2 to index 3
+  > slice2 := arr[:4]  // From the start to index 3
+  > slice3 := arr[4:]  // From index 4 to the end
+  > slice4 := arr[:]   // The entire array
+  > ```
