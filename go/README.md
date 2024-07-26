@@ -603,4 +603,27 @@ Extra:
 > fmt.Println(cap(slice)) // cap: 10
 > ```
 
+> [!DANGER]
+> Never use `append` on anything other than itself.
+>
+> ```go
+> func main() {
+> 	a := make([]int, 5, 7)
+> 	fmt.Println("a:", a) // a: [0 0 0 0 0]
+>
+> 	b := append(a, 1)
+> 	fmt.Println("b:", b) // b: [0 0 0 0 0 1]
+>
+> 	c := append(a, 2)
+>
+> 	fmt.Println("a:", a) // a: [0 0 0 0 0]
+> 	fmt.Println("b:", b) // b: [0 0 0 0 0 2] ← b got updated because of c
+> 	fmt.Println("c:", c) // c: [0 0 0 0 0 2]
+> }
+> ```
+>
+> Here, when creating the `b` slice, the `a` slice has a capacity of `7` and a length of `5`, which means it can add a new element without allocating a new array. So, `b` now references the same array as `a`. The same thing happens when creating `c`. It also references the same array as `a`. At this point, because both `b` and `c` share the same underlying array, appending `2` through `c` updates the `1` that was appended through `b`.
+>
+> This unexpected behavior would not occur if there were not enough capacity for the new element. In that case, Go would allocate a new array and copy the existing elements to it, resulting in new addresses. But still, it is prone to go unexpected.
+
 <br>
