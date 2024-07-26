@@ -556,6 +556,7 @@ Extra:
 > ```go
 > func main() {
 > 	slice := []int{1, 2, 3}
+>
 > 	fmt.Println("Before:", slice) // Before: [1 2 3]
 >
 > 	reassignSlice(slice)
@@ -569,25 +570,37 @@ Extra:
 > }
 > ```
 
+<br>
+
 > [!IMPORTANT]
 > Slices have a length, which is the number of elements they contain, and a capacity, which is the size of the underlying array they reference.
 >
-> If you append elements to a slice beyond its current capacity, Go will handle this automatically by allocating a (2x) larger array and copying the existing elements to it (which can be an expensive operation in terms of performance).
+> If you append elements to a slice beyond its current capacity, Go will handle this automatically by allocating a (2x) larger array and copying the existing elements to it (to the new address). This can be an expensive operation in terms of performance.
 >
 > ```go
-> 	var slice []int // slice is initially nil, with a length and capacity of 0.
-> 	fmt.Println(len(slice)) // 0
-> 	fmt.Println(cap(slice)) // 0
+> var slice []int // slice is initially nil, with a length and capacity of 0.
+> fmt.Println(len(slice)) // 0
+> fmt.Println(cap(slice)) // 0
 >
-> 	slice = append(slice, 1, 2, 3, 4)
+> slice = append(slice, 1, 2, 3, 4)
 >
-> 	fmt.Println(len(slice)) // len: 4
-> 	fmt.Println(cap(slice)) // cap: 4
+> fmt.Println(len(slice)) // len: 4
+> fmt.Println(cap(slice)) // cap: 4
 >
-> 	slice = append(slice, 5, 6)
+> slice = append(slice, 5, 6)
 >
-> 	fmt.Println(len(slice)) // len: 6
-> 	fmt.Println(cap(slice)) // cap: 8
+> fmt.Println(len(slice)) // len: 6
+> fmt.Println(cap(slice)) // cap: 8
+> ```
+>
+> We can also predefine the capacity of a slice when we declare it:
+>
+> ```go
+> slice := make([]int, 0, 10)
+>
+> fmt.Println(slice)      // []
+> fmt.Println(len(slice)) // len: 0
+> fmt.Println(cap(slice)) // cap: 10
 > ```
 
 <br>
