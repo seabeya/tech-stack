@@ -29,6 +29,7 @@
    - [Structs](#-structs)
      - [Structs Methods](#-structs-methods)
    - [Arrays](#-arrays)
+   - [Slices](#-slices)
 
 <br>
 
@@ -437,10 +438,10 @@ In Go, array is a fixed-size sequence of elements of the same type.
   ```go
   var arr [5]int // zero valued
   ```
-  > Initializing at the time of declaration:
-  ```go
-  var arr = [5]int{1, 2, 3, 4, 5}
-  ```
+  - Initializing at the time of declaration:
+    ```go
+    var arr = [5]int{1, 2, 3, 4, 5}
+    ```
 - Accessing array elements:
   ```go
   fmt.Println(arr[0]) // 1
@@ -463,6 +464,15 @@ Extra:
   var arr = [...]int{10, 20, 5: 1, 30, 8: 2, 40}
   fmt.Println(arr) // [10 20 0 0 0 1 30 0 2 40]
   ```
+- Multi-dimensional arrays:
+  ```go
+  arr2d := [3][2]int{
+  	{1, 2},
+  	{3, 4},
+  	{5, 6},
+  }
+  fmt.Println(arr2d) // [[1 2] [3 4] [5 6]]
+  ```
 - Slicing an array:
   > Slicing allows you to create a slice from an array or an existing slice.
   ```go
@@ -476,3 +486,48 @@ Extra:
   > slice3 := arr[4:]  // From index 4 to the end
   > slice4 := arr[:]   // The entire array
   > ```
+
+<br>
+
+### 🔷 Slices
+
+In Go, a slice is a flexible, dynamically-sized sequence of elements of a single type. Basically, It is an array with some extra features.
+
+- Declaring a slice:
+  ```go
+  var slice []int // zero length
+  ```
+  - Using the make function:
+    > non-zero length & zero valued
+    ```go
+    slice := make([]int, 5)
+    ```
+  - Initializing at the time of declaration:
+    ```go
+    var slice = []int{1, 2, 3, 4, 5}
+    ```
+
+Extra:
+
+- Appending to a slice:
+  ```go
+  slice := []int{1, 2, 3}
+  slice = append(slice, 4, 5, 6)
+  fmt.Println(slice) // [1 2 3 4 5 6]
+  ```
+- Removing elements from a slice:
+  - Removing the index 2 element:
+    ```go
+    slice = append(slice[:2], slice[3:]...)
+    ```
+  - Removing the last element:
+    ```go
+    slice = slice[:len(slice)-1]
+    ```
+  - Removing all elements expect the first two:
+    ```go
+    slice = slice[:2]
+    ```
+
+> [!NOTE]
+> In Go, the `...` syntax is known as the **"variadic"** operator. When you use it after a slice, it "unpacks" the slice so that its elements can be passed as individual arguments.
