@@ -550,11 +550,29 @@ Extra:
 > 	s[0] = 99
 > }
 > ```
+>
+> While slices behave like pass-by-reference for the data they point to, the slice itself is passed by value. This means if you reassign the slice variable inside the function, it won't affect the original slice variable outside the function.
+>
+> ```go
+> func main() {
+> 	slice := []int{1, 2, 3}
+> 	fmt.Println("Before:", slice) // Before: [1 2 3]
+>
+> 	reassignSlice(slice)
+>
+> 	fmt.Println("After:", slice) // After: [1 2 3]
+> }
+>
+> func reassignSlice(s []int) {
+> 	s = []int{100, 200, 300}
+> 	s[0] = 999
+> }
+> ```
 
 > [!IMPORTANT]
 > Slices have a length, which is the number of elements they contain, and a capacity, which is the size of the underlying array they reference.
 >
-> If you append elements to a slice beyond its current capacity, Go will handle this automatically by allocating a larger array and copying the existing elements to it (which can be an expensive operation in terms of performance).
+> If you append elements to a slice beyond its current capacity, Go will handle this automatically by allocating a (2x) larger array and copying the existing elements to it (which can be an expensive operation in terms of performance).
 >
 > ```go
 > 	var slice []int // slice is initially nil, with a length and capacity of 0.
