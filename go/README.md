@@ -603,7 +603,7 @@ Extra:
 > fmt.Println(cap(slice)) // cap: 10
 > ```
 
-> [!DANGER]
+> [!CAUTION]
 > Never use `append` on anything other than itself.
 >
 > ```go
