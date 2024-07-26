@@ -491,7 +491,7 @@ Extra:
 
 ### 🔷 Slices
 
-In Go, a slice is a flexible, dynamically-sized sequence of elements of a single type. Basically, It is an array with some extra features.
+In Go, a slice is a dynamically-sized, flexible view into the elements of an array. Unlike arrays, slices can grow and shrink in size.
 
 - Declaring a slice:
   ```go
@@ -517,6 +517,7 @@ Extra:
   ```
 - Removing elements from a slice:
   - Removing the index 2 element:
+    > The `...` syntax is known as the **"variadic"** operator. When you use it after a slice, it "unpacks" the slice so that its elements can be passed as individual arguments.
     ```go
     slice = append(slice[:2], slice[3:]...)
     ```
@@ -529,5 +530,46 @@ Extra:
     slice = slice[:2]
     ```
 
+<br>
+
 > [!NOTE]
-> In Go, the `...` syntax is known as the **"variadic"** operator. When you use it after a slice, it "unpacks" the slice so that its elements can be passed as individual arguments.
+> When you pass a slice to a function, you are passing a reference to the underlying array, not a copy of the array's elements. Any modifications to the elements of the slice within the function will affect the original array.
+>
+> ```go
+> func main() {
+> 	slice := []int{1, 2, 3}
+>
+> 	fmt.Println("Before:", slice) // Before: [1 2 3]
+>
+> 	modifySlice(slice)
+>
+> 	fmt.Println("After:", slice) // After: [99 2 3]
+> }
+>
+> func modifySlice(s []int) {
+> 	s[0] = 99
+> }
+> ```
+
+> [!IMPORTANT]
+> Slices have a length, which is the number of elements they contain, and a capacity, which is the size of the underlying array they reference.
+>
+> If you append elements to a slice beyond its current capacity, Go will handle this automatically by allocating a larger array and copying the existing elements to it (which can be an expensive operation in terms of performance).
+>
+> ```go
+> 	var slice []int // slice is initially nil, with a length and capacity of 0.
+> 	fmt.Println(len(slice)) // 0
+> 	fmt.Println(cap(slice)) // 0
+>
+> 	slice = append(slice, 1, 2, 3, 4)
+>
+> 	fmt.Println(len(slice)) // len: 4
+> 	fmt.Println(cap(slice)) // cap: 4
+>
+> 	slice = append(slice, 5, 6)
+>
+> 	fmt.Println(len(slice)) // len: 6
+> 	fmt.Println(cap(slice)) // cap: 8
+> ```
+
+<br>
