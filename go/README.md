@@ -30,6 +30,7 @@
      - [Structs Methods](#-structs-methods)
    - [Arrays](#-arrays)
    - [Slices](#-slices)
+   - [Maps](#-maps)
 
 <br>
 
@@ -92,45 +93,39 @@
     var varName type = value
     ```
 
-    > - You always have to specify either `type` or `value` (or both):
-    >   ```go
-    >   var name string = "John"
-    >   var surname = "Doe" // Go can infer the type of the variable from the initial value.
-    >   var age int // zero value: 0
-    >   ```
-
-    > - Declaring multiple variables of the same or different types in a single line:
-    >   ```go
-    >   var name, age = "John", 30
-    >   var a, b, c int = 1, 2, 3 // If the type keyword is used, it is only possible to declare one type of variable per line.
-    >   ```
-
-    > - Using grouped declaration syntax to declare variables together:
-    >   ```go
-    >   var (
-    >   	name    string = "John"
-    >   	surname        = "Doe"
-    >   	age     int
-    >   )
-    >   ```
+    - You always have to specify either `type` or `value` (or both):
+      > ```go
+      > var name string = "John"
+      > var surname = "Doe" // Go can infer the type of the variable from the initial value.
+      > var age int // zero value: 0
+      > ```
+    - Declaring multiple variables of the same or different types in a single line:
+      > ```go
+      > var name, age = "John", 30
+      > var a, b, c int = 1, 2, 3 // If the type keyword is used, it is only possible to  declare one type of variable per line.
+      > ```
+    - Using grouped declaration syntax to declare variables together:
+      > ```go
+      > var (
+      > 	name    string = "John"
+      > 	surname        = "Doe"
+      > 	age     int
+      > )
+      > ```
 
 2.  Using the `:=` syntax:
+
+    > Then you use this syntax you must assign the value to the variable at the time of declaration.
 
     ```go
     varName := value
     ```
 
-    > - You always have to follow the syntax above:
-    >   ```go
-    >   name := "John"
-    >   ```
-
-    > - This syntax is only available inside functions.
-
-    > - Declaring multiple variables in a single line:
-    >   ```go
-    >   name, age := "John", 30
-    >   ```
+    - This syntax is only available inside functions.
+    - Declaring multiple variables in a single line:
+      > ```go
+      > name, age := "John", 30
+      > ```
 
 <br>
 
@@ -147,21 +142,19 @@
     const varName type = value
     ```
 
-    > - Constants can be declared without explicit types, but they must be declared with values:
-    >   ```go
-    >   const daysInWeek int = 7
-    >   const hoursInDay = 24
-    >   ```
-
-    > - Declaring multiple constants in a single block:
-    >   ```go
-    >   const (
-    >   	daysInWeek = 7
-    >   	hoursInDay = 24
-    >   )
-    >   ```
-
-    > - Computations on constants are done at compile time, not at runtime.
+    - Constants can be declared without explicit types, but they must be declared with values:
+      > ```go
+      > const daysInWeek int = 7
+      > const hoursInDay = 24
+      > ```
+    - Declaring multiple constants in a single block:
+      > ```go
+      > const (
+      > 	daysInWeek = 7
+      > 	hoursInDay = 24
+      > )
+      > ```
+    - Computations on constants are done at compile time, not at runtime.
 
 <br>
 
@@ -179,6 +172,7 @@
 | `%o`         | Integer in base 8.                                                  | `("%o", 123)`                            | `173`                |
 | `%x`         | Integer in base 16 with lowercase letters.                          | `("%x", 123)`                            | `7b`                 |
 | `%X`         | Integer in base 16 with uppercase letters.                          | `("%X", 123)`                            | `7B`                 |
+| `%c`         | Integer in Unicode code point.                                      | `("%c", 65)`                             | `A`                  |
 |              |                                                                     |                                          |                      |
 | `%f`         | Floating-point number in decimal format.                            | `("%f", 123.456)`                        | `123.456000`         |
 | `%e`         | Floating-point number in scientific notation with a lowercase 'e'   | `("%e", 123.456)`                        | `1.234560e+02`       |
@@ -440,7 +434,7 @@ In Go, array is a fixed-size sequence of elements of the same type.
   ```
   - Initializing at the time of declaration:
     ```go
-    var arr = [5]int{1, 2, 3, 4, 5}
+    arr := [5]int{1, 2, 3, 4, 5}
     ```
 - Accessing array elements:
   ```go
@@ -456,12 +450,12 @@ Extra:
 
 - Letting the compiler decide the size of the array:
   ```go
-  var arr = [...]int{1, 5: 2, 3, 4, 5}
+  arr := [...]int{1, 5: 2, 3, 4, 5}
   ```
 - Initializing specific indexes of an array:
   > When you use the index: value syntax, you specify the value for a particular index in the array. This allows you to skip some indices (with zero values) and directly assign values to others.
   ```go
-  var arr = [...]int{10, 20, 5: 1, 30, 8: 2, 40}
+  arr := [...]int{10, 20, 5: 1, 30, 8: 2, 40}
   fmt.Println(arr) // [10 20 0 0 0 1 30 0 2 40]
   ```
 - Multi-dimensional arrays:
@@ -504,7 +498,7 @@ In Go, a slice is a dynamically-sized, flexible view into the elements of an arr
     ```
   - Initializing at the time of declaration:
     ```go
-    var slice = []int{1, 2, 3, 4, 5}
+    slice := []int{1, 2, 3, 4, 5}
     ```
 
 Extra:
@@ -570,8 +564,6 @@ Extra:
 > }
 > ```
 
-<br>
-
 > [!IMPORTANT]
 > Slices have a length, which is the number of elements they contain, and a capacity, which is the size of the underlying array they reference.
 >
@@ -608,7 +600,7 @@ Extra:
 >
 > ```go
 > func main() {
-> 	a := make([]int, 5, 7)
+> 	a := make([]int, 5, 7) // 3rd argument is the capacity.
 > 	fmt.Println("a:", a) // a: [0 0 0 0 0]
 >
 > 	b := append(a, 1)
@@ -617,7 +609,7 @@ Extra:
 > 	c := append(a, 2)
 >
 > 	fmt.Println("a:", a) // a: [0 0 0 0 0]
-> 	fmt.Println("b:", b) // b: [0 0 0 0 0 2] ← b got updated because of c
+> 	fmt.Println("b:", b) // b: [0 0 0 0 0 2] <-- b got updated because of c
 > 	fmt.Println("c:", c) // c: [0 0 0 0 0 2]
 > }
 > ```
@@ -625,5 +617,85 @@ Extra:
 > Here, when creating the `b` slice, the `a` slice has a capacity of `7` and a length of `5`, which means it can add a new element without allocating a new array. So, `b` now references the same array as `a`. The same thing happens when creating `c`. It also references the same array as `a`. At this point, because both `b` and `c` share the same underlying array, appending `2` through `c` updates the `1` that was appended through `b`.
 >
 > This unexpected behavior would not occur if there were not enough capacity for the new element. In that case, Go would allocate a new array and copy the existing elements to it, resulting in new addresses. But still, it is prone to go unexpected.
+
+<br>
+
+### 🔷 Maps
+
+Maps in Go are used to store unordered collections of key-value pairs.
+
+- Declaring & initializing a map:
+  > You can't just declare a map with `var m map[string]int` and then assign values to it. If you try to do this, you’ll get a `panic: assignment to entry in nil map` error. To make the map ready to use, you need to initialize it (either empty or with values) using the `make` function as shown below.
+  ```go
+  m := make(map[string]int)
+  ```
+  - Initializing with values:
+    ```go
+    m := map[string]int{
+    	"one":   1,
+    	"two":   2,
+    	"three": 3,
+    }
+    ```
+- Accessing map elements:
+  ```go
+  fmt.Println(m["one"]) // 1
+  ```
+- Adding elements to a map:
+  ```go
+  m["four"] = 4
+  fmt.Println(m) // map[one:1 two:2 three:3 four:4]
+  ```
+- Deleting elements from a map:
+  ```go
+  delete(m, "two")
+  fmt.Println(m) // map[one:1 three:3]
+  ```
+- Modifying map elements:
+  ```go
+  m["one"] = 100
+  fmt.Println(m["one"]) // 100
+  ```
+
+Extra:
+
+- Checking if a key exists in a map:
+  > The optional second return value is a boolean indicating whether the key was found in the map.
+  ```go
+  _, ok := m["one"]
+  fmt.Println(ok) // true
+  ```
+- Clearing all elements from a map:
+  ```go
+  clear(m)
+  ```
+- Nested maps:
+
+  ```go
+  m2d := make(map[string]map[string]int)
+
+  m2d["a"] = map[string]int{"first": 1}
+
+  fmt.Println(m2d) // map[a:map[first:1]]
+
+  fmt.Println(m2d["a"]["first"]) // 1
+  ```
+
+> [!CAUTION]
+> In Go, maps need to be initialized before you can use them.
+>
+> ```go
+> func main() {
+> 	m2d := make(map[string]map[string]int)
+>
+> 	m2d["a"]["b"] = 1 // <-- panic: assignment to entry in nil map
+>
+> 	m2d["a"] = make(map[string]int)
+>
+> 	m2d["a"]["b"] = 1 // <- ok
+>
+> 	fmt.Println(m2d["a"]["b"]) // 1
+> }
+> ```
 
 <br>
