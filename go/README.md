@@ -23,8 +23,9 @@
    - [Declaring Variables](#-declaring-variables)
    - [String Formatting](#-string-formatting)
 2. [Functions](#-functions)
-   - [Pass-by Value/Reference](#-pass-by-valuereference)
    - [The `defer` Keyword](#-the-defer-keyword)
+   - [Closures](#-closures)
+   - [Pass-by Value/Reference](#-pass-by-valuereference)
 3. [Data Structures](#-data-structures)
    - [Structs](#-structs)
      - [Structs Methods](#-structs-methods)
@@ -333,6 +334,37 @@ func sayBye() {
 > ```
 >
 > Multiple deferred statements are executed in last-in-first-out (LIFO) order. This means that the most recently deferred function is executed first.
+
+<br>
+
+### 🔷 Closures
+
+Closures are functions that can access and manipulate variables from their outer scope, even after the outer function has finished executing.
+
+```go
+func main() {
+	count1 := adder()
+	count2 := adder()
+
+	fmt.Println(count1(1)) // 1
+	fmt.Println(count1(2)) // 3
+	fmt.Println(count1(3)) // 6
+
+	fmt.Println(count2(2)) // 2
+	fmt.Println(count2(4)) // 6
+	fmt.Println(count2(6)) // 12
+
+}
+
+func adder() func(int) int {
+	sum := 0
+
+	return func(number int) int {
+		sum += number
+		return sum
+	}
+}
+```
 
 <br>
 
