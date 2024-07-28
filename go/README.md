@@ -258,13 +258,38 @@ Extra:
   	return total
   }
   ```
+- First-class functions:
+
+  > First-class functions are functions that can be assigned to variables, passed as arguments to other functions, and returned as values from other functions.
+
+  ```go
+  func main() {
+  	price := 100.00
+
+  	fmt.Printf("Regular use price: $%.2f\n", applyDiscount(price, regularDiscount)) //  Regular use price: $90.00
+  	fmt.Printf("VIP use price: $%.2f\n", applyDiscount(price, vipDiscount))         //  VIP use price: $80.00
+  }
+
+  func vipDiscount(price float64) float64 {
+  	return price * 0.8 // discount 20%
+  }
+
+  func regularDiscount(price float64) float64 {
+  	return price * 0.9 // discount 10%
+  }
+
+  func applyDiscount(price float64, strategy func(float64) float64) float64 {
+  	return strategy(price)
+  }
+  ```
+
 - Anonymous functions:
   > Anonymous functions are functions that don't have a name.
   ```go
-  greet := func(name string) {
-  	fmt.Println("Hello, " + name)
+  add := func(a, b int) {
+  	fmt.Println(a + b)
   }
-  greet("John") // Output: Hello, John
+  add(1, 2) // 3
   ```
 
 <br>
