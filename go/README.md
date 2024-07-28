@@ -266,8 +266,8 @@ Extra:
   func main() {
   	price := 100.00
 
-  	fmt.Printf("Regular use price: $%.2f\n", applyDiscount(price, regularDiscount)) //  Regular use price: $90.00
-  	fmt.Printf("VIP use price: $%.2f\n", applyDiscount(price, vipDiscount))         //  VIP use price: $80.00
+  	fmt.Printf("Regular user price: $%.2f\n", applyDiscount(price, regularDiscount)) //  Regular user price: $90.00
+  	fmt.Printf("VIP user price: $%.2f\n", applyDiscount(price, vipDiscount))         //  VIP user price: $80.00
   }
 
   func vipDiscount(price float64) float64 {
