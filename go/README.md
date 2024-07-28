@@ -26,7 +26,8 @@
    - [The `defer` Keyword](#-the-defer-keyword)
    - [Closures](#-closures)
    - [Pass-by Value/Reference](#-pass-by-valuereference)
-3. [Data Structures](#-data-structures)
+3. [Pointers](#-pointers)
+4. [Data Structures](#-data-structures)
    - [Structs](#-structs)
      - [Structs Methods](#-structs-methods)
    - [Arrays](#-arrays)
@@ -403,6 +404,109 @@ func adder() func(int) int {
   	fmt.Println("Inside:", *num) // Inside: 6
   }
   ```
+
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Pointers
+
+Pointers in Go allow you to directly reference the memory address of a variable. This allows you to directly access and modify the value stored in that memory location.
+
+- `&`: To get the memory address of a variable.
+- `*`: To access or modify the value at the memory address.
+
+```go
+func main() {
+	// Declaring a variable:
+	a := 10
+
+	// Declaring a pointer and assigning it the address of 'a':
+	ptr := &a
+
+	fmt.Println(a)        // 10
+	fmt.Printf("%T\n", a) // int (type of 'a')
+
+	fmt.Println(ptr)        // 0xc0000a4010 (memory address of 'a')
+	fmt.Printf("%T\n", ptr) // *int (type of 'ptr')
+	fmt.Println(*ptr)       // 10 (value at the memory address)
+
+	// Changing the value at the memory address:
+	*ptr = 20
+
+	fmt.Println(a) // 20
+}
+```
+
+Passing pointers to functions allows you to modify the original value:
+
+```go
+func main() {
+	num := 10
+	fmt.Println(num) // 10
+
+	resetVal(num)
+	fmt.Println(num) // 10
+
+	resetPtr(&num)
+	fmt.Println(num) // 0
+}
+
+func resetVal(val int) {
+	val = 0
+}
+
+func resetPtr(val *int) {
+	*val = 0
+}
+```
+
+> [!WARNING]
+> When a pointer does not point to a valid memory address, it is called a `nil` pointer. If you try to dereference a `nil` pointer, you will get a `panic: runtime error: invalid memory address or nil pointer dereference` error.
+>
+> - Bad: (this code will panic)
+>   > ```go
+>   > func main() {
+>   > 	// Declaring a pointer (zero valued):
+>   > 	var ptr *int
+>   >
+>   > 	fmt.Println(ptr) // <nil>
+>   >
+>   > 	reset(ptr)
+>   > }
+>   >
+>   > func reset(val *int) {
+>   > 	*val = 0 // panic: runtime error: invalid memory address or nil pointer dereference
+>   > }
+>   > ```
+> - Good. Handling `nil` pointers: (this code will return an error instead of panicking)
+>   > ```go
+>   > func main() {
+>   > 	var ptr *int
+>   > 	fmt.Println(ptr) // <nil>
+>   >
+>   > 	fmt.Printf("reset(ptr): %v\n", reset(ptr)) // reset(ptr): invalid pointer
+>   > }
+>   >
+>   > func reset(val *int) error {
+>   > 	if val == nil {
+>   > 		return errors.New("invalid pointer")
+>   > 		// or just empty `return`
+>   > 	}
+>   >
+>   > 	*val = 0
+>   >
+>   > 	return nil
+>   > }
+>   > ```
+
+> [!TIP]
+> Using pointers in Go can greatly improve performance by reducing memory usage and increasing speed, as they allow large data structures to be passed to functions without being copied. This efficiency comes from directly referencing memory addresses, which avoids the overhead of duplicating data.
+>
+> However, pointers add complexity and can lead to memory-related bugs if not used carefully.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
