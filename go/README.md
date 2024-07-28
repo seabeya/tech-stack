@@ -24,6 +24,7 @@
    - [String Formatting](#-string-formatting)
 2. [Functions](#-functions)
    - [Pass-by Value/Reference](#-pass-by-valuereference)
+   - [The `defer` Keyword](#-the-defer-keyword)
 3. [Data Structures](#-data-structures)
    - [Structs](#-structs)
      - [Structs Methods](#-structs-methods)
@@ -290,6 +291,48 @@ Extra:
   }
   add(1, 2) // 3
   ```
+
+<br>
+
+### 🔷 The `defer` Keyword
+
+The `defer` keyword allows us to execute a function or line of code at the end of the current function's execution. This is useful for cleaning up resources, such as closing files or connections.
+
+```go
+func main() {
+	defer sayBye()
+
+	fmt.Println("1")
+
+	defer fmt.Println("2")
+
+	fmt.Println("3")
+
+	fmt.Println(myFunc())
+}
+
+func myFunc() string {
+	defer fmt.Println("4")
+	return "5"
+}
+
+func sayBye() {
+	fmt.Println("bye")
+}
+```
+
+> Output:
+>
+> ```sh
+> 1
+> 3
+> 4
+> 5
+> 2
+> bye
+> ```
+>
+> Multiple deferred statements are executed in last-in-first-out (LIFO) order. This means that the most recently deferred function is executed first.
 
 <br>
 
