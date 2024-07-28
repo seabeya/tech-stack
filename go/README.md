@@ -494,7 +494,6 @@ func resetPtr(val *int) {
 >   > func reset(val *int) error {
 >   > 	if val == nil {
 >   > 		return errors.New("invalid pointer")
->   > 		// or just empty `return`
 >   > 	}
 >   >
 >   > 	*val = 0
