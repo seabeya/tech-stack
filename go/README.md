@@ -23,8 +23,7 @@
    - [Declaring Variables](#-declaring-variables)
    - [String Formatting](#-string-formatting)
 2. [Functions](#-functions)
-   - [Pass-by-Value](#-pass-by-value)
-   - [Pass-by-Reference with Pointers](#-pass-by-reference-with-pointers)
+   - [Pass-by Value/Reference](#-pass-by-valuereference)
 3. [Data Structures](#-data-structures)
    - [Structs](#-structs)
      - [Structs Methods](#-structs-methods)
@@ -294,41 +293,41 @@ Extra:
 
 <br>
 
-### 🔷 Pass-by-Value
+### 🔷 Pass-by Value/Reference
 
-In Go, functions use `pass-by-value` for arguments. This means that when you pass a value to a function, Go creates a copy of that value and passes the copy to the function. The function works with this copy, so changes made to the parameter inside the function do not affect the original value.
+- Pass-by-Value
 
-```go
-func main() {
-	num := 5
-	increment(num)
-	fmt.Println("Outside:", num) // Outside: 5
-}
+  > In Go, functions use `pass-by-value` for arguments. This means that when you pass a value to a function, Go creates a copy of that value and passes the copy to the function. The function works with this copy, so changes made to the parameter inside the function do not affect the original value.
 
-func increment(num int) {
-	num++
-	fmt.Println("Inside:", num) // Inside: 6
-}
-```
+  ```go
+  func main() {
+  	num := 5
+  	increment(num)
+  	fmt.Println("Outside:", num) // Outside: 5
+  }
 
-<br>
+  func increment(num int) {
+  	num++
+  	fmt.Println("Inside:", num) // Inside: 6
+  }
+  ```
 
-### 🔷 Pass-by-Reference with Pointers
+- Pass-by-Reference with Pointers
 
-If you need to modify the original value, you can use pointers. A pointer holds the memory address of a value. When you pass a pointer to a function, you’re passing the address of the value, not a copy of it. This allows the function to modify the original value.
+  > If you need to modify the original value, you can use pointers. A pointer holds the memory address of a value. When you pass a pointer to a function, you’re passing the address of the value, not a copy of it. This allows the function to modify the original value.
 
-```go
-func main() {
-	num := 5
-	increment(&num)
-	fmt.Println("Outside:", num) // Outside: 6
-}
+  ```go
+  func main() {
+  	num := 5
+  	increment(&num)
+  	fmt.Println("Outside:", num) // Outside: 6
+  }
 
-func increment(num *int) {
-	*num++
-	fmt.Println("Inside:", *num) // Inside: 6
-}
-```
+  func increment(num *int) {
+  	*num++
+  	fmt.Println("Inside:", *num) // Inside: 6
+  }
+  ```
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
