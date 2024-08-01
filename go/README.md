@@ -18,16 +18,21 @@
 
 ### Contents
 
-1. [Basics](#-basics)
+1. [Understanding Go](#-understanding-go)
+   - [Essentials](#-essentials)
+     - [Packages](#-packages)
+     - [Modules](#-modules)
+   - [Project Structures](#-project-structures)
+2. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
    - [String Formatting](#-string-formatting)
-2. [Functions](#-functions)
+3. [Functions](#-functions)
    - [The `defer` Keyword](#-the-defer-keyword)
    - [Closures](#-closures)
    - [Pass-by Value/Reference](#-pass-by-valuereference)
-3. [Pointers](#-pointers)
-4. [Data Structures](#-data-structures)
+4. [Pointers](#-pointers)
+5. [Data Structures](#-data-structures)
    - [Structs](#-structs)
      - [Structs Methods](#-structs-methods)
    - [Arrays](#-arrays)
@@ -37,6 +42,200 @@
 <br>
 
 <hr>
+
+## 🔶 Understanding Go
+
+### 🔷 Essentials
+
+#### 🔻 Packages
+
+In Go, code is organized into packages. A package is a collection of Go files in the same directory that are compiled together. Each Go file starts with a package statement that defines the package it belongs to.
+
+There are two types of packages: the main package and other packages.
+
+- Main Package:
+  > This is the starting point of any Go application. A file with the `package main` statement defines the main package, and it must contain a `main()` function. The `main()` function is the entry point of the program where the execution starts.
+- Other Packages (Library Package):
+  > Other packages are used to organize code into reusable components. These packages group related functions, types, and variables together, making it easier to manage and maintain the code.
+
+<br>
+
+#### 🔻 Modules
+
+A collection of related Go packages is called a module. A module has a `go.mod` file at the root of the module directory that defines the module's path and dependencies.
+
+> [!NOTE]
+> The `go.mod` file is essential for both main packages and library packages. We create it every time we create a new project.
+
+- Initializing a module:
+
+  > The module path is the root import path for all packages within the module and is usually the URL of the repository where the module is hosted.
+
+  ```sh
+  go mod init <module-path>
+  ```
+
+  > This will generate a `go.mod` file like this:
+
+  ```go
+  module github.com/username/project
+
+  go 1.22.4
+  ```
+
+  <br>
+
+### 🔷 Project Structures
+
+- An executable Go project with no extra packages:
+
+  1. Create a directory called `myapp` for the project.
+  2. Initialize a project (module):
+     ```sh
+     go mod init github.com/seabeya/myapp
+     ```
+  3. Create a `main.go` file:
+
+     ```go
+     package main
+
+     import "fmt"
+
+     func main() {
+     	fmt.Println("Hello, World!")
+     }
+     ```
+
+  4. We can create a different Go file (called `calculate.go`) under the same package:
+
+     ```go
+     package main
+
+     func add(a, b int) int {
+     	return a + b
+     }
+
+     func subtract(a, b int) int {
+     	return a - b
+     }
+     ```
+
+  5. Using the new functions in the main file:
+
+     > You don't need to import the functions if they are defined in the same package. They are already part of the package.
+
+     ```go
+     package main
+
+     import "fmt"
+
+     func main() {
+     	fmt.Println(add(1, 2))      // 3
+     	fmt.Println(subtract(5, 3)) // 2
+     }
+     ```
+
+  > Overall directory structure:
+  >
+  > ```sh
+  > myapp/
+  >   ├── go.mod
+  >   ├── main.go
+  >   └── calculate.go
+  > ```
+
+> [!NOTE]
+> A folder can only have files that belong to the same package.
+
+> [!NOTE]
+> You cannot have multiple functions with the same name under a single package, even if they are in different files.
+
+<br>
+
+- An executable Go project with extra nested packages:
+
+  > Overall directory structure:
+  >
+  > ```sh
+  > myapp/
+  >   ├── go.mod
+  >   ├── main.go
+  >   └── calculate/
+  >           ├── basic.go
+  >           └── advanced.go
+  > ```
+  >
+  > The `go.mod` file remains in the root directory and handles the dependencies for the entire project. You don’t need separate `go.mod` files for nested packages.
+
+  1. main.go:
+
+     > You need to import the nested packages because they are not part of the importing package.
+
+     > When you import nested packages, you need to use their full paths relative to the module path. `github.com/username/myapp` -> `/calculate`.
+
+     ```go
+     package main
+
+     import (
+     	"fmt"
+
+     	"github.com/username/myapp/calculate"
+     )
+
+     func main() {
+     	fmt.Println(calculate.Add(1, 2))      // 3
+     	fmt.Println(calculate.Subtract(5, 3)) // 2
+
+     	fmt.Println(calculate.Square(5))      // 25
+     	fmt.Println(calculate.SquareRoot(25)) // 5
+     }
+     ```
+
+  2. calculate/
+
+     > In Go, only identifiers (variables, functions, types, etc.) that start with an uppercase letter are exported and can be accessed from other packages.
+
+     - basic.go:
+
+       ```go
+       package calculate
+
+       func Add(a, b int) int {
+       	return a + b
+       }
+
+       func Subtract(a, b int) int {
+       	return a - b
+       }
+       ```
+
+     - advanced.go:
+
+       ```go
+       package calculate
+
+       import "math"
+
+       func Square(x int) int {
+       	return x * x
+       }
+
+       func SquareRoot(x int) float64 {
+       	return math.Sqrt(float64(x))
+       }
+       ```
+
+<br>
+
+- A separate non-executable Go library project:
+  > TODO
+
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
+<br>
 
 ## 🔶 Basics
 
