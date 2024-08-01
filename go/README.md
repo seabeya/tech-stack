@@ -92,7 +92,7 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
   1. Create a directory called `myapp` for the project.
   2. Initialize a project (module):
      ```sh
-     go mod init github.com/seabeya/myapp
+     go mod init github.com/username/myapp
      ```
   3. Create a `main.go` file:
 
