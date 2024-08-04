@@ -22,7 +22,7 @@
    - [Essentials](#-essentials)
      - [Packages](#-packages)
      - [Modules](#-modules)
-   - [Project Structures](#-project-structures)
+   - [Project Structure Examples](#-project-structure-examples)
 2. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
@@ -85,7 +85,7 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
 
   <br>
 
-### 🔷 Project Structures
+### 🔷 Project Structure Examples
 
 - An executable Go project with no extra packages:
 
