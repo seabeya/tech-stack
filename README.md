@@ -32,12 +32,12 @@
 - [**Git**](./git/README.md) `🟢`
 - [**JavaScript**](./js/README.md) `in-progress 🟡`
 - [**Data Structures & Algorithms**](./dsa/README.md) `in-progress 🟡`
-- [**Docker**](./docker/README.md) `in-progress 🟡`
 - [**React.js**](./react/README.md) `in-progress 🟡`
 - [**TypeScript**](./ts/README.md) `🟢`
-- [**SQL (PostgreSQL)**](./sql/README.md) `in-progress 🟡`
 - [**Go**](./go/README.md) `in-progress 🟡`
+- [**SQL (PostgreSQL)**](./sql/README.md) `in-progress 🟡`
 - **Redis** `planned ⚫`
+- [**Docker**](./docker/README.md) `in-progress 🟡`
 - **GitHub Actions** `planned ⚫`
 - **Kubernetes** `planned ⚫`
 - **Amazon Web Services (AWS)** `planned ⚫`
