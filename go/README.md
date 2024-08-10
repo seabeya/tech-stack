@@ -490,11 +490,19 @@ Extra:
 - Anonymous functions:
   > Anonymous functions are functions that don't have a name.
   ```go
-  add := func(a, b int) {
-  	fmt.Println(a + b)
+  func main() {
+  	func() {
+  		fmt.Println("Hello, world!")
+  	}() // <-- Immediately invoking the anonymous function
   }
-  add(1, 2) // 3
   ```
+  - Assigning the anonymous function to a variable:
+    ```go
+    add := func(a, b int) {
+    	fmt.Println(a + b)
+    }
+    add(1, 2) // 3
+    ```
 
 <br>
 
