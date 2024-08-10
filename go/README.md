@@ -38,6 +38,9 @@
    - [Arrays](#-arrays)
    - [Slices](#-slices)
    - [Maps](#-maps)
+6. [Concurrency](#-concurrency)
+   - [Goroutines](#-goroutines)
+   - [Channels](#-channels)
 
 <br>
 
@@ -83,7 +86,7 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
   go 1.22.4
   ```
 
-  <br>
+<br>
 
 ### 🔷 Project Structure Examples
 
@@ -1099,4 +1102,167 @@ Extra:
 > }
 > ```
 
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Concurrency
+
+### 🔷 Goroutines
+
+Goroutines are a feature in Go that allows you to run functions concurrently.
+
+In general, we can split the execution of a program into two types of routines:
+
+- Main Routine:
+  > The main routine is the initial goroutine that starts when a Go program begins execution. It's the entry point of the program, defined by the main function in the main package. When the main function exits, the program terminates, so any running goroutines will also be stopped.
+- Child Routines:
+  > A child routine is any goroutine that is spawned by the main routine or other goroutines. These are created using the `go` keyword followed by a function call. Child routines run concurrently with the main routine and each other.
+
+<br>
+
+Example:
+
+```go
+func main() {
+	go expensiveFunc("Hello")
+
+	fmt.Println("Main")
+
+	time.Sleep(1700 * time.Millisecond)
+}
+
+func expensiveFunc(text string) {
+	for i := 0; i < 4; i++ {
+		time.Sleep(500 * time.Millisecond)
+		fmt.Println(text, i)
+	}
+}
+```
+
+> Output:
+>
+> ```sh
+> Main
+> Hello 0
+> Hello 1
+> Hello 2
+> ```
+
+> The `time.Sleep` inside the main function is used to give enough time for the goroutines to finish before the main function exits. Without this, the program would exit immediately after the main routine has done its job.
+>
+> The output shows results for only 3 iterations, not 4 as specified in the for loop. This is because we have a `time.Sleep` of 1.7 seconds (1700 milliseconds), which is less than the minimum of 2 seconds (2000 milliseconds) needed for 4 iterations (4 \* 500 ms = 2000 ms) in the `expensiveFunc` function.
+
+<br>
+
+### 🔷 Channels
+
+Channels in Go are a way to communicate between goroutines. They are used to send and receive values between goroutines.
+
+- Declaring a channel:
+  > The type of a channel specifies what kind of data it can carry.
+  ```go
+  ch := make(chan int)
+  ```
+- Sending values to a channel:
+  ```go
+  ch <- 10
+  ```
+- Receiving values from a channel:
+  ```go
+  myVar := <-ch
+  ```
+- Closing a channel:
+  > Closing a channel is a way to signal to the receiving goroutine that it should stop waiting for values to be sent to it. It's important to close a channel when you're done sending values to avoid a deadlock.
+  ```go
+  close(ch)
+  ```
+
+> [!NOTE]
+> Channel synchronization ensures that communication between goroutines is properly coordinated. It guarantees that data sent between goroutines is not lost and that goroutines wait for each other when necessary, maintaining the correct order and timing of operations.
+>
+> - Send Operation: `ch <- value`
+>   > When a goroutine sends a value to a channel, it blocks/waits until another goroutine receives that value from the channel.
+> - Receive Operation: `value := <-ch`
+>   > When a goroutine receives a value from a channel, it blocks until there is a value available to receive.
+
+<br>
+
+Example:
+
+```go
+func main() {
+	ch := make(chan string)
+
+	go expensiveFunc("Hello", ch)
+
+	fmt.Println("Main")
+
+	for i := 0; i < 4; i++ {
+		fmt.Println(<-ch)
+	}
+
+  fmt.Println("End")
+}
+
+func expensiveFunc(text string, ch chan string) {
+	for i := 0; i < 4; i++ {
+		time.Sleep(500 * time.Millisecond)
+		ch <- text + " " + fmt.Sprint(i)
+	}
+}
+```
+
+> Output:
+>
+> ```sh
+> Main
+> Hello 0
+> Hello 1
+> Hello 2
+> Hello 3
+> End
+> ```
+
+> Here, we don’t need any additional mechanism in the main function to wait for the goroutines to finish. The `<-ch` operation in the main function blocks until there is a value to receive from the channel. This blocking behavior synchronizes the main function with the `expensiveFunc` goroutine. Each iteration of the loop in the main function waits for a corresponding send operation from `expensiveFunc`. Btw, we are not forced to use a loop here. We can use `fmt.Println(<-ch)` directly 4 times, one after the other, it does the same thing.
+>
+> In this specific example, we don't strictly need to close the channel because the main function will only receive a fixed number of messages (4 in this case) and then it stops.
+>
+> Here is the modified version of it that needs to be closed explicitly:
+>
+> ```go
+> func main() {
+> 	ch := make(chan string)
+>
+> 	go expensiveFunc("Hello", ch)
+>
+> 	fmt.Println("Main")
+>
+> 	for msg := range ch {
+> 		fmt.Println(msg)
+> 	}
+>
+> 	fmt.Println("Done.")
+> }
+>
+> func expensiveFunc(text string, ch chan string) {
+> 	for i := 0; i < 4; i++ {
+> 		time.Sleep(500 * time.Millisecond)
+> 		ch <- text + " " + fmt.Sprint(i)
+> 	}
+>
+> 	close(ch)
+> }
+> ```
+>
+> > The `for msg := range ch { ... }` syntax essentially performs a `msg := <-ch` operation under the hood, which is where the blocking behavior occurs.
+
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
 <br>
