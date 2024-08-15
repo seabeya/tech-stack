@@ -41,6 +41,7 @@
 6. [Concurrency](#-concurrency)
    - [Goroutines](#-goroutines)
    - [Channels](#-channels)
+     - [Channel Status](#-channel-status)
 
 <br>
 
@@ -1184,7 +1185,7 @@ Channels in Go are a way to communicate between goroutines. They are used to sen
   myVar := <-ch
   ```
 - Closing a channel:
-  > Closing a channel is a way to signal to the receiving goroutine that it should stop waiting for values to be sent to it. It's important to close a channel when you're done sending values to avoid a deadlock.
+  > Closing a channel is a way to signal to the receiving goroutine that it should stop waiting for values to be sent to it. It's important to close a channel when you're done sending values to avoid a `deadlock`.
   ```go
   close(ch)
   ```
@@ -1267,6 +1268,44 @@ func expensiveFunc(text string, ch chan string) {
 > ```
 >
 > > The `for msg := range ch { ... }` syntax essentially performs a `msg := <-ch` operation under the hood, which is where the blocking behavior occurs.
+
+<br>
+
+#### 🔻 Channel Status
+
+The receiver of a channel can check the status of the channel using the second return value of the receive operation.
+
+```go
+val, ok := <-ch
+```
+
+The second return value (`ok` here) is a boolean that indicates whether the channel is closed or not.
+
+- `true`: The channel is closed and no more values can be sent to it.
+- `false`: The channel is open and values can be sent to it.
+
+```go
+func main() {
+	ch := make(chan int)
+
+	go func() {
+		ch <- 1
+		ch <- 2
+		close(ch)
+	}()
+
+	for {
+		val, ok := <-ch
+		if !ok {
+			fmt.Println("Channel is closed.")
+			break
+		}
+		fmt.Println("Received:", val)
+	}
+}
+```
+
+> When you `range` over a channel, the loop will automatically break when the channel is closed. But if you're using a manual receive loop, checking `ok` helps you know when to stop receiving.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
