@@ -42,6 +42,7 @@
    - [Goroutines](#-goroutines)
    - [Channels](#-channels)
      - [Channel Status](#-channel-status)
+     - [The `select` Statement](#-the-select-statement)
 
 <br>
 
@@ -169,7 +170,7 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
   >           └── advanced.go
   > ```
   >
-  > The `go.mod` file remains in the root directory and handles the dependencies for the entire project. You don’t need separate `go.mod` files for nested packages.
+  > The `go.mod` file remains in the root directory and handles the dependencies for the entire project. You don't need separate `go.mod` files for nested packages.
 
   1. main.go:
 
@@ -601,7 +602,7 @@ func adder() func(int) int {
 
 - Pass-by-Reference with Pointers
 
-  > If you need to modify the original value, you can use pointers. A pointer holds the memory address of a value. When you pass a pointer to a function, you’re passing the address of the value, not a copy of it. This allows the function to modify the original value.
+  > If you need to modify the original value, you can use pointers. A pointer holds the memory address of a value. When you pass a pointer to a function, you're passing the address of the value, not a copy of it. This allows the function to modify the original value.
 
   ```go
   func main() {
@@ -1038,7 +1039,7 @@ Extra:
 Maps in Go are used to store unordered collections of key-value pairs.
 
 - Declaring & initializing a map:
-  > You can't just declare a map with `var m map[string]int` and then assign values to it. If you try to do this, you’ll get a `panic: assignment to entry in nil map` error. To make the map ready to use, you need to initialize it (either empty or with values) using the `make` function as shown below.
+  > You can't just declare a map with `var m map[string]int` and then assign values to it. If you try to do this, you'll get a `panic: assignment to entry in nil map` error. To make the map ready to use, you need to initialize it (either empty or with values) using the `make` function as shown below.
   ```go
   m := make(map[string]int)
   ```
@@ -1236,7 +1237,7 @@ func expensiveFunc(text string, ch chan string) {
 > End
 > ```
 
-> Here, we don’t need any additional mechanism in the main function to wait for the goroutines to finish. The `<-ch` operation in the main function blocks until there is a value to receive from the channel. This blocking behavior synchronizes the main function with the `expensiveFunc` goroutine. Each iteration of the loop in the main function waits for a corresponding send operation from `expensiveFunc`. Btw, we are not forced to use a loop here. We can use `fmt.Println(<-ch)` directly 4 times, one after the other, it does the same thing.
+> Here, we don't need any additional mechanism in the main function to wait for the goroutines to finish. The `<-ch` operation in the main function blocks until there is a value to receive from the channel. This blocking behavior synchronizes the main function with the `expensiveFunc` goroutine. Each iteration of the loop in the main function waits for a corresponding send operation from `expensiveFunc`. Btw, we are not forced to use a loop here. We can use `fmt.Println(<-ch)` directly 4 times, one after the other, it does the same thing.
 >
 > In this specific example, we don't strictly need to close the channel because the main function will only receive a fixed number of messages (4 in this case) and then it stops.
 >
@@ -1306,6 +1307,61 @@ func main() {
 ```
 
 > When you `range` over a channel, the loop will automatically break when the channel is closed. But if you're using a manual receive loop, checking `ok` helps you know when to stop receiving.
+
+<br>
+
+#### 🔻 The `select` Statement
+
+The `select` statement in Go is a control structure that allows you to work with multiple channels simultaneously. It's similar to a `switch` statement but is specifically designed for channel operations.
+
+- The `select` statement listens to several channels.
+- It runs the first case that's ready to proceed.
+- If multiple cases are ready, Go randomly picks one to execute.
+- If there's no `default` case, it will block and wait until a case becomes ready.
+- If a `default` case is present and no other cases are ready, it executes the `default` case immediately without blocking.
+
+```go
+func main() {
+  // Preparation:
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+	ch3 := make(chan int)
+
+	go func() {
+		time.Sleep(time.Second)
+		ch1 <- 1
+	}()
+
+	go func() {
+		time.Sleep(time.Second * 3)
+		ch2 <- 2
+	}()
+
+	go func() {
+		time.Sleep(time.Second * 2)
+		ch3 <- 3
+	}()
+
+	time.Sleep(time.Second * 5)
+
+  // Usage:
+	select {
+	case val1 := <-ch1:
+		fmt.Println(val1)
+	case val2 := <-ch2:
+		fmt.Println(val2)
+	case val3 := <-ch3:
+		fmt.Println(val3)
+	default:
+		fmt.Println("No channels are ready.")
+	}
+
+	fmt.Println("Done.")
+}
+```
+
+> [!NOTE]
+> The `select` statement is not a loop. It executes only one case even if multiple are ready, or it is a `default` case. And then breaks the `select` statement.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
