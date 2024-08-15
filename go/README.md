@@ -43,6 +43,7 @@
    - [Channels](#-channels)
      - [Channel Status](#-channel-status)
      - [The `select` Statement](#-the-select-statement)
+     - [Read-Only and Write-Only Channels](#-read-only-and-write-only-channels)
 
 <br>
 
@@ -1362,6 +1363,35 @@ func main() {
 
 > [!NOTE]
 > The `select` statement is not a loop. It executes only one case even if multiple are ready, or it is a `default` case. And then breaks the `select` statement.
+
+<br>
+
+#### 🔻 Read-Only and Write-Only Channels
+
+In Go, channels can be restricted to be either `read-only` or `write-only`. This is useful for defining clear communication patterns between goroutines and helps in maintaining code safety and clarity.
+
+- Read-only channels:
+  > A read-only channel can only be used to receive values. You cannot send values into a read-only channel.
+- Write-only channels:
+  > A write-only channel can only be used to send values. You cannot receive values from a write-only channel.
+
+```go
+func sendData(ch chan<- int) { // ch is write-only
+	ch <- 42
+	close(ch)
+}
+
+func receiveData(ch <-chan int) { // ch is read-only
+	fmt.Println(<-ch)
+}
+
+func main() {
+	ch := make(chan int)
+
+	go sendData(ch)
+	receiveData(ch)
+}
+```
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
