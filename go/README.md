@@ -38,7 +38,8 @@
    - [Arrays](#-arrays)
    - [Slices](#-slices)
    - [Maps](#-maps)
-6. [Concurrency](#-concurrency)
+6. [Generics](#-generics)
+7. [Concurrency](#-concurrency)
    - [Goroutines](#-goroutines)
    - [Channels](#-channels)
      - [Channel Status](#-channel-status)
@@ -1120,6 +1121,121 @@ Extra:
 <br>
 <br>
 
+## 🔶 Generics
+
+Generics in Go are a way to write reusable code that can work with different types. Instead of writing multiple versions of a function for different data types, you can write one generic function that works with any type.
+
+> Generics maintain type safety by allowing the compiler to check types at compile-time. This prevents many types of runtime errors.
+
+Syntax:
+
+> ```go
+> func myFunc[T any](input T) T {
+> 	return input
+> }
+> ```
+>
+> The type parameters are enclosed in square brackets `[]` and come after the function name.
+>
+> - Type Parameter:
+>   > `T` is a type parameter that can represent any type. You can name it anything, but `T` is commonly used.
+> - Constraint:
+>   > The `any` constraint means that `T` can be any type (`any` is a shorthand for `interface{}`).
+
+<br>
+
+Example 1:
+
+- Without Generics:
+
+  ```go
+  func main() {
+  	fmt.Println(addInts(1, 2))       // 3
+  	fmt.Println(addFloats(1.5, 2.3)) // 3.8
+
+  }
+
+  func addInts(a, b int) int {
+  	return a + b
+  }
+
+  func addFloats(a, b float64) float64 {
+  	return a + b
+  }
+  ```
+
+- With Generics:
+
+  ```go
+  func main() {
+  	fmt.Println(add(1, 2))     // 3
+  	fmt.Println(add(1.5, 2.3)) // 3.8
+
+  }
+
+  func add[T int | float64](a T, b T) T {
+  	return a + b
+  }
+  ```
+
+Example 2:
+
+```go
+func main() {
+	fmt.Println(swap(5, 10))            // 10, 5
+	fmt.Println(swap(2.5, 5.2))         // 5.2, 2.5
+	fmt.Println(swap("Hello", "World")) // "World", "Hello"
+}
+
+func swap[T any](a, b T) (T, T) {
+	return b, a
+}
+```
+
+<br>
+
+Example 3:
+
+```go
+func main() {
+	fmt.Println(swap(2.5, 5))      // 5, 2.5
+	fmt.Println(swap("Hello", 99)) // 99, "Hello"
+}
+
+func swap[T any, U any](a T, b U) (U, T) {
+	return b, a
+}
+```
+
+<br>
+
+Example 4:
+
+> Enforcing generic functions to work only with specific types.
+
+```go
+type Number interface {
+	int | float64
+}
+
+func multiply[T Number](a, b T) T {
+	return a * b
+}
+
+func main() {
+	fmt.Println(multiply(5, 6))             // 30
+	fmt.Println(multiply(3.2, 4.1))         // 13.12
+	fmt.Println(multiply("Hello", "World")) // string does not satisfy Number (string missing in int | float64) compiler(InvalidTypeArg)
+}
+```
+
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
 ## 🔶 Concurrency
 
 ### 🔷 Goroutines
@@ -1399,3 +1515,4 @@ func main() {
 
 <br>
 <br>
+````
