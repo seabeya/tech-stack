@@ -24,7 +24,8 @@
      - [Modules](#-modules)
    - [Project Structure Examples](#-project-structure-examples)
      - [#1. An executable Go project with no extra packages.](#-1-an-executable-go-project-with-no-extra-packages)
-   - [#2. An executable Go project with extra nested packages.](#-2-an-executable-go-project-with-extra-nested-packages)
+     - [#2. An executable Go project with extra nested packages.](#-2-an-executable-go-project-with-extra-nested-packages)
+     - [#3. A separate non-executable Go library project.](#-3-a-separate-non-executable-go-library-project)
 2. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
@@ -78,13 +79,13 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
 
 - Initializing a module:
 
-  > The module path is the root import path for all packages within the module and is usually the URL of the repository where the module is hosted.
+  > The `<module-path>` is the root import path for all packages within the module and is usually the URL of the repository where the module is hosted.
 
   ```sh
   go mod init <module-path>
   ```
 
-  > This will generate a `go.mod` file like this:
+  So, running `go mod init github.com/username/project` will generate a `go.mod` file like this:
 
   ```go
   module github.com/username/project
@@ -178,9 +179,9 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
 
 1. main.go:
 
-   > You need to import the nested packages because they are not part of the importing package.
+   > You need to import the nested packages because they are not part of the importing package (`main` in this case).
 
-   > When you import nested packages, you need to use their full paths relative to the module path. `github.com/username/myapp` -> `/calculate`.
+   > When you import nested packages, you need to use their full paths relative to the module path. `github.com/username/myapp` -> `/calculate` = `github.com/username/myapp/calculate`.
 
    ```go
    package main
@@ -201,8 +202,6 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
    ```
 
 2. calculate/
-
-   > In Go, only identifiers (variables, functions, types, etc.) that start with an uppercase letter are exported and can be accessed from other packages.
 
    - basic.go:
 
@@ -234,10 +233,74 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
      }
      ```
 
+> [!IMPORTANT]
+> In Go, only identifiers (variables, functions, types, etc.) that start with an uppercase letter are exported and can be accessed from other packages.
+
 <br>
 
-- A separate non-executable Go library project:
-  > TODO
+#### 🔻 #3. A separate non-executable Go library project.
+
+> Overall directory structure:
+>
+> ```sh
+> mylib/
+>   ├── go.mod
+>   ├── mylib.go
+>   └── generate/
+>           ├── name.go
+>           └── surname.go
+> ```
+
+1. Create a directory called `mylib` for the library project.
+2. Initializing a library module:
+   ```sh
+   go mod init github.com/username/mylib
+   ```
+3. mylib.go:
+
+   ```go
+   package mylib
+
+   import (
+   	"fmt"
+
+   	"github.com/username/mylib/generate"
+   )
+
+   func SayHi() {
+   	fmt.Printf("Hi %s!\n", generate.Name())
+   }
+
+   func SayBye() {
+   	fmt.Printf("Bye %s!\n", generate.Surname())
+   }
+
+   func GetFullName() string {
+   	return fmt.Sprintf("%s %s", generate.Name(), generate.Surname())
+   }
+   ```
+
+4. generate/:
+
+   - name.go:
+
+     ```go
+     package generate
+
+     func Name() string {
+     	return "John"
+     }
+     ```
+
+   - surname.go:
+
+     ```go
+     package generate
+
+     func Surname() string {
+     	return "Doe"
+     }
+     ```
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
