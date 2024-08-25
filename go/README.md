@@ -68,6 +68,9 @@ There are two types of packages: the main package and other packages.
 - Other Packages (Library Package):
   > Other packages are used to organize code into reusable components. These packages group related functions, types, and variables together, making it easier to manage and maintain the code.
 
+> [!IMPORTANT]
+> In Go, only projects containing a `main` package with a `main` function can be executed directly as standalone programs. Other non-main packages, which do not include a `main` function, cannot be run on their own. These packages are designed as libraries or helpers that can be imported and used by other packages, including those with a `main` package.
+
 <br>
 
 #### 🔻 Modules
@@ -301,6 +304,14 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
      	return "Doe"
      }
      ```
+
+<br>
+
+---
+
+Todo:
+
+> #4. Using an external library/package in a Go project.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
