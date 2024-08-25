@@ -23,6 +23,8 @@
      - [Packages](#-packages)
      - [Modules](#-modules)
    - [Project Structure Examples](#-project-structure-examples)
+     - [#1. An executable Go project with no extra packages.](#-1-an-executable-go-project-with-no-extra-packages)
+   - [#2. An executable Go project with extra nested packages.](#-2-an-executable-go-project-with-extra-nested-packages)
 2. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
@@ -94,62 +96,62 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
 
 ### 🔷 Project Structure Examples
 
-- An executable Go project with no extra packages:
+#### 🔻 #1. An executable Go project with no extra packages.
 
-  1. Create a directory called `myapp` for the project.
-  2. Initialize a project (module):
-     ```sh
-     go mod init github.com/username/myapp
-     ```
-  3. Create a `main.go` file:
+1. Create a directory called `myapp` for the project.
+2. Initialize a project (module):
+   ```sh
+   go mod init github.com/username/myapp
+   ```
+3. Create a `main.go` file:
 
-     ```go
-     package main
+   ```go
+   package main
 
-     import "fmt"
+   import "fmt"
 
-     func main() {
-     	fmt.Println("Hello, World!")
-     }
-     ```
+   func main() {
+   	fmt.Println("Hello, World!")
+   }
+   ```
 
-  4. We can create a different Go file (called `calculate.go`) under the same package:
+4. We can create a different Go file (called `calculate.go`) under the same package:
 
-     ```go
-     package main
+   ```go
+   package main
 
-     func add(a, b int) int {
-     	return a + b
-     }
+   func add(a, b int) int {
+   	return a + b
+   }
 
-     func subtract(a, b int) int {
-     	return a - b
-     }
-     ```
+   func subtract(a, b int) int {
+   	return a - b
+   }
+   ```
 
-  5. Using the new functions in the main file:
+5. Using the new functions in the main file:
 
-     > You don't need to import the functions if they are defined in the same package. They are already part of the package.
+   > You don't need to import the functions if they are defined in the same package. They are already part of the package.
 
-     ```go
-     package main
+   ```go
+   package main
 
-     import "fmt"
+   import "fmt"
 
-     func main() {
-     	fmt.Println(add(1, 2))      // 3
-     	fmt.Println(subtract(5, 3)) // 2
-     }
-     ```
+   func main() {
+   	fmt.Println(add(1, 2))      // 3
+   	fmt.Println(subtract(5, 3)) // 2
+   }
+   ```
 
-  > Overall directory structure:
-  >
-  > ```sh
-  > myapp/
-  >   ├── go.mod
-  >   ├── main.go
-  >   └── calculate.go
-  > ```
+> Overall directory structure:
+>
+> ```sh
+> myapp/
+>   ├── go.mod
+>   ├── main.go
+>   └── calculate.go
+> ```
 
 > [!NOTE]
 > A folder can only have files that belong to the same package.
@@ -159,78 +161,78 @@ A collection of related Go packages is called a module. A module has a `go.mod` 
 
 <br>
 
-- An executable Go project with extra nested packages:
+#### 🔻 #2. An executable Go project with extra nested packages.
 
-  > Overall directory structure:
-  >
-  > ```sh
-  > myapp/
-  >   ├── go.mod
-  >   ├── main.go
-  >   └── calculate/
-  >           ├── basic.go
-  >           └── advanced.go
-  > ```
-  >
-  > The `go.mod` file remains in the root directory and handles the dependencies for the entire project. You don't need separate `go.mod` files for nested packages.
+> Overall directory structure:
+>
+> ```sh
+> myapp/
+>   ├── go.mod
+>   ├── main.go
+>   └── calculate/
+>           ├── basic.go
+>           └── advanced.go
+> ```
+>
+> The `go.mod` file remains in the root directory and handles the dependencies for the entire project. You don't need separate `go.mod` files for nested packages.
 
-  1. main.go:
+1. main.go:
 
-     > You need to import the nested packages because they are not part of the importing package.
+   > You need to import the nested packages because they are not part of the importing package.
 
-     > When you import nested packages, you need to use their full paths relative to the module path. `github.com/username/myapp` -> `/calculate`.
+   > When you import nested packages, you need to use their full paths relative to the module path. `github.com/username/myapp` -> `/calculate`.
+
+   ```go
+   package main
+
+   import (
+   	"fmt"
+
+   	"github.com/username/myapp/calculate"
+   )
+
+   func main() {
+   	fmt.Println(calculate.Add(1, 2))      // 3
+   	fmt.Println(calculate.Subtract(5, 3)) // 2
+
+   	fmt.Println(calculate.Square(5))      // 25
+   	fmt.Println(calculate.SquareRoot(25)) // 5
+   }
+   ```
+
+2. calculate/
+
+   > In Go, only identifiers (variables, functions, types, etc.) that start with an uppercase letter are exported and can be accessed from other packages.
+
+   - basic.go:
 
      ```go
-     package main
+     package calculate
 
-     import (
-     	"fmt"
+     func Add(a, b int) int {
+     	return a + b
+     }
 
-     	"github.com/username/myapp/calculate"
-     )
-
-     func main() {
-     	fmt.Println(calculate.Add(1, 2))      // 3
-     	fmt.Println(calculate.Subtract(5, 3)) // 2
-
-     	fmt.Println(calculate.Square(5))      // 25
-     	fmt.Println(calculate.SquareRoot(25)) // 5
+     func Subtract(a, b int) int {
+     	return a - b
      }
      ```
 
-  2. calculate/
+   - advanced.go:
 
-     > In Go, only identifiers (variables, functions, types, etc.) that start with an uppercase letter are exported and can be accessed from other packages.
+     ```go
+     package calculate
 
-     - basic.go:
+     import "math"
 
-       ```go
-       package calculate
+     func Square(x int) int {
+     	return x * x
+     }
 
-       func Add(a, b int) int {
-       	return a + b
-       }
-
-       func Subtract(a, b int) int {
-       	return a - b
-       }
-       ```
-
-     - advanced.go:
-
-       ```go
-       package calculate
-
-       import "math"
-
-       func Square(x int) int {
-       	return x * x
-       }
-
-       func SquareRoot(x int) float64 {
-       	return math.Sqrt(float64(x))
-       }
-       ```
+     func SquareRoot(x int) float64 {
+     	return math.Sqrt(float64(x))
+     }
+     ```
 
 <br>
 
