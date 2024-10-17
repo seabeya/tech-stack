@@ -712,11 +712,11 @@ A tree is a hierarchical data structure in computer science that resembles a tre
 - `Parent`: The node that is connected to its child nodes. Each child can have only one parent.
 - `Child`: The nodes directly connected to a parent node. A parent node can have multiple child nodes.
 - `Sibling`: Nodes that share the same parent are called siblings. They are at the same level in the tree.
-- `Leaf`: Also known as a terminal node or external node, it is a node that has no child nodes.
+- `Leaf`: A node that has no children. It's the end of a branch in the tree.
 - `Edge`: A connection or link between two nodes in a tree.
 - `Path`: A sequence of nodes connected by edges, from one node to another in a tree.
 - `Depth`: The depth of a node represents the number of edges from the root to that node. The root node has a depth of 0.
-- `Height`: Height refers to the longest path from the root to any leaf node, or the maximum depth among all nodes in the tree.
+- `Height`: The height of a tree is the number of edges on the longest path from the root to a leaf. In our tree example below, the height is 4.
 - `Subtree`: A subtree is a tree structure that is part of a larger tree.
 - `Ancestor`: Any node along the path from a given node to the root. For example, a node’s parent, grandparent, and so on up to the root are all its ancestors.
 - `Descendant`: Any node that is located below a given node in the tree. A node’s children, grandchildren, and so on are all its descendants.
@@ -747,10 +747,10 @@ A binary tree is a type of tree data structure in which each node can have at mo
 
   > A perfect binary tree is a binary tree in which all levels are completely filled with nodes, and all leaf nodes are at the same level.
 
-  - Node count in each level: `2^curr_level`.
-  - Last level node count: `The number of nodes in all the levels above it plus 1`.
-    > Which means half of our nodes are in the last level.
-  - Total node count: `2^(height + 1) - 1`.
+  - Node count in each level: `2^curr_level`
+  - Last level node count: `nodes_in_all_previous_levels + 1`
+    > This means half+1 of the tree's nodes are in the last level.
+  - Total node count: `2^(height + 1) - 1`
 
 - Complete Binary Tree:
 
