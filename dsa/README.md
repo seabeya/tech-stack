@@ -1261,6 +1261,44 @@ percolateDown() {
 
 </details>
 
+<br>
+
+#### 🔻 Build a Min-Heap from a random array
+
+```js
+const heapify = (arr, i, maxIndex) => {
+  let smallest = i;
+  const left = 2 * i + 1;
+  const right = 2 * i + 2;
+
+  if (left < maxIndex && arr[left] < arr[smallest]) {
+    smallest = left;
+  }
+
+  if (right < maxIndex && arr[right] < arr[smallest]) {
+    smallest = right;
+  }
+
+  if (smallest !== i) {
+    [arr[i], arr[smallest]] = [arr[smallest], arr[i]];
+    heapify(arr, smallest, maxIndex);
+  }
+};
+
+const buildMinHeap = (arr) => {
+  const n = arr.length;
+
+  const lastNonLeafNode = Math.floor(n / 2);
+  for (let i = lastNonLeafNode - 1; i >= 0; i--) {
+    heapify(arr, i, n);
+  }
+};
+
+let arr = [50, 80, 40, 30, 10, 70, 20, 90, 60];
+buildMinHeap(arr);
+console.log(arr); // [10, 30, 20, 50, 80, 70, 40, 90, 60]
+```
+
 <p align="right">
     <a href="#data-structures--algorithms">back to top ⬆</a>
 </p>
