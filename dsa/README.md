@@ -718,6 +718,8 @@ A tree is a hierarchical data structure in computer science that resembles a tre
 - `Depth`: The depth of a node represents the number of edges from the root to that node. The root node has a depth of 0.
 - `Height`: Height refers to the longest path from the root to any leaf node, or the maximum depth among all nodes in the tree.
 - `Subtree`: A subtree is a tree structure that is part of a larger tree.
+- `Ancestor`: Any node along the path from a given node to the root. For example, a node’s parent, grandparent, and so on up to the root are all its ancestors.
+- `Descendant`: Any node that is located below a given node in the tree. A node’s children, grandchildren, and so on are all its descendants.
 
 <p align="center">
   <img src="./tree.png" height="auto" width="700">
