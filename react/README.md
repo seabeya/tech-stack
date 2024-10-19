@@ -625,7 +625,7 @@ But why?
 
 State refers to the data that changes as the user interacts with our app.
 
-It is the only method through which we can modify what content React displays. If you wish to alter what is visible on the screen, `useState` is the exclusive way to achieve this.
+It is the method through which we can modify what content React displays. If you wish to alter what is visible on the screen, `useState` is the exclusive way to achieve this.
 
 Syntax:
 
