@@ -28,9 +28,10 @@
    - [Stack](#-stack)
    - [Queue](#-queue)
    - [Trees](#-trees)
-     - [Binary Search Tree](#-binary-search-tree)
-   - [Binary Heaps](#-binary-heaps)
-   - [Trie (Prefix Tree)](#-trie-prefix-tree)
+     - [Binary Trees](#-binary-trees)
+       - [Binary Search Tree](#-binary-search-tree)
+       - [Binary Heaps](#-binary-heaps)
+     - [Trie (Prefix Tree)](#-trie-prefix-tree)
    - [Graphs](#-graphs)
    - [Matrix (2D Arrays)](#-matrix-2d-arrays)
 3. [Algorithms](#-algorithms)
@@ -727,7 +728,7 @@ A tree is a hierarchical data structure in computer science that resembles a tre
 
 <br>
 
-#### 🔻 Binary Trees
+### 🔷 Binary Trees
 
 A binary tree is a type of tree data structure in which each node can have at most two child nodes, known as the left child and the right child.
 
@@ -764,7 +765,7 @@ A binary tree is a type of tree data structure in which each node can have at mo
 
 <br>
 
-### 🔷 Binary Search Tree
+#### 🔻 Binary Search Tree
 
 A Binary Search Tree (BST) is a type of binary tree that ensures the elements are stored in a specific order, allowing for efficient searching, insertion, and deletion operations.
 
@@ -787,7 +788,7 @@ A Binary Search Tree (BST) is a type of binary tree that ensures the elements ar
 
 <br>
 
-#### 🔻 Implementation
+**Implementation:**
 
 ```js
 class TreeNode {
@@ -1031,14 +1032,9 @@ remove(value) {
 
 </details>
 
-<p align="right">
-    <a href="#data-structures--algorithms">back to top ⬆</a>
-</p>
-
-<br>
 <br>
 
-## 🔶 Binary Heaps
+#### 🔻 Binary Heaps
 
 A binary heap is a data structure that represents a complete binary tree, which can be either a min-heap or a max-heap.
 
@@ -1052,7 +1048,7 @@ It is commonly used to implement **priority queues**, which allow efficient retr
 
 <br>
 
-#### 🔻 Structure
+**Structure:**
 
 <p align="center">
   <img src="./heaps.png" height="auto" width="600">
@@ -1081,7 +1077,7 @@ Comparing in a heap:
 
 <br>
 
-#### 🔻 Relationships
+**Relationships:**
 
 > These super important formulas allow us to establish relationships between items.
 
@@ -1096,7 +1092,7 @@ Example heap: [10, 15, 20, 60, 45, 100, 45]
 
 <br>
 
-#### 🔻 Implementation
+**Implementation:**
 
 ```js
 class PriorityQueue {
@@ -1263,7 +1259,7 @@ percolateDown() {
 
 <br>
 
-#### 🔻 Build a Min-Heap from a random array
+**Build a Min-Heap from a random array:**
 
 ```js
 const heapify = (arr, i, maxIndex) => {
@@ -1306,7 +1302,7 @@ console.log(arr); // [10, 30, 20, 50, 80, 70, 40, 90, 60]
 <br>
 <br>
 
-## 🔶 Trie (Prefix Tree)
+### 🔷 Trie (Prefix Tree)
 
 A trie is a tree-like data structure that provides an efficient solution for storing and searching strings.
 
@@ -1320,7 +1316,7 @@ A trie is a tree-like data structure that provides an efficient solution for sto
 
 <br>
 
-#### 🔻 Structure
+**Structure:**
 
 - Root Node: The root node represents an empty string or the starting point of the Trie.
 - Trie Node:
@@ -1338,7 +1334,7 @@ A trie is a tree-like data structure that provides an efficient solution for sto
 
 <br>
 
-#### 🔻 Implementation
+**Implementation:**
 
 ```js
 class TrieNode {
