@@ -21,12 +21,17 @@
 1. [How JS Works?](#-how-js-works)
    - [Code Execution](#-code-execution)
    - [Async JavaScript](#-async-javascript)
+     - [Execution queues and their priorities](#-execution-queues-and-their-priorities)
 2. [Core JS concepts](#-core-js-concepts)
    - [Hoisting](#-hoisting)
    - [Block Scope](#-block-scope)
+     - [Visibility and lifetime](#-visibility-and-lifetime)
+     - [Shadowing](#-shadowing)
    - [Function Scope](#-function-scope)
    - [Closures](#-closures)
    - [Promises](#-promises)
+     - [Promise Chain](#-promise-chain)
+     - [Creating Promise](#-creating-promise)
 3. [JS Basics](#-js-basics)
    - [Expressions and Operators](#-expressions-and-operators)
    - [Functions](#-functions)
@@ -1115,7 +1120,7 @@ evenOrOdd(100)
 
 <br>
 
-#### 🔻 Increment & decrement operators
+**Increment & decrement operators:**
 
 - `a++`: Postfix increment.
 
@@ -1146,7 +1151,7 @@ evenOrOdd(100)
 
 <br>
 
-#### 🔻 Arithmetic operators
+**Arithmetic operators:**
 
 - `**` : Exponentiation.
   ```js
@@ -1165,7 +1170,7 @@ evenOrOdd(100)
 
 <br>
 
-#### 🔻 Logical operators
+**Logical operators:**
 
 |        |                                                                                                                  |
 | ------ | ---------------------------------------------------------------------------------------------------------------- |
