@@ -72,7 +72,7 @@ By analyzing the complexity of an algorithm, we can understand how it will perfo
 
 <br>
 
-Overview:
+**Overview:**
 
 - `O(1)`: Constant.
   > Algorithms take a constant amount of time regardless of the input size.
@@ -200,7 +200,7 @@ Array is a built-in data structure that allows you to store multiple values in a
 
 <br>
 
-#### 🔻 How arrays stored in memory
+**How arrays stored in memory:**
 
 In lower-level languages like C or C++, arrays are typically implemented as contiguous memory blocks.
 
@@ -226,7 +226,7 @@ Address of myArray[4] = starting address + 16
 
 <br>
 
-#### 🔻 Static and Dynamic arrays
+**Static and Dynamic arrays:**
 
 - Static Arrays:
   - Static arrays have a fixed size that is declared in advance.
@@ -241,7 +241,7 @@ Address of myArray[4] = starting address + 16
 
 <br>
 
-#### 🔻 Arrays in JavaScript
+**Arrays in JavaScript:**
 
 ```js
 const myArray = [1, 2, 6, 3, "test"];
@@ -318,7 +318,7 @@ A linked list is a linear data structure that consists of a sequence of elements
 
 <br>
 
-#### 🔻 Structure
+**Structure:**
 
 Linked lists are made up of list nodes.
 
@@ -345,7 +345,7 @@ Linked lists are made up of list nodes.
 
 <br>
 
-#### 🔻 Implementation
+**Implementation:**
 
 There is no Linked List data structure in JavaScript by default, but we can build it.
 
@@ -499,7 +499,7 @@ The term "stack" refers to a data structure that follows the Last-In-First-Out (
 
 <br>
 
-#### 🔻 Implementation
+**Implementation:**
 
 There is no built-in Stacks data structure in JavaScript by default, but we can build one using two main options: using an array or using a linked list.
 
@@ -634,7 +634,7 @@ The term "queue" refers to a data structure that follows the First-In-First-Out 
 
 <br>
 
-#### 🔻 Implementation
+**Implementation:**
 
 There is no built-in Queue data structure in JavaScript by default, but we can implement it using a Singly Linked List.
 
@@ -707,7 +707,7 @@ class Queue {
 
 A tree is a hierarchical data structure in computer science that resembles a tree structure with a set of connected nodes.
 
-**Terminology**
+**Terminology:**
 
 - `Root`: The topmost node in a tree. It serves as the starting point of the tree and has no parent.
 - `Parent`: The node that is connected to its child nodes. Each child can have only one parent.
@@ -826,6 +826,7 @@ console.log(tree.lookup(12)); // TreeNode {value: 12, left: TreeNode, right: Tre
 <details><summary>Lookup: (find node by value)</summary>
 
 <br>
+
 Iterative:
 
 > Greater speed and lower memory requirements with large trees.
@@ -869,6 +870,7 @@ lookup(value, root = this.root) {
 <details><summary>Insert:</summary>
 
 <br>
+
 Iterative:
 
 ```js
@@ -1444,13 +1446,13 @@ A graph is a data structure consisting of nodes (vertices) and edges that connec
 
 <br>
 
-#### 🔻 Structure
+**Structure:**
 
 <p align="center">
   <img src="./graph.png" height="auto" width="350">
 </p>
 
-**Directions:**
+Directions:
 
 - Directed Graph:
   > A directed graph is a type of graph in which edges have specific directions, indicating one-way relationships between nodes.
@@ -1463,7 +1465,7 @@ A graph is a data structure consisting of nodes (vertices) and edges that connec
     <img src="./tg2.png" height="auto" width="150">
   </p>
 
-**Connections:**
+Connections:
 
 - Cyclic Graph:
   > A cyclic graph is a graph that contains at least one cycle. A cycle in a graph is a path that starts and ends at the same node, without visiting any other node more than once.
@@ -1476,7 +1478,7 @@ A graph is a data structure consisting of nodes (vertices) and edges that connec
     <img src="./tg4.png" height="auto" width="250">
   </p>
 
-**Edge weighting:**
+Edge weighting:
 
 - Unweighted Graphs:
   > An unweighted graph is a graph in which each edge does not have a numerical value or weight associated with it. It means that all edges in the graph are considered to have equal importance or distance.
@@ -1495,7 +1497,7 @@ A graph is a data structure consisting of nodes (vertices) and edges that connec
 
 <br>
 
-#### 🔻 Graph Representations
+**Graph Representations:**
 
 > Example graphs:
 
@@ -1564,7 +1566,7 @@ A graph is a data structure consisting of nodes (vertices) and edges that connec
 
 <br>
 
-#### 🔻 Implementation
+**Implementation:**
 
 Building adjacent list:
 
@@ -1608,7 +1610,7 @@ A 2D array, also known as a matrix, is a data structure that represents a collec
 
 <br>
 
-#### 🔻 Structure
+**Structure:**
 
 The structure of a 2D array allows for efficient access, modification, and traversal of elements within the matrix.
 
@@ -1685,9 +1687,9 @@ Recursion is useful when you don't know in advance how many steps or iterations 
 
 <br>
 
-#### 🔻 Step by Step Recursion With Examples
+**Step by Step Recursion With Examples:**
 
-**Example 1:** Factorial
+Example 1: Factorial
 
 ```js
 function factorial(num) {
@@ -1725,7 +1727,7 @@ function factorial(num) {
 
 <br>
 
-**Example 2:** Reverse a string
+Example 2: Reverse a string
 
 ```js
 function reverseStr(str) {
