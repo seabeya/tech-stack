@@ -89,7 +89,7 @@ In TypeScript, a type is a way to define the shape and structure of a value. It 
 
 <br>
 
-#### 🔻 Type Inference
+**Type Inference:**
 
 Type inference is the ability of the TypeScript compiler to automatically deduce and assign types to variables, parameters, and return values based on the values and expressions used in the code.
 
@@ -111,7 +111,7 @@ const now = new Date(); // TypeScript infers "now" to be of type Date
 
 <br>
 
-#### 🔻 Type Annotations
+**Type Annotations:**
 
 Type annotations in TypeScript involve explicitly specifying the type of a variable, function parameter, or function return value using the `:` syntax.
 
@@ -260,7 +260,7 @@ function add(a: number, b: number): number {
 
 <br>
 
-#### 🔻 More with Basic Types
+**More with Basic Types:**
 
 - Functions:
   - Return Types:
@@ -683,7 +683,7 @@ Generics in TypeScript provide a way to write flexible and reusable code that ca
 
 <br>
 
-#### 🔻 Examples
+**Examples:**
 
 - Generic Function:
   > ```ts
@@ -786,7 +786,7 @@ With or Without Generics:
 
 <br>
 
-#### 🔻 Generic Constraints
+**Generic Constraints:**
 
 Generic constraints help you define more specific requirements for the types that can be used as arguments in generic functions or classes. By adding constraints, you can ensure that the generic type meets certain criteria.
 
