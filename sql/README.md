@@ -672,42 +672,46 @@ Options:
 
 #### 🔻 Result Control
 
-- ##### `ORDER BY`
+##### ⚫ `ORDER BY`
 
-  Sorts the rows returned by a query based on one or more columns.
+Sorts the rows returned by a query based on one or more columns.
 
-  ```sql
-  SELECT * FROM employees ORDER BY salary ASC;
-  ```
+```sql
+SELECT * FROM employees ORDER BY salary ASC;
+```
 
-  - `ASC`: for ascending.
-  - `DESC`: for descending.
+- `ASC`: for ascending.
+- `DESC`: for descending.
 
-- ##### `LIMIT`
+<br>
 
-  Limits the number of rows returned by a query.
+##### ⚫ `LIMIT`
 
-  > This query will retrieve the top 3 highest-paid employees:
-  >
-  > ```sql
-  > SELECT * FROM employees ORDER BY salary DESC LIMIT 3;
-  > ```
-  >
-  > To select one random row from a table:
-  >
-  > ```sql
-  > SELECT * FROM employees ORDER BY RANDOM() LIMIT 1;
-  > ```
+Limits the number of rows returned by a query.
 
-- ##### `OFFSET`
+> This query will retrieve the top 3 highest-paid employees:
+>
+> ```sql
+> SELECT * FROM employees ORDER BY salary DESC LIMIT 3;
+> ```
+>
+> To select one random row from a table:
+>
+> ```sql
+> SELECT * FROM employees ORDER BY RANDOM() LIMIT 1;
+> ```
 
-  Specifies how many rows to skip from the beginning of the result set before starting to return rows.
+<br>
 
-  > This query will skip the youngest 3 employees:
-  >
-  > ```sql
-  > SELECT * FROM employees ORDER BY age OFFSET 3;
-  > ```
+##### ⚫ `OFFSET`
+
+Specifies how many rows to skip from the beginning of the result set before starting to return rows.
+
+> This query will skip the youngest 3 employees:
+>
+> ```sql
+> SELECT * FROM employees ORDER BY age OFFSET 3;
+> ```
 
 > [!IMPORTANT]
 > It's important to use `ORDER BY` when using `LIMIT` and `OFFSET` to ensure consistent results, as the database engine may not guarantee a specific order otherwise.
