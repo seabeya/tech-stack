@@ -19,7 +19,7 @@
 </p>
 
 > [!WARNING]
-> I am not a teacher; these are the notes that I took in the past for myself.
+> I am not a teacher, these are the notes that I took for myself.
 
 <br>
 <hr>
@@ -44,3 +44,10 @@
 
 > [!NOTE]
 > The original notes are in a different file format and are not in English. Therefore, it will take some time to refactor and publish them.
+>
+> - `planned ⚫`: I have notes but haven't migrated them to Markdown yet.
+> - `in-progress 🟡`: The migration process has started but is not finished yet.
+> - `🟢`: Migration is finished, and the old note files have been removed, making these the main source of truth for me.
+
+> [!NOTE]
+> I use these notes on a daily basis and update them regularly as I learn new things or as technology evolves to keep them relevant.
