@@ -507,7 +507,7 @@ Here is the full list of supported [HTML events ↗](https://react.dev/reference
 
 <br>
 
-#### 🔻 The Event Object
+**The Event Object:**
 
 When you pass a function to an event handler in React, React automatically provides the event object as the first argument to the function.
 
@@ -678,7 +678,7 @@ How it works:
 
 <br>
 
-#### 🔻 Where to Define State?
+**Where to Define State?:**
 
 Does any component beside the current one need to know what the current state is?
 
@@ -782,7 +782,7 @@ Does any component beside the current one need to know what the current state is
 
 <br>
 
-#### 🔻 State vs Handler Functions
+**State vs Handler Functions:**
 
 - When the user sees something on the screen change:
   > We need state to implement this.
@@ -1299,9 +1299,17 @@ Example:
 ```jsx
 import { forwardRef } from "react";
 
-const ChildComponent = forwardRef((props, ref) => {
+function ChildComponent(props, ref) {
   return <input ref={ref} {...props} />;
-});
+}
+
+export default forwardRef(ChildComponent);
+
+// or this syntax:
+//
+// export const ChildComponent = forwardRef((props, ref) => {
+//   return <input ref={ref} {...props} />;
+// });
 ```
 
 ```jsx
