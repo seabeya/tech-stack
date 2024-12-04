@@ -1,5 +1,4 @@
-2. Subquery.
-3. General SQL execution order.
-4. Indexing.
-5. Transaction safety.
-6. Views.
+1. Subquery.
+2. General SQL execution order.
+3. Transaction safety.
+4. Views.

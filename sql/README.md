@@ -56,6 +56,7 @@
      - [Right Join](#-right-join)
      - [Full Join](#-full-join)
      - [Self Join](#-self-join)
+   - [Indexes](#-indexes)
 
 <br>
 
@@ -1100,6 +1101,87 @@ Example:
   > FROM Weather AS w1, Weather AS w2
   > WHERE w1.Temperature > w2.Temperature AND w1.recordDate - w2.recordDate = 1
   > ```
+
+<br>
+
+### 🔷 Indexes
+
+Indexes in a database are special lookup tables that the database search engine can use to speed up data retrieval. They allow the database to find rows faster without scanning the entire table sequentially.
+
+<br>
+
+**Index types:**
+
+Index types determine how data is stored and organized internally, which directly impacts performance and suitability for specific operations.
+
+- B-Tree Index: (this is the default when no index type is specified)
+  > It is a self-balancing tree that stores data in sorted order, making searches efficient `O(log n)`. The structure of this index is ideal for comparison-based queries, such as range queries and operations involving `=`, `<`, `>`, `<=`, or `>=`.
+- Hash Index:
+  > A hash index uses a hash table to store indexed values. It maps each value to a fixed-size hash code, enabling fast lookups for equality comparisons (`=`).
+
+> There are more: https://www.postgresql.org/docs/current/indexes-types.html#INDEXES-TYPES.
+
+<br>
+
+**Good to know:**
+
+- Indexes take extra space.
+  > The database engine requires additional storage for the data structure that holds the indexed values.
+- Indexes can slow down write, update, and delete operations.
+  > With every write, update, or delete action, the index must be updated to maintain its optimized structure.
+- Some constraints automatically create indexes:
+  > Constraints like `PRIMARY KEY` and `UNIQUE` automatically generate indexes to enforce their rules efficiently. So, no need to create indexes for the columns with these constraints.
+
+<br>
+
+**Commands:**
+
+- Create an index:
+  - With specifying an index name:
+    ```sql
+    CREATE INDEX index_name ON table_name (column_name);
+    ```
+    > To define the index type, use `USING <index_type>` syntax. Ex:
+    >
+    > ```sql
+    > CREATE INDEX ON table_name USING HASH (column_name);
+    > ```
+  - Without specifying an index name:
+    > This will create an index with default naming convention. Ex: `<table_name>_<column_name>_idx`.
+    ```sql
+    CREATE INDEX ON table_name (column_name);
+    ```
+  - Partial index:
+    > A partial index is an index that only includes a subset of the rows in a table, based on a condition (a `WHERE` clause) which can make the index smaller and more efficient (does not need to optimize the index in all cases).
+    >
+    > A partial index is useful when you frequently query a specific subset of data, such as active records or a particular date range, and indexing the entire table would be inefficient.
+    ```sql
+    CREATE INDEX ON table_name (column_name) WHERE <condition>
+    ```
+  - Multicolumn index:
+    > Index name will be something like: `<table_name>_<column_1>_<column_2>_idx`.
+    ```sql
+    CREATE INDEX ON table_name (column_1, column_2, ...);
+    ```
+    > Multi column indexes are useful when your queries use multiple columns together in conditions.
+    >
+    > For example:
+    >
+    > ```sql
+    > SELECT * FROM users WHERE name = 'John' AND age = 30;
+    > ```
+    >
+    > Note: A multi-column index like (`column_1`, `column_2`, ...) prioritizes the leftmost column (`column_1`) first in its structure. So, it won't help with queries that filter only by `column_2` unless `column_1` is also included in the filter. It is because the rows are first sorted by `column_1` then sorted by `column_2`. Using only `column_2` requires to scan the entire index.
+- Remove an index:
+  ```sql
+  DROP INDEX index_name;
+  ```
+- List all indexes:
+  ```sql
+  SELECT indexname, indexdef
+  FROM pg_indexes
+  WHERE tablename = '<table_name>';
+  ```
 
 <p align="right">
     <a href="#sql-postgresql">back to top ⬆</a>
