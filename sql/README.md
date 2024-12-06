@@ -1172,7 +1172,8 @@ Index types determine how data is stored and organized internally, which directl
     > SELECT * FROM users WHERE name = 'John' AND age = 30;
     > ```
     >
-    > Note: A multi-column index like (`column_1`, `column_2`, ...) prioritizes the leftmost column (`column_1`) first in its structure. So, it won't help with queries that filter only by `column_2` unless `column_1` is also included in the filter. It is because the rows are first sorted by `column_1` then sorted by `column_2`. Using only `column_2` requires to scan the entire index.
+    > Note: A multi-column index, such as (`column_1`, `column_2`, ...), organizes the data by sorting it first based on `column_1`, then by `column_2`. This means the index works best for queries that filter by `column_1` or by both `column_1` and `column_2`.
+    > If a query filters only by `column_2`, PostgreSQL cannot take advantage of the index's sorted structure. Instead, it has to look through all the entries in the index (full index scan) to find matches for `column_2`.
 - Remove an index:
   ```sql
   DROP INDEX index_name;
