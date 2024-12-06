@@ -1158,6 +1158,7 @@ Index types determine how data is stored and organized internally, which directl
     ```sql
     CREATE INDEX ON table_name (column_name) WHERE <condition>
     ```
+    > To see a practical example, you can check out this [YouTube video ↗](https://youtu.be/53CJUZ7rQ3E?si=IQzU_1omGu7xlnaE).
   - Multicolumn index:
     > Index name will be something like: `<table_name>_<column_1>_<column_2>_idx`.
     ```sql
