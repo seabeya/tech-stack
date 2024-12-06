@@ -1126,7 +1126,7 @@ Index types determine how data is stored and organized internally, which directl
 **Good to know:**
 
 - Indexes take extra space.
-  > The database engine requires additional storage for the data structure that holds the indexed values.
+  > When you create an index, PostgreSQL generates a separate table (data structure) to store the indexed information in an optimized format (depending on the index type). This structure requires additional storage space. However, indexes are usually much smaller than the main table and are linked to it.
 - Indexes can slow down write, update, and delete operations.
   > With every write, update, or delete action, the index must be updated to maintain its optimized structure.
 - Some constraints automatically create indexes:
