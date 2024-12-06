@@ -1151,7 +1151,7 @@ Index types determine how data is stored and organized internally, which directl
     ```sql
     CREATE INDEX ON table_name (column_name);
     ```
-  - Partial index:
+  - Partial Index:
     > A partial index is an index that only includes a subset of the rows in a table, based on a condition (a `WHERE` clause) which can make the index smaller and more efficient (because it does not need to optimize the index in all cases).
     >
     > A partial index is useful when you frequently query a specific subset of data, such as active records or a particular date range, and indexing the entire table would be inefficient.
@@ -1159,7 +1159,24 @@ Index types determine how data is stored and organized internally, which directl
     CREATE INDEX ON table_name (column_name) WHERE <condition>
     ```
     > To see a practical example, you can check out this [YouTube video ↗](https://youtu.be/53CJUZ7rQ3E?si=IQzU_1omGu7xlnaE).
-  - Multicolumn index:
+  - Covering Index:
+    > By default, an index in PostgreSQL only stores the columns explicitly included in the index definition. When you query based on an indexed column but also need data from other columns not in the index, PostgreSQL has to:
+    >
+    > - Use the index to quickly locate the rows that match your query condition.
+    > - Perform a heap fetch to go back to the main table to retrieve the additional column data.
+    >
+    > This extra step (the heap fetch) is what makes queries slower compared to a covering index.
+    >
+    > A covering index is an index that contains all the columns a query needs, so PostgreSQL can fetch results directly from the index without reading the main table.
+    ```sql
+    CREATE INDEX ON table_name (column_1) INCLUDE (column_2, column_3, ...);
+    ```
+    > Note:
+    >
+    > - Covering indexes use more storage space because they store additional columns.
+    > - Covering columns help retrieve additional data directly from the index. However, if you filter based on them, you won't benefit from index performance. To take advantage of index performance, you need to use the actual indexed column for filtering.
+    > - You can only include columns that are not already part of the indexed key.
+  - Multicolumn Index:
     > Index name will be something like: `<table_name>_<column_1>_<column_2>_idx`.
     ```sql
     CREATE INDEX ON table_name (column_1, column_2, ...);
