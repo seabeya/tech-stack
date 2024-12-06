@@ -1152,7 +1152,7 @@ Index types determine how data is stored and organized internally, which directl
     CREATE INDEX ON table_name (column_name);
     ```
   - Partial index:
-    > A partial index is an index that only includes a subset of the rows in a table, based on a condition (a `WHERE` clause) which can make the index smaller and more efficient (does not need to optimize the index in all cases).
+    > A partial index is an index that only includes a subset of the rows in a table, based on a condition (a `WHERE` clause) which can make the index smaller and more efficient (because it does not need to optimize the index in all cases).
     >
     > A partial index is useful when you frequently query a specific subset of data, such as active records or a particular date range, and indexing the entire table would be inefficient.
     ```sql
