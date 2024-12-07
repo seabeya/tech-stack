@@ -240,8 +240,8 @@ Syntax:
 - When creating a table:
   ```sql
   CREATE TABLE table_name (
-      column_1 datatype NOT NULL,
-      ...
+    column_1 datatype NOT NULL,
+    ...
   );
   ```
 - When adding to an existing table:
@@ -275,8 +275,8 @@ Syntax:
 - When creating a table:
   ```sql
   CREATE TABLE table_name (
-  column_1 datatype DEFAULT 'any value'
-  ...
+    column_1 datatype DEFAULT 'any value'
+    ...
   );
   ```
 - When adding to an existing table:
@@ -306,19 +306,19 @@ Syntax:
   - Single column uniqueness:
     ```sql
     CREATE TABLE table_name (
-        column_1 datatype UNIQUE,
-        column_2 datatype UNIQUE,
-        ...
+      column_1 datatype UNIQUE,
+      column_2 datatype UNIQUE,
+      ...
     );
     ```
   - Group column uniqueness:
     > The combination of column values must be unique (not each column independently).
     ```sql
     CREATE TABLE table_name (
-        column_1 datatype,
-        column_2 datatype,
-        ...
-        UNIQUE(column_1, column_2)
+      column_1 datatype,
+      column_2 datatype,
+      ...
+      UNIQUE(column_1, column_2)
     );
     ```
     > Example: (each row represents subsequent values entered)
@@ -400,8 +400,8 @@ Syntax:
 
 ```sql
 CREATE TABLE table_name (
-    column_1 datatype PRIMARY KEY,
-    ...
+  column_1 datatype PRIMARY KEY,
+  ...
 );
 ```
 
@@ -429,9 +429,9 @@ Syntax:
 - When creating a table:
   ```sql
   CREATE TABLE child_table (
-      ...
-      child_column datatype REFERENCES parent_table (parent_column) <Rule (optional)>,
-      ...
+    ...
+    child_column datatype REFERENCES parent_table (parent_column) <Rule (optional)>,
+    ...
   );
   ```
 - When adding to an existing table:
@@ -521,10 +521,10 @@ Some other variants:
   > ```sql
   > INSERT INTO table_name (column1, column2, ...)
   > VALUES
-  >    (value1_1, value1_2, ...),
-  >    (value2_1, value2_2, ...),
-  >    ...
-  >    (valueN_1, valueN_2, ...);
+  >   (value1_1, value1_2, ...),
+  >   (value2_1, value2_2, ...),
+  >   ...
+  >   (valueN_1, valueN_2, ...);
   > ```
 
 <br>
@@ -853,12 +853,12 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
     >
     > ```sql
     > SELECT name, age, salary,
-    >     CASE lvl
-    >         WHEN 'A' THEN 'Manager'
-    >         WHEN 'B' THEN 'Senior Dev'
-    >         WHEN 'C' THEN 'Dev'
-    >         ELSE 'Intern'
-    >     END AS seniority
+    >   CASE lvl
+    >     WHEN 'A' THEN 'Manager'
+    >     WHEN 'B' THEN 'Senior Dev'
+    >     WHEN 'C' THEN 'Dev'
+    >     ELSE 'Intern'
+    >   END AS seniority
     > FROM employees;
     > ```
     >
@@ -866,11 +866,11 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
     >
     > ```sql
     > SELECT name, age, salary,
-    >     CASE
-    >         WHEN salary >= 5000 THEN 'Rich'
-    >         WHEN salary >= 2500 THEN 'Average'
-    >         ELSE 'Poor'
-    >     END AS wealth
+    >   CASE
+    >     WHEN salary >= 5000 THEN 'Rich'
+    >     WHEN salary >= 2500 THEN 'Average'
+    >     ELSE 'Poor'
+    >   END AS wealth
     > FROM employees;
     > ```
   - `COALESCE`: Returns the first non-null expression from a list of expressions.
@@ -1002,13 +1002,20 @@ JOIN table2 ON table1.column_name = table2.column_name;
 - If you specifically want to select column names but they are colliding, use **Table Aliases** to differentiate them.
 
   ```sql
-  SELECT url, photos.id, employees.id FROM photos JOIN employees ON photos.employee_id = employees.id;
+  SELECT url, photos.id, employees.id
+  FROM photos
+  JOIN employees ON photos.employee_id = employees.id;
   ```
 
   > To prettify the output:
   >
   > ```sql
-  > SELECT url, photos.id AS photos_id, employees.id AS employees_id FROM photos JOIN employees ON photos.employee_id = employees.id;
+  > SELECT
+  >   url,
+  >   photos.id AS photos_id,
+  >   employees.id AS employees_id
+  > FROM photos
+  > JOIN employees ON photos.employee_id = employees.id;
   > ```
 
 - If you don't specify a join type explicitly, the default join type is an `INNER JOIN`.
@@ -1020,7 +1027,8 @@ JOIN table2 ON table1.column_name = table2.column_name;
 Returns rows when there is at least one match in both tables.
 
 ```sql
-SELECT * FROM photos INNER JOIN employees ON photos.employee_id = employees.id;
+SELECT * FROM photos
+INNER JOIN employees ON photos.employee_id = employees.id;
 ```
 
 <p align="center">
@@ -1036,7 +1044,8 @@ Returns all rows from the left table (table1), and the matched rows from the rig
 > If there is no match, the result is `NULL` on the right side.
 
 ```sql
-SELECT * FROM photos LEFT JOIN employees ON photos.employee_id = employees.id;
+SELECT * FROM photos
+LEFT JOIN employees ON photos.employee_id = employees.id;
 ```
 
 <p align="center">
@@ -1052,7 +1061,8 @@ Returns all rows from the right table (table2), and the matched rows from the le
 > If there is no match, the result is NULL on the left side.
 
 ```sql
-SELECT * FROM photos RIGHT JOIN employees ON photos.employee_id = employees.id;
+SELECT * FROM photos
+RIGHT JOIN employees ON photos.employee_id = employees.id;
 ```
 
 <p align="center">
@@ -1068,7 +1078,8 @@ Returns all rows when there is a match in either left or right table.
 > The result is NULL on the side where there is no match.
 
 ```sql
-SELECT * FROM photos FULL JOIN employees ON photos.employee_id = employees.id;
+SELECT * FROM photos
+FULL JOIN employees ON photos.employee_id = employees.id;
 ```
 
 <p align="center">
@@ -1100,7 +1111,8 @@ Example:
   > ```sql
   > SELECT w1.id
   > FROM Weather AS w1, Weather AS w2
-  > WHERE w1.Temperature > w2.Temperature AND w1.recordDate - w2.recordDate = 1
+  > WHERE w1.Temperature > w2.Temperature
+  >   AND w1.recordDate - w2.recordDate = 1
   > ```
 
 <br>
@@ -1200,7 +1212,7 @@ Index types determine how data is stored and organized internally, which directl
   ```sql
   SELECT indexname, indexdef
   FROM pg_indexes
-  WHERE tablename = '<table_name>';
+    WHERE tablename = '<table_name>';
   ```
 
 <p align="right">
