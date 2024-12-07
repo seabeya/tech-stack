@@ -57,6 +57,9 @@
      - [Full Join](#-full-join)
      - [Self Join](#-self-join)
    - [Indexes](#-indexes)
+     - [Partial Indexes](#-partial-indexes)
+     - [Covering Indexes](#-covering-indexes)
+     - [Multicolumn Indexes](#-multicolumn-indexes)
 4. [PostgreSQL Internals](#-postgresql-internals)
 
 <br>
@@ -1164,46 +1167,6 @@ Index types determine how data is stored and organized internally, which directl
     ```sql
     CREATE INDEX ON table_name (column_name);
     ```
-  - Partial Index:
-    > A partial index is an index that only includes a subset of the rows in a table, based on a condition (a `WHERE` clause) which can make the index smaller and more efficient (because it does not need to optimize the index in all cases).
-    >
-    > A partial index is useful when you frequently query a specific subset of data, such as active records or a particular date range, and indexing the entire table would be inefficient.
-    ```sql
-    CREATE INDEX ON table_name (column_name) WHERE <condition>
-    ```
-    > To see a practical example, you can check out this [YouTube video ↗](https://youtu.be/53CJUZ7rQ3E?si=IQzU_1omGu7xlnaE).
-  - Covering Index:
-    > By default, an index in PostgreSQL only stores the columns explicitly included in the index definition. When you query based on an indexed column but also need data from other columns not in the index, PostgreSQL has to:
-    >
-    > - Use the index to quickly locate the rows that match your query condition.
-    > - Perform a heap fetch to go back to the main table to retrieve the additional column data.
-    >
-    > This extra step (the heap fetch) is what makes queries slower compared to a covering index.
-    >
-    > A covering index is an index that contains all the columns a query needs, so PostgreSQL can fetch results directly from the index without reading the main table.
-    ```sql
-    CREATE INDEX ON table_name (column_1) INCLUDE (column_2, column_3, ...);
-    ```
-    > Note:
-    >
-    > - Covering indexes use more storage space because they store additional columns.
-    > - Covering columns help retrieve additional data directly from the index. However, if you filter based on them, you won't benefit from index performance. To take advantage of index performance, you need to use the actual indexed column for filtering.
-    > - You can only include columns that are not already part of the indexed key.
-  - Multicolumn Index:
-    > Index name will be something like: `<table_name>_<column_1>_<column_2>_idx`.
-    ```sql
-    CREATE INDEX ON table_name (column_1, column_2, ...);
-    ```
-    > Multi column indexes are useful when your queries use multiple columns together in conditions.
-    >
-    > For example:
-    >
-    > ```sql
-    > SELECT * FROM users WHERE name = 'John' AND age = 30;
-    > ```
-    >
-    > Note: A multi-column index, such as (`column_1`, `column_2`, ...), organizes the data by sorting it first based on `column_1`, then by `column_2`. This means the index works best for queries that filter by `column_1` or by both `column_1` and `column_2`.
-    > If a query filters only by `column_2`, PostgreSQL cannot take advantage of the index's sorted structure. Instead, it has to look through all the entries in the index (full index scan) to find matches for `column_2`.
 - Remove an index:
   ```sql
   DROP INDEX index_name;
@@ -1214,6 +1177,67 @@ Index types determine how data is stored and organized internally, which directl
   FROM pg_indexes
     WHERE tablename = '<table_name>';
   ```
+
+<br>
+
+#### 🔻 Partial Indexes
+
+A partial index is an index that only includes a subset of the rows in a table, based on a condition (a `WHERE` clause) which can make the index smaller and more efficient (because it does not need to optimize the index in all cases).
+
+A partial index is useful when you frequently query a specific subset of data, such as active records or a particular date range, and indexing the entire table would be inefficient.
+
+```sql
+CREATE INDEX ON table_name (column_name) WHERE <condition>
+```
+
+> To see a practical example, you can check out this [YouTube video ↗](https://youtu.be/53CJUZ7rQ3E?si=IQzU_1omGu7xlnaE).
+
+<br>
+
+#### 🔻 Covering Indexes
+
+By default, an index in PostgreSQL only stores the columns explicitly included in the index definition.
+
+When you query based on an indexed column but also need data from other columns not in the index, PostgreSQL has to:
+
+1. Use the index to quickly locate the rows that match your query condition.
+2. Perform a heap fetch to go back to the main table to retrieve the additional column data.
+
+This extra step (the heap fetch) is what makes queries slower compared to a covering index.
+
+A covering index is an index that contains all the columns a query needs, so PostgreSQL can fetch results directly from the index without reading the main table.
+
+```sql
+CREATE INDEX ON table_name (column_1) INCLUDE (column_2, column_3, ...);
+```
+
+> [!NOTE]
+>
+> - Covering indexes use more storage space because they store additional columns.
+> - Included columns help retrieve additional data directly from the index. However, if you filter based on them, you won't benefit from index performance. To take advantage of index performance, you need to use the actual indexed column for filtering.
+> - You can only include columns that are not already part of the indexed key.
+
+<br>
+
+#### 🔻 Multicolumn Indexes
+
+```sql
+CREATE INDEX ON table_name (column_1, column_2, ...);
+```
+
+> Index name will be something like: `<table_name>_<column_1>_<column_2>_idx`.
+
+Multi column indexes are useful when your queries use multiple columns together in conditions.
+
+> For example:
+>
+> ```sql
+> SELECT * FROM users WHERE name = 'John' AND age = 30;
+> ```
+
+> [!NOTE]
+> A multi-column index, such as (`column_1`, `column_2`, ...), organizes the data by sorting it first based on `column_1`, then by `column_2`. This means the index works best for queries that filter by `column_1` or by both `column_1` and `column_2`.
+> If a query filters only by `column_2`, PostgreSQL cannot take advantage of the index's sorted structure. Instead, it has to look through all the entries in the index (full index scan) to find matches for `column_2`.
 
 <p align="right">
     <a href="#sql-postgresql">back to top ⬆</a>
