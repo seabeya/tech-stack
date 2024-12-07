@@ -1312,6 +1312,11 @@ Multi column indexes are useful when your queries use multiple columns together 
   FROM pg_stat_user_tables
     ORDER BY index_scans DESC;
   ```
+- Query statistics:
+  ```sql
+  EXPLAIN ANALYZE <query>;
+  ```
+  > This command executes a query and provides a detailed breakdown of its execution plan, including actual runtime performance statistics such as scanned rows, execution time, index usage, and more.
 
 <p align="right">
     <a href="#sql-postgresql">back to top ⬆</a>
