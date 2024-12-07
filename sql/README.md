@@ -57,6 +57,7 @@
      - [Full Join](#-full-join)
      - [Self Join](#-self-join)
    - [Indexes](#-indexes)
+4. [PostgreSQL Internals](#-postgresql-internals)
 
 <br>
 
@@ -1200,6 +1201,80 @@ Index types determine how data is stored and organized internally, which directl
   SELECT indexname, indexdef
   FROM pg_indexes
   WHERE tablename = '<table_name>';
+  ```
+
+<p align="right">
+    <a href="#sql-postgresql">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 PostgreSQL Internals
+
+**Engine:**
+
+- Show all configuration parameters: `name`, `setting`, `description`.
+  ```sql
+  SHOW all;
+  ```
+- Show the folder where the database files are stored: `data_directory`.
+  ```sql
+  SHOW data_directory;
+  ```
+
+<br>
+
+**Database:**
+
+- Size of all databases: `db_name`, `db_size`.
+  ```sql
+  SELECT
+    pg_database.datname AS db_name,
+    pg_size_pretty(pg_database_size(pg_database.datname)) AS db_size
+  FROM pg_database
+    ORDER BY pg_database_size(pg_database.datname) DESC;
+  ```
+- Size of all tables: `table_name`, `total_size`, `table_size`, `index_size`.
+  ```sql
+  SELECT
+    relname AS table_name,
+    pg_size_pretty(pg_total_relation_size(relid)) AS total_size,
+    pg_size_pretty(pg_relation_size(relid)) AS table_size,
+    pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) AS index_size
+  FROM pg_catalog.pg_statio_user_tables
+    ORDER BY pg_total_relation_size(relid) DESC;
+  ```
+- Size of all indexes: `table_name`, `index_name`, `index_size`.
+  ```sql
+  SELECT
+    relname AS table_name,
+    indexrelname AS index_name,
+    pg_size_pretty(pg_relation_size(indexrelid)) AS index_size
+  FROM pg_stat_user_indexes
+    ORDER BY pg_relation_size(indexrelid) DESC;
+  ```
+- Index usage statistics (index-level view): `table_name`, `index_name`, `index_scans`.
+  ```sql
+  SELECT
+    relname AS table_name,
+    indexrelname AS index_name,
+    idx_scan AS index_scans
+  FROM pg_stat_user_indexes
+    ORDER BY index_scans DESC
+  ```
+- Index usage statistics (table-level view): `table_name`, `index_scans`, `sequential_scans`, `total_scans`, `rows_inserted`, `rows_updated`, `rows_deleted`.
+  ```sql
+  SELECT
+    relname AS table_name,
+    idx_scan AS index_scans,
+    seq_scan AS sequential_scans,
+    idx_scan + seq_scan AS total_scans,
+    n_tup_ins AS rows_inserted,
+    n_tup_upd AS rows_updated,
+    n_tup_del AS rows_deleted
+  FROM pg_stat_user_tables
+    ORDER BY index_scans DESC;
   ```
 
 <p align="right">
