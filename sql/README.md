@@ -168,13 +168,20 @@ Official Docs: https://www.postgresql.org/docs/current/datatype.html
   >   > Where precision is critical, such as financial calculations (e.g., currency amounts, interest rates), scientific calculations requiring exact precision, and data that must maintain accuracy through extensive calculations.
   > - Performance:
   >   > Calculations on `decimal`/`numeric` values are generally slower compared to other numeric types, depending on their size and the complexity of the arithmetic operations involved.
-  > - Syntax:
-  >   > - `NUMERIC(precision, scale)`: Defines a NUMERIC data type with specified precision and scale.
-  >   >   > Example: `NUMERIC(3,2)` equals to [-999.99 to 999.99]
-  >   > - `NUMERIC(precision)`: Defines a NUMERIC data type with specified precision and default scale of 0.
-  >   >   > Example: `NUMERIC(3)` equals to [-999 to 999]
-  >   > - `NUMERIC`:
-  >   >   > Any length can be stored, up to the implementation limits of PostgreSQL.
+  >
+  > Syntax:
+  >
+  > - `NUMERIC(precision, scale)`:
+  >
+  >   > - `precision`: Total number of digits (including both before and after the decimal point).
+  >   > - `scale`: Number of digits after the decimal point.
+  >
+  >   > Example: `NUMERIC(3,2)` ranges between [-9.99 to 9.99]
+  >
+  > - `NUMERIC(precision)`: Defaults the scale to 0.
+  >   > Example: `NUMERIC(3)` ranges between [-999 to 999]
+  > - `NUMERIC`:
+  >   > Allows storing numbers of any length, up to PostgreSQL's implementation limits.
 - Approximate Numeric:
   > Approximate numeric data types with precision limits.
   > | Type | Size | Range |
