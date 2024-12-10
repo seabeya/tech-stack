@@ -1288,6 +1288,10 @@ Multi column indexes are useful when your queries use multiple columns together 
   FROM pg_catalog.pg_statio_user_tables
     ORDER BY pg_total_relation_size(relid) DESC;
   ```
+- Number of bytes used to store a particular value: `pg_column_size`.
+  ```sql
+  SELECT pg_column_size(column_name) FROM table_name;
+  ```
 - Size of all indexes: `table_name`, `index_name`, `index_size`.
   ```sql
   SELECT
