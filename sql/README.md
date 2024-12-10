@@ -824,7 +824,7 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
   SELECT name, salary FROM employees WHERE age >= 30;
   ```
 
-  - Comparison Predicates: [Docs ↗](https://www.postgresql.org/docs/14/functions-comparison.html#FUNCTIONS-COMPARISON-PRED-TABLE)
+  - Comparison Predicates: [Docs ↗](https://www.postgresql.org/docs/current/functions-comparison.html#FUNCTIONS-COMPARISON-PRED-TABLE)
 
     - `BETWEEN`: Simplifies range tests.
       > `a BETWEEN x AND y` is equivalent to `a >= x AND a <= y`
@@ -839,7 +839,7 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
       > SELECT * FROM employees WHERE bonus_salary IS NULL;
       > ```
 
-  - Array Comparisons: [Docs ↗](https://www.postgresql.org/docs/14/functions-comparisons.html)
+  - Array Comparisons: [Docs ↗](https://www.postgresql.org/docs/current/functions-comparisons.html)
 
     - `IN`: Checks if a value matches any value in a specified list or subquery.
       > > `expression IN (value1, value2, ...)` is equivalent to
@@ -895,8 +895,8 @@ Operators and functions are used with the `SELECT` statement and the `WHERE` cla
 
 #### 🔻 Functions
 
-- Mathematical Functions. [Docs ↗](https://www.postgresql.org/docs/14/functions-math.html#FUNCTIONS-MATH-FUNC-TABLE)
-- String Functions. [Docs ↗](https://www.postgresql.org/docs/14/functions-string.html)
+- Mathematical Functions. [Docs ↗](https://www.postgresql.org/docs/current/functions-math.html#FUNCTIONS-MATH-FUNC-TABLE)
+- String Functions. [Docs ↗](https://www.postgresql.org/docs/current/functions-string.html)
 - Conditional Expressions. [Docs ↗](https://www.postgresql.org/docs/current/functions-conditional.html)
   - `CASE`: Allows you to perform conditional logic within SQL queries.
     > It evaluates a list of conditions and returns a result based on the first condition that is `true`.
