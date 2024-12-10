@@ -159,8 +159,8 @@ Official Docs: https://www.postgresql.org/docs/current/datatype.html
   > Numbers with fractional components.
   > | Type | Size (max) | Range |
   > | --------- | ------------ | ----------------------------------------------------- |
-  > | `decimal()` | variable (131072 bytes) | Up to 131072 digits before `.` and 16383 digits after |
-  > | `numeric()` | variable (131072 bytes) | Up to 131072 digits before `.` and 16383 digits after |
+  > | `decimal()` | variable | Up to 131072 digits before `.` and 16383 digits after |
+  > | `numeric()` | variable | Up to 131072 digits before `.` and 16383 digits after |
   >
   > They are the exact same; there's no difference between these two.
   >
