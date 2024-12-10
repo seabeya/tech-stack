@@ -32,6 +32,7 @@
      - [`CHECK`](#-check)
      - [`PRIMARY KEY`](#-primary-key)
      - [`FOREIGN KEY`](#-foreign-key)
+     - [Generated Columns](#-generated-columns)
 3. [Data](#-data)
    - [Data Basics](#-data-basics)
      - [`INSERT`](#-insert)
@@ -493,6 +494,45 @@ Insertion Scenarios:
 | Inserting a new row with a valid foreign key value        | Ok                         |
 | Inserting a new row with a `NULL` foreign key             | Ok (optional relationship) |
 | Inserting a new row with a non-existent foreign key value | Error                      |
+
+<br>
+
+#### 🔻 Generated Columns
+
+A generated column is a special column that is always computed from other columns.
+
+There are two kinds of generated columns:
+
+- `STORED`: A stored generated column is computed when it is written (inserted or updated) and occupies storage space.
+- `VIRTUAL`: A virtual generated column occupies no storage space and is computed when it is read.
+
+Syntax:
+
+- When creating a table:
+  ```sql
+  CREATE TABLE table_name (
+    ...
+    column_name datatype GENERATED ALWAYS AS (expression) STORED
+    ...
+  );
+  ```
+  > Example:
+  >
+  > ```sql
+  > CREATE TABLE user (
+  >  first_name varchar(32),
+  >  last_name varchar(32),
+  >  full_name_s varchar(65) GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED
+  > )
+  > ```
+- When adding to an existing table:
+  ```sql
+  ALTER TABLE table_name
+  ADD COLUMN column_name datatype GENERATED ALWAYS AS (expression) STORED;
+  ```
+
+> [!WARNING]
+> PostgreSQL currently implements only `STORED` generated columns.
 
 <p align="right">
     <a href="#sql-postgresql">back to top ⬆</a>
