@@ -522,7 +522,7 @@ Syntax:
   > CREATE TABLE user (
   >  first_name varchar(32),
   >  last_name varchar(32),
-  >  full_name_s varchar(65) GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED
+  >  full_name varchar(65) GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED
   > )
   > ```
 - When adding to an existing table:
