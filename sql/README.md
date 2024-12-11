@@ -1284,7 +1284,7 @@ Multi column indexes are useful when your queries use multiple columns together 
 
 > [!NOTE]
 > A multi-column index, such as (`column_1`, `column_2`, ...), organizes the data by sorting it first based on `column_1`, then by `column_2`. This means the index works best for queries that filter by `column_1` or by both `column_1` and `column_2`.
-> If a query filters only by `column_2`, PostgreSQL cannot take advantage of the index's sorted structure. Instead, it has to look through all the entries in the index (full index scan) to find matches for `column_2`.
+> If a query filters only by `column_2`, PostgreSQL cannot take advantage of the index's sorted structure. Here is a video resource that makes this concept super easy to understand. Please take a look: https://planetscale.com/learn/courses/mysql-for-developers/indexes/composite-indexes.
 
 <p align="right">
     <a href="#sql-postgresql">back to top ⬆</a>
