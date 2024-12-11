@@ -1382,4 +1382,5 @@ Multi column indexes are useful when your queries use multiple columns together 
 
 1. The official PostgreSQL documentation: https://www.postgresql.org/docs/current/sql.html
 2. Step by step PostgreSQL tutorial: https://www.postgresqltutorial.com
-3. Database and SQL Roadmap (all in one): https://www.databasestar.com/sql-roadmap/
+3. MySQL for Developers (video course): https://planetscale.com/learn/courses/mysql-for-developers
+   > It is MySQL, but it is still a very good resource for understanding the overall concepts.
