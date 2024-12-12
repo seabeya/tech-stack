@@ -1218,6 +1218,18 @@ Index types determine how data is stored and organized internally, which directl
   ```sql
   DROP INDEX index_name;
   ```
+  - Temporarily disable an index:
+    > Temporarily disabling an index is useful for testing and performance analysis. It allows you to check if an index is really needed without the overhead of deleting and recreating it, which can be time-consuming with large datasets.
+    ```sql
+    UPDATE pg_index
+      SET indisvalid = false
+    WHERE
+      indexrelid = '<index_name>'::regclass;
+    ```
+    > Setting `indisvalid` to:
+    >
+    > - `false`: Queries will not use the index. However, the index itself will still maintain its valid structure (it will be updated during write, update, or delete actions).
+    > - `true`: Restores the index to its original state.
 - List all indexes:
   ```sql
   SELECT indexname, indexdef
