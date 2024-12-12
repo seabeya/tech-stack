@@ -1178,7 +1178,7 @@ Indexes in a database are special lookup tables that the database search engine 
 Index types determine how data is stored and organized internally, which directly impacts performance and suitability for specific operations.
 
 - B-Tree Index: (this is the default when no index type is specified)
-  > It is a self-balancing tree that stores data in sorted order, making searches efficient `O(log n)`. The structure of this index is ideal for comparison-based queries, such as range queries and operations involving `=`, `<`, `>`, `<=`, or `>=`.
+  > It is a self-balancing tree that stores data in sorted order, making searches efficient `O(log n)`. The structure of this index is ideal for comparison-based queries, such as range queries, involving operators like: `<`, `<=`, `=`, `>=`, `>`, `BETWEEN`, `IN`, `IS NULL`, and `IS NOT NULL`.
 - Hash Index:
   > A hash index uses a hash table to store indexed values. It maps each value to a fixed-size hash code, enabling fast lookups for equality comparisons (`=`).
 
