@@ -1780,6 +1780,7 @@ S = (n / 2) * (a + l);
 - `l` is the last term.
 - `n` is the number of terms. `n = (l - a) / d + 1`
   - `d` is the common difference (constant difference between terms).
+    > For example: if the series is: 2, 5, 8, 11, 14, the common difference (d) is 3, because each term increases by 3.
 
 <br>
 
