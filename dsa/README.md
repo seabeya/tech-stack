@@ -40,6 +40,7 @@
      - [The Gauss' Trick](#-the-gauss-trick)
      - [Related to Arrays](#-related-to-arrays)
        - [Kadane's Algorithm](#-kadanes-algorithm)
+       - [Two Pointers](#-two-pointers)
    - [Sorting](#-sorting)
      - [Bubble Sort](#-bubble-sort)
      - [Selection Sort](#-selection-sort)
@@ -1844,11 +1845,9 @@ S = (n / 2) * (a + l);
 
 #### 🔻 Kadane's Algorithm
 
-Kadane's Algorithm is an efficient `O(n)` method to find the maximum sum of a contiguous subarray in a given array.
+The Kadane's Algorithm is an efficient `O(n)` method to find the maximum sum of a contiguous subarray in a given array.
 
-> The main logic: If adding the next number improves the sum, keep going. Otherwise, start fresh from the next number.
-
-<br>
+> Main logic: If adding the next number improves the sum, keep going. Otherwise, start fresh from the next number.
 
 Examples:
 
@@ -1897,6 +1896,39 @@ Examples:
   }
 
   maxSubArray([-2, -3, 4, -1, -2, 1, 5, -3]); // 7
+  ```
+
+<br>
+
+#### 🔻 Two Pointers
+
+Two Pointers is a technique used to solve problems efficiently by using two pointer variables to traverse an array or list. These pointers move in a specific way to find a solution.
+
+Examples:
+
+- Given a sorted array, find two numbers that add up to a target:
+
+  ```js
+  function twoSumTarget(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left < right) {
+      let sum = arr[left] + arr[right];
+
+      if (sum === target) {
+        return [arr[left], arr[right]];
+      } else if (sum < target) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+
+    return [];
+  }
+
+  twoSumTarget([1, 2, 3, 4, 6], 5); // [1, 4]
   ```
 
 <p align="right">
