@@ -35,9 +35,11 @@
    - [Graphs](#-graphs)
    - [Matrix (2D Arrays)](#-matrix-2d-arrays)
 3. [Algorithms](#-algorithms)
-   - [Related Techniques and Tricks](#-related-techniques-and-tricks)
+   - [Techniques and Tricks](#-techniques-and-tricks)
      - [Recursion](#-recursion)
      - [The Gauss' Trick](#-the-gauss-trick)
+     - [Related to Arrays](#-related-to-arrays)
+       - [Kadane's Algorithm](#-kadanes-algorithm)
    - [Sorting](#-sorting)
      - [Bubble Sort](#-bubble-sort)
      - [Selection Sort](#-selection-sort)
@@ -1646,14 +1648,14 @@ The structure of a 2D array allows for efficient access, modification, and trave
 # 🟪 Algorithms
 
 <p align="center">
-  <a href="#-related-techniques-and-tricks">Related Techniques and Tricks</a> •
+  <a href="#-techniques-and-tricks">Techniques and Tricks</a> •
   <a href="#-sorting">Sorting</a> •
   <a href="#-searching">Searching</a>
 </p>
 
 <br>
 
-## 🔶 Related Techniques and Tricks
+## 🔶 Techniques and Tricks
 
 ### 🔷 Recursion
 
@@ -1835,6 +1837,67 @@ S = (n / 2) * (a + l);
    ```
 
 </details>
+
+<br>
+
+### 🔷 Related to Arrays
+
+#### 🔻 Kadane's Algorithm
+
+Kadane's Algorithm is an efficient `O(n)` method to find the maximum sum of a contiguous subarray in a given array.
+
+> The main logic: If adding the next number improves the sum, keep going. Otherwise, start fresh from the next number.
+
+<br>
+
+Examples:
+
+<p align="center">
+  <img src="./kd.png" height="auto" width="250">
+</p>
+
+- Without Kadane’s Algorithm: `O(n^2)`
+
+  ```js
+  function maxSubArray(arr) {
+    let maxSum = arr[0];
+
+    for (let i = 0; i < arr.length; i++) {
+      let currentSum = 0;
+
+      for (let j = i; j < arr.length; j++) {
+        currentSum += arr[j];
+        maxSum = Math.max(maxSum, currentSum);
+      }
+    }
+
+    return maxSum;
+  }
+
+  maxSubArray([-2, -3, 4, -1, -2, 1, 5, -3]); // 7
+  ```
+
+- With Kadane’s Algorithm: `O(n)`
+
+  ```js
+  function maxSubArray(arr) {
+    let maxSum = arr[0];
+    let currentSum = 0;
+
+    for (let num of arr) {
+      currentSum += num;
+      maxSum = Math.max(maxSum, currentSum);
+
+      if (currentSum < 0) {
+        currentSum = 0;
+      }
+    }
+
+    return maxSum;
+  }
+
+  maxSubArray([-2, -3, 4, -1, -2, 1, 5, -3]); // 7
+  ```
 
 <p align="right">
     <a href="#data-structures--algorithms">back to top ⬆</a>
