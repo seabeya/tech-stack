@@ -41,6 +41,7 @@
      - [Related to Arrays](#-related-to-arrays)
        - [Kadane's Algorithm](#-kadanes-algorithm)
        - [Two Pointers](#-two-pointers)
+       - [Sliding Window](#-sliding-window)
    - [Sorting](#-sorting)
      - [Bubble Sort](#-bubble-sort)
      - [Selection Sort](#-selection-sort)
@@ -1849,7 +1850,9 @@ The Kadane's Algorithm is an efficient `O(n)` method to find the maximum sum of 
 
 > Main logic: If adding the next number improves the sum, keep going. Otherwise, start fresh from the next number.
 
-Examples:
+<br>
+
+**Examples:**
 
 <p align="center">
   <img src="./kd.png" height="auto" width="250">
@@ -1929,6 +1932,79 @@ Examples:
   }
 
   twoSumTarget([1, 2, 3, 4, 6], 5); // [1, 4]
+  ```
+
+<br>
+
+#### 🔻 Sliding Window
+
+Sliding Window is a technique used to solve problems related to arrays or strings, especially when dealing with subarrays or substrings.
+
+> It is useful for optimizing problems that involve contiguous elements by reducing unnecessary computations. Instead of using nested loops (which are slow), the algorithm maintains a window that expands or shrinks while scanning the input.
+
+<br>
+
+**Types of Sliding Window:**
+
+- Fixed-size window: The window size remains constant.
+- Dynamic-size window: The window expands or contracts based on conditions.
+
+<br>
+
+**Examples:**
+
+- Fixed-size Sliding Window.
+
+  > Find the maximum sum of any subarray of size `k`.
+
+  ```js
+  function maxSumSubarray(arr, k) {
+    let maxSum = 0;
+    let windowSum = 0;
+
+    // First window
+    for (let i = 0; i < k; i++) {
+      windowSum += arr[i];
+    }
+    maxSum = windowSum;
+
+    // Sliding the window
+    for (let i = k; i < arr.length; i++) {
+      windowSum += arr[i] - arr[i - k];
+      maxSum = Math.max(maxSum, windowSum);
+    }
+
+    return maxSum;
+  }
+
+  maxSumSubarray([2, 1, 5, 1, 3, 2], 3); // 9
+  ```
+
+- Dynamic-size Sliding Window.
+
+  > Find the length of the longest substring in a given string that has no repeating characters.
+
+  ```js
+  function longestUniqueSubstring(s) {
+    let maxLen = 0;
+    const map = new Map();
+    let l = 0;
+
+    for (let r = 0; r < s.length; r++) {
+      if (map.has(s[r])) {
+        l = Math.max(map.get(s[r]) + 1, l);
+      }
+
+      map.set(s[r], r);
+      maxLen = Math.max(maxLen, r - l + 1);
+    }
+
+    return maxLen;
+  }
+
+  longestUniqueSubstring("abcabcbb"); // 3 ("abc")
+  longestUniqueSubstring("bbbbb"); // 1 ("b")
+  longestUniqueSubstring("pwwkew"); // 3 ("wke")
   ```
 
 <p align="right">
