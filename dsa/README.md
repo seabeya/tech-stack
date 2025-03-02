@@ -37,6 +37,7 @@
 3. [Algorithms](#-algorithms)
    - [Techniques and Tricks](#-techniques-and-tricks)
      - [Recursion](#-recursion)
+     - [Dynamic Programming](#-dynamic-programming)
      - [Backtracking](#-backtracking)
      - [The Gauss' Trick](#-the-gauss-trick)
      - [Related to Arrays](#-related-to-arrays)
@@ -1690,6 +1691,10 @@ Recursion is useful when you don't know in advance how many steps or iterations 
   - Unfolding (going up):
     > As the base case is reached, the recursion starts to unwind. Each function call returns its value to the previous level of the call stack until the initial function call returns the final result.
 
+- Costs:
+  - Space:
+    > Each recursive call adds a new stack frame to the call stack. The space complexity is O(depth of recursion).
+
 <br>
 
 **Step by Step Recursion With Examples:**
@@ -1770,7 +1775,9 @@ function reverseStr(str) {
 
 <br>
 
-Example 3: Fibonacci. `Ot(2^n)`, `Os(n)`
+Example 3: Fibonacci.
+
+> Time:`O(2^n)`, Space: `O(n)`;
 
 > Formula:
 >
@@ -1803,6 +1810,129 @@ fib(5); // 5
 <p align="center">
   <img src="./fib.png" height="auto" width="700">
 </p>
+
+<br>
+
+### 🔷 Dynamic Programming
+
+Dynamic programming is an optimization technique that efficiently solves problems by avoiding redundant computations. It is useful for problems with overlapping subproblems, as it stores previously computed results and reuses them instead of recalculating the same subproblem multiple times.
+
+**Two Main Approaches:**
+
+- Top-Down (Memoization):
+  > Solve the problem recursively and store results of solved subproblems to avoid redundant calculations.
+- Bottom-Up (Tabulation):
+  > Solve smaller subproblems first, store results in a table, and use them to build solutions to larger problems.
+
+<br>
+
+**Basic Implementation:**
+
+- Without Optimization:
+
+  > No matter what, even if we enter the same input again, the calculation process will repeat every time.
+
+  ```js
+  function addTo50(n) {
+    return n + 50;
+  }
+
+  addTo50(5); // 55
+  addTo50(5); // 55
+  addTo50(5); // 55
+  ```
+
+- With Optimization: Memoization
+
+  > The calculation process will only run when we enter a new value. If we enter the same value as before, the result will be retrieved from the cache without any additional calculations.
+
+  ```js
+  const cache = {};
+
+  function addTo50(n) {
+    if (cache[n] !== undefined) {
+      return cache[n];
+    } else {
+      cache[n] = n + 50;
+      return cache[n] + " first time";
+    }
+  }
+
+  addTo50(5); // '55 first time'
+  addTo50(5); // 55
+  addTo50(5); // 55
+  ```
+
+  - A refactored version of the caching example:
+    > Using JavaScript closures to avoid accessing any external variables, just making it a pure function.
+    >
+    > ```js
+    > function addTo50() {
+    >   const cache = {};
+    >
+    >   return (n) => {
+    >     if (cache[n] !== undefined) {
+    >       return cache[n];
+    >     } else {
+    >       cache[n] = n + 50;
+    >       return cache[n] + " first time";
+    >     }
+    >   };
+    > }
+    >
+    > const add50 = addTo50();
+    >
+    > add50(5); // '55 first time'
+    > add50(5); // 55
+    > add50(5); // 55
+    > ```
+
+<br>
+
+**Examples:**
+
+- Fibonacci:
+
+  - Top-Down (Memoization):
+
+    > Time:`O(n)`, Space: `O(n)`;
+
+    ```js
+    function fastFibonacci() {
+      const cache = {};
+
+      return (fib = (n) => {
+        if (cache[n] !== undefined) {
+          return cache[n];
+        } else {
+          if (n <= 1) return n;
+          cache[n] = fib(n - 1) + fib(n - 2);
+          return cache[n];
+        }
+      });
+    }
+
+    const fastFib = fastFibonacci();
+
+    fastFib(999); // 2.686381002448534e+208
+    ```
+
+  - Bottom-Up (Tabulation):
+
+    > Time: `O(n)`, Space: `O(1)`;
+
+    ```js
+    function fib(n) {
+      if (n <= 1) return n;
+
+      let dp = [0, 1];
+      for (let i = 2; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+      }
+
+      return dp[n];
+    }
+    ```
 
 <br>
 
