@@ -37,6 +37,7 @@
 3. [Algorithms](#-algorithms)
    - [Techniques and Tricks](#-techniques-and-tricks)
      - [Recursion](#-recursion)
+     - [Backtracking](#-backtracking)
      - [The Gauss' Trick](#-the-gauss-trick)
      - [Related to Arrays](#-related-to-arrays)
        - [Kadane's Algorithm](#-kadanes-algorithm)
@@ -1769,9 +1770,69 @@ function reverseStr(str) {
 
 <br>
 
+### 🔷 Backtracking
+
+Backtracking is a technique used to solve problems recursively by trying to build a solution step by step. If a solution is not valid, it backtracks (goes back) to the previous step and tries a different path.
+
+> Backtracking is essential in situations where the problem requires exploring many possible solutions, and you need to find a valid solution by trying different possibilities.
+
+**Example:**
+
+- Given a set of numbers `[1, 2, 3]`, generate all possible subsets (including the empty set).
+
+  ```js
+  function subsets(nums) {
+    let result = [];
+
+    function backtrack(start, currentSubset) {
+      result.push([...currentSubset]);
+
+      for (let i = start; i < nums.length; i++) {
+        currentSubset.push(nums[i]);
+        backtrack(i + 1, currentSubset);
+        currentSubset.pop();
+      }
+    }
+
+    backtrack(0, []);
+    return result;
+  }
+
+  subsets([1, 2, 3]); // [ [], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 3 ], [ 2 ], [ 2, 3 ], [ 3 ] ]
+  ```
+
+- Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+  ```js
+  function generateParenthesis(n) {
+    const res = [];
+    backtrack(0, 0, n, res, "");
+    return res;
+  }
+
+  function backtrack(openN, closeN, n, res, stack) {
+    if (openN === closeN && openN === n) {
+      res.push(stack);
+      return;
+    }
+
+    if (openN < n) {
+      backtrack(openN + 1, closeN, n, res, stack + "(");
+    }
+
+    if (closeN < openN) {
+      backtrack(openN, closeN + 1, n, res, stack + ")");
+    }
+  }
+
+  generateParenthesis(3); // ["((()))","(()())","(())()","()(())","()()()"]
+  ```
+
+<br>
+
 ### 🔷 The Gauss' Trick
 
-A method for efficiently `O(1)` finding the sum of an arithmetic series
+A method for efficiently `O(1)` finding the sum of an arithmetic series.
 
 The formula:
 
@@ -1907,7 +1968,7 @@ The Kadane's Algorithm is an efficient `O(n)` method to find the maximum sum of 
 
 Two Pointers is a technique used to solve problems efficiently by using two pointer variables to traverse an array or list. These pointers move in a specific way to find a solution.
 
-Examples:
+**Examples:**
 
 - Given a sorted array, find two numbers that add up to a target:
 
