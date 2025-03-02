@@ -1694,7 +1694,7 @@ Recursion is useful when you don't know in advance how many steps or iterations 
 
 **Step by Step Recursion With Examples:**
 
-Example 1: Factorial
+Example 1: Factorial.
 
 ```js
 function factorial(num) {
@@ -1732,7 +1732,7 @@ function factorial(num) {
 
 <br>
 
-Example 2: Reverse a string
+Example 2: Reverse a string.
 
 ```js
 function reverseStr(str) {
@@ -1770,13 +1770,49 @@ function reverseStr(str) {
 
 <br>
 
+Example 3: Fibonacci. `Ot(2^n)`, `Os(n)`
+
+> Formula:
+>
+> ```js
+> fibonacci(n) = fibonacci(n-1) + fibonacci(n-2);
+> ```
+>
+> Edge cases:
+>
+> ```js
+> fibonacci(1) = 1;
+> ```
+>
+> ```js
+> fibonacci(0) = 0;
+> ```
+
+```js
+function fib(n) {
+  // Base case:
+  if (n <= 1) return n;
+
+  // Recursive case & call:
+  return fib(n - 1) + fib(n - 2);
+}
+
+fib(5); // 5
+```
+
+<p align="center">
+  <img src="./fib.png" height="auto" width="700">
+</p>
+
+<br>
+
 ### 🔷 Backtracking
 
 Backtracking is a technique used to solve problems recursively by trying to build a solution step by step. If a solution is not valid, it backtracks (goes back) to the previous step and tries a different path.
 
 > Backtracking is essential in situations where the problem requires exploring many possible solutions, and you need to find a valid solution by trying different possibilities.
 
-**Example:**
+**Examples:**
 
 - Given a set of numbers `[1, 2, 3]`, generate all possible subsets (including the empty set).
 
