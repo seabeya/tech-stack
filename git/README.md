@@ -682,9 +682,27 @@ What happens if someone adds commits to a remote branch while you have a local b
     </p>
 
   > You can use `git pull` without specifying a particular remote or branch. When you do that, Git assumes the following defaults:
+  >
+  > - Git assumes the remote to be the default remote repository, which is typically named **'origin'**.
+  > - Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
 
-  - > Git assumes the remote to be the default remote repository, which is typically named **'origin'**.
-  - > Git assumes the branch to be the current branch you are on and uses the configured tracking branch for that branch.
+  - `--rebase` - Applies local changes on top of the latest remote changes instead of merging.
+
+    > Unlike a regular pull, which merges fetched changes into the current branch, rebase moves your local commits on top of the updated remote branch. This keeps the commit history linear and avoids extra merge commits.
+
+    > The process follows these steps:
+    >
+    > - Fetches the latest changes from the remote branch.
+    > - Temporarily removes your local commits.
+    > - Applies the fetched remote changes.
+    > - Reapplies your local commits on top of the updated branch.
+
+    > If conflicts occur, Git will pause and prompt you to resolve them. You can then:
+    >
+    > 1. Use `git rebase --continue` to proceed after resolving conflicts.
+    > 2. Use `git rebase --abort` to cancel and restore the previous state (the state before you do `git pull --rebase`).
+
+    > Here is a video for better understanding: https://youtu.be/xN1-2p06Urc
 
 <p align="right">
     <a href="#git">back to top ⬆</a>
