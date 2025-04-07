@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev --turbo",
     "start": "next start",
+    "lint": "next lint",
     "postinstall": "fumadocs-mdx",
     "prettier": "prettier --write .",
     "prettier:report": "prettier --check ."
