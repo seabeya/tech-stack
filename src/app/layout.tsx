@@ -11,13 +11,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://tech-stack.seabeya.com'),
   title: 'Tech Stack',
-  description: 'Personal IT Notes',
-  keywords: ['tech-stack', 'docs', 'documentation', 'IT', 'tutorial', 'open-source', 'seabeya'],
+  description: 'Developer Handbook',
+  keywords: ['tech-stack', 'docs', 'documentation', 'code', 'open-source', 'handbook', 'seabeya'],
   openGraph: {
     type: 'website',
     url: '/',
     title: 'Tech Stack',
-    description: 'Personal IT Notes',
+    description: 'Developer Handbook',
     siteName: 'Tech Stack',
     images: [
       {

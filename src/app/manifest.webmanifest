@@ -1,7 +1,7 @@
 {
   "name": "Tech Stack",
   "short_name": "Tech Stack",
-  "description": "Personal IT Notes",
+  "description": "Developer Handbook",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#121212",
