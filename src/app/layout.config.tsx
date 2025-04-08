@@ -25,4 +25,5 @@ export const baseOptions: BaseLayoutProps = {
       active: 'nested-url',
     },
   ],
+  githubUrl: 'https://github.com/seabeya/tech-stack',
 };
