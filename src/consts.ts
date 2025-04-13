@@ -12,58 +12,60 @@ import IconDocker from './components/icons/docker';
 
 export const APP_NAME = 'Tech Stack';
 
-export const DOCS = [
-  {
-    title: 'Math',
+export const DOCS = {
+  math: {
+    label: 'Math',
+    path: '',
     icon: IconMath,
   },
-  {
-    title: 'Linux',
-    href: '/docs/linux',
+  linux: {
+    label: 'Linux',
+    path: '/docs/linux',
     icon: IconLinux,
   },
-  {
-    title: 'Git',
-    href: '/docs/git',
+  git: {
+    label: 'Git',
+    path: '/docs/git',
     icon: IconGit,
   },
-  {
-    title: 'JavaScript',
-    href: '/docs/js',
+  js: {
+    label: 'JavaScript',
+    path: '/docs/js',
     icon: IconJS,
   },
-  {
-    title: 'DSA',
-    href: '/docs/dsa',
+  dsa: {
+    label: 'DSA',
+    path: '/docs/dsa',
     icon: IconDSA,
   },
-  {
-    title: 'React.js',
-    href: '/docs/react',
+  react: {
+    label: 'React.js',
+    path: '/docs/react',
     icon: IconReact,
   },
-  {
-    title: 'TypeScript',
-    href: '/docs/ts',
+  ts: {
+    label: 'TypeScript',
+    path: '/docs/ts',
     icon: IconTS,
   },
-  {
-    title: 'Golang',
-    href: '/docs/go',
+  go: {
+    label: 'Golang',
+    path: '/docs/go',
     icon: IconGo,
   },
-  {
-    title: 'SQL (Postgres)',
-    href: '/docs/sql',
+  sql: {
+    label: 'SQL (Postgres)',
+    path: '/docs/sql',
     icon: IconSQL,
   },
-  {
-    title: 'Redis',
+  redis: {
+    label: 'Redis',
+    path: '',
     icon: IconRedis,
   },
-  {
-    title: 'Docker',
-    href: '/docs/docker',
+  docker: {
+    label: 'Docker',
+    path: '/docs/docker',
     icon: IconDocker,
   },
-];
+};

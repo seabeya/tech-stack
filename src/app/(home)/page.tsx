@@ -16,8 +16,8 @@ export default function HomePage() {
       {/* Docs */}
       <div className="flex flex-col items-center gap-8">
         <div className="grid grid-cols-2 items-start gap-4 lg:grid-cols-4">
-          {DOCS.map(({ title, href, icon: Icon }) => {
-            return <ToDocsBtn key={title} title={title} href={href} icon={<Icon className="size-6 shrink-0" />} />;
+          {Object.values(DOCS).map(({ label, path, icon: Icon }) => {
+            return <ToDocsBtn key={label} title={label} href={path} icon={<Icon className="size-6 shrink-0" />} />;
           })}
         </div>
         {/* Notes */}
