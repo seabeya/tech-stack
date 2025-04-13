@@ -22,8 +22,8 @@ export default function HomePage() {
         </div>
         {/* Notes */}
         <p className="text-fd-muted-foreground max-w-md text-center text-sm lg:max-w-2xl">
-          The original docs are in a different file format and not in English, so it will take some time to refactor and
-          publish them. That's why some of the links above are currently disabled.
+          {`The original docs are in a different file format and not in English, so it will take some time to refactor and
+          publish them. That's why some of the links above are currently disabled.`}
         </p>
         <p suppressHydrationWarning className="text-fd-muted-foreground -mt-4 text-center text-sm">
           {`© ${new Date().getFullYear()} Sha'an Aliyev / `}
