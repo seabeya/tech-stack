@@ -1,4 +1,5 @@
 import IconTechStack from '@/components/icons/tech-stack';
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 
 /**
@@ -19,10 +20,9 @@ export const baseOptions: BaseLayoutProps = {
   },
   links: [
     {
-      text: 'Documentation',
-      url: '/docs',
-      active: 'nested-url',
+      type: 'custom',
+      children: <GithubInfo owner="seabeya" repo="tech-stack" className="mx-1.5 flex-row border px-3" />,
+      secondary: true,
     },
   ],
-  githubUrl: 'https://github.com/seabeya/tech-stack',
 };

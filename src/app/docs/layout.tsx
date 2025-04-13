@@ -7,6 +7,7 @@ const docsOptions: DocsLayoutProps = {
   ...baseOptions,
   tree: source.pageTree,
   links: [],
+  githubUrl: 'https://github.com/seabeya/tech-stack',
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
