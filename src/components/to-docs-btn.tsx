@@ -18,7 +18,7 @@ export default function ToDocsBtn({ href, title, icon }: ToDocsBtnProps) {
         href ? 'bg-fd-card hover:bg-fd-muted' : 'text-fd-muted-foreground pointer-events-none',
       )}
     >
-      {icon}
+      <span className={cn('rounded-sm border p-1', href ? 'bg-fd-muted border-fd-accent' : '')}>{icon}</span>
       <span>{title}</span>
     </Link>
   );
