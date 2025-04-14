@@ -7,10 +7,10 @@ export default function HomePage() {
     <main className="container flex flex-col gap-8 py-8 lg:gap-16 lg:py-16">
       {/* Hero */}
       <div className="flex flex-col items-center text-center">
-        <div className="bg-fd-card mb-4 aspect-square rounded-full border p-6">
+        <div className="bg-fd-card aspect-square rounded-full border p-6">
           <IconTechStack className="size-12 shrink-0" />
         </div>
-        <h1 className="text-2xl font-semibold">{APP_NAME}</h1>
+        <h1 className="mt-4 mb-1 text-2xl font-semibold">{APP_NAME}</h1>
         <p className="text-fd-muted-foreground">A Developer Handbook</p>
       </div>
       {/* Docs */}
