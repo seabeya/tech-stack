@@ -12,7 +12,14 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   const MDXContent = page.data.body;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage
+      toc={page.data.toc}
+      full={page.data.full}
+      tableOfContent={{
+        style: 'clerk',
+        single: false,
+      }}
+    >
       {page.file.name !== 'index' && (
         <>
           <DocsTitle>{page.data.title}</DocsTitle>
