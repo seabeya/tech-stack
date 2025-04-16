@@ -52,7 +52,12 @@ function IndexHead({ folder }: { folder: string }) {
 
   const { icon, title, desc } = docsInfo;
 
-  return <Hero title={title} desc={desc} icon={createElement(icon, { className: 'size-12 shrink-0' })} />;
+  return (
+    <>
+      <Hero title={title} desc={desc} icon={createElement(icon, { className: 'size-12 shrink-0' })} />
+      <hr />
+    </>
+  );
 }
 
 export async function generateStaticParams() {
