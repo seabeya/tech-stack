@@ -29,13 +29,13 @@ description: Basic Linux commands and concepts.
   whatis pwd # Output: pwd - print name of current/working directory
   ```
 
-- `wc <-option>... <file>...`: Count lines, words, and characters.
+- `wc -<option>... <file>...`: Count lines, words, and characters.
 
   ```sh
   wc file.txt # line, word, and character count of file.txt
   ```
 
-- `grep <-option>... <pattern> <file>...`: Search for patterns in files and return matching lines.
+- `grep -<option>... <pattern> <file>...`: Search for patterns in files and return matching lines.
 
   ```sh
   grep "hello" file.txt # Search for "hello"
@@ -61,7 +61,7 @@ description: Basic Linux commands and concepts.
   find ./dir1 -name "*.txt" | less # View the output of find in a pager
   ```
 
-- `cat <-option>... <file>...`: Print file contents to the standard output (terminal).
+- `cat -<option>... <file>...`: Print file contents to the standard output (terminal).
 
   ```sh
   cat ./file.txt # Print a file
@@ -87,7 +87,7 @@ description: Basic Linux commands and concepts.
   cat file1.txt file2.txt >> file3.txt # Append contents of file1.txt and file2.txt to file3.txt
   ```
 
-- `mkdir <-option>... <directory>...`: Create directories.
+- `mkdir -<option>... <directory>...`: Create directories.
 
   ```sh
   mkdir new_directory # Create a directory called new_directory
@@ -95,7 +95,7 @@ description: Basic Linux commands and concepts.
   mkdir -p ./new_dir/{dir1,dir2,dir3} # Create a directory with multiple subdirectories in it
   ```
 
-- `rm <-option>... <file/directory>...`: Delete files/directories.
+- `rm -<option>... <file/directory>...`: Delete files/directories.
 
   ```sh
   rm file.txt # Remove a file
@@ -104,7 +104,7 @@ description: Basic Linux commands and concepts.
   rm -rf ./dir1 # Force delete without prompt
   ```
 
-- `cp <-option>... <source>... <destination>`: Copy files and directories (mv to move).
+- `cp -<option>... <source>... <destination>`: Copy files and directories (mv to move).
 
   ```sh
   cp file.txt ./dir1 # Copy a file to dir (overwrite if exists)
@@ -119,7 +119,7 @@ description: Basic Linux commands and concepts.
   touch file.txt # Create a file called file.txt
   ```
 
-- `find <directory>... -name <pattern> <-option>`: Search for files and directories.
+- `find <directory>... -name <pattern> -<option>`: Search for files and directories.
 
   ```sh
   find ./dir1 -name file.txt # Find specific file in dir1 and its subdirectories
@@ -131,7 +131,7 @@ description: Basic Linux commands and concepts.
 
 ### Process & Monitoring
 
-- `du <-option>... <file/directory>...`: Show disk usage.
+- `du -<option>... <file/directory>...`: Show disk usage.
 
   ```sh
   du -a # All files and dirs in the current directory
@@ -146,14 +146,14 @@ description: Basic Linux commands and concepts.
   pidof docker # PID of Docker
   ```
 
-- `ps <-option>...`: View running processes.
+- `ps -<option>...`: View running processes.
 
   ```sh
   ps -u <username> # User-specific processes
   ps -ef # More detailed list
   ```
 
-- `lsof <-option>... <pattern>...`: List open files and their processes.
+- `lsof -<option>... <pattern>...`: List open files and their processes.
 
   ```sh
   lsof -p <PID> # Files opened by a process with PID
@@ -162,7 +162,7 @@ description: Basic Linux commands and concepts.
   lsof -i tcp:3000 # TCP on port 3000
   ```
 
-- `kill <-signal> <PID>`: Send a signal to a process.
+- `kill -<signal> <PID>`: Send a signal to a process.
 
   | Signal Name | Number | Description                                                                                              |
   | ----------- | ------ | -------------------------------------------------------------------------------------------------------- |
@@ -178,7 +178,7 @@ description: Basic Linux commands and concepts.
   kill -9 $(pidof nginx) # Force kill all processes with the name nginx
   ```
 
-- `watch <-option>... <command -option>...`: Re-run a command periodically.
+- `watch -<option>... <command -option>...`: Re-run a command periodically.
 
   ```sh
   watch -n 5 free -h # Show memory usage with a 5 seconds of refresh rate
