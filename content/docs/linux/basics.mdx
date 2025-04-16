@@ -1,0 +1,201 @@
+---
+title: Basics
+description: Basic Linux commands and concepts.
+---
+
+---
+
+## Commands
+
+<Callout title='Definitions'>
+- ` `, `.`, `./`: Current directory.
+- `<your_variable>`: A variable.
+- `<your_variable>...`: Multiple variables.
+- `...`:
+</Callout>
+
+<br />
+
+### Informational
+
+- `which <command>...`: Show the path of a command.
+
+  ```sh
+  which whatis # Output: /usr/bin/whatis
+  ```
+
+- `whatis <command>...`: Briefly describe a command.
+
+  ```sh
+  whatis pwd # Output: pwd - print name of current/working directory
+  ```
+
+- `wc <-option>... <file>...`: Count lines, words, and characters.
+
+  ```sh
+  wc file.txt # line, word, and character count of file.txt
+  ```
+
+- `grep <-option>... <pattern> <file>...`: Search for patterns in files and return matching lines.
+
+  ```sh
+  grep "hello" file.txt # Search for "hello"
+  grep -i "HeLLo" file.txt # Case-insensitive search
+  grep -r "hello" ./dir1 # Recursive search in dir1
+  ```
+
+- `less`: Open output in a controllable pager.
+
+  - `q`: Quit.
+  - `space`: Scroll down (next page).
+  - `b`: Scroll up (previous page).
+  - `g`: Go to the beginning.
+  - `G`: Go to the end.
+  - `/<pattern>`: Search forward (down).
+  - `?<pattern>`: Search backward (up).
+  - `n`: Repeat search in the same direction (next result).
+  - `N`: Repeat search in the opposite direction (previous result).
+  - `h`: Help.
+
+  ```sh
+  less file.txt # View a file in a pager
+  find ./dir1 -name "*.txt" | less # View the output of find in a pager
+  ```
+
+- `cat <-option>... <file>...`: Print file contents to the standard output (terminal).
+
+  ```sh
+  cat ./file.txt # Print a file
+  cat ./file1.txt ./file2.txt # Print multiple files
+  ```
+
+  ```sh
+  -n # Number all lines
+  -b # Number non-empty lines
+  -s # Squeeze blank lines into one
+  ```
+
+<br />
+
+### File & Directory
+
+- `OUTPUT > <file>...`: Redirect output to files (`>`: overwrites, `>>`: appends).
+
+  ```sh
+  > file.txt # Create/empty a file and start writing in it
+  pwd > file.txt # Save the command (pwd) output to file
+  cat file1.txt > file2.txt # Copy contents of file1.txt to file2.txt
+  cat file1.txt file2.txt >> file3.txt # Append contents of file1.txt and file2.txt to file3.txt
+  ```
+
+- `mkdir <-option>... <directory>...`: Create directories.
+
+  ```sh
+  mkdir new_directory # Create a directory called new_directory
+  mkdir -p ./new_directory/sub_directory # Create a nested directory structure
+  mkdir -p ./new_dir/{dir1,dir2,dir3} # Create a directory with multiple subdirectories in it
+  ```
+
+- `rm <-option>... <file/directory>...`: Delete files/directories.
+
+  ```sh
+  rm file.txt # Remove a file
+  rm -r ./dir1 # Recursively remove a directory and its contents
+  rm -ri ./dir1 # Prompt before each removal
+  rm -rf ./dir1 # Force delete without prompt
+  ```
+
+- `cp <-option>... <source>... <destination>`: Copy files and directories (mv to move).
+
+  ```sh
+  cp file.txt ./dir1 # Copy a file to dir (overwrite if exists)
+  cp -i file.txt ./dir1 # Prompt before overwrite
+  cp file.txt ./dir1/file2.txt # Copy and rename in destination
+  cp -r ./dir1 ./dir2 # Copy entire directory with its contents to another directory
+  ```
+
+- `touch <file>...`: Create empty files.
+
+  ```sh
+  touch file.txt # Create a file called file.txt
+  ```
+
+- `find <directory>... -name <pattern> <-option>`: Search for files and directories.
+
+  ```sh
+  find ./dir1 -name file.txt # Find specific file in dir1 and its subdirectories
+  find ./dir1 -name "*.txt" # Find all .txt files in dir1 and its subdirectories
+  find ./dir1 -name file.txt -delete # Find and delete a specific file in dir1 and its subdirectories
+  ```
+
+<br />
+
+### Process & Monitoring
+
+- `du <-option>... <file/directory>...`: Show disk usage.
+
+  ```sh
+  du -a # All files and dirs in the current directory
+  du -h # Human-readable format
+  du -s # Summary total for each argument
+  ```
+
+- `pidof <program_name>...`: Show the PID(s) of a running process.
+
+  ```sh
+  pidof bash # PID of bash
+  pidof docker # PID of Docker
+  ```
+
+- `ps <-option>...`: View running processes.
+
+  ```sh
+  ps -u <username> # User-specific processes
+  ps -ef # More detailed list
+  ```
+
+- `lsof <-option>... <pattern>...`: List open files and their processes.
+
+  ```sh
+  lsof -p <PID> # Files opened by a process with PID
+  lsof -i # All network connections
+  lsof -i tcp # TCP connections
+  lsof -i tcp:3000 # TCP on port 3000
+  ```
+
+- `kill <-signal> <PID>`: Send a signal to a process.
+
+  | Signal Name | Number | Description                                                                                              |
+  | ----------- | ------ | -------------------------------------------------------------------------------------------------------- |
+  | `SIGHUP`    | `1`    | Reload config. Tells a program to restart or reload its settings. Often used after editing config files. |
+  | `SIGINT`    | `2`    | Graceful stop. Sent when you press Ctrl + C to stop a program.                                           |
+  | `SIGQUIT`   | `3`    | Like `SIGINT` (`2`), but also creates a debug log (core dump).                                           |
+  | `SIGABRT`   | `6`    | Tells a program to abort/cancel (used when something goes wrong).                                        |
+  | `SIGKILL`   | `9`    | Force-stops a program immediately.                                                                       |
+  | `SIGTERM`   | `15`   | Asks a program to stop nicely. (Default signal for `kill`)                                               |
+
+  ```sh
+  kill -9 <PID> # Force kill a process with given PID
+  kill -9 $(pidof nginx) # Force kill all processes with the name nginx
+  ```
+
+- `watch <-option>... <command -option>...`: Re-run a command periodically.
+
+  ```sh
+  watch -n 5 free -h # Show memory usage with a 5 seconds of refresh rate
+  ```
+
+<br />
+
+## Command Chaining
+
+- `cmd1 ; cmd2 ; cmd3`: Run commands in order, regardless of success.
+- `cmd1 && cmd2 && cmd3`: Run next only if the previous succeeds.
+- `cmd1 || cmd2 || cmd3`: Run next only if the previous fails.
+- `cmd1 | cmd2 | cmd3`: Pipe output of one command to the next.
+
+  ```sh
+  find . *.* | less # View the command result in a pager
+  ```
+
+<br />

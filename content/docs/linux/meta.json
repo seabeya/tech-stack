@@ -1,6 +1,7 @@
 {
   "title": "Linux",
-  "description": "Linux description",
+  "description": "The OS Kernel",
   "root": true,
-  "icon": "linux"
+  "icon": "linux",
+  "pages": ["index", "---Gettin Started---", "basics", "..."]
 }
