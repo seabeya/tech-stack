@@ -1,3 +1,4 @@
+import Hero from '@/components/hero';
 import IconTechStack from '@/components/icons/tech-stack';
 import ToDocsBtn from '@/components/to-docs-btn';
 import { APP_NAME, DOCS } from '@/consts';
@@ -6,18 +7,12 @@ export default function HomePage() {
   return (
     <main className="container flex flex-col gap-8 py-8 lg:gap-16 lg:py-16">
       {/* Hero */}
-      <div className="flex flex-col items-center text-center">
-        <div className="bg-fd-card aspect-square rounded-full border p-6">
-          <IconTechStack className="size-12 shrink-0" />
-        </div>
-        <h1 className="mt-4 mb-1 text-2xl font-semibold">{APP_NAME}</h1>
-        <p className="text-fd-muted-foreground">A Developer Handbook</p>
-      </div>
+      <Hero title={APP_NAME} desc="A Developer Handbook" icon={<IconTechStack className="size-12 shrink-0" />} />
       {/* Docs */}
       <div className="flex flex-col items-center gap-8">
         <div className="grid grid-cols-2 items-start gap-4 lg:grid-cols-4">
-          {Object.values(DOCS).map(({ label, path, icon: Icon }) => {
-            return <ToDocsBtn key={label} title={label} href={path} icon={<Icon className="size-6 shrink-0" />} />;
+          {Object.values(DOCS).map(({ title, path, icon: Icon }) => {
+            return <ToDocsBtn key={title} title={title} href={path} icon={<Icon className="size-6 shrink-0" />} />;
           })}
         </div>
         {/* Notes */}
