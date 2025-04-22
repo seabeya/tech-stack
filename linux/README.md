@@ -26,8 +26,12 @@
    - [Commands](#-commands)
 5. [User & Group commands](#-user--group-commands)
 
+<br>
+
 > [!NOTE]
 > This is not a complete guide to Linux. It's just a collection of specific concepts and commands.
+
+<br>
 
 <hr>
 
