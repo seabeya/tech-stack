@@ -59,22 +59,19 @@ Definitions:
 #### 🔻 Informational Commands
 
 - `which <command>...`: Show the path of a command.
-  ```sh
-  which whatis # Output: /usr/bin/whatis
-  ```
 - `whatis <command>...`: Briefly describe a command in one line.
-  ```sh
-  whatis pwd # Output: pwd - print name of current/working directory
-  ```
 - `wc -<option>... <file>...`: Count lines, words, and characters.
+- `find <directory>... -name <pattern> -<option>`: Search for files and directories.
   ```sh
-  wc file.txt # line, word, and character count of file.txt
+  find ./dir1 -name file.txt # A specific file in dir1 and its subdirectories
+  find ./dir1 -name "*.txt" # All .txt files
+  find ./dir1 -name file.txt -delete # Find and delete
   ```
 - `grep -<option>... <pattern> <file>...`: Search for patterns in a file and return matching lines.
+  - `-i`: Case-insensitive search.
+  - `-r`: Recursive search in directories.
   ```sh
   grep "hello" file.txt # Search for "hello"
-  grep -i "HeLLo" file.txt # Case-insensitive search
-  grep -r "hello" ./dir1 # Recursive search in dir1
   ```
 - `less`: Open output in a controllable pager.
   > - `q`: Quit.
@@ -92,21 +89,9 @@ Definitions:
   find ./dir1 -name "*.txt" | less # View the output of find in a pager
   ```
 - `cat -<option>... <file>...`: Print file contents to the standard output (terminal).
-  ```sh
-  cat ./file.txt # Print a file
-  cat ./file1.txt ./file2.txt # Print multiple files
-  ```
-  ```sh
-  -n # Number all lines
-  -b # Number non-empty lines
-  -s # Squeeze blank lines into one
-  ```
-- `find <directory>... -name <pattern> -<option>`: Search for files and directories.
-  ```sh
-  find ./dir1 -name file.txt # Find specific file in dir1 and its subdirectories
-  find ./dir1 -name "*.txt" # Find all .txt files in dir1 and its subdirectories
-  find ./dir1 -name file.txt -delete # Find and delete a specific file in dir1 and its subdirectories
-  ```
+  - `-n`: Number all lines.
+  - `-b`: Number non-empty lines.
+  - `-s`: Squeeze blank lines into one.
 - `getent <database> <key>`: Get entries from system databases.
   ```sh
   getent group # All groups and their members
@@ -129,54 +114,46 @@ Definitions:
   cat file1.txt file2.txt >> file3.txt # Append contents of file1.txt and file2.txt to file3.txt
   ```
 - `mkdir -<option>... <directory>...`: Create a directory.
+  - `-p`: Create parent directories as needed.
   ```sh
-  mkdir new_directory # Create a directory called new_directory
-  mkdir -p ./new_directory/sub_directory # Create a nested directory structure
+  mkdir -p ./sub1/sub2 # Create a nested directory structure
   mkdir -p ./new_dir/{dir1,dir2,dir3} # Create a directory with multiple subdirectories in it
   ```
 - `rm -<option>... <file/directory>...`: Delete a file/directory.
-  ```sh
-  rm file.txt # Remove a file
-  rm -r ./dir1 # Recursively remove a directory and its contents
-  rm -ri ./dir1 # Prompt before each removal
-  rm -rf ./dir1 # Force delete without prompt
-  ```
+  - `-i`: Prompt before each removal.
+  - `-r`: Recursively remove a directory and its contents.
+  - `-f`: Force delete without prompt.
+  - `-v`: Verbose mode (show what is being done).
 - `cp -<option>... <source>... <destination>`: Copy files and directories (`mv` to move).
+  > Overwrites if already exists.
+  - `-i`: Prompt before overwrite.
+  - `-r`: Recursively copy directories and their contents.
   ```sh
-  cp file.txt ./dir1 # Copy a file to dir (overwrite if exists)
-  cp -i file.txt ./dir1 # Prompt before overwrite
+  cp file.txt ./dir1 # Copy a file to dir
   cp file.txt ./dir1/file2.txt # Copy and rename in destination
-  cp -r ./dir1 ./dir2 # Copy entire directory with its contents to another directory
   ```
 - `touch <file>...`: Create an empty file.
-  ```sh
-  touch file.txt # Create a file called file.txt
-  ```
 
 <br>
 
 #### 🔻 Process & Monitoring Commands
 
 - `du -<option>... <file/directory>...`: Show disk usage.
-  ```sh
-  du -a # All files and dirs in the current directory
-  du -h # Human-readable format
-  du -s # Summary total for each argument
-  ```
+  - `-a`: Show all files and directories.
+  - `-h`: Human-readable format (e.g., KB, MB).
+  - `-s`: Summary total for each argument.
 - `pidof <program_name>...`: Show the PID(s) of a running process.
   ```sh
   pidof bash # PID of bash
   pidof docker # PID of Docker
   ```
 - `ps -<option>...`: View running processes.
-  ```sh
-  ps -u <username> # User-specific processes
-  ps -ef # More detailed list
-  ```
+  - `-u <user>`: Show processes for a specific user.
+  - `-ef`: More detailed list.
 - `lsof -<option>... <pattern>...`: List open files and their processes.
+  - `-p <PID>`: Show files opened by a specific process.
+  - `-i`: Show network connections.
   ```sh
-  lsof -p <PID> # Files opened by a process with PID
-  lsof -i # All network connections
   lsof -i tcp # TCP connections
   lsof -i tcp:3000 # TCP on port 3000
   ```
@@ -367,16 +344,13 @@ A complete table:
   ```
 - `chown -<option>... <user>:<group> <file/directory>...`: Change file/directory ownership.
   > `$USER` refers to the current user.
+  - `-R`: Change ownership of all files and directories recursively.
   ```sh
   chown $USER:$USER file.txt # To the current user and group
-  chown john file.txt # To user john and group staff
-  chown -R $USER ./dir1 # Change ownership of all files and directories in dir1 recursively
+  chown john ./dir1 # To user john and group staff
   ```
 - `chgrp -<option>... <group> <file/directory>...`: Change file/directory group ownership.
-  ```sh
-  chgrp staff file.txt # Change group ownership to staff
-  chgrp -R staff ./dir1 # Change group ownership of all files and directories in dir1 recursively
-  ```
+  - `-R`: Change group ownership of all files and directories recursively.
 
 <br>
 
@@ -389,23 +363,11 @@ A complete table:
 ### 🔷 User & Group Commands
 
 - `groups <user>`: List groups a user belongs to.
-  ```sh
-  groups $USER # Groups of the current user
-  ```
-- `usermod -a -G <group> <user>`: Add a user to a group.
-  ```sh
-  usermod -aG docker $USER # Add the current user to the docker group
-  ```
+- `usermod -aG <group> <user>`: Add a user to a group.
 - `gpasswd -d <user> <group>`: Remove a user from a group.
-  ```sh
-  gpasswd -d $USER docker # Remove the current user from the docker group
-  ```
 - `passwd -<option>... <user>`: Change a user's password.
-  ```sh
-  passwd $USER # Change the current user's password
-  passwd -d $USER # Delete the current user's password
-  passwd -e $USER # Expire the current user's password (force change on next login)
-  ```
+  - `-d`: Delete a user's password.
+  - `-e`: Expire a user's password (force change on next login).
 
 <br>
 
