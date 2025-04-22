@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="200">
+  <img src="../logo.png" height="150">
 </p>
 
 <h1 align="center">TypeScript</h1>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="right">
-    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
+  <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements
@@ -930,7 +930,7 @@ console.log(xd.a, xd.b);
 are the same.
 
 > [!NOTE]
-> TypeScript's `private` modifier doesn't prevent access at runtime; instead, use JavaScript's `#` symbol for runtime prevention ([Classes in JS > Private properties](https://github.com/seabeya/tech-stack/blob/main/js/README.md#-private-properties)).
+> TypeScript's `private` modifier doesn't prevent access at runtime; instead, use JavaScript's `#` symbol for runtime prevention ([Classes in JS > Private properties](../js/README.md#-private-properties)).
 
 <br>
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="200">
+  <img src="../logo.png" height="150">
 </p>
 
 <h1 align="center">Git</h1>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="right">
-    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
+  <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements
@@ -50,7 +50,7 @@
 - Configure the name and email that Git will associate with your work (required before start).
   - `git config --global user.name "<Name>"`
   - `git config --global user.email "<Email>"`
-    > (Optional): If you want to keep your email private, you can use the email provided by GitHub. You can find it in your GitHub settings. For example, mine is 35802638+seabeya@users.noreply.github.com.
+    > (Optional): If you want to keep your email private, you can use the email provided by GitHub. You can find it in your GitHub settings. Example: 123456789+username@users.noreply.github.com.
     > Without the `--global` option, the configuration will be applied locally to the current repository (you need an initialized repository to do this).
 - `git init`: Initialize a new Git repository in a directory.
   > When you run this command in a folder, it sets up all the necessary files and directories that Git needs to start tracking changes in your project. _(You need this once per project.)_

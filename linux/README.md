@@ -14,7 +14,7 @@
 
 #### Knowledge Requirements
 
-- Nothing.
+- No previous knowledge is required!
 
 ### Contents
 
@@ -185,12 +185,6 @@ Definitions:
 
 <br>
 
-<p align="right">
-  <a href="#linux-debian">back to top ⬆</a>
-</p>
-
-<br>
-
 ### 🔷 Command Chaining
 
 - `cmd1 ; cmd2 ; cmd3`: Run commands in order, regardless of success.
@@ -205,12 +199,11 @@ Definitions:
 find . *.* | less # View the command result in a pager
 ```
 
-<br>
-
 <p align="right">
   <a href="#linux-debian">back to top ⬆</a>
 </p>
 
+<br>
 <br>
 
 ## 🔶 Permissions
@@ -248,12 +241,6 @@ Ownership determines who has control over a file or directory.
   > Members of a group associated with the file or directory.
 - Others (`o`):
   > Everyone else on the system.
-
-<br>
-
-<p align="right">
-  <a href="#linux-debian">back to top ⬆</a>
-</p>
 
 <br>
 
@@ -311,12 +298,6 @@ A complete table:
 
 <br>
 
-<p align="right">
-  <a href="#linux-debian">back to top ⬆</a>
-</p>
-
-<br>
-
 ### 🔷 Permission Commands
 
 - `chmod -<option>... <mode> <file/directory>...`: Change file/directory permissions.
@@ -354,12 +335,6 @@ A complete table:
 
 <br>
 
-<p align="right">
-  <a href="#linux-debian">back to top ⬆</a>
-</p>
-
-<br>
-
 ### 🔷 User & Group Commands
 
 - `groups <user>`: List groups a user belongs to.
@@ -369,10 +344,9 @@ A complete table:
   - `-d`: Delete a user's password.
   - `-e`: Expire a user's password (force change on next login).
 
-<br>
-
 <p align="right">
   <a href="#linux-debian">back to top ⬆</a>
 </p>
 
+<br>
 <br>

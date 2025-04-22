@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="200">
+  <img src="../logo.png" height="150">
 </p>
 
 <h1 align="center">Docker</h1>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="right">
-    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
+  <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements

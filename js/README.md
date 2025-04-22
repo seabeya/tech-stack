@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="200">
+  <img src="../logo.png" height="150">
 </p>
 
 <h1 align="center">JavaScript</h1>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="right">
-    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
+  <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements
@@ -779,7 +779,7 @@ It allows you to handle multiple asynchronous tasks that depend on each other's 
 > Anything that we return from one chain will be passed on to the next chain.
 
 ```js
-const promise = fetch("https://api.github.com/users/seabeya");
+const promise = fetch("https://api.github.com/users/username");
 
 console.log("#1: ", promise); // #1: Promise {<pending>}
 
@@ -788,7 +788,7 @@ promise
     return response.json();
   })
   .then((user) => {
-    console.log(user); // {login: 'seabeya', ... }
+    console.log(user); // {login: 'username', ... }
 
     return "torvalds";
   })
@@ -811,7 +811,7 @@ console.log("#2: ", promise); // #2: Promise {<pending>}
 > ```
 > Status check #1: Promise {<pending>}
 > Status check #2: Promise {<pending>}
-> {login: 'seabeya', …}
+> {login: 'username', …}
 > torvalds
 > {login: 'torvalds', …}
 > ```
@@ -2050,7 +2050,6 @@ console.log(mathInstance.add(10, 5)); // 15
 </p>
 
 <br>
-
 <br>
 
 ---

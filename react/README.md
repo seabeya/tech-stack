@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="200">
+  <img src="../logo.png" height="150">
 </p>
 
 <h1 align="center">React.js</h1>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="right">
-    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
+  <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements
@@ -294,7 +294,7 @@ In React, conditional rendering is a way to display different components or cont
     >
     > Or, you can use other approaches to conditional rendering.
 
-Take a look: [JS > Expressions and Operators](https://github.com/seabeya/tech-stack/blob/main/js/README.md#-expressions-and-operators).
+Take a look: [JS > Expressions and Operators](../js/README.md#-expressions-and-operators).
 
 <br>
 
