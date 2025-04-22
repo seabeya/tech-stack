@@ -22,13 +22,12 @@
    - [Commands](#-commands)
      - [Informational Commands](#-informational-commands)
      - [File & Directory Commands](#-file--directory-commands)
+     - [Process & Monitoring Commands](#-process--monitoring-commands)
 
 <br>
 
 > [!NOTE]
 > This is not a complete guide to Linux. It's just a collection of specific concepts and commands.
-
-<br>
 
 <hr>
 
@@ -136,6 +135,59 @@ Definitions:
 - `touch <file>...`: Create an empty file.
   ```sh
   touch file.txt # Create a file called file.txt
+  ```
+
+<br>
+
+#### 🔻 Process & Monitoring Commands
+
+- `du -<option>... <file/directory>...`: Show disk usage.
+  ```sh
+  du -a # All files and dirs in the current directory
+  du -h # Human-readable format
+  du -s # Summary total for each argument
+  ```
+- `pidof <program_name>...`: Show the PID(s) of a running process.
+  ```sh
+  pidof bash # PID of bash
+  pidof docker # PID of Docker
+  ```
+- `ps -<option>...`: View running processes.
+  ```sh
+  ps -u <username> # User-specific processes
+  ps -ef # More detailed list
+  ```
+- `lsof -<option>... <pattern>...`: List open files and their processes.
+  ```sh
+  lsof -p <PID> # Files opened by a process with PID
+  lsof -i # All network connections
+  lsof -i tcp # TCP connections
+  lsof -i tcp:3000 # TCP on port 3000
+  ```
+- `kill -<signal> <PID>`: Send a signal to a process.
+
+  | Signal    | Number | Description                                                                                              |
+  | --------- | ------ | -------------------------------------------------------------------------------------------------------- |
+  | `SIGHUP`  | `1`    | Reload config. Tells a program to restart or reload its settings. Often used after editing config files. |
+  | `SIGINT`  | `2`    | Graceful stop. Sent when you press Ctrl + C to stop a program.                                           |
+  | `SIGQUIT` | `3`    | Like `SIGINT` (`2`), but also creates a debug log (core dump).                                           |
+  | `SIGABRT` | `6`    | Tells a program to abort/cancel (used when something goes wrong).                                        |
+  | `SIGKILL` | `9`    | Force-stops a program immediately.                                                                       |
+  | `SIGTERM` | `15`   | Asks a program to stop nicely. (Default signal for `kill`)                                               |
+
+  ```sh
+  kill -9 <PID> # Force kill a process with given PID
+  kill -9 $(pidof nginx) # Force kill all processes with the name nginx
+  ```
+
+- `source <file>...`: Execute commands from a file in the current shell.
+  > Apply changes without needing to start a new terminal session.
+  ```sh
+  source ~/.bashrc # Apply changes made to .bashrc
+  ```
+- `watch -<option>... <command -option>...`: Re-run a command periodically.
+  ```sh
+  watch -n 5 free -h # Show memory usage with a 5 seconds of refresh rate
   ```
 
 <br>
