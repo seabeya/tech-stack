@@ -12,9 +12,6 @@
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
-> [!NOTE]
-> This is not a complete guide to Linux. It's just a collection of specific concepts and commands.
-
 #### Knowledge Requirements
 
 - Nothing.
@@ -29,7 +26,8 @@
    - [Commands](#-commands)
 5. [User & Group commands](#-user--group-commands)
 
-<br>
+> [!NOTE]
+> This is not a complete guide to Linux. It's just a collection of specific concepts and commands.
 
 <hr>
 
