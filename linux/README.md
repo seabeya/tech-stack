@@ -24,6 +24,12 @@
      - [File & Directory Commands](#-file--directory-commands)
      - [Process & Monitoring Commands](#-process--monitoring-commands)
    - [Command Chaining](#-command-chaining)
+2. [Permissions](#-permissions)
+   - [Overview](#-overview)
+     - [Permission Types](#-permission-types)
+     - [Ownership](#-ownership)
+   - [Structure](#-structure)
+     - [Octal Representation](#-octal-representation)
 
 <br>
 
@@ -212,6 +218,110 @@ Definitions:
 ```sh
 find . *.* | less # View the command result in a pager
 ```
+
+<br>
+
+<p align="right">
+  <a href="#linux-debian">back to top ⬆</a>
+</p>
+
+<br>
+
+## 🔶 Permissions
+
+Understanding the file and directory permission system in Linux.
+
+<br>
+
+### 🔷 Overview
+
+Permissions determine who can access, modify, or execute files and directories, and ensure that users and programs can only interact with the system in permitted ways.
+
+<br>
+
+#### 🔻 Permission Types
+
+Permission types determine what kind of access a user (or program) has to a file or directory.
+
+- Read (`r`):
+  > View file contents or list a directory's contents.
+- Write (`w`):
+  > Modify file contents or add/remove files in a directory.
+- Execute (`x`):
+  > Run a file as a program or enter a directory.
+
+<br>
+
+#### 🔻 Ownership
+
+Ownership determines who has control over a file or directory.
+
+- User (`u`):
+  > The owner of the file or directory (usually the creator).
+- Group (`g`):
+  > Members of a group associated with the file or directory.
+- Others (`o`):
+  > Everyone else on the system.
+
+<br>
+
+<p align="right">
+  <a href="#linux-debian">back to top ⬆</a>
+</p>
+
+<br>
+
+### 🔷 Structure
+
+The permission structure is represented in a 10-character string, such as `-rwxr-xr--`, which can be broken down as follows:
+
+<p align="center">
+  <b>[identifier] [owner] [group] [others]</b>
+</p>
+
+<p align="center">
+  <b>- rwx r-x r--</b>
+</p>
+
+- Identifier: The 1st char.
+  - `-`: File.
+  - `d`: Directory.
+  - `l`: Symbolic link.
+- User/Group/Others: Combination of 3 chars each.
+  - `r`: Read.
+  - `w`: Write.
+  - `x`: Execute.
+  - `-`: No permission.
+
+<br>
+
+#### 🔻 Octal Representation
+
+The permission structure can also be represented in octal format, where each permission type is assigned a number:
+
+- `r`: 4
+- `w`: 2
+- `x`: 1
+- `-`: 0
+
+A complete table:
+
+| Octal | Binary | File Mode |
+| ----- | ------ | --------- |
+| 0     | 000    | ---       |
+| 1     | 001    | --x       |
+| 2     | 010    | -w-       |
+| 3     | 011    | -wx       |
+| 4     | 100    | r--       |
+| 5     | 101    | r-x       |
+| 6     | 110    | rw-       |
+| 7     | 111    | rwx       |
+
+> Example: `-rwxr-xr--` translated as `754`.
+>
+> - `7` for the owner (`rwx`).
+> - `5` for the group (`r-x`).
+> - `4` for others (`r--`).
 
 <br>
 
