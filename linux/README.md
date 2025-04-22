@@ -30,6 +30,7 @@
      - [Ownership](#-ownership)
    - [Structure](#-structure)
      - [Octal Representation](#-octal-representation)
+   - [Permission Commands](#-permission-commands)
 
 <br>
 
@@ -322,6 +323,52 @@ A complete table:
 > - `7` for the owner (`rwx`).
 > - `5` for the group (`r-x`).
 > - `4` for others (`r--`).
+
+<br>
+
+<p align="right">
+  <a href="#linux-debian">back to top ⬆</a>
+</p>
+
+<br>
+
+### 🔷 Permission Commands
+
+- `chmod -<option>... <mode> <file/directory>...`: Change file/directory permissions.
+  - `<mode>`:
+    > - Symbolic: `<targets><actions><permissions>`.
+    >   - Targets:
+    >     - `u`: User.
+    >     - `g`: Group.
+    >     - `o`: Others.
+    >     - `a`: Everyone (user, group, others).
+    >   - Actions:
+    >     - `+`: Add permission.
+    >     - `-`: Remove permission.
+    >     - `=`: Set permission.
+    >   - Permissions: `r`, `w`, `x`.
+    > - Octal.
+  ```sh
+  chmod g+x file.txt # Add execute permission for group
+  chmod u-rw file.txt # Remove read and write permissions for user
+  chmod a=rwx file.txt # Set all permissions for everyone
+  chmod ug-x file.txt # Remove execute permission for user and group
+  chmod +x file.txt # Add execute permission for everyone (when the target is not specified it defaults to all)
+  chmod 755 file.txt # Set permissions to rwxr-xr-x
+  chmod -R 755 ./dir1 # Set permissions for all files and directories in dir1 recursively
+  ```
+- `chown -<option>... <user>:<group> <file/directory>...`: Change file/directory ownership.
+  > `$USER` refers to the current user.
+  ```sh
+  chown $USER:$USER file.txt # To the current user and group
+  chown john file.txt # To user john and group staff
+  chown -R $USER ./dir1 # Change ownership of all files and directories in dir1 recursively
+  ```
+- `chgrp -<option>... <group> <file/directory>...`: Change file/directory group ownership.
+  ```sh
+  chgrp staff file.txt # Change group ownership to staff
+  chgrp -R staff ./dir1 # Change group ownership of all files and directories in dir1 recursively
+  ```
 
 <br>
 
