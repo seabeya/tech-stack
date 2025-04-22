@@ -31,6 +31,7 @@
    - [Structure](#-structure)
      - [Octal Representation](#-octal-representation)
    - [Permission Commands](#-permission-commands)
+   - [User & Group Commands](#-user--group-commands)
 
 <br>
 
@@ -105,6 +106,13 @@ Definitions:
   find ./dir1 -name file.txt # Find specific file in dir1 and its subdirectories
   find ./dir1 -name "*.txt" # Find all .txt files in dir1 and its subdirectories
   find ./dir1 -name file.txt -delete # Find and delete a specific file in dir1 and its subdirectories
+  ```
+- `getent <database> <key>`: Get entries from system databases.
+  ```sh
+  getent group # All groups and their members
+  getent group docker # Select a specific group (docker in this case)
+  getent services # All services and their ports
+  getent hosts # All hosts and their IP addresses
   ```
 
 <br>
@@ -368,6 +376,35 @@ A complete table:
   ```sh
   chgrp staff file.txt # Change group ownership to staff
   chgrp -R staff ./dir1 # Change group ownership of all files and directories in dir1 recursively
+  ```
+
+<br>
+
+<p align="right">
+  <a href="#linux-debian">back to top ⬆</a>
+</p>
+
+<br>
+
+### 🔷 User & Group Commands
+
+- `groups <user>`: List groups a user belongs to.
+  ```sh
+  groups $USER # Groups of the current user
+  ```
+- `usermod -a -G <group> <user>`: Add a user to a group.
+  ```sh
+  usermod -aG docker $USER # Add the current user to the docker group
+  ```
+- `gpasswd -d <user> <group>`: Remove a user from a group.
+  ```sh
+  gpasswd -d $USER docker # Remove the current user from the docker group
+  ```
+- `passwd -<option>... <user>`: Change a user's password.
+  ```sh
+  passwd $USER # Change the current user's password
+  passwd -d $USER # Delete the current user's password
+  passwd -e $USER # Expire the current user's password (force change on next login)
   ```
 
 <br>
