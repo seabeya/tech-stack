@@ -23,6 +23,7 @@
      - [Informational Commands](#-informational-commands)
      - [File & Directory Commands](#-file--directory-commands)
      - [Process & Monitoring Commands](#-process--monitoring-commands)
+   - [Command Chaining](#-command-chaining)
 
 <br>
 
@@ -164,7 +165,7 @@ Definitions:
   lsof -i tcp # TCP connections
   lsof -i tcp:3000 # TCP on port 3000
   ```
-- `kill -<signal> <PID>`: Send a signal to a process.
+- `kill -<signal_num> <PID>`: Send a signal to a process.
 
   | Signal    | Number | Description                                                                                              |
   | --------- | ------ | -------------------------------------------------------------------------------------------------------- |
@@ -195,3 +196,27 @@ Definitions:
 <p align="right">
   <a href="#linux-debian">back to top ⬆</a>
 </p>
+
+<br>
+
+### 🔷 Command Chaining
+
+- `cmd1 ; cmd2 ; cmd3`: Run commands in order, regardless of success.
+
+- `cmd1 && cmd2 && cmd3`: Run next only if the previous succeeds.
+
+- `cmd1 || cmd2 || cmd3`: Run next only if the previous fails.
+
+- `cmd1 | cmd2 | cmd3`: Pipe output of one command to the next.
+
+```sh
+find . *.* | less # View the command result in a pager
+```
+
+<br>
+
+<p align="right">
+  <a href="#linux-debian">back to top ⬆</a>
+</p>
+
+<br>
