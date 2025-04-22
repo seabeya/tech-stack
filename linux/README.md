@@ -12,9 +12,12 @@
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
-#### Knowledge requirements
+> [!NOTE]
+> This is not a complete guide to Linux. It's just a collection of specific concepts and commands.
 
-- No previous knowledge is required!
+#### Knowledge Requirements
+
+- Nothing.
 
 ### Contents
 
