@@ -28,7 +28,7 @@
 ## Contents
 
 - **Math** `planned ⚫`
-- [**Linux** (Debian based)](./linux/README.md) `🟢`
+- [**Linux** (Debian)](./linux/README.md) `🟢`
 - [**Git**](./git/README.md) `🟢`
 - [**JavaScript**](./js/README.md) `in-progress 🟡`
 - [**Data Structures & Algorithms**](./dsa/README.md) `in-progress 🟡`

@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="../logo.png" height="200">
+  <img src="../logo.png" height="150">
 </p>
 
-<h1 align="center">Linux <em>(debian based)</em></h1>
+<h1 align="center">Linux (Debian)</h1>
 
 <p align="center">
-  Linux is an open-source operating system kernel that serves as the foundation for various operating systems, known as Linux distributions. Debian is one such distribution that is composed entirely of free and open-source software.
+  Linux is an open-source kernel that powers many operating systems, called distributions (or distros). This documentation mainly focuses on Debian, one of the Linux distros that is free and widely used.
 </p>
 
 <p align="right">
-    <a href="https://github.com/seabeya/tech-stack#tech-stack">Main Page ↖</a>
+  <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
 #### Knowledge requirements
