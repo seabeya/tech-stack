@@ -61,39 +61,36 @@
 
 In Go, code is organized into packages. A package is a collection of Go files in the same directory that are compiled together. Each Go file starts with a package statement that defines the package it belongs to.
 
-There are two types of packages: the main package and other packages.
+There are two types of packages:
 
-- Main Package:
-  > This is the starting point of any Go application. A file with the `package main` statement defines the main package, and it must contain a `main()` function. The `main()` function is the entry point of the program where the execution starts.
-- Other Packages (Library Package):
-  > Other packages are used to organize code into reusable components. These packages group related functions, types, and variables together, making it easier to manage and maintain the code.
+- Main package:
+  > Files with the `package main` statement define a main package. The main package must contain a `main()` function, which is the starting point of the application.
+- Library package:
+  > Files with a package statement other than `main` define a library package. Library packages can be imported and used by other packages. These packages are used to organize code into reusable components.
 
-> [!IMPORTANT]
-> In Go, only projects containing a `main` package with a `main` function can be executed directly as standalone programs. Other non-main packages, which do not include a `main` function, cannot be run on their own. These packages are designed as libraries or helpers that can be imported and used by other packages, including those with a `main` package.
+> [!NOTE]
+> Only the main packages can be executed directly as standalone programs. Library packages can not run on their own. They are meant to be imported and used by other packages.
 
 <br>
 
 #### 🔻 Modules
 
-A collection of related Go packages is called a module. A module has a `go.mod` file at the root of the module directory that defines the module's path and dependencies.
-
-> [!NOTE]
-> The `go.mod` file is essential for both main packages and library packages. We create it every time we create a new project.
+A module is a collection of related Go packages. It is defined by a `go.mod` file, which specifies the module's name/path and its dependencies.
 
 - Initializing a module:
 
-  > The `<module-path>` is the root import path for all packages within the module and is usually the URL of the repository where the module is hosted.
+  > The `<module-name> is the root import path for all packages in the module and is usually the URL of the repository where the module is being hosted.
 
   ```sh
-  go mod init <module-path>
+  go mod init <module-name>
   ```
 
-  So, running `go mod init github.com/username/project` will generate a `go.mod` file like this:
+  So, running `go mod init github.com/user/repo` in the root directory of the project will create a `go.mod` file with the following content:
 
   ```go
-  module github.com/username/project
+  module github.com/user/repo
 
-  go 1.22.4
+  go 1.24.2
   ```
 
 <br>
