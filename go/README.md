@@ -1321,8 +1321,6 @@ func swap[T any, U any](a T, b U) (U, T) {
 
 Example 4:
 
-> Enforcing generic functions to work only with specific types.
-
 ```go
 type Number interface {
 	int | float64
