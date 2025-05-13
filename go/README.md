@@ -26,6 +26,9 @@
      - [#1. An executable Go project with no extra packages.](#-1-an-executable-go-project-with-no-extra-packages)
      - [#2. An executable Go project with extra nested packages.](#-2-an-executable-go-project-with-extra-nested-packages)
      - [#3. A separate non-executable Go library project.](#-3-a-separate-non-executable-go-library-project)
+   - [Go CLI](#-go-cli)
+     - [Module and Dependency Management](#-module-and-dependency-management)
+     - [Running & Building](#-running--building)
 2. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
@@ -309,6 +312,40 @@ A module is a collection of related Go packages. It is defined by a `go.mod` fil
 Todo:
 
 > #4. Using an external library/package in a Go project.
+
+<br>
+
+### 🔷 Go CLI
+
+#### 🔻 Module and Dependency Management
+
+- `go mod init <module-name>`: Initialize a new Go module.
+  > Creates a `go.mod` file to manage dependencies.
+  >
+  > The module name should match the intended import path, especially if the code will be published or imported by others.
+- `go mod tidy`: Clean and verify dependencies.
+  > Adds missing dependencies required by the code and removes unused ones.
+  >
+  > Updates `go.mod` and `go.sum` to accurately reflect the actual imports in use.
+- `go get <module>@version`: Update a dependency.
+  > Downloads a module and updates it to the specified version.
+  >
+  > Updates `go.mod` and `go.sum` accordingly.
+- `go clean -modcache`: Clear the local module cache.
+  > Deletes all downloaded modules from the module cache directory (`$GOPATH/pkg/mod`).
+
+<br>
+
+#### 🔻 Running & Building
+
+- `go run <file>...`: Compile and execute code directly.
+  > Compiles and runs the specified Go files.
+- `go build`: Compile code into a binary.
+  > Builds the Go source files in the current directory and produces an executable.
+  >
+  > If the package does not include a `main()` function, no binary will be created.
+- `go install <module>`: Install a binary.
+  > Installs the specified module as a binary in the `$GOPATH/bin` directory.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
