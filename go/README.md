@@ -5,7 +5,7 @@
 <h1 align="center">Go</h1>
 
 <p align="center">
-  Go is good.
+  Go is a nice language.
 </p>
 
 <p align="right">
