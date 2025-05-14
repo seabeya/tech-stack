@@ -1283,6 +1283,7 @@ Example 1:
 
   }
 
+  // Using | specifies a union of the two types, meaning that this constraint allows either type.
   func add[T int | float64](a T, b T) T {
   	return a + b
   }
