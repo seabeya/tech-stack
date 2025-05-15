@@ -396,42 +396,47 @@ Todo:
 
     - You always have to specify either `type` or `value` (or both):
       > ```go
-      > var name string = "John"
-      > var surname = "Doe" // Go can infer the type of the variable from the initial value.
-      > var age int // zero value: 0
+      > var name string = "John"  // explicit type and value
+      > var surname = "Doe"       // type is inferred as string
+      > var age int               // declared with explicit type, initialized to zero value (0)
       > ```
     - Declaring multiple variables of the same or different types in a single line:
       > ```go
-      > var name, age = "John", 30
-      > var a, b, c int = 1, 2, 3 // If the type keyword is used, it is only possible to  declare one type of variable per line.
+      > var name, age = "John", 30  // mixed types, types inferred
+      > var a, b, c int = 1, 2, 3   // all must be of the declared type
+      > var x, y int                // both initialized to zero (0)
       > ```
     - Using grouped declaration syntax to declare variables together:
       > ```go
       > var (
       > 	name    string = "John"
-      > 	surname        = "Doe"
-      > 	age     int
+      > 	surname        = "Doe"  // type is inferred
+      > 	age     int             // zero value: 0
       > )
       > ```
 
 2.  Using the `:=` syntax:
 
-    > Then you use this syntax you must assign the value to the variable at the time of declaration.
-
     ```go
     varName := value
     ```
 
-    - This syntax is only available inside functions.
     - Declaring multiple variables in a single line:
       > ```go
       > name, age := "John", 30
       > ```
 
+    > [!NOTE]
+    >
+    > - When you use this syntax to declare a variable, you must provide a value for it.
+    > - `:=` can only be used inside functions not at the package level.
+
 <br>
 
 > [!NOTE]
-> Variables declared without an explicit initial value are given their zero value.
+>
+> - Variables declared without an explicit initial value are given their zero value.
+> - You can not re-declare a variable that has already been declared in the same scope.
 
 <br>
 
