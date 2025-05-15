@@ -426,10 +426,9 @@ Todo:
       > name, age := "John", 30
       > ```
 
-    > [!NOTE]
+    > When you use this syntax to declare a variable, you must provide a value for it.
     >
-    > - When you use this syntax to declare a variable, you must provide a value for it.
-    > - `:=` can only be used inside functions not at the package level.
+    > `:=` can only be used inside functions (not outside, at the package level).
 
 <br>
 
