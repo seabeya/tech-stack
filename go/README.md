@@ -432,13 +432,6 @@ Todo:
       > name, age := "John", 30
       > ```
 
-<br>
-
-> [!NOTE]
-> You can not re-declare a variable that has already been declared in the same scope.
-
-<br>
-
 3.  Constants:
 
     > Constants are fixed values that cannot be changed once they are set. They are read-only.
@@ -459,7 +452,13 @@ Todo:
       > 	hoursInDay = 24
       > )
       > ```
-    - Computations on constants are done at compile time, not at runtime.
+
+    > Computations on constants are done at compile time, not at runtime.
+
+<br>
+
+> [!NOTE]
+> You can not re-declare a variable that has already been declared in the same scope.
 
 <br>
 
