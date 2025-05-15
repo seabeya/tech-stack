@@ -394,6 +394,8 @@ Todo:
     var varName type = value
     ```
 
+    > Variables declared without an explicit initial value are given their zero value.
+
     - You always have to specify either `type` or `value` (or both):
       > ```go
       > var name string = "John"  // explicit type and value
@@ -421,21 +423,19 @@ Todo:
     varName := value
     ```
 
+    > When you use this syntax to declare a variable, you must provide a value for it.
+    >
+    > `:=` can only be used inside functions (not outside, at the package level).
+
     - Declaring multiple variables in a single line:
       > ```go
       > name, age := "John", 30
       > ```
 
-    > When you use this syntax to declare a variable, you must provide a value for it.
-    >
-    > `:=` can only be used inside functions (not outside, at the package level).
-
 <br>
 
 > [!NOTE]
->
-> - Variables declared without an explicit initial value are given their zero value.
-> - You can not re-declare a variable that has already been declared in the same scope.
+> You can not re-declare a variable that has already been declared in the same scope.
 
 <br>
 
