@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="../logo.png" height="150">
+  <img src="./logo.png" height="150">
 </p>
 
 <h1 align="center">Go</h1>
 
 <p align="center">
-  Go is a nice language.
+  Go is good.
 </p>
 
 <p align="right">
@@ -22,13 +22,13 @@
    - [Essentials](#-essentials)
      - [Packages](#-packages)
      - [Modules](#-modules)
+   - [Go CLI](#-go-cli)
+     - [Module and Dependency Management](#-module-and-dependency-management)
+     - [Running & Building](#-running--building)
    - [Project Structure Examples](#-project-structure-examples)
      - [#1. An executable Go project with no extra packages.](#-1-an-executable-go-project-with-no-extra-packages)
      - [#2. An executable Go project with extra nested packages.](#-2-an-executable-go-project-with-extra-nested-packages)
      - [#3. A separate non-executable Go library project.](#-3-a-separate-non-executable-go-library-project)
-   - [Go CLI](#-go-cli)
-     - [Module and Dependency Management](#-module-and-dependency-management)
-     - [Running & Building](#-running--building)
 2. [Basics](#-basics)
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
@@ -54,7 +54,7 @@
 
 <br>
 
-<hr>
+---
 
 ## 🔶 Understanding Go
 
@@ -72,29 +72,47 @@ There are two types of packages:
   > Files with a package statement other than `main` define a library package. Library packages can be imported and used by other packages. These packages are used to organize code into reusable components.
 
 > [!NOTE]
-> Only the main packages can be executed directly as standalone programs. Library packages can not run on their own. They are meant to be imported and used by other packages.
+> Only the main package can be executed directly as a standalone program. Library packages can not run on their own. They are meant to be imported and used by other packages.
 
 <br>
 
 #### 🔻 Modules
 
-A module is a collection of related Go packages. It is defined by a `go.mod` file, which specifies the module's name/path and its dependencies.
+A module is a collection of related Go packages. It is defined by a go.mod file, which specifies the module's name/path and its dependencies.
 
-- Initializing a module:
+<br>
 
-  > The `<module-name> is the root import path for all packages in the module and is usually the URL of the repository where the module is being hosted.
+### 🔷 Go CLI
 
-  ```sh
-  go mod init <module-name>
-  ```
+#### 🔻 Module and Dependency Management
 
-  So, running `go mod init github.com/user/repo` in the root directory of the project will create a `go.mod` file with the following content:
+- `go mod init <module-name>`: Initialize a new Go module.
+  > Creates a `go.mod` file to manage dependencies.
+  >
+  > The module name should match the intended import path. Usually, it is the URL of the repository where the module is being hosted (`go mod init github.com/user/repo`).
+- `go mod tidy`: Clean and verify dependencies.
+  > Adds missing dependencies required by the code and removes unused ones.
+  >
+  > Updates `go.mod` and `go.sum` to accurately reflect the actual imports in use.
+- `go get <module>@version`: Update a dependency.
+  > Downloads a module and updates it to the specified version.
+  >
+  > Updates `go.mod` and `go.sum` accordingly.
+- `go clean -modcache`: Clear the local module cache.
+  > Deletes all downloaded modules from the module cache directory (`$GOPATH/pkg/mod`).
 
-  ```go
-  module github.com/user/repo
+<br>
 
-  go 1.24.2
-  ```
+#### 🔻 Running & Building
+
+- `go run <file>...`: Compile and execute code directly.
+  > Compiles and runs the specified Go files.
+- `go build`: Compile code into a binary.
+  > Builds the Go source files in the current directory and produces an executable.
+  >
+  > If the package does not include a `main()` function, no binary will be created.
+- `go install <module>`: Install a binary.
+  > Installs the specified module as a binary in the `$GOPATH/bin` directory.
 
 <br>
 
@@ -102,7 +120,7 @@ A module is a collection of related Go packages. It is defined by a `go.mod` fil
 
 #### 🔻 #1. An executable Go project with no extra packages.
 
-1. Create a directory called `myapp` for the project.
+1. Create a directory called `myapp`.
 2. Initialize a project (module):
    ```sh
    go mod init github.com/username/myapp
@@ -119,7 +137,7 @@ A module is a collection of related Go packages. It is defined by a `go.mod` fil
    }
    ```
 
-4. We can create a different Go file (called `calculate.go`) under the same package:
+4. Create a different Go file (called `calculate.go`) under the same package:
 
    ```go
    package main
@@ -133,7 +151,7 @@ A module is a collection of related Go packages. It is defined by a `go.mod` fil
    }
    ```
 
-5. Using the new functions in the main file:
+5. Update the `main.go` file to use the functions defined in `calculate.go`:
 
    > You don't need to import the functions if they are defined in the same package. They are already part of the package.
 
@@ -312,40 +330,6 @@ A module is a collection of related Go packages. It is defined by a `go.mod` fil
 Todo:
 
 > #4. Using an external library/package in a Go project.
-
-<br>
-
-### 🔷 Go CLI
-
-#### 🔻 Module and Dependency Management
-
-- `go mod init <module-name>`: Initialize a new Go module.
-  > Creates a `go.mod` file to manage dependencies.
-  >
-  > The module name should match the intended import path, especially if the code will be published or imported by others.
-- `go mod tidy`: Clean and verify dependencies.
-  > Adds missing dependencies required by the code and removes unused ones.
-  >
-  > Updates `go.mod` and `go.sum` to accurately reflect the actual imports in use.
-- `go get <module>@version`: Update a dependency.
-  > Downloads a module and updates it to the specified version.
-  >
-  > Updates `go.mod` and `go.sum` accordingly.
-- `go clean -modcache`: Clear the local module cache.
-  > Deletes all downloaded modules from the module cache directory (`$GOPATH/pkg/mod`).
-
-<br>
-
-#### 🔻 Running & Building
-
-- `go run <file>...`: Compile and execute code directly.
-  > Compiles and runs the specified Go files.
-- `go build`: Compile code into a binary.
-  > Builds the Go source files in the current directory and produces an executable.
-  >
-  > If the package does not include a `main()` function, no binary will be created.
-- `go install <module>`: Install a binary.
-  > Installs the specified module as a binary in the `$GOPATH/bin` directory.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
