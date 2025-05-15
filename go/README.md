@@ -350,34 +350,33 @@ Todo:
 
   > Zero value (default): `false`
 
-- Integer:
+- Numeric:
 
-  | Keyword                    | Size              | Values                                      |
-  | -------------------------- | ----------------- | ------------------------------------------- |
-  | `int`                      | 32 bits / 64 bits | int32 / int64                               |
-  | `int8`                     | 8 bits            | -128 to 127                                 |
-  | `int16`                    | 16 bits           | -32768 to 32767                             |
-  | `int32`                    | 32 bits           | -2147483648 to 2147483647                   |
-  | `int64`                    | 64 bits           | -9223372036854775808 to 9223372036854775807 |
-  |                            |                   |                                             |
-  | `uint`                     | 32 bits / 64 bits | uint32 / uint64                             |
-  | `uint8` (alias for `byte`) | 8 bits            | 0 to 255                                    |
-  | `uint16`                   | 16 bits           | 0 to 65535                                  |
-  | `uint32`                   | 32 bits           | 0 to 4294967295                             |
-  | `uint64`                   | 64 bits           | 0 to 18446744073709551615                   |
-
-  > Zero value (default): `0`
-
-- Float:
-
-  | Keyword   | Size    | Values                 |
-  | --------- | ------- | ---------------------- |
-  | `float32` | 32 bits | -3.4e+38 to 3.4e+38    |
-  | `float64` | 64 bits | -1.7e+308 to +1.7e+308 |
+  | Keyword        | Size            | Values                                      |
+  | -------------- | --------------- | ------------------------------------------- |
+  | `uint8`/`byte` | 8-bit           | 0 to 255                                    |
+  | `uint16`       | 16-bit          | 0 to 65535                                  |
+  | `uint32`       | 32-bit          | 0 to 4294967295                             |
+  | `uint64`       | 64-bit          | 0 to 18446744073709551615                   |
+  |                |                 |                                             |
+  | `int8`         | 8-bit           | -128 to 127                                 |
+  | `in16`         | 16-bit          | -32768 to 32767                             |
+  | `int32`/`rune` | 32-bit          | -2147483648 to 2147483647                   |
+  | `int64`        | 64-bit          | -9223372036854775808 to 9223372036854775807 |
+  |                |                 |                                             |
+  | `float32`      | 32-bit          | -3.4e+38 to 3.4e+38                         |
+  | `float64`      | 64-bit          | -1.7e+308 to +1.7e+308                      |
+  |                |                 |                                             |
+  | `uint`         | 32 bit / 64 bit | uint32 / uint64                             |
+  | `int`          | 32 bit / 64 bit | int32 / int64                               |
 
   > Zero value (default): `0`
 
 - String:
+
+  > A string value is a sequence of bytes.
+  >
+  > Strings are immutable: once created, it is impossible to change the contents of a string.
 
   | Keyword  | Value                                  |
   | -------- | -------------------------------------- |
