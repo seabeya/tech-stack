@@ -829,7 +829,7 @@ func resetPtr(val *int) {
 
 ### 🔷 Structs
 
-Structs in Go are a way to group related variables under a single name.
+A struct is a sequence of uniquely named elements, called fields, each of which has a name and a type.
 
 - Defining a struct:
   ```go
@@ -939,7 +939,7 @@ Extra:
 
 ### 🔷 Arrays
 
-In Go, array is a fixed-size sequence of elements of the same type.
+In Go, array is a fixed-size sequence of elements of a single type.
 
 - Declaring an array:
   ```go
@@ -966,7 +966,7 @@ Extra:
   arr := [...]int{1, 5: 2, 3, 4, 5}
   ```
 - Initializing specific indexes of an array:
-  > When you use the index: value syntax, you specify the value for a particular index in the array. This allows you to skip some indices (with zero values) and directly assign values to others.
+  > When you use the `index: value` syntax, you specify the value for a particular index in the array. This allows you to skip some indices (with zero values) and directly assign values to others.
   ```go
   arr := [...]int{10, 20, 5: 1, 30, 8: 2, 40}
   fmt.Println(arr) // [10 20 0 0 0 1 30 0 2 40]
@@ -998,7 +998,7 @@ Extra:
 
 ### 🔷 Slices
 
-In Go, a slice is a dynamically-sized, flexible view into the elements of an array. Unlike arrays, slices can grow and shrink in size.
+In Go, a slice is a dynamically-sized, flexible view into the elements of an array. Unlike arrays, slices can grow and shrink the length during execution.
 
 - Declaring a slice:
   ```go
@@ -1023,7 +1023,7 @@ Extra:
   fmt.Println(slice) // [1 2 3 4 5 6]
   ```
 - Removing elements from a slice:
-  - Removing the index 2 element:
+  - Removing the `index 2` element:
     > The `...` syntax is known as the **"variadic"** operator. When you use it after a slice, it "unpacks" the slice so that its elements can be passed as individual arguments.
     ```go
     slice = append(slice[:2], slice[3:]...)
