@@ -495,7 +495,7 @@ Todo:
 >   func main() {
 >   	name := "John"
 >   	age := 35
->     char := 97
+>   	char := 97
 >   	fmt.Printf("Name: %s, Age: %d, Char: %c ", name, age, char) // Name: John, Age: 35, Char: a
 >   }
 >   ```
