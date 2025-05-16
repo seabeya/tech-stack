@@ -813,7 +813,7 @@ func resetPtr(val *int) {
 >   > }
 >   > ```
 
-> [!TIP]
+> [!NOTE]
 > Using pointers in Go can greatly improve performance by reducing memory usage and increasing speed, as they allow large data structures to be passed to functions without being copied. This efficiency comes from directly referencing memory addresses, which avoids the overhead of duplicating data.
 >
 > However, pointers add complexity and can lead to memory-related bugs if not used carefully.
