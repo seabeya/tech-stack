@@ -676,6 +676,7 @@ func main() {
 	fmt.Println(count2(6)) // 12
 }
 ```
+
 > Each call to `add()` returns a new closure with its own independent `sum` variable, allowing `count1` and `count2` to maintain separate internal states.
 
 <br>
@@ -814,9 +815,7 @@ func resetPtr(val *int) {
 >   > ```
 
 > [!NOTE]
-> Using pointers in Go can greatly improve performance by reducing memory usage and increasing speed, as they allow large data structures to be passed to functions without being copied. This efficiency comes from directly referencing memory addresses, which avoids the overhead of duplicating data.
->
-> However, pointers add complexity and can lead to memory-related bugs if not used carefully.
+> Using pointers in Go can greatly improve performance by reducing memory usage and increasing speed, as they allow large data structures to be passed to functions without being copied.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
