@@ -654,9 +654,18 @@ func sayBye() {
 Closures are functions that can access and manipulate variables from their outer scope, even after the outer function has finished executing.
 
 ```go
+func add() func(int) int {
+	sum := 0
+
+	return func(number int) int {
+		sum += number
+		return sum
+	}
+}
+
 func main() {
-	count1 := adder()
-	count2 := adder()
+	count1 := add()
+	count2 := add()
 
 	fmt.Println(count1(1)) // 1
 	fmt.Println(count1(2)) // 3
@@ -665,18 +674,9 @@ func main() {
 	fmt.Println(count2(2)) // 2
 	fmt.Println(count2(4)) // 6
 	fmt.Println(count2(6)) // 12
-
-}
-
-func adder() func(int) int {
-	sum := 0
-
-	return func(number int) int {
-		sum += number
-		return sum
-	}
 }
 ```
+> Each call to `add()` returns a new closure with its own independent `sum` variable, allowing `count1` and `count2` to maintain separate internal states.
 
 <br>
 
