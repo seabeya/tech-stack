@@ -1239,11 +1239,13 @@ Syntax:
 <br>
 
 > [!NOTE]
-> When manupulating data through a method, we need to use pointers because of the `pass-by-value` rule.
+> When manipulating data through a method, we need to use pointers because of the `pass-by-value` rule.
 >
 > ```go
 > func (p *person) changeName(name string) {
 > 	p.name = name
+> 	// (*p).name = name // This is valid too, but unnecessary in Go.
+> 	// Go simplifies pointer access for structs by dereferencing p behind the scenes.
 > }
 >
 > func main() {
@@ -1256,6 +1258,27 @@ Syntax:
 > 	user.sayHello() // Hello, my name is Sha'an
 > }
 > ```
+
+<br>
+
+Example (not a struct):
+
+```go
+type myCounter int
+
+func (mc *myCounter) increment() {
+	*mc++
+}
+
+func main() {
+	count := myCounter(0)
+
+	count.increment()
+	count.increment()
+
+	fmt.Printf("count: %v\n", count) // count: 2
+}
+```
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
