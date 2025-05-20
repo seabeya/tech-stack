@@ -40,12 +40,12 @@
 4. [Pointers](#-pointers)
 5. [Data Structures](#-data-structures)
    - [Structs](#-structs)
-     - [Structs Methods](#-structs-methods)
    - [Arrays](#-arrays)
    - [Slices](#-slices)
    - [Maps](#-maps)
-6. [Generics](#-generics)
-7. [Concurrency](#-concurrency)
+6. [Methods](#-methods)
+7. [Generics](#-generics)
+8. [Concurrency](#-concurrency)
    - [Goroutines](#-goroutines)
    - [Channels](#-channels)
      - [Channel Status](#-channel-status)
@@ -898,44 +898,6 @@ Extra:
 
 <br>
 
-#### 🔻 Structs Methods
-
-- Defining a method:
-  ```go
-  func (p person) sayHello() {
-  	fmt.Println("Hello, my name is " + p.name)
-  }
-  ```
-- Calling a method:
-  ```go
-  user := person{name: "John", age: 35}
-  user.sayHello() // Hello, my name is John
-  ```
-
-Extra:
-
-- Manipulating using methods:
-
-  > Here, we need to use pointers to manipulate the struct through the method because of the pass-by-value rule.
-
-  ```go
-  func main() {
-  	user := person{name: "John", age: 35}
-
-  	user.sayHello() // Hello, my name is John
-
-  	user.changeName("Sha'an")
-
-  	user.sayHello() // Hello, my name is Sha'an
-  }
-
-  func (p *person) changeName(name string) {
-  	p.name = name
-  }
-  ```
-
-<br>
-
 ### 🔷 Arrays
 
 In Go, array is a fixed-size sequence of elements of a single type.
@@ -1207,6 +1169,91 @@ Extra:
 > 	m2d["a"]["b"] = 1 // <- ok
 >
 > 	fmt.Println(m2d["a"]["b"]) // 1
+> }
+> ```
+
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Methods
+
+In Go, methods are functions that are associated with a specific type. This means that you can attach methods to a named type and call them on instances of that type.
+
+> [!NOTE]
+> You can only define methods on named types. Defining methods directly on unnamed or literal types like `[]int` or `map[string]int` is not allowed.
+>
+> A named type is any type that you define using the `type` keyword and assign an explicit name to.
+>
+> ```go
+> type MyInt int
+> ```
+>
+> ```go
+> type Person struct {
+>  name string
+>  age  int
+> }
+> ```
+
+<br>
+
+Syntax:
+
+> ```go
+> func (receiver TypeName) MethodName(parameters) returnType {
+>    // method body
+> }
+> ```
+>
+> - `receiver`: The variable name that represents the instance the method is being called on.
+> - `TypeName`: The type the method is attached to.
+> - `MethodName`: The name of the method being defined.
+> - `parameters`: Optional arguments the method accepts.
+> - `returnType`: The type of value the method returns.
+
+<br>
+
+- Defining a method:
+
+  ```go
+  type person struct {
+  	name string
+  	age  int
+  }
+
+  func (p person) sayHello() {
+  	fmt.Println("Hello, my name is " + p.name)
+  }
+  ```
+
+- Calling a method:
+  ```go
+  user := person{name: "John", age: 35}
+  user.sayHello() // Hello, my name is John
+  ```
+
+<br>
+
+> [!NOTE]
+> When manupulating data through a method, we need to use pointers because of the `pass-by-value` rule.
+>
+> ```go
+> func (p *person) changeName(name string) {
+> 	p.name = name
+> }
+>
+> func main() {
+> 	user := person{name: "John", age: 35}
+>
+> 	user.sayHello() // Hello, my name is John
+>
+> 	user.changeName("Sha'an")
+>
+> 	user.sayHello() // Hello, my name is Sha'an
 > }
 > ```
 
