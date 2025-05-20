@@ -1324,6 +1324,21 @@ func main() {
 }
 ```
 
+> [!NOTE]
+> Go does not support direct union types. you cannot do something like:
+>
+> ```go
+> type Number int | float64
+> ```
+>
+> Instead, you can use an interface to define a set of types that satisfy a certain behavior:
+>
+> ```go
+> type Number interface {
+> 	int | float64
+> }
+> ```
+
 <p align="right">
     <a href="#go">back to top ⬆</a>
 </p>
