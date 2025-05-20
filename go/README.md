@@ -1258,27 +1258,25 @@ Syntax:
 > 	user.sayHello() // Hello, my name is Sha'an
 > }
 > ```
-
-<br>
-
-Example (not a struct):
-
-```go
-type myCounter int
-
-func (mc *myCounter) increment() {
-	*mc++
-}
-
-func main() {
-	count := myCounter(0)
-
-	count.increment()
-	count.increment()
-
-	fmt.Printf("count: %v\n", count) // count: 2
-}
-```
+>
+> Another example (not a struct):
+>
+> ```go
+> type myCounter int
+>
+> func (mc *myCounter) increment() {
+> 	*mc++
+> }
+>
+> func main() {
+> 	count := myCounter(0)
+>
+> 	count.increment()
+> 	count.increment()
+>
+> 	fmt.Printf("count: %v\n", count) // count: 2
+> }
+> ```
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
