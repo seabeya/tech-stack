@@ -33,6 +33,7 @@
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
    - [String Formatting](#-string-formatting)
+   - [Type Casting (Type Conversion)](#-type-casting-type-conversion)
 3. [Functions](#-functions)
    - [The `defer` Keyword](#-the-defer-keyword)
    - [Closures](#-closures)
@@ -506,6 +507,25 @@ Todo:
 >   	fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
 >   }
 >   ```
+
+<br>
+
+### 🔷 Type Casting (Type Conversion)
+
+In Go, type casting refers to explicitly converting a value from one type to another compatible type.
+
+```go
+func main() {
+	x := 25.5
+	fmt.Printf("type of x: %T; value of x: %v \n", x, x) // type of x: float64; value of x: 25.5
+
+	y := int(x)
+	fmt.Printf("type of y: %T; value of y: %v", y, y) // type of y: int; value of y: 25
+}
+```
+
+> [!NOTE]
+> You can use type casting only between compatible types.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
