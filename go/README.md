@@ -46,7 +46,9 @@
    - [Maps](#-maps)
 6. [Methods](#-methods)
 7. [Generics](#-generics)
-8. [Concurrency](#-concurrency)
+8. [Interfaces](#-interfaces)
+   - [Interface Composition](#-interface-composition)
+9. [Concurrency](#-concurrency)
    - [Goroutines](#-goroutines)
    - [Channels](#-channels)
      - [Channel Status](#-channel-status)
@@ -1264,7 +1266,7 @@ Syntax:
 > ```go
 > func (p *person) changeName(name string) {
 > 	p.name = name
-> 	// (*p).name = name // This is valid too, but unnecessary in Go.
+> 	// (*p).name = name // This is also valid, but unnecessary in Go.
 > 	// Go simplifies pointer access for structs by dereferencing p behind the scenes.
 > }
 >
@@ -1426,6 +1428,191 @@ func main() {
 > 	int | float64
 > }
 > ```
+
+<p align="right">
+    <a href="#go">back to top ⬆</a>
+</p>
+
+<br>
+<br>
+
+## 🔶 Interfaces
+
+In Go, an interface is a type that specifies a set of method signatures. If a type implements all the methods of an interface, it is said to satisfy that interface.
+
+Interfaces enable flexible and decoupled code, allowing you to define functions that can work with any type that implements the interface.
+
+> A type can implement multiple interfaces, and an interface can be satisfied by multiple types.
+
+- Defining an interface:
+
+  ```go
+  type shape interface {
+  	area() float64
+  	perimeter() float64
+  }
+  ```
+
+  > Here, the `shape` interface defines two methods: `area()` and `perimeter()`. Any type that implements these methods can be considered a `shape`.
+
+- Implementing an interface
+
+  > Both `circle` and `rect` satisfy the `shape` interface because they implement all required methods. The implementation happens automatically, no explicit declaration is needed.
+
+  ```go
+  type circle struct {
+  	radius float64
+  }
+
+  func (c circle) area() float64 {
+  	return math.Pi * c.radius * c.radius
+  }
+
+  func (c circle) perimeter() float64 {
+  	return 2 * math.Pi * c.radius
+  }
+  ```
+
+  ```go
+  type rect struct {
+  	width  float64
+  	height float64
+  }
+
+  func (r rect) area() float64 {
+  	return r.width * r.height
+  }
+
+  func (r rect) perimeter() float64 {
+  	return 2*r.width + 2*r.height
+  }
+  ```
+
+- Using the interface:
+
+  > Functions can accept interface types as parameters, allowing them to work with any type that satisfies the interface.
+
+  ```go
+  func printArea(s shape) {
+    fmt.Println("Area:", s.area())
+    fmt.Println("Perimeter:", s.perimeter())
+  }
+
+  func main() {
+    myCircle := circle{radius: 3}
+    printArea(myCircle)
+    // Area: 28.274333882308138
+    // Perimeter: 18.84955592153876
+
+    myRect := rect{width: 3, height: 4}
+    printArea(myRect)
+    // Area: 12
+    // Perimeter: 14
+  }
+  ```
+
+<br>
+
+> [!NOTE]
+> An empty interface (`interface{}`) require zero methods, so every type satisfies it. Also, you can use the alias `any` instead of `interface{}`.
+>
+> ```go
+> var x interface{}
+>
+> func main() {
+> 	x = 5
+> 	x = "hello"
+> 	x = true
+>
+> 	fmt.Println(x) // true
+> }
+> ```
+>
+> You can use empty interfaces with type switches to handle values of different types at runtime:
+>
+> ```go
+> func describe(i interface{}) {
+> 	switch v := i.(type) {
+> 	case string:
+> 		fmt.Println("It's a string:", v)
+> 	case int:
+> 		fmt.Println("It's an integer:", v)
+> 	default:
+> 		fmt.Println("Unknown type")
+> 	}
+> }
+>
+> func main() {
+> 	x := 5
+> 	describe(x) // It's an integer: 5
+> }
+> ```
+>
+> The `x.(T)` syntax is known as a "type assertion". It can be used directly with any type, including named types and pointer types:
+>
+> ```go
+> func main() {
+> 	var x interface{} = "Hello"
+>
+> 	val, ok := x.(string)
+> 	if ok {
+> 		fmt.Println("It's a string:", val)
+> 	} else {
+> 		fmt.Println("Not a string")
+> 		// val is zero value here
+> 	}
+> }
+> ```
+>
+> The `ok` variable is `true` if the type assertion succeeds, and `false` if it fails. When `ok` is `false`, `val` will have the zero-value.
+>
+> > Here is another example showing usage with the `shape` interface defined above in the "Defining an interface" section:
+> >
+> > ```go
+> > // ...
+> >
+> > func identifyShape(s shape) {
+> > 	val, ok := s.(circle)
+> > 	if ok {
+> > 		fmt.Println("Shape is a circle, val:", val)
+> > 	} else {
+> > 		fmt.Println("Shape is not a circle")
+> > 		// val is zero value here
+> > 	}
+> > }
+> >
+> > func main() {
+> > 	// ...
+> >
+> > 	identifyShape(myCircle) // Shape is a circle, val: {3}
+> > }
+> > ```
+
+<br>
+
+### 🔷 Interface Composition
+
+Interface composition allows you to create new interfaces by combining existing ones.
+
+```go
+type Reader interface {
+	Read(p []byte) (n int, err error)
+}
+
+type Writer interface {
+	Write(p []byte) (n int, err error)
+}
+
+type ReadWriter interface {
+	Reader
+	Writer
+}
+```
+
+> The `ReadWriter` interface requires both `Read` and `Write` methods. Any type that implements both automatically satisfies the `ReadWriter` interface.
+
+> [!NOTE]
+> If multiple interfaces are composed and they contain methods with the same name, those methods must have identical signatures in all interfaces.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
