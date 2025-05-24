@@ -50,6 +50,7 @@
    - [Interface Composition](#-interface-composition)
 9. [Concurrency](#-concurrency)
    - [Goroutines](#-goroutines)
+     - [`WaitGroup`](#-waitgroup)
    - [Channels](#-channels)
      - [Channel Status](#-channel-status)
      - [The `select` Statement](#-the-select-statement)
@@ -1636,8 +1637,6 @@ In general, we can split the execution of a program into two types of routines:
 
 <br>
 
-Example:
-
 ```go
 func main() {
 	go expensiveFunc("Hello")
@@ -1667,6 +1666,88 @@ func expensiveFunc(text string) {
 > The `time.Sleep` inside the main function is used to give enough time for the goroutines to finish before the main function exits. Without this, the program would exit immediately after the main routine has done its job.
 >
 > The output shows results for only 3 iterations, not 4 as specified in the for loop. This is because we have a `time.Sleep` of 1.7 seconds (1700 milliseconds), which is less than the minimum of 2 seconds (2000 milliseconds) needed for 4 iterations (4 \* 500 ms = 2000 ms) in the `expensiveFunc` function.
+>
+> Btw, using `time.Sleep` to wait for goroutines to finish is not a good practice.
+
+<br>
+
+#### 🔻 `WaitGroup`
+
+A `WaitGroup` is a part of the `sync` package that's used to wait for a collection of goroutines to finish executing.
+
+> When you launch goroutines, they run concurrently, and the main function might exit before the goroutines finish. `WaitGroup` ensures that the program waits until all the work is done before exiting or moving on.
+
+<br>
+
+- `wg.Add(n)`: Tells the `WaitGroup` to wait for `n` additional operations.
+- `wg.Done()`: Decrements the counter (`-1`). Usually deferred at the start of each goroutine.
+- `wg.Wait()`: Blocks until the counter goes back to 0.
+
+```go
+func main() {
+	var wg sync.WaitGroup
+
+	wg.Add(1)
+	go expensiveFunc("Hello", &wg)
+
+	fmt.Println("Main")
+
+	wg.Wait()
+
+	fmt.Println("End")
+}
+
+func expensiveFunc(text string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	for i := range 4 {
+		time.Sleep(500 * time.Millisecond)
+		fmt.Println(text, i)
+	}
+}
+```
+
+> Output:
+>
+> ```sh
+> Main
+> Hello 0
+> Hello 1
+> Hello 2
+> Hello 3
+> End
+> ```
+
+<br>
+
+You can also use the business logic functions inside anonymous functions to keep the business logic cleaner:
+
+> ```go
+> func main() {
+> 	var wg sync.WaitGroup
+>
+> 	wg.Add(1)
+> 	go func(wg *sync.WaitGroup) {
+> 		defer wg.Done()
+> 		expensiveFunc("Hello")
+> 	}(&wg)
+>
+> 	fmt.Println("Main")
+>
+> 	wg.Wait()
+>
+> 	fmt.Println("End")
+> }
+>
+> func expensiveFunc(text string) {
+> 	for i := range 4 {
+> 		time.Sleep(500 * time.Millisecond)
+> 		fmt.Println(text, i)
+> 	}
+> }
+> ```
+>
+> This way, we keep the `expensiveFunc` function clean and focused on its own logic, while the goroutine management is handled separately.
 
 <br>
 
