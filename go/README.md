@@ -1778,9 +1778,9 @@ Channels in Go are a way to communicate between goroutines. They are used to sen
 > Channel synchronization ensures that communication between goroutines is properly coordinated. It guarantees that data sent between goroutines is not lost and that goroutines wait for each other when necessary, maintaining the correct order and timing of operations.
 >
 > - Send Operation: `ch <- value`
->   > When a goroutine sends a value to a channel, it blocks/waits until another goroutine receives that value from the channel.
+>   > When a goroutine sends a value into a channel, it will block (pause execution) until another goroutine is ready to receive that value from the channel.
 > - Receive Operation: `value := <-ch`
->   > When a goroutine receives a value from a channel, it blocks until there is a value available to receive.
+>   > When a goroutine tries to receive a value from a channel, it will block until a value is available to be received.
 
 <br>
 
@@ -1794,7 +1794,7 @@ func main() {
 
 	fmt.Println("Main")
 
-	for i := 0; i < 4; i++ {
+	for range 4 {
 		fmt.Println(<-ch)
 	}
 
@@ -1802,7 +1802,7 @@ func main() {
 }
 
 func expensiveFunc(text string, ch chan string) {
-	for i := 0; i < 4; i++ {
+	for i := range 4 {
 		time.Sleep(500 * time.Millisecond)
 		ch <- text + " " + fmt.Sprint(i)
 	}
@@ -1820,7 +1820,7 @@ func expensiveFunc(text string, ch chan string) {
 > End
 > ```
 
-> Here, we don't need any additional mechanism in the main function to wait for the goroutines to finish. The `<-ch` operation in the main function blocks until there is a value to receive from the channel. This blocking behavior synchronizes the main function with the `expensiveFunc` goroutine. Each iteration of the loop in the main function waits for a corresponding send operation from `expensiveFunc`. Btw, we are not forced to use a loop here. We can use `fmt.Println(<-ch)` directly 4 times, one after the other, it does the same thing.
+> Here, we don't need any additional mechanism in the `main` function to wait for the goroutine to finish. The `<-ch` operation in the main function blocks until there is a value to receive from the channel. This blocking behavior synchronizes the main function with the `expensiveFunc` goroutine. Each iteration of the loop in the main function waits for a corresponding send operation from `expensiveFunc`. Btw, we are not forced to use a loop here. We can use `fmt.Println(<-ch)` directly 4 times, one after the other, it does the same thing.
 >
 > In this specific example, we don't strictly need to close the channel because the main function will only receive a fixed number of messages (4 in this case) and then it stops.
 >
@@ -1842,12 +1842,12 @@ func expensiveFunc(text string, ch chan string) {
 > }
 >
 > func expensiveFunc(text string, ch chan string) {
-> 	for i := 0; i < 4; i++ {
+> 	defer close(ch)
+>
+> 	for i := range 4 {
 > 		time.Sleep(500 * time.Millisecond)
 > 		ch <- text + " " + fmt.Sprint(i)
 > 	}
->
-> 	close(ch)
 > }
 > ```
 >
@@ -1863,7 +1863,7 @@ The receiver of a channel can check the status of the channel using the second r
 val, ok := <-ch
 ```
 
-The second return value (`ok` here) is a boolean that indicates whether the channel is closed or not.
+The second return value (`ok`) is a boolean that indicates whether the channel is closed or not.
 
 - `true`: The channel is closed and no more values can be sent to it.
 - `false`: The channel is open and values can be sent to it.
@@ -1872,11 +1872,11 @@ The second return value (`ok` here) is a boolean that indicates whether the chan
 func main() {
 	ch := make(chan int)
 
-	go func() {
+	go func(ch chan int) {
 		ch <- 1
 		ch <- 2
 		close(ch)
-	}()
+	}(ch)
 
 	for {
 		val, ok := <-ch
@@ -1905,29 +1905,29 @@ The `select` statement in Go is a control structure that allows you to work with
 
 ```go
 func main() {
-  // Preparation:
+	// Preparation:
 	ch1 := make(chan int)
 	ch2 := make(chan int)
 	ch3 := make(chan int)
 
-	go func() {
+	go func(ch chan int) {
 		time.Sleep(time.Second)
-		ch1 <- 1
-	}()
+		ch <- 1
+	}(ch1)
 
-	go func() {
+	go func(ch chan int) {
 		time.Sleep(time.Second * 3)
-		ch2 <- 2
-	}()
+		ch <- 2
+	}(ch2)
 
-	go func() {
+	go func(ch chan int) {
 		time.Sleep(time.Second * 2)
-		ch3 <- 3
-	}()
+		ch <- 3
+	}(ch3)
 
 	time.Sleep(time.Second * 5)
 
-  // Usage:
+	// Usage:
 	select {
 	case val1 := <-ch1:
 		fmt.Println(val1)
@@ -1944,7 +1944,7 @@ func main() {
 ```
 
 > [!NOTE]
-> The `select` statement is not a loop. It executes only one case even if multiple are ready, or it is a `default` case. And then breaks the `select` statement.
+> The `select` statement is not a loop, it executes only one case even if multiple are ready, and then breaks the `select` statement.
 
 <br>
 
@@ -1960,11 +1960,13 @@ In Go, channels can be restricted to be either `read-only` or `write-only`. This
 ```go
 func sendData(ch chan<- int) { // ch is write-only
 	ch <- 42
+	// can't do: <- ch
 	close(ch)
 }
 
 func receiveData(ch <-chan int) { // ch is read-only
 	fmt.Println(<-ch)
+	// can't do: ch <- 24
 }
 
 func main() {
