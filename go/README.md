@@ -1852,6 +1852,8 @@ func expensiveFunc(text string, ch chan string) {
 > ```
 >
 > > The `for msg := range ch { ... }` syntax essentially performs a `msg := <-ch` operation under the hood, which is where the blocking behavior occurs.
+> >
+> > `range` doesn't know how many values a channel will receive, it can be infinite. To stop the loop, we must explicitly close the channel to indicate that no more values are coming.
 
 <br>
 
