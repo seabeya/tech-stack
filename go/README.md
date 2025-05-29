@@ -41,6 +41,7 @@
 4. [Pointers](#-pointers)
 5. [Data Structures](#-data-structures)
    - [Structs](#-structs)
+     - [Struct Tags](#-struct-tags)
    - [Arrays](#-arrays)
    - [Slices](#-slices)
    - [Maps](#-maps)
@@ -259,7 +260,7 @@ A module is a collection of related Go packages. It is defined by a go.mod file,
      ```
 
 > [!IMPORTANT]
-> In Go, only identifiers (variables, functions, types, etc.) that start with an uppercase letter are exported and can be accessed from other packages.
+> In Go, only identifiers (variables, fields, functions, types etc.) that start with an uppercase letter are exported and can be accessed from other packages.
 
 <br>
 
@@ -918,6 +919,40 @@ Extra:
   	fmt.Println(user.contact.phone) // (000) 000-0000
   }
   ```
+
+<br>
+
+#### 🔻 Struct Tags
+
+Struct tags are metadata attached to struct fields. They are typically used by packages like `encoding/json` to control how fields are encoded or decoded.
+
+> By default, Go uses struct field names as-is when encoding to JSON or other formats. Suppose you need to export the fields, which requires the field names to be capitalized. This often results in capitalized field names in the JSON output, which may not match your desired JSON structure/naming convention. Struct tags allow you to specify how the fields should be named in other formats.
+
+<br>
+
+```go
+type User struct {
+	Id    int    `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+```
+
+> Tags use backticks and the format: `key:"value"`, and are not limited to `json`.
+
+```go
+func main() {
+	myUser := User{
+		Id: 1, Name: "John", Email: "hello@example.com",
+	}
+
+	fmt.Printf("myUser: %+v\n", myUser) // myUser: {Id:1 Name:John Email:hello@example.com}
+
+	jUser, _ := json.Marshal(myUser) // Converting struct to JSON
+
+	fmt.Printf("jUser: %+v\n", string(jUser)) // jUser: {"id":1,"name":"John","email":"hello@example.com"}
+}
+```
 
 <br>
 
