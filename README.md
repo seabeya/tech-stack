@@ -19,7 +19,7 @@
 </p>
 
 > [!WARNING]
-> I am not a teacher, these are the notes that I took for myself.
+> I am not a teacher. These are just the notes I took for myself.
 
 <br>
 <hr>
