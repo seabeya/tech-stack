@@ -133,6 +133,19 @@ Definitions:
   cp file.txt ./dir1/file2.txt # Copy and rename in destination
   ```
 - `touch <file>...`: Create an empty file.
+- `tar -<option>... <archive> <file/directory>...`: Create or extract tar archives.
+  - `-c`: Create a new archive.
+  - `-x`: Extract an archive.
+  - `-f`: Specify the archive file (must come right before the file name).
+  - `-v`: Verbose mode (show files being processed).
+  - `-z`: Compress with gzip (a `.tar.gz` file).
+  ```sh
+  tar -cvf archive.tar ./dir1 # Create an archive
+  tar -xvf archive.tar # Extract an archive
+  tar -tvf archive.tar # List contents of an archive without extracting
+  tar -czvf archive.tar.gz ./dir1 # Create a compressed archive
+  tar -xzvf archive.tar.gz ./dir1 # Create a compressed archive
+  ```
 
 <br>
 
