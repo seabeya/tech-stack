@@ -99,6 +99,21 @@ Definitions:
   getent services # All services and their ports
   getent hosts # All hosts and their IP addresses
   ```
+- `file <file>...`: Determine the type of a file.
+  ```sh
+  file ./my_golang_executable
+  ```
+  > Output:
+  >
+  > `./my_golang_executable: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, BuildID[sha1]=285f6bad..., with debug_info, not stripped`
+  >
+  > To remove symbols and debug information from an executable, use:
+  >
+  > ```sh
+  > strip ./my_golang_executable
+  > ```
+  >
+  > This reduces the file size and removes debugging symbols, making it more suitable for production use.
 
 <br>
 
