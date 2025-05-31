@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="150">
+  <img src="./logo.png" height="150">
 </p>
 
 <h1 align="center">TypeScript</h1>
@@ -11,10 +11,6 @@
 <p align="right">
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
-
-#### Knowledge requirements
-
-- Knowledge of JavaScript is required.
 
 ### Contents
 
@@ -51,7 +47,7 @@
 
 <br>
 
-<hr>
+---
 
 ## 🔶 Getting Started
 
