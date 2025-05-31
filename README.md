@@ -4,13 +4,9 @@
 
 <h1 align="center">Tech Stack</h1>
 
-<p align="center">
-  Some of my notes.
-</p>
-
 <p align="center" >
   <em>
-    After seeing my friends' interest in my notes and reflecting on my own experience of using them (keeping them in Word/PDF format is not that efficient in terms of accessibility and ease of use), I have come to the idea that it would be nice if I combine them under one roof and publish them on GitHub by creating a documentation style repository.
+    My friends said I should publish my private tech notes.
   </em>
 </p>
 
@@ -18,12 +14,17 @@
   <img src="./my-notes.png" height="auto">
 </p>
 
+> As you can see, the original notes are in a different file format, so it will take some time to convert and publish them all.
+>
+> - `planned ⚫`: Haven't started.
+> - `in-progress 🟡`: Have started but not finished yet.
+> - `🟢`: Done.
+
 > [!WARNING]
-> I am not a teacher. These are just the notes I took for myself.
+> I am not a teacher. These are my personal notes.
 
 <br>
 <hr>
-<br>
 
 ## Contents
 
@@ -42,12 +43,7 @@
 - **Kubernetes** `planned ⚫`
 - **Amazon Web Services (AWS)** `planned ⚫`
 
-> [!NOTE]
-> The original notes are in a different file format and are not in English. Therefore, it will take some time to refactor and publish them.
->
-> - `planned ⚫`: I have notes but haven't migrated them to Markdown yet.
-> - `in-progress 🟡`: The migration process has started but is not finished yet.
-> - `🟢`: Migration is finished, and the old note files have been removed, making these the main source of truth for me.
+<br>
 
 > [!NOTE]
-> I use these notes on a daily basis and update them regularly as I learn new things or as technology evolves to keep them relevant.
+> I use these notes every day and keep them updated as I learn new things or as the tech changes.
