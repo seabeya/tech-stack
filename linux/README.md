@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="150">
+  <img src="./logo.png" height="150">
 </p>
 
 <h1 align="center">Linux (Debian)</h1>
@@ -11,10 +11,6 @@
 <p align="right">
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
-
-#### Knowledge Requirements
-
-- No previous knowledge is required!
 
 ### Contents
 
@@ -36,9 +32,9 @@
 <br>
 
 > [!NOTE]
-> This is not a complete guide to Linux. It's just a collection of specific concepts and commands.
+> This is not a complete guide. It's just a collection of specific concepts and commands.
 
-<hr>
+---
 
 ## 🔶 Basics
 
