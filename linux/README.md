@@ -56,6 +56,7 @@ Definitions:
 
 - `which <command>...`: Show the path of a command.
 - `whatis <command>...`: Briefly describe a command in one line.
+- `<command> --help`: Show help for a command.
 - `wc -<option>... <file>...`: Count lines, words, and characters.
 - `find <directory>... -name <pattern> -<option>`: Search for files and directories.
   ```sh
@@ -157,6 +158,7 @@ Definitions:
   tar -czvf archive.tar.gz ./dir1 # Create a compressed archive
   tar -xzvf archive.tar.gz ./dir1 # Create a compressed archive
   ```
+- `ln -s <target> <link_name>`: Create a symlink (shortcut) to a file or directory.
 
 <br>
 
