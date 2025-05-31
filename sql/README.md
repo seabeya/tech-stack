@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="150">
+  <img src="./logo.png" height="150">
 </p>
 
 <h1 align="center">SQL <em>(PostgreSQL)</em></h1>
@@ -11,10 +11,6 @@
 <p align="right">
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
-
-#### Knowledge requirements
-
-- No previous knowledge is required!
 
 ### Contents
 
@@ -65,14 +61,16 @@
 
 <br>
 
-> [!NOTE]
-> Resources to learn the parts that haven't been mentioned and more.
+> Resources to learn the parts that haven't been mentioned, and more.
 >
-> - [Resources](#-resources)
+> 1. The official PostgreSQL documentation: https://www.postgresql.org/docs/current/sql.html
+> 2. Step by step PostgreSQL tutorial: https://www.postgresqltutorial.com
+> 3. MySQL for Developers (video course): https://planetscale.com/learn/courses/mysql-for-developers
+>    > It is MySQL, but it is still a very good resource for understanding the overall concepts.
 
 <br>
 
-<hr>
+---
 
 ## 🔶 Database
 
@@ -1387,12 +1385,3 @@ Multi column indexes are useful when your queries use multiple columns together 
 
 <br>
 <br>
-
----
-
-### ⛓ Resources
-
-1. The official PostgreSQL documentation: https://www.postgresql.org/docs/current/sql.html
-2. Step by step PostgreSQL tutorial: https://www.postgresqltutorial.com
-3. MySQL for Developers (video course): https://planetscale.com/learn/courses/mysql-for-developers
-   > It is MySQL, but it is still a very good resource for understanding the overall concepts.
