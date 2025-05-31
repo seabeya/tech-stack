@@ -5,16 +5,12 @@
 <h1 align="center">Go</h1>
 
 <p align="center">
-  Go is good.
+  Go is a high-level general purpose programming language that is statically typed and compiled.
 </p>
 
 <p align="right">
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
-
-#### Knowledge requirements
-
-- Knowledge of any other programming language is a plus but not a requirement.
 
 ### Contents
 
