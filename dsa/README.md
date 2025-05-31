@@ -12,11 +12,6 @@
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
 
-#### Knowledge requirements
-
-- A basic knowledge of one of the general-purpose programming languages is required!
-  > I'm using JavaScript here, but you can apply the same concepts in other languages.
-
 ### Contents
 
 1. [Complexity (Big O)](#-complexity-big-o)
@@ -65,7 +60,7 @@
 
 <br>
 
-<hr>
+---
 
 ## 🔶 Complexity (Big O)
 
