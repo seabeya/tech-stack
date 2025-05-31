@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../logo.png" height="150">
+  <img src="./logo.png" height="150">
 </p>
 
 <h1 align="center">JavaScript</h1>
@@ -11,10 +11,6 @@
 <p align="right">
   <a href="../#tech-stack">Main Page ↖</a>
 </p>
-
-#### Knowledge requirements
-
-- Basic knowledge of JavaScript syntax is required.
 
 ### Contents
 
@@ -50,13 +46,17 @@
 <br>
 
 > [!NOTE]
-> This is not a comprehensive JavaScript course, which means it doesn't cover every topic in JavaScript. However, I will be providing you with some resources to learn the parts that haven't been mentioned.
+> This is not a comprehensive JavaScript course, it doesn't cover all JS concepts.
+
+> Here are some resources for you to learn more about JavaScript:
 >
-> - [Resources](#-resources)
+> 1. Starting with zero JavaScript knowledge? [W3schools JavaScript ↗](https://www.w3schools.com/js/default.asp).
+> 2. Have some JavaScript knowledge and want to dive deeper? [MDN JavaScript ↗](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+> 3. A guide to write clean JS code: [Clean Code concepts adapted for JavaScript ↗](https://github.com/ryanmcdermott/clean-code-javascript).
 
 <br>
 
-<hr>
+---
 
 ## 🔶 How JS Works?
 
@@ -2051,12 +2051,3 @@ console.log(mathInstance.add(10, 5)); // 15
 
 <br>
 <br>
-
----
-
-### ⛓ Resources
-
-1. Starting with zero JavaScript knowledge? [W3schools JavaScript ↗](https://www.w3schools.com/js/default.asp).
-   > If you are really new to programming, I recommend you find an online video tutorial or tutor and follow along.
-2. Have some JavaScript knowledge and want to dive deeper? [MDN JavaScript ↗](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
-3. Clean Code Best Practices: [Clean Code concepts adapted for JavaScript ↗](https://github.com/ryanmcdermott/clean-code-javascript).
