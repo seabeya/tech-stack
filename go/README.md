@@ -52,6 +52,7 @@
      - [Channel Status](#-channel-status)
      - [The `select` Statement](#-the-select-statement)
      - [Read-Only and Write-Only Channels](#-read-only-and-write-only-channels)
+     - [The "Done Channel" Pattern](#-the-done-channel-pattern)
 
 <br>
 
@@ -2009,6 +2010,61 @@ func main() {
 	receiveData(ch)
 }
 ```
+
+<br>
+
+#### 🔻 The "Done Channel" Pattern
+
+The "Done Channel" pattern is a technique used to signal the completion/termination of a goroutine. The technique involves using a separate helper channel to indicate when a goroutine should stop its execution.
+
+- Without Done Channel:
+
+  ```go
+  func myFunc() {
+    for {
+      fmt.Println("MyFunc")
+    }
+  }
+
+  func main() {
+    go myFunc()
+
+    time.Sleep(1 * time.Hour)
+  }
+  ```
+
+  > The `myFunc` goroutine will print "MyFunc" until the main program exits.
+
+- With Done Channel:
+
+  ```go
+  func myFunc(doneCh <-chan struct{}) {
+    for {
+      select {
+      case <-doneCh:
+        return
+      default:
+        fmt.Println("MyFunc")
+      }
+    }
+  }
+
+  func main() {
+    doneCh := make(chan struct{})
+
+    go myFunc(doneCh)
+
+    time.Sleep(5 * time.Second)
+    close(doneCh)
+
+    time.Sleep(1 * time.Hour)
+  }
+  ```
+
+  > The `myFunc` goroutine will print "MyFunc" for 5 seconds and then return, even though the main program continues to run for an hour.
+
+> [!NOTE]
+> The `struct{}` type represents an empty struct in Go. It consumes zero bytes of memory, making it ideal for signaling and control purposes without causing any memory overhead.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
