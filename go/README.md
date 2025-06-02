@@ -774,69 +774,30 @@ func main() {
 }
 ```
 
-Passing pointers to functions allows you to modify the original value:
-
-```go
-func main() {
-	num := 10
-	fmt.Println(num) // 10
-
-	resetVal(num)
-	fmt.Println(num) // 10
-
-	resetPtr(&num)
-	fmt.Println(num) // 0
-}
-
-func resetVal(val int) {
-	val = 0
-}
-
-func resetPtr(val *int) {
-	*val = 0
-}
-```
-
-> [!WARNING]
-> When a pointer does not point to a valid memory address, it is called a `nil` pointer. If you try to dereference a `nil` pointer, you will get a `panic: runtime error: invalid memory address or nil pointer dereference` error.
+> By using pointers for function parameters, you pass the memory address of a variable rather than a copy of its value. This changes Go's default pass-by-value behavior, allowing the function to modify the original data directly.
 >
-> - Bad: (this code will panic)
->   > ```go
->   > func main() {
->   > 	// Declaring a pointer (zero valued):
->   > 	var ptr *int
->   >
->   > 	fmt.Println(ptr) // <nil>
->   >
->   > 	reset(ptr)
->   > }
->   >
->   > func reset(val *int) {
->   > 	*val = 0 // panic: runtime error: invalid memory address or nil pointer dereference
->   > }
->   > ```
-> - Good. Handling `nil` pointers: (this code will return an error instead of panicking)
->   > ```go
->   > func main() {
->   > 	var ptr *int
->   > 	fmt.Println(ptr) // <nil>
->   >
->   > 	fmt.Printf("reset(ptr): %v\n", reset(ptr)) // reset(ptr): invalid pointer
->   > }
->   >
->   > func reset(val *int) error {
->   > 	if val == nil {
->   > 		return errors.New("invalid pointer")
->   > 	}
->   >
->   > 	*val = 0
->   >
->   > 	return nil
->   > }
->   > ```
-
-> [!NOTE]
-> Using pointers in Go can greatly improve performance by reducing memory usage and increasing speed, as they allow large data structures to be passed to functions without being copied.
+> ```go
+> func main() {
+> 	num := 10
+> 	fmt.Println(num) // 10
+>
+> 	resetVal(num)
+> 	fmt.Println(num) // 10
+>
+> 	resetPtr(&num)
+> 	fmt.Println(num) // 0
+> }
+>
+> func resetVal(val int) {
+> 	val = 0
+> }
+>
+> func resetPtr(val *int) {
+> 	*val = 0
+> }
+> ```
+>
+> It also lets you work with large data structures more efficiently and improves performance by avoiding unnecessary copying.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
