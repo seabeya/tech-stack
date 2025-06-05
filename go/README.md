@@ -1100,15 +1100,21 @@ Extra:
 > fmt.Println(cap(slice)) // cap: 8
 > ```
 >
-> We can also predefine the capacity of a slice when we declare it:
->
-> ```go
-> slice := make([]int, 0, 10)
->
-> fmt.Println(slice)      // []
-> fmt.Println(len(slice)) // len: 0
-> fmt.Println(cap(slice)) // cap: 10
-> ```
+> To improve performance, we can predefine the capacity of a slice. Predefining the capacity can help avoid unnecessary reallocations when appending elements.
+
+- Predefining the capacity:
+
+  ```go
+  slice := make([]int, 0, 10)
+
+  fmt.Println(slice)      // []
+  fmt.Println(len(slice)) // len: 0
+  fmt.Println(cap(slice)) // cap: 10
+  ```
+
+  > Predefining the capacity only makes sense when you have a reasonable knowledge of how the data will grow or change over time.
+
+<br>
 
 > [!CAUTION]
 > Never use `append` on anything other than itself.
