@@ -940,13 +940,13 @@ Extra:
 
 - Letting the compiler decide the size of the array:
   ```go
-  arr := [...]int{1, 5: 2, 3, 4, 5}
+  arr := [...]int{3, 5, 6, 2, 1} // [5]int
   ```
 - Initializing specific indexes of an array:
   > When you use the `index: value` syntax, you specify the value for a particular index in the array. This allows you to skip some indices (with zero values) and directly assign values to others.
   ```go
-  arr := [...]int{10, 20, 5: 1, 30, 8: 2, 40}
-  fmt.Println(arr) // [10 20 0 0 0 1 30 0 2 40]
+  arr := [...]int{3, 5, 4: 6, 10: 1, 2, 1}
+  fmt.Println(arr) // [3 5 0 0 6 0 0 0 0 0 1 2 1]
   ```
 - Multi-dimensional arrays:
   ```go
