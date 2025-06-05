@@ -974,7 +974,7 @@ Extra:
 <br>
 
 > [!IMPORTANT]
-> In Go, arrays stored in contiguous memory locations, meaning that all elements of an array are stored next to each other in memory.
+> In Go, array elements are stored in contiguous memory locations, meaning that all elements of an array are stored next to each other in memory.
 >
 > ```go
 > func main() {
