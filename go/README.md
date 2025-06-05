@@ -1018,10 +1018,18 @@ Extra:
   ```
 - Removing elements from a slice:
   - Removing the `index 2` element:
-    > The `...` syntax is known as the **"variadic"** operator. When you use it after a slice, it "unpacks" the slice so that its elements can be passed as individual arguments.
+    > The `...` syntax here is the **"spread"** operator. When you use it after a slice, it "unpacks" the slice so that its elements can be passed as individual arguments.
     ```go
     slice = append(slice[:2], slice[3:]...)
     ```
+    > More clear example of spread operator usage:
+    >
+    > ```go
+    > slice := []int{2, 4, 6}
+    > otherSlice := []int{1, 3, 5}
+    > slice = append(slice, otherSlice...)
+    > fmt.Println(slice) // [2 4 6 1 3 5]
+    > ```
   - Removing the last element:
     ```go
     slice = slice[:len(slice)-1]
