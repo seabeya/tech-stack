@@ -1041,44 +1041,6 @@ Extra:
 
 <br>
 
-> [!NOTE]
-> When you pass a slice to a function, you are passing a reference to the underlying array, not a copy of the array's elements. Any modifications to the elements of the slice within the function will affect the original array.
->
-> ```go
-> func main() {
-> 	slice := []int{1, 2, 3}
->
-> 	fmt.Println("Before:", slice) // Before: [1 2 3]
->
-> 	modifySlice(slice)
->
-> 	fmt.Println("After:", slice) // After: [99 2 3]
-> }
->
-> func modifySlice(s []int) {
-> 	s[0] = 99
-> }
-> ```
->
-> While slices behave like pass-by-reference for the data they point to, the slice itself is passed by value. This means if you reassign the slice variable inside the function, it won't affect the original slice variable outside the function.
->
-> ```go
-> func main() {
-> 	slice := []int{1, 2, 3}
->
-> 	fmt.Println("Before:", slice) // Before: [1 2 3]
->
-> 	reassignSlice(slice)
->
-> 	fmt.Println("After:", slice) // After: [1 2 3]
-> }
->
-> func reassignSlice(s []int) {
-> 	s = []int{100, 200, 300}
-> 	s[0] = 999
-> }
-> ```
-
 > [!IMPORTANT]
 > Slices have a length, which is the number of elements they contain, and a capacity, which is the size of the underlying array they reference.
 >
@@ -1138,6 +1100,46 @@ Extra:
 > Here, when creating the `b` slice, the `a` slice has a capacity of `7` and a length of `5`, which means it can add a new element without allocating a new array. So, `b` now references the same array as `a`. The same thing happens when creating `c`. It also references the same array as `a`. At this point, because both `b` and `c` share the same underlying array, appending `2` through `c` updates the `1` that was appended through `b`.
 >
 > This unexpected behavior would not occur if there were not enough capacity for the new element. In that case, Go would allocate a new array and copy the existing elements to it, resulting in new addresses. But still, it is prone to go unexpected.
+
+<br>
+
+> [!NOTE]
+> When you pass a slice to a function, you are passing a reference to the underlying array, not a copy of the array's elements. Any modifications to the elements of the slice within the function will affect the original array.
+>
+> ```go
+> func main() {
+> 	slice := []int{1, 2, 3}
+>
+> 	fmt.Println("Before:", slice) // Before: [1 2 3]
+>
+> 	modifySlice(slice)
+>
+> 	fmt.Println("After:", slice) // After: [99 2 3]
+> }
+>
+> func modifySlice(s []int) {
+> 	s[0] = 99
+> }
+> ```
+>
+> While slices behave like pass-by-reference for the data they point to, the slice itself is passed by value. This means if you reassign the slice variable inside the function, it won't affect the original slice variable outside the function.
+>
+> ```go
+> func main() {
+> 	slice := []int{1, 2, 3}
+>
+> 	fmt.Println("Before:", slice) // Before: [1 2 3]
+>
+> 	reassignSlice(slice)
+>
+> 	fmt.Println("After:", slice) // After: [1 2 3]
+> }
+>
+> func reassignSlice(s []int) {
+> 	s = []int{100, 200, 300}
+> 	s[0] = 999
+> }
+> ```
 
 <br>
 
