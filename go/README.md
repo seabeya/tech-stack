@@ -973,6 +973,23 @@ Extra:
 
 <br>
 
+> [!IMPORTANT]
+> In Go, arrays stored in contiguous memory locations, meaning that all elements of an array are stored next to each other in memory.
+>
+> ```go
+> func main() {
+> 	arr := [3]int{1, 2, 3}
+>
+> 	fmt.Printf("&arr[0]: %v\n", &arr[0]) // &arr[0]: 0xc00011e000
+> 	fmt.Printf("&arr[1]: %v\n", &arr[1]) // &arr[1]: 0xc00011e008
+> 	fmt.Printf("&arr[2]: %v\n", &arr[2]) // &arr[2]: 0xc00011e010
+> }
+> ```
+>
+> Here, the type `int` is `int64` (because I'm on a 64-bit system), so each element takes up 8 bytes of memory. The addresses of the elements are spaced 8 bytes apart (0 -> 8 -> 16).
+
+<br>
+
 ### 🔷 Slices
 
 In Go, a slice is a dynamically-sized, flexible view into the elements of an array. Unlike arrays, slices can grow and shrink the length during execution.
