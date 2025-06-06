@@ -376,15 +376,116 @@ Todo:
 
 - String:
 
-  > A string value is a sequence of bytes.
-  >
-  > Strings are immutable: once created, it is impossible to change the contents of a string.
-
   | Keyword  | Value                                  |
   | -------- | -------------------------------------- |
   | `string` | "anything surrounded by double quotes" |
 
   > Zero value (default): `""`
+
+  More about strings:
+
+  > Technically, a string is a read-only slice of bytes.
+  >
+  > ```go
+  > str := "abcd" // [97 98 99 100]
+  >
+  > fmt.Printf("str[0]: %v, type: %T\n", str[0], str[0]) // str[0]: 97, type: uint8
+  >
+  > for i, v := range str {
+  > 	fmt.Println(i, v)
+  > }
+  > ```
+  >
+  > ```sh
+  > 0 97
+  > 1 98
+  > 2 99
+  > 3 100
+  > ```
+
+  > Not all characters are represented by a single byte.
+  >
+  > ```go
+  > str := "é"
+  > fmt.Printf("len(str): %v\n", len(str)) // len(str): 2
+  > ```
+  >
+  > > `len()` returns byte count not character count.
+
+  > In Go, strings are encoded in UTF-8 format. In other words, a string represents a sequence of characters encoded as UTF-8 bytes.
+  >
+  > UTF-8 supports a wide range of characters and symbols, and it uses a **variable-length encoding scheme**. This means characters can be represented by one or more bytes (up to 4), depending on their Unicode code point.
+  >
+  > | First code point | Last code pint | Byte 1   | Byte 2   | Byte 3   | Byte 4   |
+  > | ---------------- | -------------- | -------- | -------- | -------- | -------- |
+  > | 0                | 127            | 0yyyzzzz |          |          |          |
+  > | 128              | 2,047          | 110xxxyy | 10yyzzzz |          |          |
+  > | 2,048            | 65,535         | 1110wwww | 10xxxxyy | 10yyzzzz |          |
+  > | 65,536           | 1,114,111      | 11110uvv | 10vvwwww | 10xxxxyy | 10yyzzzz |
+  >
+  > (all this is just to save space, since most characters can be stored with one or two bytes instead of always using four).
+  >
+  > For example, the character "`é`" has a Unicode code point of `U+00E9` (233 in decimal). Since 233 is in the range 128-2047, it is represented in UTF-8 using two bytes.
+  >
+  > ```go
+  > str := "é" // [195 169]
+  >
+  > fmt.Printf("str[0]: %v\n", str[0]) // str[0]: 195
+  > fmt.Printf("str[1]: %v\n", str[1]) // str[1]: 169
+  > ```
+  >
+  > Proof (decoding):
+  >
+  > > 195 is `11000011` in binary, and 169 is `10101001`.
+  > >
+  > > Matching the bytes using the table above:
+  > >
+  > > - First byte: `11000011` (110xxxyy) -> `110` + `00011`.
+  > > - Second byte: `10101001` (10yyzzzz) -> `10` + `101001`.
+  > > - Extracted result: `00011` + `101001` = `0001101001` (binary) = `233` (decimal).
+
+  > When you iterate over a string with `range`, Go automatically decodes each UTF-8 character and returns its Unicode code point.
+  >
+  > ```go
+  > str := "Héllo" // [72 195 169 108 108 111]
+  >
+  > for i, v := range str {
+  > 	fmt.Println(i, v)
+  > }
+  > ```
+  >
+  > ```sh
+  > 0 72
+  > 1 233
+  > 3 108
+  > 4 108
+  > 5 111
+  > ```
+
+  > or
+
+  > If you don't care about memory (always uses 4 bytes per character) and want more flexibility (manipulating characters), just cast the string to a slice of runes to make it easier to work with.
+  >
+  > ```go
+  > str := []rune("Héllo") // [72 233 108 108 111]
+  >
+  > fmt.Printf("str[1]: %v, type: %T\n", str[0], str[0]) // str[1]: 233, type: int32
+  >
+  > for i, v := range str {
+  > 	fmt.Println(i, v)
+  > }
+  >
+  > str[1] = 'e'
+  > fmt.Println(string(str)) // Hello
+  > ```
+  >
+  > ```sh
+  > 0 72
+  > 1 233
+  > 2 108
+  > 3 108
+  > 4 111
+  > ```
 
 <br>
 
