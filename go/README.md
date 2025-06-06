@@ -1188,6 +1188,17 @@ Extra:
   _, ok := m["one"]
   fmt.Println(ok) // true
   ```
+  > This is important because in Go, maps always return some value for a key, even if the key does not exist. If you try to access a key that doesn't exist, it will return the zero value for the value type:
+  >
+  > ```go
+  > 	m := map[string]int{
+  > 		"zero":  0,
+  > 		"one":   1,
+  > 		"two":   2,
+  > 	}
+  >
+  > 	fmt.Println(m["three"]) // 0
+  > ```
 - Clearing all elements from a map:
   ```go
   clear(m)
