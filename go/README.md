@@ -29,7 +29,7 @@
    - [Basic Data Types](#-basic-data-types)
    - [Declaring Variables](#-declaring-variables)
    - [String Formatting](#-string-formatting)
-   - [Type Casting (Type Conversion)](#-type-casting-type-conversion)
+   - [Type Casting](#-type-casting)
 3. [Functions](#-functions)
    - [The `defer` Keyword](#-the-defer-keyword)
    - [Closures](#-closures)
@@ -613,9 +613,9 @@ Todo:
 
 <br>
 
-### 🔷 Type Casting (Type Conversion)
+### 🔷 Type Casting
 
-In Go, type casting refers to explicitly converting a value from one type to another compatible type.
+In Go, type casting refers to explicitly converting a value from one type to another compatible type without any structural change.
 
 ```go
 func main() {
