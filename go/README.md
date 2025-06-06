@@ -464,12 +464,13 @@ Todo:
 
   > or
 
-  > If you don't care about memory (always uses 4 bytes per character) and want more flexibility (manipulating characters), just cast the string to a slice of runes to make it easier to work with.
+  > If you don't care about memory (always uses 4 bytes per character) and want more flexibility (manipulating characters), just convert the string to a slice of runes to make it easier to work with.
   >
   > ```go
   > str := []rune("Héllo") // [72 233 108 108 111]
   >
   > fmt.Printf("str[1]: %v, type: %T\n", str[0], str[0]) // str[1]: 233, type: int32
+  > fmt.Println(unsafe.Sizeof(str[0])) // 4 (total str size: 4x5=20 byte)
   >
   > for i, v := range str {
   > 	fmt.Println(i, v)
