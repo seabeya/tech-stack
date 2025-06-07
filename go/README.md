@@ -1907,7 +1907,7 @@ func expensiveFunc(text string, wg *sync.WaitGroup) {
 
 <br>
 
-You can also use the business logic functions inside anonymous functions to keep the business logic cleaner:
+We can also put the business logic function inside an anonymous function to keep the business logic itself clean:
 
 > ```go
 > func main() {
