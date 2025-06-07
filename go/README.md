@@ -1554,6 +1554,8 @@ Example 1:
   }
   ```
 
+<br>
+
 Example 2:
 
 ```go
@@ -1617,6 +1619,46 @@ func main() {
 > 	int | float64
 > }
 > ```
+
+<br>
+
+Example 5:
+
+> Generics with structs.
+
+```go
+type gasEngine struct {
+	hp int
+}
+
+type electricEngine struct {
+	kWh int
+}
+
+type car[T gasEngine | electricEngine] struct {
+	model  string
+	year   int
+	engine T
+}
+
+func main() {
+	gCar := car[gasEngine]{
+		model: "Audi",
+		year:  2018,
+		engine: gasEngine{
+			hp: 385,
+		},
+	}
+
+	eCar := car[electricEngine]{
+		model: "Tesla",
+		year:  2022,
+		engine: electricEngine{
+			kWh: 60,
+		},
+	}
+}
+```
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
