@@ -572,7 +572,7 @@ Todo:
 | ----------- | ------------------------------------------ | ---------------------------------------- | -------------------- |
 | `%v`        | Default format for any value.              | `("%v", 123)`                            | `123`                |
 | `%+v`       | Struct format with field names.            | `("%+v", Person{Name: "John", Age: 35})` | `{Name:John Age:35}` |
-| `%#v`       | Go syntax representation of the value.     | `("%#v", []int{1, 2, 3}`                 | `[]int{1, 2, 3}`     |
+| `%#v`       | Go syntax representation of the value.     | `("%#v", []int{1, 2, 3})`                | `[]int{1, 2, 3}`     |
 |             |                                            |                                          |                      |
 | `%s`        | String without quotes.                     | `("%s", "hello")`                        | `hello`              |
 | `%q`        | Quoted string.                             | `("%q", "hello")`                        | `"hello"`            |
