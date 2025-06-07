@@ -2010,8 +2010,8 @@ func expensiveFunc(text string, ch chan string) {
 > Here, we don't need any additional mechanism in the `main` function to wait for the goroutine to finish. The `<-ch` operation in the main function blocks until there is a value to receive from the channel. This blocking behavior synchronizes the main function with the `expensiveFunc` goroutine. Each iteration of the loop in the main function waits for a corresponding send operation from `expensiveFunc`. Btw, we are not forced to use a loop here. We can use `fmt.Println(<-ch)` directly 4 times, one after the other, it does the same thing.
 >
 > In this specific example, we don't strictly need to close the channel because the main function will only receive a fixed number of messages (4 in this case) and then it stops.
->
-> Here is the modified version of it that needs to be closed explicitly:
+
+> Here is a modified version of it that needs to be closed explicitly:
 >
 > ```go
 > func main() {
@@ -2038,9 +2038,9 @@ func expensiveFunc(text string, ch chan string) {
 > }
 > ```
 >
-> > The `for msg := range ch { ... }` syntax essentially performs a `msg := <-ch` operation under the hood, which is where the blocking behavior occurs.
-> >
-> > `range` doesn't know how many values a channel will receive, it can be infinite. To stop the loop, we must explicitly close the channel to indicate that no more values are coming.
+> The `for msg := range ch { ... }` syntax essentially performs a `msg := <-ch` operation under the hood, which is where the blocking behavior occurs.
+>
+> `range` doesn't know how many values a channel will receive, it can be infinite. To stop the loop, we must explicitly close the channel to indicate that no more values are coming.
 
 <br>
 
