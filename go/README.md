@@ -859,14 +859,14 @@ func main() {
 	// Declaring a variable:
 	a := 10
 
+	fmt.Println(a)        // 10
+	fmt.Printf("%T\n", a) // int
+
 	// Declaring a pointer and assigning it the address of 'a':
 	ptr := &a
 
-	fmt.Println(a)        // 10
-	fmt.Printf("%T\n", a) // int (type of 'a')
-
 	fmt.Println(ptr)        // 0xc0000a4010 (memory address of 'a')
-	fmt.Printf("%T\n", ptr) // *int (type of 'ptr')
+	fmt.Printf("%T\n", ptr) // *int
 	fmt.Println(*ptr)       // 10 (value at the memory address)
 
 	// Changing the value at the memory address:
@@ -898,8 +898,54 @@ func main() {
 > 	*val = 0
 > }
 > ```
+
+> Pointers as function parameters also let you work with large data structures more efficiently. No unnecessary copying means better performance.
 >
-> It also lets you work with large data structures more efficiently and improves performance by avoiding unnecessary copying.
+> - Without pointer:
+>
+>   ```go
+>   func main() {
+>   	arr := [5]int{1, 2, 3, 4, 5}
+>   	fmt.Printf("mem addr (arr): %p, arr: %v\n", &arr, arr)
+>
+>   	myFunc(arr)
+>   }
+>
+>   func myFunc(items [5]int) [5]int {
+>   	fmt.Printf("mem addr (items): %p, items: %v\n", &items, items)
+>
+>   	return items
+>   }
+>   ```
+>
+>   ```sh
+>   mem addr (arr): 0xc00011e000, arr: [1 2 3 4 5]
+>   mem addr (items): 0xc00011e060, items: [1 2 3 4 5]
+>   ```
+>
+> - With pointer:
+>
+>   ```go
+>   func main() {
+>   	arr := [5]int{1, 2, 3, 4, 5}
+>   	fmt.Printf("mem addr (arr): %p, arr: %v\n", &arr, arr)
+>
+>   	myFunc(&arr)
+>   }
+>
+>   func myFunc(items *[5]int) [5]int {
+>   	fmt.Printf("mem addr (items): %p, items: %v\n", items, *items)
+>
+>   	return *items
+>   }
+>   ```
+>
+>   ```sh
+>   mem addr (arr): 0xc00011e000, arr: [1 2 3 4 5]
+>   mem addr (items): 0xc00011e000, items: [1 2 3 4 5]
+>   ```
+>
+> As you can see, when using pointers the array is not being copied (they have the same memory addresses). This is especially useful with big datasets, as it reduces memory usage and speeds up processing.
 
 <p align="right">
     <a href="#go">back to top ⬆</a>
@@ -1206,7 +1252,7 @@ Extra:
 <br>
 
 > [!NOTE]
-> When you pass a slice to a function, you are passing a reference to the underlying array, not a copy of the array's elements. Any modifications to the elements of the slice within the function will affect the original array.
+> When you pass a slice to a function, you are passing a reference to the underlying array, not a copy of the array's elements. Any modifications to the elements of the slice within the function will affect the original arrays.
 >
 > ```go
 > func main() {
