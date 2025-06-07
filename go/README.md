@@ -568,48 +568,50 @@ Todo:
 
 ### 🔷 String Formatting
 
-| Placeholder | Description                                                         | Usage                                    | Output               |
-| ----------- | ------------------------------------------------------------------- | ---------------------------------------- | -------------------- |
-| `%v`        | Default placeholder for everything.                                 | `("%v", 123)`                            | `123`                |
-|             |                                                                     |                                          |                      |
-| `%s`        | Plain string.                                                       | `("%s", "hello")`                        | `hello`              |
-| `%q`        | String with double quotes.                                          | `("%q", "hello")`                        | `"hello"`            |
-|             |                                                                     |                                          |                      |
-| `%d`        | Integer in base 10.                                                 | `("%d", 123)`                            | `123`                |
-| `%b`        | Integer in base 2.                                                  | `("%b", 123)`                            | `1111011`            |
-| `%o`        | Integer in base 8.                                                  | `("%o", 123)`                            | `173`                |
-| `%x`        | Integer in base 16 with lowercase letters.                          | `("%x", 123)`                            | `7b`                 |
-| `%X`        | Integer in base 16 with uppercase letters.                          | `("%X", 123)`                            | `7B`                 |
-| `%c`        | Integer in Unicode code point.                                      | `("%c", 65)`                             | `A`                  |
-|             |                                                                     |                                          |                      |
-| `%f`        | Floating-point number in decimal format.                            | `("%f", 123.456)`                        | `123.456000`         |
-| `%e`        | Floating-point number in scientific notation with a lowercase 'e'   | `("%e", 123.456)`                        | `1.234560e+02`       |
-| `%E`        | Floating-point number in scientific notation with an uppercase 'E'. | `("%E", 123.456)`                        | `1.234560E+02`       |
-|             |                                                                     |                                          |                      |
-| `%t`        | Boolean value.                                                      | `("%t", true)`                           | `true`               |
-|             |                                                                     |                                          |                      |
-| `%T`        | Prints the type of the value.                                       | `("%T", 123)`                            | `int`                |
-| `%+v`       | Prints struct fields with their names.                              | `("%+v", Person{Name: "John", Age: 35})` | `{Name:John Age:35}` |
-| `%%`        | Prints a literal `%` sign.                                          | `("%%")`                                 | `%`                  |
+| Placeholder | Description                                | Usage                                    | Output               |
+| ----------- | ------------------------------------------ | ---------------------------------------- | -------------------- |
+| `%v`        | Default format for any value.              | `("%v", 123)`                            | `123`                |
+| `%+v`       | Struct format with field names.            | `("%+v", Person{Name: "John", Age: 35})` | `{Name:John Age:35}` |
+| `%#v`       | Go syntax representation of the value.     | `("%#v", []int{1, 2, 3}`                 | `[]int{1, 2, 3}`     |
+|             |                                            |                                          |                      |
+| `%s`        | String without quotes.                     | `("%s", "hello")`                        | `hello`              |
+| `%q`        | Quoted string.                             | `("%q", "hello")`                        | `"hello"`            |
+|             |                                            |                                          |                      |
+| `%d`        | Integer in base 10.                        | `("%d", 123)`                            | `123`                |
+| `%b`        | Integer in base 2.                         | `("%b", 123)`                            | `1111011`            |
+| `%o`        | Integer in base 8.                         | `("%o", 123)`                            | `173`                |
+| `%x`        | Integer in base 16 with lowercase letters. | `("%x", 123)`                            | `7b`                 |
+| `%X`        | Integer in base 16 with uppercase letters. | `("%X", 123)`                            | `7B`                 |
+| `%c`        | Integer in Unicode code point.             | `("%c", 65)`                             | `A`                  |
+|             |                                            |                                          |                      |
+| `%f`        | Decimal format for floating-point numbers. | `("%f", 123.456)`                        | `123.456000`         |
+| `%e`        | Scientific notation with lowercase e.      | `("%e", 123.456)`                        | `1.234560e+02`       |
+| `%E`        | Scientific notation with uppercase E.      | `("%E", 123.456)`                        | `1.234560E+02`       |
+|             |                                            |                                          |                      |
+| `%t`        | Boolean value.                             | `("%t", true)`                           | `true`               |
+|             |                                            |                                          |                      |
+| `%p`        | Hexadecimal memory address.                | `("%p", &x)`                             | `0xc000098040`       |
+|             |                                            |                                          |                      |
+| `%T`        | Type of the value.                         | `("%T", 123)`                            | `int`                |
+| `%%`        | Literal `%` sign.                          | `("%%")`                                 | `%`                  |
 
 > Examples:
 >
-> - Printing a string, an integer and a char:
->   ```go
->   func main() {
->   	name := "John"
->   	age := 35
->   	char := 97
->   	fmt.Printf("Name: %s, Age: %d, Char: %c ", name, age, char) // Name: John, Age: 35, Char: a
->   }
->   ```
-> - Formatting a floating-point number:
->   ```go
->   func main() {
->   	pi := 3.14159
->   	fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
->   }
->   ```
+> ```go
+> func main() {
+> 	name := "John"
+> 	age := 35
+> 	char := 97
+> 	fmt.Printf("Name: %s, Age: %d, Char: %c ", name, age, char) // Name: John, Age: 35, Char: a
+> }
+> ```
+>
+> ```go
+> func main() {
+> 	pi := 3.14159
+> 	fmt.Printf("Pi: %.2f", pi) // Pi: 3.14
+> }
+> ```
 
 <br>
 
