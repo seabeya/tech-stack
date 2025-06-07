@@ -1865,11 +1865,11 @@ A `WaitGroup` is a part of the `sync` package that's used to wait for a collecti
 
 > When you launch goroutines, they run concurrently, and the main function might exit before the goroutines finish. `WaitGroup` ensures that the program waits until all the work is done before exiting or moving on.
 
-<br>
-
 - `wg.Add(n)`: Tells the `WaitGroup` to wait for `n` additional operations.
 - `wg.Done()`: Decrements the counter (`-1`). Usually deferred at the start of each goroutine.
 - `wg.Wait()`: Blocks until the counter goes back to 0.
+
+<br>
 
 ```go
 func main() {
