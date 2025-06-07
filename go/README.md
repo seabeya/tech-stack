@@ -49,6 +49,7 @@
    - [Goroutines](#-goroutines)
      - [`WaitGroup`](#-waitgroup)
    - [Channels](#-channels)
+     - [Buffered Channels](#-buffered-channels)
      - [Channel Status](#-channel-status)
      - [The `select` Statement](#-the-select-statement)
      - [Read-Only and Write-Only Channels](#-read-only-and-write-only-channels)
@@ -2041,6 +2042,75 @@ func expensiveFunc(text string, ch chan string) {
 > The `for msg := range ch { ... }` syntax essentially performs a `msg := <-ch` operation under the hood, which is where the blocking behavior occurs.
 >
 > `range` doesn't know how many values a channel will receive, it can be infinite. To stop the loop, we must explicitly close the channel to indicate that no more values are coming.
+
+<br>
+
+#### 🔻 Buffered Channels
+
+Buffered channels in Go are channels that have a specific capacity, allowing them to hold a certain number of values before blocking.
+
+- Declaring a buffered channel:
+  ```go
+  ch := make(chan int, 3)
+  ```
+
+> Buffered channel only blocks sending when the buffer is full.
+
+> Receiving removes a value from the buffer. If the buffer is empty, it will block until a value is available.
+
+> You can still receive remaining values from a closed buffered channel until it’s empty.
+
+```go
+func main() {
+	ch := make(chan string, 4)
+
+	go myFunc("Hello", ch)
+
+	fmt.Println("Main")
+
+	for range 8 {
+		time.Sleep(1000 * time.Millisecond)
+		fmt.Println(<-ch)
+	}
+
+	fmt.Println("End")
+}
+
+func myFunc(text string, ch chan string) {
+	for i := range 8 {
+		ch <- text + " " + fmt.Sprint(i)
+		fmt.Println("myFunc loop.", i)
+	}
+
+	close(ch)
+
+	fmt.Println("myFunc End")
+}
+```
+
+> Output:
+>
+> ```sh
+> Main
+> myFunc loop. 0
+> myFunc loop. 1
+> myFunc loop. 2
+> myFunc loop. 3
+> Hello 0
+> myFunc loop. 4
+> Hello 1
+> myFunc loop. 5
+> Hello 2
+> myFunc loop. 6
+> Hello 3
+> myFunc loop. 7
+> myFunc End
+> Hello 4
+> Hello 5
+> Hello 6
+> Hello 7
+> End
+> ```
 
 <br>
 
