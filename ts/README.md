@@ -14,9 +14,7 @@
 
 ### Contents
 
-1. [Getting Started](#-getting-started)
-   - [What is TypeScript?](#-what-is-typescript)
-   - [Installation](#-installation)
+1. [What is TypeScript?](#-what-is-typescript)
 2. [Types](#-types)
    - [Basic Types](#-basic-types)
    - [Complex Types](#-complex-types)
@@ -49,28 +47,18 @@
 
 ---
 
-## 🔶 Getting Started
+## 🔶 What is TypeScript?
 
-### 🔷 What is TypeScript?
-
-- We can describe TypeScript as a development helper tool.
-  > It assists developers in catching errors during the development phase and provides better tooling support.
+- TypeScript is a helper for writing JavaScript applications.
+  > It helps you catch mistakes before the code even runs.
 - TypeScript is active only during development.
-  > You write TypeScript during development; TypeScript helps you during development. It lets you see errors before you run your code.
-- TypeScript code equals JavaScript with explanations.
-  > TypeScript code is similar to JavaScript, but it includes type annotations to describe the shape of data and provide additional information to developers and tools.
-- Editor and analyzing tools support us.
-  > TypeScript-aware editors and other analyzing tools can understand TypeScript code and provide enhanced functionality such as autocompletion, error checking, and other suggestions.
+  > You write and use it while building the app.
+- TypeScript code is JavaScript code with explanations.
+  > You describe the structure of your code using type annotations, and TypeScript uses that to help you catch mistakes and understand your code better.
+- Editor and analysis tools support us.
+  > Tools that understand TypeScript can offer better autocomplete, spot issues early, and give smarter suggestions.
 - In the end, it's all JavaScript.
-  > When we want to run our code, we compile the TypeScript code into JavaScript. We don't execute TypeScript; we execute JavaScript.
-
-<br>
-
-### 🔷 Installation
-
-```
-npm install typescript --save-dev
-```
+  > When it's time to run the code, TypeScript gets compiled to plain JavaScript.
 
 <p align="right">
     <a href="#typescript">back to top ⬆</a>
