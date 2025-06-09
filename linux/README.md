@@ -61,8 +61,10 @@ Definitions:
 - `find <directory>... -name <pattern> -<option>`: Search for files and directories.
   ```sh
   find ./dir1 -name file.txt # A specific file in dir1 and its subdirectories
+  find ./dir1 -maxdepth 1 -name file.txt # Look for only in the given directory
   find ./dir1 -name "*.txt" # All .txt files
   find ./dir1 -name file.txt -delete # Find and delete
+  find ./dir1 -name "my*" # Anything starts with "my" (files/directories)
   ```
 - `grep -<option>... <pattern> <file>...`: Search for patterns in a file and return matching lines.
   - `-i`: Case-insensitive search.
@@ -220,10 +222,67 @@ Definitions:
 - `cmd1 || cmd2 || cmd3`: Run next only if the previous fails.
 
 - `cmd1 | cmd2 | cmd3`: Pipe output of one command to the next.
+  ```sh
+  find . *.* | less # View the command result in a pager
+  ```
 
-```sh
-find . *.* | less # View the command result in a pager
-```
+<br>
+
+Extra:
+
+- `tr -<option>... "<turn_this>" "<into_this>"`: Translate characters.
+  ```sh
+  echo "a,b,c" | tr ',' ' ' # Turn all `,` into whitespace: a b c
+  echo "a,b,c" | tr -d ',' # Delete all `,`: abc
+  echo "a,b2,c,d12,23" | tr -d '0-9' # Delete all numbers: a,b,c,d,
+  echo "a,b,c" | tr 'a-z' 'A-Z' # Convert lowercase to uppercase: A,B,C
+  ```
+  > `tr` doesn't work with strings; it works only with single characters, char-by-char, or sets of characters.
+  ```sh
+  echo "Hello World" | tr -d 'ello' # H Wrd
+  ```
+- `xargs -<option>... <command>`: Build and execute command lines from standard input.
+
+  > Takes input (a list of items) and passes it as arguments to another command. It can handle input separated by spaces, tabs, or newlines.
+
+  > Example files.txt file:
+  >
+  > ```txt
+  > a.txt b.txt c.txt
+  > d.txt
+  > e.txt
+  > f.txt
+  > ```
+
+  ```sh
+  cat files.txt | xargs rm # Remove all files listed in the file
+  find . -name "*.log" | xargs rm # Find and remove all .log files
+  ```
+
+  - `-n <count>`: Run the command with the specified number of arguments at a time.
+    ```sh
+    cat files.txt | xargs -n 1 echo # Runs 'echo' 6 times, taking 1 argument each time instead of passing all 6 at once
+    ```
+  - `-I {}`: Placeholder for each item (`{}` gets replaced by the actual item).
+
+    > Each command runs separately for each input line.
+
+    ```sh
+    cat files.txt | xargs -I {}  echo File: {} # Print each line by adding "File:" in front
+
+    # File: a.txt b.txt c.txt
+    # File: d.txt
+    # File: e.txt
+    # File: f.txt
+    ```
+
+    ```sh
+    cat files.txt | tr ' ' '\n' | xargs -I {} touch {} . # Create the files listed in the file
+    ```
+
+    ```sh
+    find . -name '*.go' | xargs -I {} cat {} | wc -l # Count total lines across all .go files found
+    ```
 
 <p align="right">
   <a href="#linux-debian">back to top ⬆</a>
