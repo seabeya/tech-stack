@@ -56,7 +56,7 @@ Definitions:
 
 - `which <command>...`: Show the path of a command.
 - `whatis <command>...`: Briefly describe a command in one line.
-- `<command> --help`: Show help for a command.
+- `man <command>`: Display instructions (help) for a command.
 - `wc -<option>... <file>...`: Count lines, words, and characters.
 - `find <directory>... -name <pattern> -<option>`: Search for files and directories.
   ```sh
